@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *stationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
+@property (weak, nonatomic) IBOutlet UIButton *stationStatusActionButton;
 
 @end

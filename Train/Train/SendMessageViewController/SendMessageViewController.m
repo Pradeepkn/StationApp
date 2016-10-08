@@ -88,7 +88,9 @@ static NSString *const kHomeMessagesCellIdentifier = @"MessageCellIdentifier";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSString *sms = [NSString stringWithFormat:@"sms:+919964280738&body=%@", [prePopulatedArray objectAtIndex:indexPath.row]];
+    NSString *url = [sms stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 - (void)didReceiveMemoryWarning {

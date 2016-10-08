@@ -160,6 +160,8 @@ const int kWhatsNewTableView = 3000;
         [overallStatusCell.messageButton addTarget:self action:@selector(messageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         overallStatusCell.infoButton.tag = indexPath.row;
         [overallStatusCell.infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        overallStatusCell.stationStatusActionButton.tag = indexPath.row;
+        [overallStatusCell.stationStatusActionButton addTarget:self action:@selector(stationStatusButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         return overallStatusCell;
     }else {
         if (indexPath.row == 0) {
@@ -267,6 +269,9 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (void)infoButtonClicked:(UIButton*)sender {
+}
+
+- (void)stationStatusButtonClicked:(UIButton *)sender {
     [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
