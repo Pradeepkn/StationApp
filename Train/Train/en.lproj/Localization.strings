@@ -1,0 +1,35 @@
+/* 
+  Localization.strings
+  Train
+
+  Created by Pradeep Narendra on 10/1/16.
+  Copyright © 2016 Pradeep. All rights reserved.
+*/
+/****************************************************************************************************************************************************************************************************
+ Global strings
+ ****************************************************************************************************************************************************************************************************/
+"global_app_name" = "Edukul";
+"global__button__ok" = "OK";
+"global__button__cancel" = "Cancel";
+"global__alert_msg__wait" = "Please wait...";
+"global__app__Back" = "Back";
+"global__app__Next" = "Next";
+"global__app__Create" = "Create";
+
+///*** Action sheet constants ****/////
+
+"action_sheet__button__people" = "People";
+"action_sheet__button__profile" = "Profile";
+"action_sheet__button__Settings" = "Settings";
+"action_sheet__button__logout" = "Logout";
+
+/****************************************************************************************************************************************************************************************************
+ Upload Image
+ ****************************************************************************************************************************************************************************************************/
+"upload_image__action_sheet_btn__camera" = "Camera";
+"upload_image__action_sheet_btn__gallery" = "Gallery";
+"upload_image__alert_msg__save_user_photo_success" = "Your profile photo has been updated successfully";
+"upload_image__alert_msg__save_user_photo_failure" = "Your profile photo could not be saved now. Please try again later";
+"upload_image__alert_msg__enter_valid_display_name" = "User display name must be 3-50 characters";
+"upload_image__alert_msg__save_upload_image_success" = "Your profile has been saved successfully";
+"upload_image__alert_msg__save_upload_image_failure" = "Your profile could not be saved now. Please try again later";

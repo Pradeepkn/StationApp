@@ -1,0 +1,34 @@
+{
+  "name": "TTPLAPIManager",
+  "version": "0.1.1",
+  "summary": "TTPL API manager.",
+  "description": "TTPL API Manager is using the AFNetworking to make api request. This Manager will handle all the API request and send back the succuess or failure response to the respective classes. APIKey.h file contains all the API related configurations.",
+  "homepage": "https://github.com/iosttpl/TTPLAPIManager",
+  "license": "MIT",
+  "authors": {
+    "Subramanian": "mailmemani@ymail.com"
+  },
+  "source": {
+    "git": "https://github.com/iosttpl/TTPLAPIManager.git",
+    "tag": "0.1.1"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Classes/**/*",
+  "resource_bundles": {
+    "TTPLAPIManager": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "AFNetworking": [
+      "~> 2.4"
+    ],
+    "XMLDictionary": [
+      "~> 1.4"
+    ]
+  }
+}

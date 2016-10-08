@@ -1,0 +1,25 @@
+{
+  "name": "TTPLLibrary",
+  "version": "0.1.0",
+  "summary": "TTPLLibrary is a collation of all the categories and third party files",
+  "description": "This pod is used to collate all the third party files. This will be used in all the projects in TTPL.",
+  "homepage": "https://github.com/iosttpl/TTPLLibrary",
+  "license": "MIT",
+  "authors": {
+    "iosttpl": "iosttpl@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/iosttpl/TTPLLibrary.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Example/Categories/*.{h,m}",
+  "resource_bundles": {
+    "TTPLLibrary": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

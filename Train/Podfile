@@ -1,0 +1,24 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+target 'Train' do
+
+#TTPL API manager
+pod 'TTPLAPIManager', :git => 'https://github.com/iosttpl/TTPLAPIManager.git'
+
+#TTPL Library
+pod 'TTPLLibrary', :git => 'https://github.com/iosttpl/TTPLLibrary.git'
+
+#IQKeyboardManager
+pod 'IQKeyboardManager'
+
+pod 'BLMultiColorLoader'
+
+pod 'SDWebImage', '~>3.8'
+
+pod 'JTSActionSheet', '~>1.0.1'
+
+end
+
