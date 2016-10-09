@@ -133,7 +133,9 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     signUpApi.stationName = @"Old Delhi";
     signUpApi.firstName = @"Pradeep";
     signUpApi.lastName = @"KN";
-    [[APIManager sharedInstance]makeAPIRequestWithObject:signUpApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:signUpApi
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {

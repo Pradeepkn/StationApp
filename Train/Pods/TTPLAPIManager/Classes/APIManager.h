@@ -88,4 +88,7 @@
 - (void)parseDataFromLocalFile:(APIBase *)apiObject
             andCompletionBlock:(void (^)(NSDictionary *, NSError *))completionCallback;
 
+- (void)makePostAPIRequestWithObject:(APIBase *)apiObject
+              andCompletionBlock: (void (^)(NSDictionary *, NSError *))completionCallback;
+
 @end

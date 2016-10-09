@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E790C846E232A3B42C7B7E18 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D136A230158CADF79AE180 /* libPods-Train.a */; };
+		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E98C0C811DA03B40005D09A5 /* LeaveMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */; };
 		E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C861DA057ED005D09A5 /* WhatsNewCell.m */; };
@@ -48,6 +49,8 @@
 /* Begin PBXFileReference section */
 		66A746174463AE8DB3A15CB1 /* Pods-Train.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.debug.xcconfig"; sourceTree = "<group>"; };
 		A8D136A230158CADF79AE180 /* libPods-Train.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Train.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
+		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
 		E95F0DB71D9F80D6008BFC77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
 		E95F0DB91D9F80D9008BFC77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 			children = (
 				E98C0C8A1DA06866005D09A5 /* StationInfoViewController.h */,
 				E98C0C8B1DA06866005D09A5 /* StationInfoViewController.m */,
+				E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */,
+				E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */,
 			);
 			path = StationInfoViewController;
 			sourceTree = "<group>";
@@ -464,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
 				E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */,

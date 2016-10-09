@@ -118,6 +118,8 @@
 
 - (NSDictionary *)customHTTPHeaders;
 
+- (NSString *)customRawBody;
+
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary;
 
 - (NSString *)localFileName;

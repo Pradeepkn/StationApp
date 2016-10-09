@@ -52,6 +52,10 @@ NSMutableDictionary *parametersDictionary;
     return nil;
 }
 
+- (NSString *)customRawBody {
+    return nil;
+}
+
 - (NSDictionary *)requestParameters {
     return nil;
 }

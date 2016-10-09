@@ -28,6 +28,7 @@ static NSString *const kWhatsNewCellIdentifier = @"WhatsNewCellIdentifier";
 
 static NSString *const kSendMessageSegueIdentifier = @"SendMessageSegue";
 static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
+static NSString *const kSationGalleryInfoSegueIdentifier = @"SationGalleryInfoSegue";
 
 const int kTopTableView = 1000;
 const int kOverallStatusTableView = 2000;
@@ -269,6 +270,7 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (void)infoButtonClicked:(UIButton*)sender {
+    [self performSegueWithIdentifier:kSationGalleryInfoSegueIdentifier sender:self];
 }
 
 - (void)stationStatusButtonClicked:(UIButton *)sender {

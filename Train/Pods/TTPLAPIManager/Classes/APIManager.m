@@ -42,6 +42,8 @@ static NSString *const RootKey = @"Root";
     
     AFHTTPRequestOperationManager *requestManager =
     [AFHTTPRequestOperationManager manager];
+    requestManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
     AFHTTPRequestSerializer *requestSerializer;
     if (self.isJSONRequest) {
         requestSerializer = [AFJSONRequestSerializer serializer];
@@ -51,6 +53,11 @@ static NSString *const RootKey = @"Root";
     /// JSON Response Serializer
     AFJSONResponseSerializer *jsonSerializer =
     [AFJSONResponseSerializer serializerWithReadingOptions:0];
+    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    requestManager.requestSerializer = serializer;
+    
     /// XML Response Serializer
     AFXMLParserResponseSerializer *xmlSerializer =
     [AFXMLParserResponseSerializer serializer];
@@ -92,6 +99,7 @@ static NSString *const RootKey = @"Root";
                                                                                andCompletionBlock:completionCallback];
                                                            }
                                                            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                               NSLog(@"Error: %@", [error localizedDescription]);
                                                                completionCallback(nil, error);
                                                            }];
         [operation start];
@@ -124,6 +132,33 @@ static NSString *const RootKey = @"Root";
                                                            }];
         [operation start];
     }
+}
+
+- (void)makePostAPIRequestWithObject:(APIBase *)apiObject
+              andCompletionBlock: (void (^)(NSDictionary *, NSError *))completionCallback{
+    NSMutableURLRequest *request = [NSMutableURLRequest
+                                    requestWithURL: [NSURL URLWithString:apiObject.urlForAPIRequest]
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData  timeoutInterval:10];
+    
+    [request setHTTPMethod:@"POST"];
+    [apiObject.customHTTPHeaders enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop) {
+        [request setValue:obj forHTTPHeaderField:key];
+    }];
+    [request setHTTPBody: [[apiObject customRawBody] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON responseObject: %@ ",responseObject);
+        [self serializeAPIResponseWithData:responseObject
+                       andRequestOperation:operation
+                                 apiObject:apiObject
+                        andCompletionBlock:completionCallback];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+       completionCallback(nil, error);
+    }];
+    [op start];
 }
 
 #pragma mark - Serializing Response -
