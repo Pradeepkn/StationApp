@@ -53,7 +53,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
