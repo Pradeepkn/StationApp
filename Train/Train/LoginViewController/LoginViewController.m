@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "AppUtilityClass.h"
 #import "IQKeyboardManager.h"
+#import "LoginApi.h"
+#import "GetStationDesignationApi.h"
+#import "CoreDataManager.h"
 
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
@@ -19,6 +22,8 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *rememberMeButton;
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
+@property (nonatomic, strong) NSArray *array;
+
 
 @end
 
@@ -30,7 +35,7 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
+    [self getStationsAndDesignations];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -45,8 +50,34 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 //        [AppUtilityClass showErrorMessage:@"Please enter valid user credentials."];
 //        return;
 //    }
+    [AppUtilityClass showLoaderOnView:self.view];
     
-    [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
+    __weak LoginViewController *weakSelf = self;
+    LoginApi *loginApi = [LoginApi new];
+    loginApi.email = @"pradeepkn.pradi@gmail.com";
+    loginApi.password = [AppUtilityClass calculateSHA:@"Prad33pkn"];
+    
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:loginApi
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              if (!error) {
+                                                  [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
+                                              }else{
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                              }
+                                          }];
+}
+
+- (void)getStationsAndDesignations {
+    GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
 }
 
 - (IBAction)rememberMeButtonClicked:(UIButton *)sender {

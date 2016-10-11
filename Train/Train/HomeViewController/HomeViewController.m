@@ -34,7 +34,7 @@ const int kTopTableView = 1000;
 const int kOverallStatusTableView = 2000;
 const int kWhatsNewTableView = 3000;
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate> {
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate> {
     UIColor *unselectedButtonColor;
     UIColor *selectedButtonColor;
     NSMutableArray *messagesArray;
@@ -137,6 +137,8 @@ const int kWhatsNewTableView = 3000;
         if (indexPath.row == 0) {
             LeaveMessageCell *leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier forIndexPath:indexPath];
             tableView.separatorColor = [UIColor clearColor];
+            leaveAMessageCell.leaveMessageTextField.delegate = self;
+            leaveAMessageCell.leaveMessageTextView.delegate = self;
             return leaveAMessageCell;
         }
             HomeMessagesCell *messagesCell = (HomeMessagesCell *)[tableView dequeueReusableCellWithIdentifier:kHomeMessagesCellIdentifier forIndexPath:indexPath];
@@ -287,6 +289,18 @@ const int kWhatsNewTableView = 3000;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

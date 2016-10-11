@@ -29,7 +29,7 @@
 
 + (NSString *)getUserEmail;
 
-+ (NSString *)getUserPhoneNUmber;
++ (NSString *)getUserPhoneNumber;
 
 + (void)showErrorMessage:(NSString *)message;
 
@@ -42,5 +42,13 @@
 + (CGSize)sizeOfText:(NSString *)textToMesure widthOfTextView:(CGFloat)width withFont:(UIFont*)font;
 
 + (NSString *)calculateSHA:(NSString *)yourString;
+
++ (void)storeIntValue:(NSInteger)value forKey:(NSString*)key;
+
++ (NSInteger)getIntValueForKey:(NSString *)key;
+
++ (void)storeValue:(NSString *)value forKey:(NSString*)key;
+
++ (NSString *)getValueForKey:(NSString *)key;
 
 @end

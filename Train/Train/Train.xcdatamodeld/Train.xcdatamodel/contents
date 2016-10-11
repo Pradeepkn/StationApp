@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Designation" representedClassName="Designation" syncable="YES">
+        <attribute name="designationId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="designationName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Stations" representedClassName="Stations" syncable="YES">
+        <attribute name="stationId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stationName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Stations" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Designation" positionX="-54" positionY="-9" width="128" height="75"/>
+    </elements>
 </model>

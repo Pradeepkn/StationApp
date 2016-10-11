@@ -55,5 +55,8 @@ static NSString *const kOperatorCode = @"operator_code";
 
 static NSInteger kBubbleRadius  = 6.f;
 
+// User defaults keys
+static NSString *const kSelectedStationIndex = @"SelectedStationIndex";
+static NSString *const kSelectedDesignationIndex = @"SelectedDesignationIndex";
 
 #endif /* AppConstants_h */

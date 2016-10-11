@@ -77,7 +77,7 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:kEmailKey];
 }
 
-+ (NSString *)getUserPhoneNUmber {
++ (NSString *)getUserPhoneNumber {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kPhoneNumberKey];
 }
 
@@ -152,6 +152,22 @@
     NSString *immutableHex = [NSString stringWithString:hex];
     
     return immutableHex;
+}
+
++ (void)storeIntValue:(NSInteger)value forKey:(NSString*)key {
+    [[NSUserDefaults standardUserDefaults] setInteger:value forKey:key];
+}
+
++ (NSInteger)getIntValueForKey:(NSString *)key {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+}
+
++ (void)storeValue:(NSString *)value forKey:(NSString*)key {
+    [[NSUserDefaults standardUserDefaults] setValue:value forKey:key];
+}
+
++ (NSString *)getValueForKey:(NSString *)key {
+    return [[NSUserDefaults standardUserDefaults] valueForKey:key];
 }
 
 @end

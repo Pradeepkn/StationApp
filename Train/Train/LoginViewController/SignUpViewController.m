@@ -11,6 +11,7 @@
 #import "AppUtilityClass.h"
 #import "SignUpEntryCell.h"
 #import "IQKeyboardManager.h"
+#import "StationsListViewController.h"
 
 static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
@@ -76,6 +77,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
     signUpEntryCell.dropDownButton.hidden = YES;
     signUpEntryCell.entryTextField.tag = indexPath.row;
+    [signUpEntryCell.dropDownButton addTarget:self action:@selector(showStationsList:) forControlEvents:UIControlEventTouchUpInside];
     switch (indexPath.row) {
         case 0:
             [signUpEntryCell.entryTextField setPlaceholder:@"First name"];
@@ -86,10 +88,14 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
         case 2:
             [signUpEntryCell.entryTextField setPlaceholder:@"Designation"];
             signUpEntryCell.dropDownButton.hidden = NO;
+            signUpEntryCell.dropDownButton.tag = 100;
+            signUpEntryCell.entryTextField.userInteractionEnabled = NO;
             break;
         case 3:
             [signUpEntryCell.entryTextField setPlaceholder:@"Choose station"];
             signUpEntryCell.dropDownButton.hidden = NO;
+            signUpEntryCell.dropDownButton.tag = 200;
+            signUpEntryCell.entryTextField.userInteractionEnabled = NO;
             break;
         case 4:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];
@@ -119,7 +125,6 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
 }
 
 - (void)callSignUpApi {
@@ -145,12 +150,24 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }];
 }
 
+- (void)showStationsList:(UIButton *)sender {
+    StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
+    stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    if (sender.tag == 100) {
+        stationsListVC.isStationSelected = NO;
+    }else {
+        stationsListVC.isStationSelected = YES;
+    }
+    [self presentViewController:stationsListVC animated:YES completion:^{
+        ;
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -158,6 +175,5 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 @end

@@ -16,6 +16,13 @@
 		E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C8E1DA06871005D09A5 /* SendMessageViewController.m */; };
 		E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C941DA073F9005D09A5 /* OverallStatusCell.m */; };
 		E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C971DA076AC005D09A5 /* StationsStatusCell.m */; };
+		E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964E61DACBEB6009364CD /* StationsListViewController.m */; };
+		E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */; };
+		E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */; };
+		E9C964F31DACC6F7009364CD /* Stations+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */; };
+		E9C964F41DACC6F7009364CD /* Stations+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */; };
+		E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F61DACC903009364CD /* CoreDataManager.m */; };
+		E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */; };
 		E9F3B70B1D9C4C7700A98B85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B70A1D9C4C7700A98B85 /* main.m */; };
 		E9F3B7141D9C4C7700A98B85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F3B7121D9C4C7700A98B85 /* Main.storyboard */; };
 		E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B7151D9C4C7700A98B85 /* Train.xcdatamodeld */; };
@@ -34,6 +41,8 @@
 		E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B74C1D9C59EB00A98B85 /* UITextField+PaddingText.m */; };
 		E9F3B75B1D9C5FE900A98B85 /* GalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B75A1D9C5FE900A98B85 /* GalleryCollectionViewCell.m */; };
 		E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B75D1D9C66DC00A98B85 /* HomeMessagesCell.m */; };
+		E9F8A1591DAC21950057531B /* LoginApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F8A1581DAC21940057531B /* LoginApi.m */; };
+		E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F8A15B1DAC25850057531B /* GetStationDesignationApi.m */; };
 		E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FB6B5F1DA97F5300769D8C /* SignUpApi.m */; };
 		E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FB6B621DA9834700769D8C /* SignUpViewController.m */; };
 		E9FB6B6C1DA98B0F00769D8C /* proximanova-black-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9FB6B651DA98B0E00769D8C /* proximanova-black-webfont.ttf */; };
@@ -66,6 +75,20 @@
 		E98C0C941DA073F9005D09A5 /* OverallStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverallStatusCell.m; sourceTree = "<group>"; };
 		E98C0C961DA076AC005D09A5 /* StationsStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsStatusCell.h; sourceTree = "<group>"; };
 		E98C0C971DA076AC005D09A5 /* StationsStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsStatusCell.m; sourceTree = "<group>"; };
+		E9C964E51DACBEB6009364CD /* StationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsListViewController.h; sourceTree = "<group>"; };
+		E9C964E61DACBEB6009364CD /* StationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsListViewController.m; sourceTree = "<group>"; };
+		E9C964E91DACC6F7009364CD /* Designation+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9C964EB1DACC6F7009364CD /* Designation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9C964ED1DACC6F7009364CD /* Stations+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9C964EF1DACC6F7009364CD /* Stations+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9C964F51DACC903009364CD /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		E9C964F61DACC903009364CD /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		E9C964F81DAD01E0009364CD /* StationsDestinationsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsDestinationsCell.h; sourceTree = "<group>"; };
+		E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsDestinationsCell.m; sourceTree = "<group>"; };
 		E9F3B7061D9C4C7700A98B85 /* STATION APP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STATION APP.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F3B70A1D9C4C7700A98B85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E9F3B7131D9C4C7700A98B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,6 +124,10 @@
 		E9F3B75A1D9C5FE900A98B85 /* GalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryCollectionViewCell.m; sourceTree = "<group>"; };
 		E9F3B75C1D9C66DC00A98B85 /* HomeMessagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMessagesCell.h; sourceTree = "<group>"; };
 		E9F3B75D1D9C66DC00A98B85 /* HomeMessagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMessagesCell.m; sourceTree = "<group>"; };
+		E9F8A1571DAC21940057531B /* LoginApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginApi.h; sourceTree = "<group>"; };
+		E9F8A1581DAC21940057531B /* LoginApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginApi.m; sourceTree = "<group>"; };
+		E9F8A15A1DAC25850057531B /* GetStationDesignationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStationDesignationApi.h; sourceTree = "<group>"; };
+		E9F8A15B1DAC25850057531B /* GetStationDesignationApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStationDesignationApi.m; sourceTree = "<group>"; };
 		E9FB6B5E1DA97F5300769D8C /* SignUpApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpApi.h; sourceTree = "<group>"; };
 		E9FB6B5F1DA97F5300769D8C /* SignUpApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpApi.m; sourceTree = "<group>"; };
 		E9FB6B611DA9834700769D8C /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -174,6 +201,23 @@
 			path = StationInfoViewController;
 			sourceTree = "<group>";
 		};
+		E9C964E81DACC6E3009364CD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E9C964F51DACC903009364CD /* CoreDataManager.h */,
+				E9C964F61DACC903009364CD /* CoreDataManager.m */,
+				E9C964E91DACC6F7009364CD /* Designation+CoreDataClass.h */,
+				E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */,
+				E9C964EB1DACC6F7009364CD /* Designation+CoreDataProperties.h */,
+				E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */,
+				E9C964ED1DACC6F7009364CD /* Stations+CoreDataClass.h */,
+				E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */,
+				E9C964EF1DACC6F7009364CD /* Stations+CoreDataProperties.h */,
+				E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E9F3B6FD1D9C4C7700A98B85 = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +239,7 @@
 		E9F3B7081D9C4C7700A98B85 /* Train */ = {
 			isa = PBXGroup;
 			children = (
+				E9C964E81DACC6E3009364CD /* CoreData */,
 				E9FB6B5D1DA97F4300769D8C /* ApiObjects */,
 				E9F3B72C1D9C58B200A98B85 /* AppDelegate */,
 				E9F3B7351D9C58B200A98B85 /* LoginViewController */,
@@ -273,6 +318,8 @@
 				E9F3B7371D9C58B200A98B85 /* LoginViewController.m */,
 				E9FB6B611DA9834700769D8C /* SignUpViewController.h */,
 				E9FB6B621DA9834700769D8C /* SignUpViewController.m */,
+				E9C964E51DACBEB6009364CD /* StationsListViewController.h */,
+				E9C964E61DACBEB6009364CD /* StationsListViewController.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -311,6 +358,8 @@
 				E98C0C971DA076AC005D09A5 /* StationsStatusCell.m */,
 				E9FB6B731DA997D000769D8C /* SignUpEntryCell.h */,
 				E9FB6B741DA997D000769D8C /* SignUpEntryCell.m */,
+				E9C964F81DAD01E0009364CD /* StationsDestinationsCell.h */,
+				E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -320,6 +369,10 @@
 			children = (
 				E9FB6B5E1DA97F5300769D8C /* SignUpApi.h */,
 				E9FB6B5F1DA97F5300769D8C /* SignUpApi.m */,
+				E9F8A1571DAC21940057531B /* LoginApi.h */,
+				E9F8A1581DAC21940057531B /* LoginApi.m */,
+				E9F8A15A1DAC25850057531B /* GetStationDesignationApi.h */,
+				E9F8A15B1DAC25850057531B /* GetStationDesignationApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -469,26 +522,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
+				E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
+				E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */,
 				E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */,
 				E9F3B70B1D9C4C7700A98B85 /* main.m in Sources */,
+				E9C964F41DACC6F7009364CD /* Stations+CoreDataProperties.m in Sources */,
 				E9FB6B751DA997D000769D8C /* SignUpEntryCell.m in Sources */,
+				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
 				E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */,
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,
+				E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */,
 				E9F3B74D1D9C59EB00A98B85 /* NSAttributedString+StringWithImage.m in Sources */,
 				E9F3B7401D9C59AD00A98B85 /* CustomAlertModel.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
 				E9F3B75B1D9C5FE900A98B85 /* GalleryCollectionViewCell.m in Sources */,
+				E9F8A1591DAC21950057531B /* LoginApi.m in Sources */,
 				E9F3B73B1D9C58B200A98B85 /* LoginViewController.m in Sources */,
 				E9F3B7411D9C59AD00A98B85 /* CustomAlertViewController.m in Sources */,
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,
 				E9F3B7381D9C58B200A98B85 /* AppDelegate.m in Sources */,
+				E9C964F31DACC6F7009364CD /* Stations+CoreDataClass.m in Sources */,
 				E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */,
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
+				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
 				E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,
 				E9F3B7391D9C58B200A98B85 /* AppUtilityClass.m in Sources */,
