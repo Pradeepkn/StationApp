@@ -15,7 +15,9 @@
 
 static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
-@interface SignUpViewController ()
+@interface SignUpViewController ()<UITextFieldDelegate, StationDesignationDelegate> {
+    NSMutableDictionary *inputValues;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *signUpTableView;
 
@@ -25,7 +27,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    inputValues = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,8 +78,10 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     SignUpEntryCell *signUpEntryCell = (SignUpEntryCell *)[tableView dequeueReusableCellWithIdentifier:kSignUpEntryCellIdentifier forIndexPath:indexPath];
     [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
     signUpEntryCell.dropDownButton.hidden = YES;
+    signUpEntryCell.entryTextField.secureTextEntry = NO;
     signUpEntryCell.entryTextField.tag = indexPath.row;
-    [signUpEntryCell.dropDownButton addTarget:self action:@selector(showStationsList:) forControlEvents:UIControlEventTouchUpInside];
+    signUpEntryCell.entryTextField.delegate = self;
+    [signUpEntryCell.dropDownButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
     switch (indexPath.row) {
         case 0:
             [signUpEntryCell.entryTextField setPlaceholder:@"First name"];
@@ -102,9 +106,11 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
             break;
         case 5:
             [signUpEntryCell.entryTextField setPlaceholder:@"Password"];
+            signUpEntryCell.entryTextField.secureTextEntry = YES;
             break;
         case 6:
             [signUpEntryCell.entryTextField setPlaceholder:@"Confirm password"];
+            signUpEntryCell.entryTextField.secureTextEntry = YES;
             break;
         default:
             break;
@@ -132,12 +138,31 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     
     __weak SignUpViewController *weakSelf = self;
     SignUpApi *signUpApi = [SignUpApi new];
-    signUpApi.email = @"pradeepkn.pradi@gmail.com";
-    signUpApi.password = [AppUtilityClass calculateSHA:@"Prad33pkn"];
-    signUpApi.designation = @"Member Engineering";
-    signUpApi.stationName = @"Old Delhi";
-    signUpApi.firstName = @"Pradeep";
-    signUpApi.lastName = @"KN";
+    for (int index = 0; index < 7; index++) {
+        NSString *keyValue = [NSString stringWithFormat:@"%ld", (long)index];
+        switch (index) {
+            case 0:
+                signUpApi.firstName = [inputValues objectForKey:keyValue];
+                break;
+            case 1:
+                signUpApi.lastName = [inputValues objectForKey:keyValue];
+                break;
+            case 2:
+                signUpApi.designation = [inputValues objectForKey:keyValue];
+                break;
+            case 3:
+                signUpApi.stationName = [inputValues objectForKey:keyValue];
+                break;
+            case 4:
+                signUpApi.email = [inputValues objectForKey:keyValue];
+                break;
+            case 5:
+                signUpApi.password = [AppUtilityClass calculateSHA:[inputValues objectForKey:keyValue]];
+                break;
+            default:
+                break;
+        }
+    }
 
     [[APIManager sharedInstance]makePostAPIRequestWithObject:signUpApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
@@ -150,7 +175,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }];
 }
 
-- (void)showStationsList:(UIButton *)sender {
+- (void)showStationsOrDesignationsList:(UIButton *)sender {
     StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
     stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     if (sender.tag == 100) {
@@ -158,9 +183,36 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }else {
         stationsListVC.isStationSelected = YES;
     }
+    stationsListVC.delegate = self;
     [self presentViewController:stationsListVC animated:YES completion:^{
         ;
     }];
+}
+
+- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation{
+    NSString *keyValue;
+    if (isStation) {
+        keyValue = @"3";
+    }else {
+        keyValue = @"2";
+    }
+    [inputValues setObject:selectedEntry forKey:keyValue];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSString *keyValue = [NSString stringWithFormat:@"%ld", (long)textField.tag];
+    [inputValues setObject:textField.text forKey:keyValue];
 }
 
 - (void)didReceiveMemoryWarning {

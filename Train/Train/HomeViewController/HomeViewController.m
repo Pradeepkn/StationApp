@@ -38,6 +38,8 @@ const int kWhatsNewTableView = 3000;
     UIColor *unselectedButtonColor;
     UIColor *selectedButtonColor;
     NSMutableArray *messagesArray;
+    NSIndexPath *informationIndexPath;
+    NSIndexPath *whatsNewIndexPath;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTopTableView;
@@ -62,15 +64,19 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
+    whatsNewIndexPath = nil;
     self.whatsNewContainerView.hidden = YES;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.whatsNewButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
+    [self.homeTopTableView reloadData];
 }
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {
+    informationIndexPath = nil;
     self.whatsNewContainerView.hidden = NO;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
+    [self.whatsNewTableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -80,7 +86,7 @@ const int kWhatsNewTableView = 3000;
         if (indexPath.row == 0) {
             return 60;
         }
-        return [AppUtilityClass sizeOfText:[messagesArray objectAtIndex:indexPath.row] widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:13.0f]].height + 80;
+        return [AppUtilityClass sizeOfText:[messagesArray objectAtIndex:indexPath.row] widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 80;
     } else if (tableView.tag == kOverallStatusTableView) {
         return 40;
     }else if (tableView.tag == kWhatsNewTableView) {
@@ -139,6 +145,7 @@ const int kWhatsNewTableView = 3000;
             tableView.separatorColor = [UIColor clearColor];
             leaveAMessageCell.leaveMessageTextField.delegate = self;
             leaveAMessageCell.leaveMessageTextView.delegate = self;
+            informationIndexPath = indexPath;
             return leaveAMessageCell;
         }
             HomeMessagesCell *messagesCell = (HomeMessagesCell *)[tableView dequeueReusableCellWithIdentifier:kHomeMessagesCellIdentifier forIndexPath:indexPath];
@@ -149,8 +156,7 @@ const int kWhatsNewTableView = 3000;
             }
             messagesCell.messageDescriptionLabel.text = [messagesArray objectAtIndex:indexPath.row];
             return messagesCell;
-        }
-    else if (tableView.tag == kOverallStatusTableView){
+        } else if (tableView.tag == kOverallStatusTableView){
         StationsStatusCell *overallStatusCell = (StationsStatusCell *)[tableView dequeueReusableCellWithIdentifier:kOverallStatusCellIdentifier forIndexPath:indexPath];
         if (indexPath.row == 0) {
             [AppUtilityClass shapeTopCell:overallStatusCell withRadius:kBubbleRadius];
@@ -166,9 +172,10 @@ const int kWhatsNewTableView = 3000;
         overallStatusCell.stationStatusActionButton.tag = indexPath.row;
         [overallStatusCell.stationStatusActionButton addTarget:self action:@selector(stationStatusButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         return overallStatusCell;
-    }else {
+    }else if (tableView.tag == kWhatsNewTableView) {
         if (indexPath.row == 0) {
             LeaveMessageCell *leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier forIndexPath:indexPath];
+            whatsNewIndexPath = indexPath;
             tableView.separatorColor = [UIColor clearColor];
             return leaveAMessageCell;
         }
@@ -180,6 +187,7 @@ const int kWhatsNewTableView = 3000;
         }
         return whatsNewCell;
     }
+    return [UITableViewCell new];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -301,6 +309,43 @@ const int kWhatsNewTableView = 3000;
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    LeaveMessageCell *messageCell;
+    NSString *placeHolderText = @"";
+    if (informationIndexPath) {
+        messageCell = (LeaveMessageCell *)[self.homeTopTableView cellForRowAtIndexPath:informationIndexPath];
+        placeHolderText = @"Leave a message";
+    }else {
+        messageCell = (LeaveMessageCell *)[self.whatsNewTableView cellForRowAtIndexPath:whatsNewIndexPath];
+        placeHolderText = @"Write an update";
+    }
+    if (textView.text.length > 0) {
+        messageCell.leaveMessageTextField.placeholder = @"";
+    }else {
+        messageCell.leaveMessageTextField.placeholder = placeHolderText;
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol StationDesignationDelegate <NSObject>
+
+- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation;
+
+@end
+
 @interface StationsListViewController : UIViewController
 
 @property (nonatomic, assign) BOOL isStationSelected;
+
+@property (nonatomic, weak) id <StationDesignationDelegate> delegate;
 
 @end

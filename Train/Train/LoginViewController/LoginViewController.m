@@ -16,7 +16,11 @@
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 
-@interface LoginViewController ()
+static NSInteger kKeyBoardOffSet = 100;
+
+@interface LoginViewController () {
+    BOOL isPasswordHidden;
+}
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxtField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -31,6 +35,7 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isPasswordHidden = YES;
     [AppUtilityClass shapeTopCell:self.usernameTxtField withRadius:3.0];
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -41,6 +46,7 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     self.navigationController.navigationBarHidden = YES;
 }
@@ -88,8 +94,26 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
     }
 }
 
+- (IBAction)enablePasswordButtonClicked:(UIButton *)sender {
+    if (isPasswordHidden) {
+        isPasswordHidden = NO;
+        self.passwordTxtField.secureTextEntry = NO;
+        [sender setImage:[UIImage imageNamed:@"eyeHidden"] forState:UIControlStateNormal];
+    }else {
+        self.passwordTxtField.secureTextEntry = YES;
+        isPasswordHidden = YES;
+        [sender setImage:[UIImage imageNamed:@"visible-icon"] forState:UIControlStateNormal];
+    }
+    // * Redundant (but necessary) line *
+    [self.passwordTxtField setText:self.passwordTxtField.text];
+}
+
 - (IBAction)forgotPasswordButtonClicked:(id)sender {
 
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {
@@ -102,6 +126,7 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
     UIViewAnimationCurve curve = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     //The table view scroll inset and keyboard location should animate seamlessly with the keyboard.
     [UIView animateWithDuration:animationDuration delay:0.0 options:(curve << 16) animations:^{
+        [self resetViewFrameToOriginal:YES];
         [self.view layoutIfNeeded];
     } completion:nil];
 }
@@ -111,8 +136,25 @@ static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
     UIViewAnimationCurve curve = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
     [UIView animateWithDuration:animationDuration delay:0.0 options:(curve << 16) animations:^{
+        [self resetViewFrameToOriginal:NO];
         [self.view layoutIfNeeded];
     } completion:nil];
+}
+
+- (void)resetViewFrameToOriginal:(BOOL)toOriginalFrame {
+    CGRect viewFrame = self.view.frame;
+    if (toOriginalFrame) {
+        viewFrame.origin.y = 0;
+    }else {
+        viewFrame.origin.y = -kKeyBoardOffSet;
+    }
+    self.view.frame = viewFrame;
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

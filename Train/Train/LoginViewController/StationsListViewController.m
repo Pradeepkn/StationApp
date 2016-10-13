@@ -117,6 +117,13 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
     }else {
         [AppUtilityClass storeIntValue:indexPath.row forKey:kSelectedDesignationIndex];
     }
+    if (self.isStationSelected) {
+        Stations *obj = [self.array objectAtIndex:indexPath.row - 1];
+        [self.delegate userSelectedEntry:obj.stationName isStation:YES];
+    }else {
+        Designation *obj = [self.array objectAtIndex:indexPath.row - 1];
+        [self.delegate userSelectedEntry:obj.designationName isStation:NO];
+    }
     [self removeViewFromSuperView];
 }
 

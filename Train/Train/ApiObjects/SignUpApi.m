@@ -34,7 +34,7 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSDictionary *dictionay = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.email], @"Checksum", @"application/json", @"Content-Type",nil];
+    NSDictionary *dictionay = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.email], @"Checksum", @"application/json", @"Content-Type",self.password,@"passwordRaw",nil];
     return dictionay;
 }
 
