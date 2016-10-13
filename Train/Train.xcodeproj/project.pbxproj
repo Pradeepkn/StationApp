@@ -23,6 +23,7 @@
 		E9C964F41DACC6F7009364CD /* Stations+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */; };
 		E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F61DACC903009364CD /* CoreDataManager.m */; };
 		E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */; };
+		E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DF67891DB012640094A039 /* LaunchViewController.m */; };
 		E9F3B70B1D9C4C7700A98B85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B70A1D9C4C7700A98B85 /* main.m */; };
 		E9F3B7141D9C4C7700A98B85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F3B7121D9C4C7700A98B85 /* Main.storyboard */; };
 		E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9F3B7151D9C4C7700A98B85 /* Train.xcdatamodeld */; };
@@ -89,6 +90,8 @@
 		E9C964F61DACC903009364CD /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		E9C964F81DAD01E0009364CD /* StationsDestinationsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsDestinationsCell.h; sourceTree = "<group>"; };
 		E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsDestinationsCell.m; sourceTree = "<group>"; };
+		E9DF67881DB012640094A039 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		E9DF67891DB012640094A039 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		E9F3B7061D9C4C7700A98B85 /* STATION APP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "STATION APP.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F3B70A1D9C4C7700A98B85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E9F3B7131D9C4C7700A98B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 			children = (
 				E9F3B72D1D9C58B200A98B85 /* AppDelegate.h */,
 				E9F3B72E1D9C58B200A98B85 /* AppDelegate.m */,
+				E9DF67881DB012640094A039 /* LaunchViewController.h */,
+				E9DF67891DB012640094A039 /* LaunchViewController.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
+				E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */,
 				E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
 				E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */,

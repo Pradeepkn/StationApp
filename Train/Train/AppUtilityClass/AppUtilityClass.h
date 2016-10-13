@@ -21,11 +21,15 @@
 
 + (void)storeUserName:(NSString *)userName;
 
++ (void)storePassword:(NSString *)password;
+
 + (void)storeUserEmail:(NSString *)userEmail;
 
 + (void)storeUserPhoneNumber:(NSString*)userPhoneNumber;
 
 + (NSString *)getUserName;
+
++ (NSString *)getUserPassword;
 
 + (NSString *)getUserEmail;
 
@@ -50,5 +54,7 @@
 + (void)storeValue:(NSString *)value forKey:(NSString*)key;
 
 + (NSString *)getValueForKey:(NSString *)key;
+
++ (NSMutableAttributedString *)updateStationAppTextForLabel:(UILabel *)label;
 
 @end

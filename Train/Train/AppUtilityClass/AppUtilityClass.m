@@ -61,6 +61,10 @@
     [[NSUserDefaults standardUserDefaults] setObject:userName forKey:kUsernameKey];
 }
 
++ (void)storePassword:(NSString *)password {
+    [[NSUserDefaults standardUserDefaults] setObject:password forKey:kPasswordKey];
+}
+
 + (void)storeUserEmail:(NSString *)userEmail {
     [[NSUserDefaults standardUserDefaults] setObject:userEmail forKey:kEmailKey];
 }
@@ -71,6 +75,10 @@
 
 + (NSString *)getUserName {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kUsernameKey];
+}
+
++ (NSString *)getUserPassword {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kPasswordKey];
 }
 
 + (NSString *)getUserEmail {
@@ -168,6 +176,15 @@
 
 + (NSString *)getValueForKey:(NSString *)key {
     return [[NSUserDefaults standardUserDefaults] valueForKey:key];
+}
+
++ (NSMutableAttributedString *)updateStationAppTextForLabel:(UILabel *)label{
+    NSString *completeText = @"STATION APP";
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:completeText];
+    NSString *boldString = @"STATION";
+    NSRange boldRange = [completeText rangeOfString:boldString];
+    [attributedString addAttribute: NSFontAttributeName value:[UIFont fontWithName:kProximaNovaBold size:label.font.pointSize] range:boldRange];
+    return attributedString;
 }
 
 @end

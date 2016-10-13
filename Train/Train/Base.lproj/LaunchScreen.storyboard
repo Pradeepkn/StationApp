@@ -5,6 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="proximanova-light-webfont.ttf">
+            <string>ProximaNova-Light</string>
+        </array>
+        <array key="proximanova-xbold-webfont.ttf">
+            <string>ProximaNova-Extrabld</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -18,26 +26,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indian-ralway-img" translatesAutoresizingMaskIntoConstraints="NO" id="KhL-Pp-AG5"/>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="SV4-uZ-7cM">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="HvQ-v1-Efh"/>
                                     <constraint firstAttribute="height" constant="200" id="hH7-FD-gUh"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATION APP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cd-EK-DTS">
-                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLu-b4-IL7">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATION" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cd-EK-DTS">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="62" id="OhA-QC-aog"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Extrabld" family="Proxima Nova" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJe-JD-oxB">
+                                        <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="5cd-EK-DTS" firstAttribute="leading" secondItem="xLu-b4-IL7" secondAttribute="leading" constant="40" id="1WK-ef-a1V"/>
+                                    <constraint firstItem="rJe-JD-oxB" firstAttribute="width" secondItem="5cd-EK-DTS" secondAttribute="width" id="7Ia-DC-SCC"/>
+                                    <constraint firstItem="rJe-JD-oxB" firstAttribute="height" secondItem="5cd-EK-DTS" secondAttribute="height" id="Fkx-Y9-ThU"/>
+                                    <constraint firstAttribute="trailing" secondItem="rJe-JD-oxB" secondAttribute="trailing" constant="13" id="Oc4-9X-E2k"/>
+                                    <constraint firstAttribute="width" constant="248" id="QxB-hv-fca"/>
+                                    <constraint firstItem="5cd-EK-DTS" firstAttribute="top" secondItem="xLu-b4-IL7" secondAttribute="top" id="SVb-U9-CDQ"/>
+                                    <constraint firstAttribute="height" constant="62" id="cEL-yv-xop"/>
+                                    <constraint firstItem="rJe-JD-oxB" firstAttribute="leading" secondItem="5cd-EK-DTS" secondAttribute="trailing" constant="3" id="eWK-YU-ZL4"/>
+                                    <constraint firstItem="rJe-JD-oxB" firstAttribute="top" secondItem="xLu-b4-IL7" secondAttribute="top" id="ocg-sa-YNH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5cd-EK-DTS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="16" id="6bg-5s-AXj"/>
-                            <constraint firstItem="5cd-EK-DTS" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="9IC-qd-nIg"/>
-                            <constraint firstAttribute="trailing" secondItem="5cd-EK-DTS" secondAttribute="trailing" constant="16" id="i7u-EW-hcj"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="KhL-Pp-AG5" secondAttribute="bottom" id="1jJ-m1-4IB"/>
+                            <constraint firstItem="xLu-b4-IL7" firstAttribute="top" secondItem="SV4-uZ-7cM" secondAttribute="bottom" constant="20" id="7w2-Jc-8bR"/>
+                            <constraint firstItem="xLu-b4-IL7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="AMP-Jj-JSq"/>
+                            <constraint firstAttribute="trailing" secondItem="KhL-Pp-AG5" secondAttribute="trailing" id="Cif-0U-aQ2"/>
+                            <constraint firstItem="KhL-Pp-AG5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Exs-Wd-fHm"/>
+                            <constraint firstItem="KhL-Pp-AG5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="j8k-Qs-IoU"/>
                             <constraint firstItem="SV4-uZ-7cM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="oHo-iI-3Q7"/>
                             <constraint firstItem="SV4-uZ-7cM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="pc2-qG-Fuh"/>
-                            <constraint firstItem="5cd-EK-DTS" firstAttribute="top" secondItem="SV4-uZ-7cM" secondAttribute="bottom" constant="40" id="tCl-Lv-2Rw"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -48,5 +83,6 @@
     </scenes>
     <resources>
         <image name="Logo" width="200" height="200"/>
+        <image name="indian-ralway-img" width="320" height="568"/>
     </resources>
 </document>

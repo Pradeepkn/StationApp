@@ -12,6 +12,8 @@
 #import "LoginApi.h"
 #import "GetStationDesignationApi.h"
 #import "CoreDataManager.h"
+#import "AppConstants.h"
+#import "UIColor+AppColor.h"
 
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
@@ -20,12 +22,16 @@ static NSInteger kKeyBoardOffSet = 100;
 
 @interface LoginViewController () {
     BOOL isPasswordHidden;
+    BOOL isRememberMeEnabled;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *appNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxtField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *rememberMeButton;
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
+@property (weak, nonatomic) IBOutlet UIButton *rememberMeLabelBtn;
 @property (nonatomic, strong) NSArray *array;
 
 
@@ -36,12 +42,17 @@ static NSInteger kKeyBoardOffSet = 100;
 - (void)viewDidLoad {
     [super viewDidLoad];
     isPasswordHidden = YES;
+    isRememberMeEnabled = NO;
     [AppUtilityClass shapeTopCell:self.usernameTxtField withRadius:3.0];
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [self getStationsAndDesignations];
-    // Do any additional setup after loading the view, typically from a nib.
+    if ([AppUtilityClass getUserEmail] && [AppUtilityClass getUserPassword]) {
+        self.usernameTxtField.text = [AppUtilityClass getUserEmail];
+        self.passwordTxtField.text = [AppUtilityClass getUserPassword];
+        [self loginButtonClicked:self.loginButton];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,19 +60,25 @@ static NSInteger kKeyBoardOffSet = 100;
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     self.navigationController.navigationBarHidden = YES;
+    [self.appNameLabel setAttributedText: [AppUtilityClass updateStationAppTextForLabel:self.appNameLabel]];
 }
 
 - (IBAction)loginButtonClicked:(id)sender {
-//    if (self.usernameTxtField.text.length <= 0 || self.passwordTxtField.text.length <= 0 || [AppUtilityClass validateEmail:self.usernameTxtField.text]) {
-//        [AppUtilityClass showErrorMessage:@"Please enter valid user credentials."];
-//        return;
-//    }
+    if (self.usernameTxtField.text.length <= 0 || self.passwordTxtField.text.length <= 0) {
+        [AppUtilityClass showErrorMessage:@"Please enter valid user credentials."];
+        return;
+    }
+    if (isRememberMeEnabled) {
+        [AppUtilityClass storeUserEmail:self.usernameTxtField.text];
+        [AppUtilityClass storePassword:self.passwordTxtField.text];
+    }
+    
     [AppUtilityClass showLoaderOnView:self.view];
     
     __weak LoginViewController *weakSelf = self;
     LoginApi *loginApi = [LoginApi new];
-    loginApi.email = @"pradeepkn.pradi@gmail.com";
-    loginApi.password = [AppUtilityClass calculateSHA:@"Prad33pkn"];
+    loginApi.email = self.usernameTxtField.text;
+    loginApi.password = [AppUtilityClass calculateSHA:self.passwordTxtField.text];
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:loginApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
@@ -87,10 +104,16 @@ static NSInteger kKeyBoardOffSet = 100;
 }
 
 - (IBAction)rememberMeButtonClicked:(UIButton *)sender {
-    if (sender.tag == 100) {
-        sender.tag = 200;
+    if (self.rememberMeButton.tag == 100 || self.rememberMeLabelBtn.tag == 100) {
+        self.rememberMeLabelBtn.tag = self.rememberMeButton.tag = 200;
+        isRememberMeEnabled = YES;
+        [self.rememberMeButton setBackgroundColor:[UIColor appRedColor]];
+        [self.rememberMeLabelBtn setTitleColor:[UIColor appRedColor] forState:UIControlStateNormal];
     }else{
-        sender.tag = 100;
+        self.rememberMeLabelBtn.tag = self.rememberMeButton.tag = 100;
+        isRememberMeEnabled = NO;
+        [self.rememberMeButton setBackgroundColor:[UIColor lightGrayColor]];
+        [self.rememberMeLabelBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
@@ -109,7 +132,10 @@ static NSInteger kKeyBoardOffSet = 100;
 }
 
 - (IBAction)forgotPasswordButtonClicked:(id)sender {
-
+    if (self.usernameTxtField.text.length <= 0 || [AppUtilityClass validateEmail:self.usernameTxtField.text]) {
+        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter valid e-mail address.", nil)];
+        return;
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

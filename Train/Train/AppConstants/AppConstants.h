@@ -58,5 +58,12 @@ static NSInteger kBubbleRadius  = 6.f;
 // User defaults keys
 static NSString *const kSelectedStationIndex = @"SelectedStationIndex";
 static NSString *const kSelectedDesignationIndex = @"SelectedDesignationIndex";
+static NSString *const kRemeberMeKey = @"RememberMeKey";
+
+// Proxima nova bold
+static NSString *const kProximaNovaSemibold = @"ProximaNova-Semibold";
+static NSString *const kProximaNovaBold = @"ProximaNova-Bold";
+static NSString *const kProximaNovaLight = @"ProximaNova-Light";
+static NSString *const kProximaNovaRegular = @"ProximaNova-Regular";
 
 #endif /* AppConstants_h */
