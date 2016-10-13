@@ -19,6 +19,7 @@
 #import "StationsStatusCell.h"
 #import "StationInfoViewController.h"
 #import "AppConstants.h"
+#import "StationsListViewController.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -34,7 +35,7 @@ const int kTopTableView = 1000;
 const int kOverallStatusTableView = 2000;
 const int kWhatsNewTableView = 3000;
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate> {
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, StationDesignationDelegate> {
     UIColor *unselectedButtonColor;
     UIColor *selectedButtonColor;
     NSMutableArray *messagesArray;
@@ -177,6 +178,7 @@ const int kWhatsNewTableView = 3000;
             LeaveMessageCell *leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier forIndexPath:indexPath];
             whatsNewIndexPath = indexPath;
             tableView.separatorColor = [UIColor clearColor];
+            [leaveAMessageCell.selectStationButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
             return leaveAMessageCell;
         }
         WhatsNewCell *whatsNewCell = (WhatsNewCell *)[tableView dequeueReusableCellWithIdentifier:kWhatsNewCellIdentifier forIndexPath:indexPath];
@@ -297,6 +299,23 @@ const int kWhatsNewTableView = 3000;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)showStationsOrDesignationsList:(UIButton *)sender {
+    StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
+    stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        stationsListVC.isStationSelected = YES;
+    stationsListVC.delegate = self;
+    [self presentViewController:stationsListVC animated:YES completion:^{
+        ;
+    }];
+}
+
+- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation{
+    if (isStation) {
+    }else {
+    }
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
