@@ -34,12 +34,12 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSDictionary *dictionay = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.email], @"Checksum", @"application/json", @"Content-Type",self.password,@"passwordRaw",nil];
-    return dictionay;
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.email], @"Checksum", @"application/json", @"Content-Type",self.password,@"passwordRaw",nil];
+    return dictionary;
 }
 
 - (NSString *)customRawBody {
-    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email,self.password, self.stationName, self.designation, self.firstName, self.lastName] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName]];
+    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email,[AppUtilityClass calculateSHA:self.password], self.stationName, self.designation, self.firstName, self.lastName] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName]];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:rawBody
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string

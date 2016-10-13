@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "AppUtilityClass.h"
+#import "AppConstants.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [AppUtilityClass storeIntValue:-1 forKey:kSelectedStationIndex];
+    [AppUtilityClass storeIntValue:-1 forKey:kSelectedDesignationIndex];
     return YES;
 }
 

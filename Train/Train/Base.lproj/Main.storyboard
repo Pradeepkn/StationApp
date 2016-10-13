@@ -343,7 +343,7 @@
                                 <color key="separatorColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SignUpEntryCell" rowHeight="48" id="vTc-CO-STP" customClass="SignUpEntryCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SignUpEntryCell" rowHeight="48" id="vTc-CO-STP" customClass="SignUpEntryCell">
                                         <rect key="frame" x="0.0" y="28" width="335" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vTc-CO-STP" id="gJN-A4-hsT">
@@ -355,8 +355,13 @@
                                                         <constraint firstAttribute="height" constant="47" id="nsP-Xs-AQb"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jr1-dV-kwT">
                                                     <constraints>
@@ -1360,7 +1365,7 @@
                                             <frame key="frameInset" width="335" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJq-rG-ktw">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="iJq-rG-ktw">
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="Sta-OH-llu"/>
                                                     </constraints>
@@ -1375,16 +1380,22 @@
                                                     </constraints>
                                                     <state key="normal" image="tick-blue-icon"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9X-fb-slC"/>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="wqw-mh-lxU" firstAttribute="leading" secondItem="iJq-rG-ktw" secondAttribute="trailing" constant="8" id="QB5-d8-Qrd"/>
+                                                <constraint firstItem="wqw-mh-lxU" firstAttribute="leading" secondItem="iJq-rG-ktw" secondAttribute="trailing" constant="15" id="QB5-d8-Qrd"/>
+                                                <constraint firstItem="c9X-fb-slC" firstAttribute="top" secondItem="L6N-6p-T3e" secondAttribute="top" id="UG0-9e-03m"/>
                                                 <constraint firstItem="iJq-rG-ktw" firstAttribute="centerY" secondItem="L6N-6p-T3e" secondAttribute="centerY" id="UoU-Qo-XNL"/>
+                                                <constraint firstAttribute="trailing" secondItem="c9X-fb-slC" secondAttribute="trailing" id="g3o-3E-Lgk"/>
+                                                <constraint firstAttribute="bottom" secondItem="c9X-fb-slC" secondAttribute="bottom" id="hnB-kb-Qxd"/>
                                                 <constraint firstItem="wqw-mh-lxU" firstAttribute="centerY" secondItem="L6N-6p-T3e" secondAttribute="centerY" id="iFy-iG-cL9"/>
-                                                <constraint firstItem="iJq-rG-ktw" firstAttribute="leading" secondItem="L6N-6p-T3e" secondAttribute="leading" constant="8" id="lu5-uc-O5i"/>
+                                                <constraint firstItem="iJq-rG-ktw" firstAttribute="leading" secondItem="L6N-6p-T3e" secondAttribute="leading" constant="15" id="lu5-uc-O5i"/>
+                                                <constraint firstItem="c9X-fb-slC" firstAttribute="leading" secondItem="L6N-6p-T3e" secondAttribute="leading" id="otI-iH-3nO"/>
                                                 <constraint firstAttribute="trailing" secondItem="wqw-mh-lxU" secondAttribute="trailing" constant="8" id="pbg-uu-xO0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cellControlActionButton" destination="c9X-fb-slC" id="C9l-pE-sEG"/>
                                             <outlet property="nameLabel" destination="iJq-rG-ktw" id="cWw-wc-2rT"/>
                                             <outlet property="selectedStatusBtn" destination="wqw-mh-lxU" id="woT-wh-nIL"/>
                                         </connections>
@@ -1405,10 +1416,11 @@
                         <constraints>
                             <constraint firstItem="t12-GU-09h" firstAttribute="top" secondItem="pUa-GX-N00" secondAttribute="bottom" constant="20" id="5Tf-Xa-5A6"/>
                             <constraint firstItem="pUa-GX-N00" firstAttribute="leading" secondItem="fQW-LW-S7r" secondAttribute="leading" constant="20" id="NRF-5z-T2w"/>
-                            <constraint firstItem="pUa-GX-N00" firstAttribute="top" secondItem="fQW-LW-S7r" secondAttribute="top" constant="20" id="Uit-yl-3bt"/>
+                            <constraint firstItem="pUa-GX-N00" firstAttribute="top" secondItem="fQW-LW-S7r" secondAttribute="top" constant="40" id="Uit-yl-3bt"/>
                             <constraint firstAttribute="trailing" secondItem="pUa-GX-N00" secondAttribute="trailing" constant="20" id="pr0-bS-hvA"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="stationsListTableView" destination="pUa-GX-N00" id="Eif-VW-i23"/>
                     </connections>

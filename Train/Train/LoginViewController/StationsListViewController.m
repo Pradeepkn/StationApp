@@ -8,12 +8,14 @@
 
 #import "StationsListViewController.h"
 #import "CoreDataManager.h"
-#import "Stations+CoreDataClass.h"
 #import "StationsDestinationsCell.h"
 #import "AppUtilityClass.h"
 #import "AppConstants.h"
+#import "UIColor+AppColor.h"
 
 static NSString *const kStationsCellIdentifier = @"StationsCell";
+
+static NSInteger kTableCellHeight = 48.0f;
 
 @interface StationsListViewController ()
 
@@ -46,7 +48,7 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48;
+    return kTableCellHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -54,7 +56,7 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.array.count +1;
+    return self.array.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -62,11 +64,23 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40.0f;
+    return kTableCellHeight;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [UIView new];
+    CGRect headerFrame = CGRectMake(15, 0, self.stationsListTableView.bounds.size.width - 30, kTableCellHeight);
+    UIView *view = [[UIView alloc] initWithFrame:headerFrame];
+    UILabel *selectEntryLabel = [[UILabel alloc] initWithFrame:headerFrame];
+    selectEntryLabel.text = self.isStationSelected?@"Select station":@"Select designation";
+    selectEntryLabel.font = [UIFont fontWithName:kProximaNovaRegular size:18.0f];
+    selectEntryLabel.textColor = [UIColor appTextColor];
+    selectEntryLabel.backgroundColor = [UIColor whiteColor];
+    [view addSubview:selectEntryLabel];
+    view.backgroundColor = [UIColor whiteColor];
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, kTableCellHeight - 1, self.stationsListTableView.bounds.size.width, 1)];
+    bottomBorder.backgroundColor = [UIColor lightGrayColor];
+    [view addSubview:bottomBorder];
+    return view;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -76,22 +90,22 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     StationsDestinationsCell *cell = (StationsDestinationsCell *)[tableView dequeueReusableCellWithIdentifier:kStationsCellIdentifier forIndexPath:indexPath];
     cell.selectedStatusBtn.hidden = YES;
-    if (indexPath.row == 0) {
-        cell.nameLabel.text = self.isStationSelected?@"Select station":@"Select designation";
-        tableView.separatorColor = [UIColor darkGrayColor];
-        return cell;
-    }
+    cell.cellControlActionButton.tag = indexPath.row;
+    [cell.cellControlActionButton addTarget:self action:@selector(cellControlActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     NSInteger selectedIndex;
     if (self.isStationSelected) {
         selectedIndex = [AppUtilityClass getIntValueForKey:kSelectedStationIndex];
-        Stations *obj = [self.array objectAtIndex:indexPath.row - 1];
+        Stations *obj = [self.array objectAtIndex:indexPath.row];
         cell.nameLabel.text = obj.stationName;
     }else {
         selectedIndex = [AppUtilityClass getIntValueForKey:kSelectedDesignationIndex];
-        Designation *obj = [self.array objectAtIndex:indexPath.row - 1];
+        Designation *obj = [self.array objectAtIndex:indexPath.row];
         cell.nameLabel.text = obj.designationName;
     }
 
+    if (indexPath.row == (self.array.count - 1)) {
+        [AppUtilityClass shapeBottomCell:cell withRadius:6.0];
+    }
     if (selectedIndex == indexPath.row) {
         cell.nameLabel.textColor = RGBACOLOR(79, 141, 233, 1.0);
         cell.selectedStatusBtn.hidden = NO;
@@ -112,17 +126,21 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (void)cellControlActionButtonClicked:(UIButton*)sender {
     if (self.isStationSelected) {
-        [AppUtilityClass storeIntValue:indexPath.row forKey:kSelectedStationIndex];
+        [AppUtilityClass storeIntValue:sender.tag forKey:kSelectedStationIndex];
     }else {
-        [AppUtilityClass storeIntValue:indexPath.row forKey:kSelectedDesignationIndex];
+        [AppUtilityClass storeIntValue:sender.tag forKey:kSelectedDesignationIndex];
     }
     if (self.isStationSelected) {
-        Stations *obj = [self.array objectAtIndex:indexPath.row - 1];
-        [self.delegate userSelectedEntry:obj.stationName isStation:YES];
+        Stations *obj = [self.array objectAtIndex:sender.tag];
+        [self.delegate userSelectedState:obj];
     }else {
-        Designation *obj = [self.array objectAtIndex:indexPath.row - 1];
-        [self.delegate userSelectedEntry:obj.designationName isStation:NO];
+        Designation *obj = [self.array objectAtIndex:sender.tag];
+        [self.delegate userSelectedDesignations:obj];
     }
     [self removeViewFromSuperView];
 }

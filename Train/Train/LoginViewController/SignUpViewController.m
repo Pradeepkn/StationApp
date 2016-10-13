@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import "SignUpApi.h"
+#import "AppConstants.h"
 #import "AppUtilityClass.h"
 #import "SignUpEntryCell.h"
 #import "IQKeyboardManager.h"
@@ -41,6 +42,25 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 }
 
 - (IBAction)signUpButtonClicked:(id)sender {
+    if (![inputValues objectForKey:@"0"]) {
+        [AppUtilityClass showErrorMessage:@"Please enter first name"];
+        return;
+    }else if (![inputValues objectForKey:@"1"]) {
+        [AppUtilityClass showErrorMessage:@"Please enter last name"];
+        return;
+    }else if (![inputValues objectForKey:@"2"]) {
+        [AppUtilityClass showErrorMessage:@"Please choose designation."];
+        return;
+    }else if (![inputValues objectForKey:@"3"]) {
+        [AppUtilityClass showErrorMessage:@"Please choose station."];
+        return;
+    }else if (![inputValues objectForKey:@"4"]) {
+        [AppUtilityClass showErrorMessage:@"Please enter valid email address"];
+        return;
+    }else if (![[inputValues objectForKey:@"5"] isEqualToString:[inputValues objectForKey:@"6"]]) {
+        [AppUtilityClass showErrorMessage:@"Password entered doesn't match"];
+        return;
+    }
     [self callSignUpApi];
 }
 
@@ -82,6 +102,10 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     signUpEntryCell.entryTextField.tag = indexPath.row;
     signUpEntryCell.entryTextField.delegate = self;
     [signUpEntryCell.dropDownButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
+    
+    NSString *keyValue = [NSString stringWithFormat:@"%ld", indexPath.row];
+    signUpEntryCell.entryTextField.text = [inputValues objectForKey:keyValue];
+    
     switch (indexPath.row) {
         case 0:
             [signUpEntryCell.entryTextField setPlaceholder:@"First name"];
@@ -157,7 +181,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
                 signUpApi.email = [inputValues objectForKey:keyValue];
                 break;
             case 5:
-                signUpApi.password = [AppUtilityClass calculateSHA:[inputValues objectForKey:keyValue]];
+                signUpApi.password = [inputValues objectForKey:keyValue];
                 break;
             default:
                 break;
@@ -166,12 +190,16 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
     [[APIManager sharedInstance]makePostAPIRequestWithObject:signUpApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        NSLog(@"Response = %@", responseDictionary);
-        [AppUtilityClass hideLoaderFromView:weakSelf.view];
-        if (!error) {
-        }else{
-            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
-        }
+            [AppUtilityClass storeIntValue:-1 forKey:kSelectedStationIndex];
+            [AppUtilityClass storeIntValue:-1 forKey:kSelectedDesignationIndex];
+            NSLog(@"Response = %@", responseDictionary);
+            [AppUtilityClass hideLoaderFromView:weakSelf.view];
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
+            [self.navigationController popViewControllerAnimated:YES];
+            if (!error) {
+            }else{
+                [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+            }
     }];
 }
 
@@ -189,14 +217,16 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }];
 }
 
-- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation{
-    NSString *keyValue;
-    if (isStation) {
-        keyValue = @"3";
-    }else {
-        keyValue = @"2";
-    }
-    [inputValues setObject:selectedEntry forKey:keyValue];
+- (void)userSelectedState:(Stations *)selectedStation{
+    NSString *keyValue = @"3";
+    [inputValues setObject:selectedStation.stationName forKey:keyValue];
+    [self.signUpTableView reloadData];
+}
+
+- (void)userSelectedDesignations:(Designation *)selectedDesignation {
+    NSString *keyValue = @"2";
+    [inputValues setObject:selectedDesignation.designationName forKey:keyValue];
+    [self.signUpTableView reloadData];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

@@ -30,4 +30,6 @@
 
 + (UIColor *)appdarkColorButtons;
 
++ (UIColor *)appTextColor;
+
 @end

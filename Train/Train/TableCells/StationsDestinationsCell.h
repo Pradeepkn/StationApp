@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectedStatusBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cellControlActionButton;
 
 @end

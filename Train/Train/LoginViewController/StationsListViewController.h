@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Stations+CoreDataClass.h"
+#import "Designation+CoreDataClass.h"
 
 @protocol StationDesignationDelegate <NSObject>
 
-- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation;
+- (void)userSelectedState:(Stations *)selectedStation;
+- (void)userSelectedDesignations:(Designation *)selectedDesignation;
 
 @end
 

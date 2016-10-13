@@ -130,7 +130,7 @@ const int kWhatsNewTableView = 3000;
         UIView *view = [UIView new];
         UILabel *overAllStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.bounds.size.width - 15, 20)];
         overAllStatusLabel.text = @"Over All Status";
-        overAllStatusLabel.font = [UIFont fontWithName:@"Verdana" size:15.0f];
+        overAllStatusLabel.font = [UIFont fontWithName:kProximaNovaSemibold size:16.0f];
         overAllStatusLabel.textColor = [UIColor darkGrayColor];
         [view addSubview:overAllStatusLabel];
         view.backgroundColor = self.view.backgroundColor;
@@ -312,10 +312,9 @@ const int kWhatsNewTableView = 3000;
     }];
 }
 
-- (void)userSelectedEntry:(NSString*)selectedEntry isStation:(BOOL)isStation{
-    if (isStation) {
-    }else {
-    }
+- (void)userSelectedState:(Stations *)selectedStation{
+    LeaveMessageCell *messageCell = [self getLeaveMessageCell];
+    [messageCell.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -347,13 +346,11 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    LeaveMessageCell *messageCell;
+    LeaveMessageCell *messageCell = [self getLeaveMessageCell];
     NSString *placeHolderText = @"";
     if (informationIndexPath) {
-        messageCell = (LeaveMessageCell *)[self.homeTopTableView cellForRowAtIndexPath:informationIndexPath];
         placeHolderText = @"Leave a message";
     }else {
-        messageCell = (LeaveMessageCell *)[self.whatsNewTableView cellForRowAtIndexPath:whatsNewIndexPath];
         placeHolderText = @"Write an update";
     }
     if (textView.text.length > 0) {
@@ -361,6 +358,16 @@ const int kWhatsNewTableView = 3000;
     }else {
         messageCell.leaveMessageTextField.placeholder = placeHolderText;
     }
+}
+
+- (LeaveMessageCell *)getLeaveMessageCell {
+    LeaveMessageCell *messageCell;
+    if (informationIndexPath) {
+        messageCell = (LeaveMessageCell *)[self.homeTopTableView cellForRowAtIndexPath:informationIndexPath];
+    }else {
+        messageCell = (LeaveMessageCell *)[self.whatsNewTableView cellForRowAtIndexPath:whatsNewIndexPath];
+    }
+    return messageCell;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
