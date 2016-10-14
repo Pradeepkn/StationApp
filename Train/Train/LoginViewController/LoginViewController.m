@@ -14,6 +14,7 @@
 #import "CoreDataManager.h"
 #import "AppConstants.h"
 #import "UIColor+AppColor.h"
+#import "ForgotPasswordApi.h"
 
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
@@ -132,10 +133,24 @@ static NSInteger kKeyBoardOffSet = 100;
 }
 
 - (IBAction)forgotPasswordButtonClicked:(id)sender {
-    if (self.usernameTxtField.text.length <= 0 || [AppUtilityClass validateEmail:self.usernameTxtField.text]) {
+    if (self.usernameTxtField.text.length <= 0) {
         [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter valid e-mail address.", nil)];
         return;
     }
+    __weak LoginViewController *weakSelf = self;
+
+    ForgotPasswordApi *forgotPasswordApiObject = [ForgotPasswordApi new];
+    forgotPasswordApiObject.email = self.usernameTxtField.text;
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:forgotPasswordApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter unique code sent to your email", nil)];
+                                              if (!error) {
+                                              }else{
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                              }
+                                          }];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

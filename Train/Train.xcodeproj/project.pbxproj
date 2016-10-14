@@ -16,6 +16,7 @@
 		E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C8E1DA06871005D09A5 /* SendMessageViewController.m */; };
 		E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C941DA073F9005D09A5 /* OverallStatusCell.m */; };
 		E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C971DA076AC005D09A5 /* StationsStatusCell.m */; };
+		E99DB5311DB114A10074E90E /* ForgotPasswordApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E99DB5301DB114A10074E90E /* ForgotPasswordApi.m */; };
 		E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964E61DACBEB6009364CD /* StationsListViewController.m */; };
 		E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */; };
 		E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */; };
@@ -76,6 +77,8 @@
 		E98C0C941DA073F9005D09A5 /* OverallStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverallStatusCell.m; sourceTree = "<group>"; };
 		E98C0C961DA076AC005D09A5 /* StationsStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsStatusCell.h; sourceTree = "<group>"; };
 		E98C0C971DA076AC005D09A5 /* StationsStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsStatusCell.m; sourceTree = "<group>"; };
+		E99DB52F1DB114A10074E90E /* ForgotPasswordApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordApi.h; sourceTree = "<group>"; };
+		E99DB5301DB114A10074E90E /* ForgotPasswordApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordApi.m; sourceTree = "<group>"; };
 		E9C964E51DACBEB6009364CD /* StationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsListViewController.h; sourceTree = "<group>"; };
 		E9C964E61DACBEB6009364CD /* StationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsListViewController.m; sourceTree = "<group>"; };
 		E9C964E91DACC6F7009364CD /* Designation+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				E9F8A1581DAC21940057531B /* LoginApi.m */,
 				E9F8A15A1DAC25850057531B /* GetStationDesignationApi.h */,
 				E9F8A15B1DAC25850057531B /* GetStationDesignationApi.m */,
+				E99DB52F1DB114A10074E90E /* ForgotPasswordApi.h */,
+				E99DB5301DB114A10074E90E /* ForgotPasswordApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
 				E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */,
+				E99DB5311DB114A10074E90E /* ForgotPasswordApi.m in Sources */,
 				E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
 				E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */,
