@@ -1,17 +1,17 @@
 //
-//  ForgotPasswordApi.m
+//  ResetPasswordApi.m
 //  Train
 //
 //  Created by Pradeep Narendra on 10/14/16.
 //  Copyright © 2016 Pradeep. All rights reserved.
 //
 
-#import "ForgotPasswordApi.h"
+#import "ResetPasswordApi.h"
 #import "ApiKeys.h"
 #import "AppConstants.h"
 #import "AppUtilityClass.h"
 
-@implementation ForgotPasswordApi
+@implementation ResetPasswordApi
 
 -(instancetype)init{
     if(self = [super init]){
@@ -21,11 +21,11 @@
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/forgotPassword",[super baseURL]];
+    return [NSString stringWithFormat:@"%@/updatePassword",[super baseURL]];
 }
 
 - (NSMutableDictionary *)requestParameters{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email] forKeys:@[kEmailKey]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email, self.password, self.authKey] forKeys:@[kEmailKey, kPasswordKey,kAuthKey]];
     return parameters;
 }
 
@@ -39,7 +39,7 @@
 }
 
 - (NSString *)customRawBody {
-    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email] forKeys:@[kEmailKey]];
+    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email, [AppUtilityClass calculateSHA:self.password], self.authKey] forKeys:@[kEmailKey, kPasswordKey,kAuthKey]];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:rawBody
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
