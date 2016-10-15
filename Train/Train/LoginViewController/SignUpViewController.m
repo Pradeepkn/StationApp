@@ -67,7 +67,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48;
+    return 50;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -96,7 +96,6 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SignUpEntryCell *signUpEntryCell = (SignUpEntryCell *)[tableView dequeueReusableCellWithIdentifier:kSignUpEntryCellIdentifier forIndexPath:indexPath];
-    [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
     signUpEntryCell.dropDownButton.hidden = YES;
     signUpEntryCell.entryTextField.secureTextEntry = NO;
     signUpEntryCell.entryTextField.tag = indexPath.row;
@@ -109,31 +108,42 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     switch (indexPath.row) {
         case 0:
             [signUpEntryCell.entryTextField setPlaceholder:@"First name"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
             break;
         case 1:
             [signUpEntryCell.entryTextField setPlaceholder:@"Last name"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
             break;
         case 2:
             [signUpEntryCell.entryTextField setPlaceholder:@"Designation"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"designation"] forState:UIControlStateNormal];
             signUpEntryCell.dropDownButton.hidden = NO;
             signUpEntryCell.dropDownButton.tag = 100;
             signUpEntryCell.entryTextField.userInteractionEnabled = NO;
+            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
+                            forKeyPath:@"_placeholderLabel.textColor"];
             break;
         case 3:
             [signUpEntryCell.entryTextField setPlaceholder:@"Choose station"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"location-icon"] forState:UIControlStateNormal];
             signUpEntryCell.dropDownButton.hidden = NO;
             signUpEntryCell.dropDownButton.tag = 200;
             signUpEntryCell.entryTextField.userInteractionEnabled = NO;
+            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
+                                          forKeyPath:@"_placeholderLabel.textColor"];
             break;
         case 4:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"email"] forState:UIControlStateNormal];
             break;
         case 5:
             [signUpEntryCell.entryTextField setPlaceholder:@"Password"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"password"] forState:UIControlStateNormal];
             signUpEntryCell.entryTextField.secureTextEntry = YES;
             break;
         case 6:
             [signUpEntryCell.entryTextField setPlaceholder:@"Confirm password"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"password"] forState:UIControlStateNormal];
             signUpEntryCell.entryTextField.secureTextEntry = YES;
             break;
         default:

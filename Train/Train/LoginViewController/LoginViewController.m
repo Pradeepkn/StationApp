@@ -18,8 +18,9 @@
 
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
+static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegue";
 
-static NSInteger kKeyBoardOffSet = 100;
+static NSInteger kKeyBoardOffSet = 120;
 
 @interface LoginViewController () {
     BOOL isPasswordHidden;
@@ -61,6 +62,7 @@ static NSInteger kKeyBoardOffSet = 100;
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     self.navigationController.navigationBarHidden = YES;
+    self.usernameTxtField.autocorrectionType = UITextAutocorrectionTypeNo;
     [self.appNameLabel setAttributedText: [AppUtilityClass updateStationAppTextForLabel:self.appNameLabel]];
 }
 
@@ -108,8 +110,8 @@ static NSInteger kKeyBoardOffSet = 100;
     if (self.rememberMeButton.tag == 100 || self.rememberMeLabelBtn.tag == 100) {
         self.rememberMeLabelBtn.tag = self.rememberMeButton.tag = 200;
         isRememberMeEnabled = YES;
-        [self.rememberMeButton setBackgroundColor:[UIColor appRedColor]];
-        [self.rememberMeLabelBtn setTitleColor:[UIColor appRedColor] forState:UIControlStateNormal];
+        [self.rememberMeButton setBackgroundColor:[UIColor appGreenColor]];
+        [self.rememberMeLabelBtn setTitleColor:[UIColor appGreenColor] forState:UIControlStateNormal];
     }else{
         self.rememberMeLabelBtn.tag = self.rememberMeButton.tag = 100;
         isRememberMeEnabled = NO;
@@ -138,14 +140,16 @@ static NSInteger kKeyBoardOffSet = 100;
         return;
     }
     __weak LoginViewController *weakSelf = self;
+    [AppUtilityClass showLoaderOnView:self.view];
 
     ForgotPasswordApi *forgotPasswordApiObject = [ForgotPasswordApi new];
     forgotPasswordApiObject.email = self.usernameTxtField.text;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:forgotPasswordApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass storeUserEmail:self.usernameTxtField.text];
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter unique code sent to your email", nil)];
+                                              [self performSegueWithIdentifier:kResetPasswordSegueIdentifier sender:self];
                                               if (!error) {
                                               }else{
                                                   [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];

@@ -10,6 +10,7 @@
 		E790C846E232A3B42C7B7E18 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D136A230158CADF79AE180 /* libPods-Train.a */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
+		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
 		E98C0C811DA03B40005D09A5 /* LeaveMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */; };
 		E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C861DA057ED005D09A5 /* WhatsNewCell.m */; };
 		E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C8B1DA06866005D09A5 /* StationInfoViewController.m */; };
@@ -67,6 +68,8 @@
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
 		E95F0DB71D9F80D6008BFC77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
 		E95F0DB91D9F80D9008BFC77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		E96B97D51DB17AE300D0FCE4 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		E98C0C7F1DA03B40005D09A5 /* LeaveMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveMessageCell.h; sourceTree = "<group>"; };
 		E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveMessageCell.m; sourceTree = "<group>"; };
 		E98C0C851DA057ED005D09A5 /* WhatsNewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewCell.h; sourceTree = "<group>"; };
@@ -334,6 +337,8 @@
 				E9FB6B621DA9834700769D8C /* SignUpViewController.m */,
 				E9C964E51DACBEB6009364CD /* StationsListViewController.h */,
 				E9C964E61DACBEB6009364CD /* StationsListViewController.m */,
+				E96B97D51DB17AE300D0FCE4 /* ResetPasswordViewController.h */,
+				E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -544,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */,
+				E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
 				E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */,

@@ -36,7 +36,7 @@
 }
 
 + (UIColor *)appGreenColor {
-    return RGBACOLOR(93, 219, 91, 1.0); //#5DDB5B
+    return RGBACOLOR(149, 215, 109, 1.0); //#5DDB5B
 }
 
 + (UIColor *)appYellowColor {
