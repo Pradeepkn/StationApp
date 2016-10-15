@@ -20,6 +20,12 @@
 #import "StationInfoViewController.h"
 #import "AppConstants.h"
 #import "StationsListViewController.h"
+#import "CoreDataManager.h"
+#import "PostOnWallApi.h"
+#import "GetWallMessagesApi.h"
+#import "WhatsNewMessagesApi.h"
+#import "SendWhatsNewMessage.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -31,16 +37,25 @@ static NSString *const kSendMessageSegueIdentifier = @"SendMessageSegue";
 static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
 static NSString *const kSationGalleryInfoSegueIdentifier = @"SationGalleryInfoSegue";
 
+static NSString *const kLeaveAMessageKey = @"Leave a message";
+static NSString *const kWriteAnUpdate = @"Write an update";
+
 const int kTopTableView = 1000;
 const int kOverallStatusTableView = 2000;
 const int kWhatsNewTableView = 3000;
 
-@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, StationDesignationDelegate> {
+const int kLeaveAMessageTag = 101;
+const int kWriteUpdateMessageTag = 201;
+
+@interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, StationDesignationDelegate, NSFetchedResultsControllerDelegate> {
     UIColor *unselectedButtonColor;
     UIColor *selectedButtonColor;
     NSMutableArray *messagesArray;
     NSIndexPath *informationIndexPath;
     NSIndexPath *whatsNewIndexPath;
+    NSInteger messagesCount;
+    NSInteger stationsCount;
+    NSInteger whatsNewMessagesCount;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTopTableView;
@@ -52,6 +67,17 @@ const int kWhatsNewTableView = 3000;
 @property (weak, nonatomic) IBOutlet UIView *whatsNewContainerView;
 @property (weak, nonatomic) IBOutlet UITableView *whatsNewTableView;
 
+@property (strong, nonatomic) LeaveMessageCell *leaveAMessageCell;
+@property (strong, nonatomic) LeaveMessageCell *writeAnUpdateMessageCell;
+
+@property (strong, nonatomic) User *loggedInUser;
+@property (strong, nonatomic) Stations *selectedStation;
+
+@property (nonatomic, strong) NSFetchedResultsController *messagesFetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *stationsFetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *imagesFetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *whatsNewFetchedResultsController;
+
 @end
 
 @implementation HomeViewController
@@ -60,8 +86,11 @@ const int kWhatsNewTableView = 3000;
     [super viewDidLoad];
     selectedButtonColor = self.informationButton.titleLabel.textColor;
     unselectedButtonColor = self.whatsNewButton.titleLabel.textColor;
-    messagesArray = [NSMutableArray arrayWithObjects:@"",@"I congratulate to all DRM's and thier teams for thier efforts to make this project successful and we would like to thank for each and everyone for thier contribution.I congratulate to all DRM's and thier teams for thier efforts to make this project successful and we would like to thank for each and everyone for thier contribution.", @"Tommorrow we will be starting new project", @"Bengaluru station work started", nil];
+    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
+    [self getHomeMessages];
     [self informationButtonClicked:nil];
+    [self initializeMessagesFetchedResultsController];
+    [self getWhatsNewMessages];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
@@ -69,32 +98,165 @@ const int kWhatsNewTableView = 3000;
     self.whatsNewContainerView.hidden = YES;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.whatsNewButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
+    [self.whatsNewButton setImage:[UIImage imageNamed:@"whats-news-unactive"] forState:UIControlStateNormal];
+    [self.informationButton setImage:[UIImage imageNamed:@"information-active"] forState:UIControlStateNormal];
     [self.homeTopTableView reloadData];
 }
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {
-    informationIndexPath = nil;
     self.whatsNewContainerView.hidden = NO;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
-    [self.whatsNewTableView reloadData];
+    [self.informationButton setTintColor:unselectedButtonColor];
+    [self.whatsNewButton setImage:[UIImage imageNamed:@"whats-news-active"] forState:UIControlStateNormal];
+    [self.informationButton setImage:[UIImage imageNamed:@"information-unactive"] forState:UIControlStateNormal];
+}
+
+- (void)getHomeMessages {
+    GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
+    wallMessagesApiObject.email = self.loggedInUser.email;
+    [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
+- (void)getWhatsNewMessages {
+    __weak HomeViewController *weakSelf = self;
+    WhatsNewMessagesApi *whatsNewMessageApiObject = [WhatsNewMessagesApi new];
+    whatsNewMessageApiObject.email = self.loggedInUser.email;
+    [[APIManager sharedInstance]makeAPIRequestWithObject:whatsNewMessageApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+            [weakSelf.whatsNewTableView reloadData];
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
+- (void)postMessagesOnWall:(NSString *)message {
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak HomeViewController *weakSelf = self;
+    PostOnWallApi *postOnWallApiObject = [PostOnWallApi new];
+    postOnWallApiObject.email = self.loggedInUser.email;
+    postOnWallApiObject.designation = self.loggedInUser.designation;
+    postOnWallApiObject.message = message;
+    
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:postOnWallApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              if (!error) {
+                                                  [self getHomeMessages];
+                                              }else{
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                              }
+                                          }];
+}
+
+- (void)postWhatsNewMessage:(NSString *)message {
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak HomeViewController *weakSelf = self;
+    SendWhatsNewMessage *postOnWallApiObject = [SendWhatsNewMessage new];
+    postOnWallApiObject.email = self.loggedInUser.email;
+    postOnWallApiObject.stationId = self.selectedStation.stationId;
+    postOnWallApiObject.message = message;
+    
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:postOnWallApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              if (!error) {
+                                                  [self getWhatsNewMessages];
+                                              }else{
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                              }
+                                          }];
+}
+
+- (void)initializeMessagesFetchedResultsController
+{
+    NSManagedObjectContext *moc = [[CoreDataManager sharedManager] managedObjectContext];
+    
+    [self setMessagesFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getMessagesFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
+    [[self messagesFetchedResultsController] setDelegate:self];
+    
+    NSError *error = nil;
+    if (![[self messagesFetchedResultsController] performFetch:&error]) {
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+    
+    [self setStationsFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getStationsFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
+    [[self stationsFetchedResultsController] setDelegate:self];
+    
+    if (![[self stationsFetchedResultsController] performFetch:&error]) {
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+    
+    [self setImagesFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getHomeImagesFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
+    [[self imagesFetchedResultsController] setDelegate:self];
+    
+    if (![[self imagesFetchedResultsController] performFetch:&error]) {
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+    
+    [self setWhatsNewFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getWhatsNewMessagesFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
+    [[self whatsNewFetchedResultsController] setDelegate:self];
+    
+    if (![[self whatsNewFetchedResultsController] performFetch:&error]) {
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+}
+
+- (NSFetchRequest *)getMessagesFetchRequest {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Messages"];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
+    [request setSortDescriptors:@[message]];
+    return request;
+}
+
+- (NSFetchRequest *)getStationsFetchRequest {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stations"];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"stationName" ascending:YES];
+    [request setSortDescriptors:@[stations]];
+    return request;
+}
+
+- (NSFetchRequest *)getHomeImagesFetchRequest {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:YES];
+    [request setSortDescriptors:@[stations]];
+    return request;
+}
+
+- (NSFetchRequest *)getWhatsNewMessagesFetchRequest {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"WhatsNewMessages"];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:YES];
+    [request setSortDescriptors:@[stations]];
+    return request;
 }
 
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == kTopTableView) {
-        if (indexPath.row == 0) {
-            return 60;
-        }
-        return [AppUtilityClass sizeOfText:[messagesArray objectAtIndex:indexPath.row] widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 80;
+        Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 80;
     } else if (tableView.tag == kOverallStatusTableView) {
         return 40;
     }else if (tableView.tag == kWhatsNewTableView) {
-        if (indexPath.row == 0) {
-            return 100;
-        }
-        return 70;
+        WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
+        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.whatsNewTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 40;
     }
     return 0;
 }
@@ -105,11 +267,15 @@ const int kWhatsNewTableView = 3000;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView.tag == kTopTableView) {
-        return messagesArray.count;
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self messagesFetchedResultsController] sections][section];
+        messagesCount = [sectionInfo numberOfObjects];
+        return messagesCount ;
     } else if (tableView.tag == kOverallStatusTableView) {
-        return 4;
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationsFetchedResultsController] sections][section];
+        return stationsCount = [sectionInfo numberOfObjects];
     }
-    return (1+3);
+    id< NSFetchedResultsSectionInfo> sectionInfo = [[self whatsNewFetchedResultsController] sections][section];
+    return whatsNewMessagesCount = [sectionInfo numberOfObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -118,15 +284,17 @@ const int kWhatsNewTableView = 3000;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView.tag == kTopTableView) {
-        return 0;
+        return 60;
     } else if (tableView.tag == kOverallStatusTableView) {
         return 25;
+    }else  if (tableView.tag == kWhatsNewTableView) {
+        return 100;
     }
     return 0;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (tableView.tag != kTopTableView) {
+    if (tableView.tag == kOverallStatusTableView) {
         UIView *view = [UIView new];
         UILabel *overAllStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.bounds.size.width - 15, 20)];
         overAllStatusLabel.text = @"Over All Status";
@@ -136,33 +304,42 @@ const int kWhatsNewTableView = 3000;
         view.backgroundColor = self.view.backgroundColor;
         return view;
     }
+    if (tableView.tag == kTopTableView) {
+        self.leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier];
+        self.leaveAMessageCell.leaveMessageTextField.delegate = self;
+        self.leaveAMessageCell.leaveMessageTextView.delegate = self;
+        self.leaveAMessageCell.leaveMessageTextView.tag = kLeaveAMessageTag;
+        return self.leaveAMessageCell;
+    }
+    if (tableView.tag == kWhatsNewTableView) {
+        self.writeAnUpdateMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier];
+        [self.writeAnUpdateMessageCell.selectStationButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
+        self.writeAnUpdateMessageCell.leaveMessageTextField.delegate = self;
+        self.writeAnUpdateMessageCell.leaveMessageTextView.delegate = self;
+        self.writeAnUpdateMessageCell.leaveMessageTextView.tag = kWriteUpdateMessageTag;
+        return self.writeAnUpdateMessageCell;
+    }
     return [UIView new];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == kTopTableView) {
+        HomeMessagesCell *messagesCell = (HomeMessagesCell *)[tableView dequeueReusableCellWithIdentifier:kHomeMessagesCellIdentifier forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            LeaveMessageCell *leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier forIndexPath:indexPath];
-            tableView.separatorColor = [UIColor clearColor];
-            leaveAMessageCell.leaveMessageTextField.delegate = self;
-            leaveAMessageCell.leaveMessageTextView.delegate = self;
-            informationIndexPath = indexPath;
-            return leaveAMessageCell;
+            [AppUtilityClass shapeTopCell:messagesCell withRadius:kBubbleRadius];
         }
-            HomeMessagesCell *messagesCell = (HomeMessagesCell *)[tableView dequeueReusableCellWithIdentifier:kHomeMessagesCellIdentifier forIndexPath:indexPath];
-            if (indexPath.row == 1) {
-                [AppUtilityClass shapeTopCell:messagesCell withRadius:kBubbleRadius];
-            }else if(indexPath.row == (messagesArray.count - 1)){
-                [AppUtilityClass shapeBottomCell:messagesCell withRadius:kBubbleRadius];
-            }
-            messagesCell.messageDescriptionLabel.text = [messagesArray objectAtIndex:indexPath.row];
-            return messagesCell;
-        } else if (tableView.tag == kOverallStatusTableView){
+        if(indexPath.row == (messagesCount - 1) || messagesCount == 1){
+            [AppUtilityClass shapeBottomCell:messagesCell withRadius:kBubbleRadius];
+        }
+        [self configureMessagesCell:messagesCell atIndexPath:indexPath];
+        return messagesCell;
+    } else if (tableView.tag == kOverallStatusTableView){
         StationsStatusCell *overallStatusCell = (StationsStatusCell *)[tableView dequeueReusableCellWithIdentifier:kOverallStatusCellIdentifier forIndexPath:indexPath];
         if (indexPath.row == 0) {
             [AppUtilityClass shapeTopCell:overallStatusCell withRadius:kBubbleRadius];
             overallStatusCell.statusColor.backgroundColor = [UIColor redColor];
-        }else if (indexPath.row == 3) {
+        }
+        if (indexPath.row == stationsCount - 1) {
             [AppUtilityClass shapeBottomCell:overallStatusCell withRadius:kBubbleRadius];
             tableView.separatorColor = [UIColor clearColor];
         }
@@ -172,24 +349,36 @@ const int kWhatsNewTableView = 3000;
         [overallStatusCell.infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         overallStatusCell.stationStatusActionButton.tag = indexPath.row;
         [overallStatusCell.stationStatusActionButton addTarget:self action:@selector(stationStatusButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self configureStationsCell:overallStatusCell atIndexPath:indexPath];
         return overallStatusCell;
     }else if (tableView.tag == kWhatsNewTableView) {
-        if (indexPath.row == 0) {
-            LeaveMessageCell *leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier forIndexPath:indexPath];
-            whatsNewIndexPath = indexPath;
-            tableView.separatorColor = [UIColor clearColor];
-            [leaveAMessageCell.selectStationButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
-            return leaveAMessageCell;
-        }
         WhatsNewCell *whatsNewCell = (WhatsNewCell *)[tableView dequeueReusableCellWithIdentifier:kWhatsNewCellIdentifier forIndexPath:indexPath];
-        if (indexPath.row == 1) {
-            [AppUtilityClass shapeTopCell:whatsNewCell withRadius:kBubbleRadius];
-        }else if(indexPath.row == 3){
-            [AppUtilityClass shapeBottomCell:whatsNewCell withRadius:kBubbleRadius];
-        }
+        [self configureWhatsNewCell:whatsNewCell atIndexPath:indexPath];
         return whatsNewCell;
     }
     return [UITableViewCell new];
+}
+
+- (void)configureMessagesCell:(HomeMessagesCell *)messagesCell atIndexPath:(NSIndexPath*)indexPath
+{
+    Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+    messagesCell.messageDescriptionLabel.text = object.message;
+    messagesCell.headerLabel.text = object.designation;
+    messagesCell.messageDateLabel.text = object.createDate;
+}
+
+- (void)configureStationsCell:(StationsStatusCell *)stationsCell atIndexPath:(NSIndexPath*)indexPath
+{
+    Stations *object = [[self stationsFetchedResultsController] objectAtIndexPath:indexPath];
+    stationsCell.stationLabel.text = object.stationName;
+}
+
+- (void)configureWhatsNewCell:(WhatsNewCell *)whatsNewCell atIndexPath:(NSIndexPath*)indexPath
+{
+    WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
+    whatsNewCell.stationLabel.text = object.stationName;
+    whatsNewCell.newsTextLabel.text = object.message;
+    whatsNewCell.dateLabel.text = object.createDate;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -208,6 +397,49 @@ const int kWhatsNewTableView = 3000;
     
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [[self homeTopTableView] beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [[self homeTopTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [[self homeTopTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeMove:
+        case NSFetchedResultsChangeUpdate:
+            break;
+    }
+}
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self configureMessagesCell:[[self homeTopTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+        case NSFetchedResultsChangeMove:
+            [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [[self homeTopTableView] endUpdates];
+}
+
 #pragma mark -
 #pragma mark - Collection View Data Source
 
@@ -216,65 +448,32 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSUInteger count = 4;
-    return count;
+    id< NSFetchedResultsSectionInfo> sectionInfo = [[self imagesFetchedResultsController] sections][section];
+    return  [sectionInfo numberOfObjects];;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
-    [self customiseCollectionCiewCell:cell];
+    [self customiseCollectionCiewCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-- (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell {
+- (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)imagesCell atIndexPath:(NSIndexPath *)indexPath{
+
+    HomeImages *object = [[self imagesFetchedResultsController] objectAtIndexPath:indexPath];
+    imagesCell.imageTitleLabel.text = object.imageName;
+    imagesCell.imageDescription.text = object.stationName;
+    NSString *imagePath = @"http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg";
+    [imagesCell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imagesCell.collectionImageView setImage:image];
+    }];
 }
 
 #pragma mark -
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self launchImage];
-}
-
-- (void)launchImage {
-    {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        imagePickerController.delegate = self;
-        
-        JTSActionSheetTheme *theme = [JTSActionSheetTheme defaultTheme];
-        theme.normalButtonColor = [UIColor redColor];
-        theme.destructiveButtonColor = [UIColor blackColor];
-        
-        NSMutableArray *actionSheetItemsArray = [NSMutableArray new];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            JTSActionSheetItem *camera = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonCamera, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                imagePickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            JTSActionSheetItem *gallery = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonGallery, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            [actionSheetItemsArray addObjectsFromArray:@[camera,gallery]];
-        } else {
-            JTSActionSheetItem *gallery = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonGallery, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            [actionSheetItemsArray addObjectsFromArray:@[gallery]];
-        }
-        
-        JTSActionSheetItem *cancel = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kGlobalButtonCancel, nil) action:nil isDestructive:NO];
-        
-        // Create & Show an Action Sheet
-        JTSActionSheet *sheet = [[JTSActionSheet alloc] initWithTheme:theme title:nil actionItems:actionSheetItemsArray cancelItem:cancel];
-        [sheet showInView:self.view];
-    }
+//    [self launchImage];
 }
 
 - (void)messageButtonClicked:(UIButton*)sender {
@@ -289,19 +488,6 @@ const int kWhatsNewTableView = 3000;
     [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
-#pragma mark - Image picker delegates
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
-
-
 - (void)showStationsOrDesignationsList:(UIButton *)sender {
     StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
     stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -313,8 +499,8 @@ const int kWhatsNewTableView = 3000;
 }
 
 - (void)userSelectedState:(Stations *)selectedStation{
-    LeaveMessageCell *messageCell = [self getLeaveMessageCell];
-    [messageCell.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
+    [self.writeAnUpdateMessageCell.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
+    self.selectedStation = selectedStation;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -339,20 +525,44 @@ const int kWhatsNewTableView = 3000;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
+        LeaveMessageCell *messageCell;
+        NSString *placeHolderText = @"";
+        
+        if (textView.tag == kLeaveAMessageTag) {
+            messageCell = self.leaveAMessageCell;
+            placeHolderText = kLeaveAMessageKey;
+            [self postMessagesOnWall:textView.text];
+            textView.text = @"";
+        }else {
+            messageCell = self.writeAnUpdateMessageCell;
+            if (self.selectedStation) {
+                placeHolderText = kWriteAnUpdate;
+                [self postWhatsNewMessage:textView.text];
+                textView.text = @"";
+            }else {
+                [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please select station", nil)];
+            }
+        }
+        messageCell.leaveMessageTextField.placeholder = placeHolderText;
         [textView resignFirstResponder];
+        [self reloadTableViews];
         return NO;
     }
     return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    LeaveMessageCell *messageCell = [self getLeaveMessageCell];
+    LeaveMessageCell *messageCell;
     NSString *placeHolderText = @"";
-    if (informationIndexPath) {
-        placeHolderText = @"Leave a message";
+
+    if (textView.tag == kLeaveAMessageTag) {
+        messageCell = self.leaveAMessageCell;
+        placeHolderText = kLeaveAMessageKey;
     }else {
-        placeHolderText = @"Write an update";
+        messageCell = self.writeAnUpdateMessageCell;
+        placeHolderText = kWriteAnUpdate;
     }
+
     if (textView.text.length > 0) {
         messageCell.leaveMessageTextField.placeholder = @"";
     }else {
@@ -360,18 +570,15 @@ const int kWhatsNewTableView = 3000;
     }
 }
 
-- (LeaveMessageCell *)getLeaveMessageCell {
-    LeaveMessageCell *messageCell;
-    if (informationIndexPath) {
-        messageCell = (LeaveMessageCell *)[self.homeTopTableView cellForRowAtIndexPath:informationIndexPath];
-    }else {
-        messageCell = (LeaveMessageCell *)[self.whatsNewTableView cellForRowAtIndexPath:whatsNewIndexPath];
-    }
-    return messageCell;
+- (void)reloadTableViews {
+    [self.homeTopTableView reloadData];
+    [self.homeTableView reloadData];
+    [self.whatsNewTableView reloadData];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+    [self reloadTableViews];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -38,6 +38,9 @@ static NSString *const kFirstName = @"firstName";
 static NSString *const kLastName = @"lastName";
 
 static NSString *const kAuthKey = @"authKey";
+static NSString *const kMessageKey = @"message";
+static NSString *const kStationIdKey = @"stationId";
+static NSString *const kTaskIdKey = @"taskId";
 
 static NSString *const kNameKey = @"name";
 static NSString *const kPhoneNumberKey = @"phone_number";

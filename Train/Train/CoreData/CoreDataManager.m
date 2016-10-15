@@ -112,7 +112,27 @@
     return YES;
 }
 
-#pragma mark - NearByLocation
+#pragma mark - Save User
+
+- (BOOL)saveLogedInUser:(NSDictionary *)logedInDict {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSString *email = [logedInDict valueForKey:@"email"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email == %@",email];
+    [request setPredicate:predicate];
+    NSArray *array = [moc executeFetchRequest:request error:nil];
+    if (array.count == 0) {
+        User *userModel = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+        [userModel setEmail:[logedInDict valueForKey:@"email"]];
+        [userModel setDesignation:[logedInDict valueForKey:@"designation"]];
+        [userModel setStationName:[logedInDict valueForKey:@"stationName"]];
+    }
+    return [self saveData];
+}
+
+#pragma mark - Save Stations
 
 - (BOOL)saveStations:(NSArray *)stations {
     NSManagedObjectContext *moc = [self managedObjectContext];
@@ -133,19 +153,7 @@
     return [self saveData];
 }
 
-
-- (NSArray *)fetchAllStations {
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
-    [request setEntity:entity];
-    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
-    NSArray *sortDescriptors = @[sortDescriptorGroup];
-    [request setSortDescriptors:sortDescriptors];
-    NSError *error = nil;
-    NSArray *result = [moc executeFetchRequest:request error:&error];
-    return  result;
-}
+#pragma mark - Save Designations
 
 - (BOOL)saveDesignations:(NSArray *)designations {
     NSManagedObjectContext *moc = [self managedObjectContext];
@@ -167,6 +175,133 @@
 }
 
 
+#pragma mark - Save Messages
+
+- (BOOL)saveMessages:(NSArray *)messages {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in messages) {
+        NSString *message = [dic valueForKey:@"message"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"message == %@",message];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            Messages *messages = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:moc];
+            [messages setMessage:[dic valueForKey:@"message"]];
+            [messages setDesignation:[dic valueForKey:@"designation"]];
+            [messages setCreateDate:[dic valueForKey:@"createDate"]];
+            [messages setAddedDate:[NSDate date ]];
+        }
+    }
+    return [self saveData];
+}
+
+#pragma mark - Save Home Images
+
+- (BOOL)saveHomeImages:(NSArray *)images {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in images) {
+        NSString *imagePath = [dic valueForKey:@"imagePath"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imagePath == %@",imagePath];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            HomeImages *images = [NSEntityDescription insertNewObjectForEntityForName:@"HomeImages" inManagedObjectContext:moc];
+            [images setImagePath:[dic valueForKey:@"imagePath"]];
+            [images setStationName:[dic valueForKey:@"stationName"]];
+            [images setImageName:[dic valueForKey:@"imageTitle"]];
+        }
+    }
+    return [self saveData];
+}
+
+#pragma mark - Save Station Tasks
+
+- (BOOL)saveStationTasks:(NSArray *)stationTasks {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in stationTasks) {
+        NSString *refId = [dic valueForKey:@"refId"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"refId == %@",refId];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            Tasks *tasks = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:moc];
+            [tasks setDomain:[dic valueForKey:@"domain"]];
+            [tasks setEventName:[dic valueForKey:@"eventName"]];
+            [tasks setRefId:[dic valueForKey:@"refId"]];
+        }
+    }
+    return [self saveData];
+}
+
+#pragma mark - Save Station sub tasks
+
+- (BOOL)saveSubTasks:(NSArray *)subTasks {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in subTasks) {
+        NSString *stationSubActivityInfoRef = [dic valueForKey:@"stationSubActivityInfoRef"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityInfoRef == %@",stationSubActivityInfoRef];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            SubTasks *subTasks = [NSEntityDescription insertNewObjectForEntityForName:@"SubTasks" inManagedObjectContext:moc];
+            [subTasks setName:[dic valueForKey:@"name"]];
+            [subTasks setStationSubActivityInfoRef:[dic valueForKey:@"stationSubActivityInfoRef"]];
+            [subTasks setExecuteAgency:[dic valueForKey:@"executeAgency"]];
+            [subTasks setDeadline:[dic valueForKey:@"deadline"]];
+            if ([[dic valueForKey:@"status"] isEqualToString:@"Completed"]) {
+                [subTasks setStatus:1];
+            }else {
+                [subTasks setStatus:0];
+            }
+        }
+    }
+    return [self saveData];
+}
+
+#pragma mark - User Object
+
+- (User *)fetchLogedInUser {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"email" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  (User *)[result firstObject];
+}
+
+#pragma mark - Fetch Stations
+
+- (NSArray *)fetchAllStations {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+#pragma mark - fetch All Destinations
+
 - (NSArray *)fetchAllDesignation {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -175,6 +310,44 @@
     NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"designationName" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptorGroup];
     [request setSortDescriptors:sortDescriptors];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+#pragma mark - fetch Home Messages
+
+- (NSArray *)fetchHomeMessages {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"addedDate" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+#pragma mark - fetch Home Images
+
+- (NSArray *)fetchHomeImages {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+#pragma mark - fetch What's new messages based on station name
+- (NSArray *)fetchWhatsNewMessages {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
+    [request setEntity:entity];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];
     return  result;

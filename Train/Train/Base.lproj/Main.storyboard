@@ -512,7 +512,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="tsk-Gp-mYO" secondAttribute="bottom" constant="12" id="uEh-Wu-KoC"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="leaveMessageContainerView" destination="tsk-Gp-mYO" id="U09-te-nV7"/>
                                             <outlet property="leaveMessageTextField" destination="O1w-h9-vDs" id="Jpe-VC-38W"/>
@@ -614,7 +613,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Escalator-img" translatesAutoresizingMaskIntoConstraints="NO" id="TEm-WO-ioh">
-                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -762,8 +761,9 @@
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D5L-82-ItO">
                                 <subviews>
-                                    <tableView clipsSubviews="YES" tag="3000" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XPH-vh-bzp">
+                                    <tableView clipsSubviews="YES" tag="3000" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XPH-vh-bzp">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="separatorColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeaveMessageCellIdentifier" rowHeight="100" id="G50-S1-tHR" customClass="LeaveMessageCell">
@@ -860,7 +860,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="ULU-eB-6aX" secondAttribute="trailing" id="znh-EM-8DM"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="leaveMessageContainerView" destination="ULU-eB-6aX" id="9FU-VV-v9B"/>
                                                     <outlet property="leaveMessageTextField" destination="1gh-E3-pEH" id="Jyx-sB-mxq"/>
@@ -876,12 +875,6 @@
                                                     <frame key="frameInset" width="355" height="69"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HvA-NU-GkE">
-                                                            <color key="backgroundColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="1" id="I7h-EM-Iqp"/>
-                                                            </constraints>
-                                                        </view>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylK-R8-hJ3">
                                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
@@ -923,11 +916,8 @@
                                                         <constraint firstItem="dm1-fQ-OmB" firstAttribute="leading" secondItem="34t-Tn-YdF" secondAttribute="leading" constant="35" id="DF2-HS-rep"/>
                                                         <constraint firstItem="AUh-M4-LMU" firstAttribute="leading" secondItem="ylK-R8-hJ3" secondAttribute="trailing" constant="10" id="KIx-yb-bCu"/>
                                                         <constraint firstAttribute="trailing" secondItem="tsl-rW-U3u" secondAttribute="trailing" constant="8" id="NDp-7a-6lm"/>
-                                                        <constraint firstItem="HvA-NU-GkE" firstAttribute="centerX" secondItem="ylK-R8-hJ3" secondAttribute="centerX" id="Q0E-Kk-kgT"/>
                                                         <constraint firstItem="tsl-rW-U3u" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" constant="4" id="fiy-ug-uF6"/>
-                                                        <constraint firstAttribute="bottom" secondItem="HvA-NU-GkE" secondAttribute="bottom" id="mME-oh-Xhe"/>
                                                         <constraint firstItem="ylK-R8-hJ3" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" constant="10" id="miw-dZ-brr"/>
-                                                        <constraint firstItem="HvA-NU-GkE" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" constant="10" id="nle-CP-W1J"/>
                                                         <constraint firstItem="ylK-R8-hJ3" firstAttribute="leading" secondItem="34t-Tn-YdF" secondAttribute="leading" constant="15" id="txq-T4-Ae9"/>
                                                         <constraint firstAttribute="bottom" secondItem="dm1-fQ-OmB" secondAttribute="bottom" constant="10" id="y1G-u5-rfw"/>
                                                     </constraints>
@@ -940,6 +930,11 @@
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="dataSource" destination="vRS-Wy-Ylg" id="v49-r9-Ged"/>
                                             <outlet property="delegate" destination="vRS-Wy-Ylg" id="YpE-AQ-y0h"/>
@@ -951,7 +946,7 @@
                                     <constraint firstItem="XPH-vh-bzp" firstAttribute="leading" secondItem="D5L-82-ItO" secondAttribute="leading" constant="10" id="MC2-J5-ZNO"/>
                                     <constraint firstItem="XPH-vh-bzp" firstAttribute="top" secondItem="D5L-82-ItO" secondAttribute="top" constant="10" id="afF-FP-24n"/>
                                     <constraint firstAttribute="trailing" secondItem="XPH-vh-bzp" secondAttribute="trailing" constant="10" id="hPa-QP-ypO"/>
-                                    <constraint firstAttribute="bottom" secondItem="XPH-vh-bzp" secondAttribute="bottom" id="xb0-tB-HTh"/>
+                                    <constraint firstAttribute="bottom" secondItem="XPH-vh-bzp" secondAttribute="bottom" constant="10" id="xb0-tB-HTh"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2Z-as-v1l">
@@ -1864,7 +1859,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

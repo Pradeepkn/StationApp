@@ -1,18 +1,17 @@
 //
-//  LoginApi.m
+//  SendWhatsNewMessage.m
 //  Train
 //
-//  Created by Pradeep Narendra on 10/11/16.
+//  Created by Pradeep Narendra on 10/15/16.
 //  Copyright © 2016 Pradeep. All rights reserved.
 //
 
-#import "LoginApi.h"
+#import "SendWhatsNewMessage.h"
 #import "ApiKeys.h"
 #import "AppConstants.h"
 #import "AppUtilityClass.h"
-#import "CoreDataManager.h"
 
-@implementation LoginApi
+@implementation SendWhatsNewMessage
 
 -(instancetype)init{
     if(self = [super init]){
@@ -22,11 +21,11 @@
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/loginUser",[super baseURL]];
+    return [NSString stringWithFormat:@"%@/sendWhatsNewMessages",[super baseURL]];
 }
 
 - (NSMutableDictionary *)requestParameters{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email,self.password] forKeys:@[kEmailKey,kPasswordKey]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email, self.message, self.stationId] forKeys:@[kEmailKey, kMessageKey,kStationIdKey]];
     return parameters;
 }
 
@@ -35,12 +34,12 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSDictionary *dictionay = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.email], @"Checksum", @"application/json", @"Content-Type",nil];
-    return dictionay;
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.stationId], @"Checksum", @"application/json", @"Content-Type",nil];
+    return dictionary;
 }
 
 - (NSString *)customRawBody {
-    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email,self.password] forKeys:@[kEmailKey,kPasswordKey]];
+    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email, self.message, self.stationId] forKeys:@[kEmailKey, kMessageKey,kStationIdKey]];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:rawBody
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
@@ -60,8 +59,7 @@
 }
 
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{
-    [[CoreDataManager sharedManager] saveLogedInUser:responseDictionary[@"data"]];
+    
 }
-
 
 @end
