@@ -7,7 +7,6 @@
 //
 
 #import "HomeViewController.h"
-#import <JTSActionSheet/JTSActionSheet.h>
 #import "GalleryCollectionViewCell.h"
 #import "HomeMessagesCell.h"
 #import "LeaveMessageCell.h"
@@ -502,6 +501,7 @@ const int kWriteUpdateMessageTag = 201;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
     [self customiseCollectionCiewCell:cell atIndexPath:indexPath];
+    [AppUtilityClass addOverlayOnView:cell.collectionImageView];
     return cell;
 }
 

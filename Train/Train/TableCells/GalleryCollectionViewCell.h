@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *collectionImageView;
 @property (weak, nonatomic) IBOutlet UILabel *imageTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageDescription;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @end

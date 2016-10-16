@@ -54,4 +54,9 @@
 + (UIColor *)appTextColor {
     return RGBACOLOR(110, 93, 93, 1.0);
 }
+
++ (UIColor *)appImageColor {
+    return RGBACOLOR(110, 93, 93, 1.0);
+}
+
 @end

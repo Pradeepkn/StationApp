@@ -57,4 +57,12 @@
 
 + (NSMutableAttributedString *)updateStationAppTextForLabel:(UILabel *)label;
 
++ (void)addOverlayOnView:(UIView *)view;
+
++ (CAShapeLayer *) addDashedBorderWithColor: (CGColorRef) color ForView:(UIView*)view;
+
++ (void)addBorderToView:(UIView*)view;
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
+
 @end

@@ -14,9 +14,11 @@
 #import "AppConstants.h"
 #import "StaionGalleryInfoApi.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "StationGalleryViewCell.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
+static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 
 @interface StationGalleryInfoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     
@@ -45,6 +47,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (IBAction)addButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:kUploadImageSegueIdentifier sender:self];
 }
 
 - (void)getStationTasks {
@@ -95,7 +98,8 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:kGalleryCellIdentifier forIndexPath:indexPath];
+    StationGalleryViewCell *cell = (StationGalleryViewCell *)[tableView dequeueReusableCellWithIdentifier:kGalleryCellIdentifier forIndexPath:indexPath];
+    cell.weekLabel.text = [self.weekKeys objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -130,6 +134,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
     [self customiseCollectionCiewCell:cell forIndexPath:indexPath];
+    [AppUtilityClass addOverlayOnView:cell.collectionImageView];
     return cell;
 }
 
@@ -147,59 +152,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self launchImage];
-}
 
-- (void)launchImage {
-    {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        imagePickerController.delegate = self;
-        
-        JTSActionSheetTheme *theme = [JTSActionSheetTheme defaultTheme];
-        theme.normalButtonColor = [UIColor redColor];
-        theme.destructiveButtonColor = [UIColor blackColor];
-        
-        NSMutableArray *actionSheetItemsArray = [NSMutableArray new];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            JTSActionSheetItem *camera = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonCamera, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                imagePickerController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            JTSActionSheetItem *gallery = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonGallery, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            [actionSheetItemsArray addObjectsFromArray:@[camera,gallery]];
-        } else {
-            JTSActionSheetItem *gallery = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kUploadImageActionSheetButtonGallery, nil) action:^{
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:imagePickerController animated:YES completion:nil];
-            } isDestructive:YES];
-            
-            [actionSheetItemsArray addObjectsFromArray:@[gallery]];
-        }
-        
-        JTSActionSheetItem *cancel = [JTSActionSheetItem itemWithTitle:NSLocalizedString(kGlobalButtonCancel, nil) action:nil isDestructive:NO];
-        
-        // Create & Show an Action Sheet
-        JTSActionSheet *sheet = [[JTSActionSheet alloc] initWithTheme:theme title:nil actionItems:actionSheetItemsArray cancelItem:cancel];
-        [sheet showInView:self.view];
-    }
-}
-#pragma mark - Image picker delegates
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
