@@ -37,6 +37,7 @@
 		E9231A6F1DB3C8DD00CD302D /* SubActivitiesHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A6E1DB3C8DD00CD302D /* SubActivitiesHeaderView.xib */; };
 		E9231A721DB3F5ED00CD302D /* StationGalleryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A711DB3F5ED00CD302D /* StationGalleryViewCell.m */; };
 		E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A741DB3F98200CD302D /* UploadImagesViewController.m */; };
+		E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A781DB4284400CD302D /* UploadImagesApi.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
@@ -150,6 +151,8 @@
 		E9231A711DB3F5ED00CD302D /* StationGalleryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryViewCell.m; sourceTree = "<group>"; };
 		E9231A731DB3F98200CD302D /* UploadImagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImagesViewController.h; sourceTree = "<group>"; };
 		E9231A741DB3F98200CD302D /* UploadImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesViewController.m; sourceTree = "<group>"; };
+		E9231A771DB4284400CD302D /* UploadImagesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImagesApi.h; sourceTree = "<group>"; };
+		E9231A781DB4284400CD302D /* UploadImagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesApi.m; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */,
 				E9231A4A1DB3835900CD302D /* StaionGalleryInfoApi.h */,
 				E9231A4B1DB3835900CD302D /* StaionGalleryInfoApi.m */,
+				E9231A771DB4284400CD302D /* UploadImagesApi.h */,
+				E9231A781DB4284400CD302D /* UploadImagesApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				E9F3B7401D9C59AD00A98B85 /* CustomAlertModel.m in Sources */,
 				E9231A511DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m in Sources */,
 				E9231A491DB3830E00CD302D /* StationSubTasksViewController.m in Sources */,
+				E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */,
 				E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,

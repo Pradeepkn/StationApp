@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataManager.h"
 
 @interface UploadImagesViewController : UIViewController
+
+@property (strong, nonatomic) Stations *selectedStation;
 
 @end

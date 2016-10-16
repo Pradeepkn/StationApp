@@ -10,6 +10,7 @@
 #import "GalleryCollectionViewCell.h"
 #import "AppUtilityClass.h"
 #import "UIColor+AppColor.h"
+#import "UploadImagesApi.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 
@@ -28,6 +29,8 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (strong, nonatomic) NSMutableArray *imagesTitle;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
 
+@property (strong, nonatomic) User *loggedInUser;
+
 @end
 
 @implementation UploadImagesViewController
@@ -41,6 +44,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     self.imagePickerController.delegate = self;
     [AppUtilityClass addBorderToView:self.imageContainerView];
     self.navigationController.navigationBarHidden = NO;
+    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -140,6 +144,26 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     
 }
 
+- (void)postImages:(NSString *)images {
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak UploadImagesViewController *weakSelf = self;
+    UploadImagesApi *uploadImagesApi = [UploadImagesApi new];
+    uploadImagesApi.email = self.loggedInUser.email;
+    uploadImagesApi.stationId = self.selectedStation.stationId;
+    uploadImagesApi.images = self.addImages;
+    
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:uploadImagesApi
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              if (!error) {
+                                                  [self.navigationController popViewControllerAnimated:YES];
+                                              }else{
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                              }
+                                          }];
+}
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     return YES;
