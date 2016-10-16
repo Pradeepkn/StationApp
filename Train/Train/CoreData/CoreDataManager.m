@@ -298,31 +298,54 @@
 
 #pragma mark - Save Station sub tasks
 
-- (BOOL)saveSubTasks:(NSArray *)subTasks {
+- (BOOL)saveSubTasks:(NSArray *)subTasks forTaskId:(NSString *)taskId{
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in subTasks) {
-        NSString *stationSubActivityInfoRef = [dic valueForKey:@"stationSubActivityInfoRef"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityInfoRef == %@",stationSubActivityInfoRef];
+        NSString *stationSubActivityId = [NSString stringWithFormat:@"%ld",[[dic valueForKey:@"stationSubActivityId"] integerValue]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityId == %@",stationSubActivityId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             SubTasks *subTasks = [NSEntityDescription insertNewObjectForEntityForName:@"SubTasks" inManagedObjectContext:moc];
             [subTasks setName:[dic valueForKey:@"name"]];
-            [subTasks setStationSubActivityInfoRef:[dic valueForKey:@"stationSubActivityInfoRef"]];
+            NSString *stationSubActivityId = [NSString stringWithFormat:@"%ld",[[dic valueForKey:@"stationSubActivityId"] integerValue]];
+            [subTasks setStationSubActivityId:stationSubActivityId];
             [subTasks setExecuteAgency:[dic valueForKey:@"executeAgency"]];
             [subTasks setDeadline:[dic valueForKey:@"deadline"]];
-            if ([[dic valueForKey:@"status"] isEqualToString:@"Completed"]) {
-                [subTasks setStatus:1];
-            }else {
-                [subTasks setStatus:0];
-            }
+            [subTasks setTaskId:taskId];
+            [subTasks setStatus:[[dic valueForKey:@"status"] integerValue]];
         }
     }
     return [self saveData];
 }
+
+#pragma mark - Save Station sub tasks
+
+- (BOOL)saveRemarks:(NSArray *)remarks forTaskId:(NSString *)taskId{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Remarks" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in remarks) {
+        NSString *remarksId = [dic valueForKey:@"remarksId"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            Remarks *remarks = [NSEntityDescription insertNewObjectForEntityForName:@"Remarks" inManagedObjectContext:moc];
+            [remarks setInsertDate:[dic valueForKey:@"insertDate"]];
+            [remarks setRemarksId:[dic valueForKey:@"remarksId"]];
+            [remarks setMessage:[dic valueForKey:@"message"]];
+            [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
+            [remarks setTaskId:taskId];
+        }
+    }
+    return [self saveData];
+}
+
 
 #pragma mark - User Object
 

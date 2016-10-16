@@ -18,6 +18,13 @@
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Remarks" representedClassName="Remarks" syncable="YES">
+        <attribute name="insertDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remarksId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="StationGalleryInfo" representedClassName="StationGalleryInfo" syncable="YES">
         <attribute name="addedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="galleryWeek" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,8 +42,9 @@
         <attribute name="deadline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="executeAgency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stationSubActivityInfoRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stationSubActivityId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Tasks" representedClassName="Tasks" syncable="YES">
         <attribute name="domain" optional="YES" attributeType="String" syncable="YES"/>
@@ -65,10 +73,11 @@
         <element name="HomeImages" positionX="-36" positionY="45" width="128" height="120"/>
         <element name="Messages" positionX="-45" positionY="27" width="128" height="120"/>
         <element name="Stations" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="SubTasks" positionX="18" positionY="117" width="128" height="120"/>
+        <element name="SubTasks" positionX="18" positionY="117" width="128" height="135"/>
         <element name="Tasks" positionX="0" positionY="108" width="128" height="120"/>
         <element name="User" positionX="-54" positionY="0" width="128" height="105"/>
         <element name="WhatsNewMessages" positionX="-18" positionY="72" width="128" height="150"/>
         <element name="StationGalleryInfo" positionX="-18" positionY="90" width="128" height="135"/>
+        <element name="Remarks" positionX="-9" positionY="108" width="128" height="120"/>
     </elements>
 </model>

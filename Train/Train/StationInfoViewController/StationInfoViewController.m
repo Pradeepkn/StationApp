@@ -14,16 +14,20 @@
 #import "GetStationSubTasksApi.h"
 #import "TasksHeaderView.h"
 #import "UIColor+AppColor.h"
+#import "StationSubTasksViewController.h"
 
 static NSString *const kOverallStatusInfoCellIdentifier = @"OverallStatusInfoCell";
 static NSString *const kOverallStatusHeaderCellIdentifier = @"OverallStatusHeaderCell";
 static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
+static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 
 @interface StationInfoViewController ()<NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *stationInfoTableView;
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
 @property (nonatomic, strong) NSString *percentageCompleted;
+@property (nonatomic, strong) Tasks *selectedTask;
+
 @end
 
 @implementation StationInfoViewController
@@ -162,7 +166,8 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.selectedTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:kStationSubTaskSegueIdentifier sender:self];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -212,14 +217,15 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:kStationSubTaskSegueIdentifier]) {
+        StationSubTasksViewController *stationInfoVC = (StationSubTasksViewController *)[segue destinationViewController];
+        stationInfoVC.selectedTask = self.selectedTask;
+        stationInfoVC.selectedStation = self.selectedStation;
+    }
 }
-*/
 
 @end

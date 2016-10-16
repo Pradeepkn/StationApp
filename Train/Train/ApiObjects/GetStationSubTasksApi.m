@@ -15,7 +15,8 @@
 
 -(instancetype)init{
     if(self = [super init]){
-        
+        self.subActivitiesArray = [[NSMutableArray alloc] init];
+        self.remarksArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -47,7 +48,11 @@
     self.editStatus = [apiDataSource[@"editStatus"] boolValue];
     if ([apiDataSource[@"subActivities"] isKindOfClass:[NSArray class]]) {
         NSArray *subTasksDataSource = apiDataSource[@"subActivities"];
-        [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource];
+        [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource forTaskId:self.taskId];
+    }
+    if ([apiDataSource[@"remarks"] isKindOfClass:[NSArray class]]) {
+        NSArray *subTasksDataSource = apiDataSource[@"remarks"];
+        [[CoreDataManager sharedManager] saveRemarks:subTasksDataSource forTaskId:self.taskId];
     }
 }
 

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataManager.h"
 
 @interface StationSubTasksViewController : UIViewController
+
+@property (strong, nonatomic) Stations *selectedStation;
+@property (nonatomic, strong) Tasks *selectedTask;
 
 @end

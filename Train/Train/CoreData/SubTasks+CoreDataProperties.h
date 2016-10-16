@@ -18,8 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *deadline;
 @property (nullable, nonatomic, copy) NSString *executeAgency;
 @property (nullable, nonatomic, copy) NSString *name;
-@property (nullable, nonatomic, copy) NSString *stationSubActivityInfoRef;
+@property (nullable, nonatomic, copy) NSString *stationSubActivityId;
 @property (nonatomic) int16_t status;
+@property (nullable, nonatomic, copy) NSString *taskId;
 
 @end
 

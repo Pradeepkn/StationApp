@@ -17,7 +17,8 @@
 @dynamic deadline;
 @dynamic executeAgency;
 @dynamic name;
-@dynamic stationSubActivityInfoRef;
+@dynamic stationSubActivityId;
 @dynamic status;
+@dynamic taskId;
 
 @end

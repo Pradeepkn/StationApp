@@ -17,4 +17,7 @@
 @property (nonatomic, strong) NSString *activityName;
 @property (nonatomic, assign) BOOL editStatus;
 
+@property (nonatomic, strong) NSMutableArray *subActivitiesArray;
+@property (nonatomic, strong) NSMutableArray *remarksArray;
+
 @end
