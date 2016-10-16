@@ -1743,55 +1743,8 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZIe-wg-gTa">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OverallStatusHeaderCell" id="IcY-IH-Bbr" customClass="OverallStatusCell">
-                                        <rect key="frame" x="0.0" y="28" width="355" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IcY-IH-Bbr" id="XFy-Bb-fDb">
-                                            <frame key="frameInset" width="355" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8B-6O-Yz4">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
-                                                    <color key="textColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gU8-B2-aum">
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="QyM-1d-erG"/>
-                                                    </constraints>
-                                                    <color key="progressTintColor" red="0.50588235290000005" green="0.80392156859999997" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="trackTintColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                </progressView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJy-Nd-44m">
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="Adw-Hc-81x"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
-                                                    <color key="textColor" red="0.50588235290000005" green="0.80392156859999997" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="gU8-B2-aum" firstAttribute="top" secondItem="UJy-Nd-44m" secondAttribute="bottom" id="GEN-q5-qPa"/>
-                                                <constraint firstAttribute="bottom" secondItem="gU8-B2-aum" secondAttribute="bottom" constant="-1" id="IC5-Vg-8mS"/>
-                                                <constraint firstItem="B8B-6O-Yz4" firstAttribute="top" secondItem="XFy-Bb-fDb" secondAttribute="top" id="LOA-oe-axO"/>
-                                                <constraint firstItem="gU8-B2-aum" firstAttribute="top" secondItem="B8B-6O-Yz4" secondAttribute="bottom" constant="1" id="Qqh-b4-nMc"/>
-                                                <constraint firstItem="B8B-6O-Yz4" firstAttribute="leading" secondItem="XFy-Bb-fDb" secondAttribute="leading" constant="8" id="el8-jc-2Xl"/>
-                                                <constraint firstItem="UJy-Nd-44m" firstAttribute="centerX" secondItem="XFy-Bb-fDb" secondAttribute="centerX" id="orJ-NM-mZp"/>
-                                                <constraint firstAttribute="trailing" secondItem="B8B-6O-Yz4" secondAttribute="trailing" id="pMj-5I-9fR"/>
-                                                <constraint firstAttribute="trailing" secondItem="gU8-B2-aum" secondAttribute="trailing" id="uLk-Rf-7c6"/>
-                                                <constraint firstItem="gU8-B2-aum" firstAttribute="leading" secondItem="XFy-Bb-fDb" secondAttribute="leading" id="x70-8k-LcY"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="overallStatusHeaderLabel" destination="B8B-6O-Yz4" id="Nks-Jn-XPL"/>
-                                            <outlet property="statusProgressLabel" destination="UJy-Nd-44m" id="6SH-wW-lEd"/>
-                                            <outlet property="statusProgressView" destination="gU8-B2-aum" id="TvR-G3-bpq"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverallStatusInfoCell" id="J7u-sU-29g" customClass="OverallStatusCell">
-                                        <rect key="frame" x="0.0" y="72" width="355" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="355" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J7u-sU-29g" id="pa0-jf-SHy">
                                             <frame key="frameInset" width="355" height="43"/>

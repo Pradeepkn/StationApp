@@ -9,6 +9,20 @@
 #ifndef AppConstants_h
 #define AppConstants_h
 
+// Enum to identify Status
+typedef NS_ENUM(NSInteger, DashboardStatus) {
+    kNotCompleted = 1,
+    kCompleted
+};
+
+// Enum to identify Tasks Status
+typedef NS_ENUM(NSInteger, TasksStatus) {
+    kTaskToStart = 1,
+    kTaskOnTrack,
+    kTaskDelayed,
+    kTaskCompleted
+};
+
 /******** access token key *********/
 #define ACCESS_TOKEN @"accessToken"
 

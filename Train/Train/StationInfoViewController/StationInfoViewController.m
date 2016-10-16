@@ -12,9 +12,12 @@
 #import "AppConstants.h"
 #import "GetStationTasksApi.h"
 #import "GetStationSubTasksApi.h"
+#import "TasksHeaderView.h"
+#import "UIColor+AppColor.h"
 
 static NSString *const kOverallStatusInfoCellIdentifier = @"OverallStatusInfoCell";
 static NSString *const kOverallStatusHeaderCellIdentifier = @"OverallStatusHeaderCell";
+static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
 
 @interface StationInfoViewController ()<NSFetchedResultsControllerDelegate>
 
@@ -102,9 +105,10 @@ static NSString *const kOverallStatusHeaderCellIdentifier = @"OverallStatusHeade
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    OverallStatusCell *overallStatusHeaderCell = (OverallStatusCell *)[tableView dequeueReusableCellWithIdentifier:kOverallStatusHeaderCellIdentifier];
-    [AppUtilityClass shapeTopCell:overallStatusHeaderCell withRadius:kBubbleRadius];
-    return overallStatusHeaderCell;
+    TasksHeaderView *headerView = (TasksHeaderView *)[[NSBundle mainBundle] loadNibNamed:kTasksHeaderViewNibName owner:nil options:nil][0];
+    headerView.frame = CGRectMake(0, 0, self.stationInfoTableView.bounds.size.width, 50);
+    [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
+    return headerView;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -121,7 +125,24 @@ static NSString *const kOverallStatusHeaderCellIdentifier = @"OverallStatusHeade
 {
     Tasks *object = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
     overallStatusHeaderCell.statusInfoLabel.text = object.eventName;
-    NSLog(@"Event name = %@", object.eventName);
+    switch (object.status) {
+        case kTaskToStart:
+            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appGreyColor];
+            break;
+        case kTaskOnTrack:
+            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
+        case kTaskDelayed:
+            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appRedColor];
+        case kTaskCompleted:
+            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
