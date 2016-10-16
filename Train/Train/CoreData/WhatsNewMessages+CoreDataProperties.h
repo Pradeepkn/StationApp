@@ -2,7 +2,7 @@
 //  WhatsNewMessages+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/15/16.
+//  Created by Pradeep Narendra on 10/16/16.
 //
 //
 
@@ -15,12 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<WhatsNewMessages *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *stationName;
+@property (nullable, nonatomic, copy) NSDate *addedDate;
+@property (nullable, nonatomic, copy) NSString *createDate;
 @property (nullable, nonatomic, copy) NSString *designation;
 @property (nullable, nonatomic, copy) NSString *message;
+@property (nullable, nonatomic, copy) NSString *stationName;
 @property (nullable, nonatomic, copy) NSString *username;
-@property (nullable, nonatomic, copy) NSString *createDate;
-@property (nullable, nonatomic, copy) NSDate *addedDate;
+@property (nullable, nonatomic, copy) NSString *messageId;
 
 @end
 

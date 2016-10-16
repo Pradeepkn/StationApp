@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<SubTasks *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *stationSubActivityInfoRef;
-@property (nullable, nonatomic, copy) NSString *name;
-@property (nullable, nonatomic, copy) NSString *executeAgency;
 @property (nullable, nonatomic, copy) NSString *deadline;
+@property (nullable, nonatomic, copy) NSString *executeAgency;
+@property (nullable, nonatomic, copy) NSString *name;
+@property (nullable, nonatomic, copy) NSString *stationSubActivityInfoRef;
 @property (nonatomic) int16_t status;
 
 @end

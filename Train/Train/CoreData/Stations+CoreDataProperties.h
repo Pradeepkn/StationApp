@@ -1,9 +1,9 @@
 //
 //  Stations+CoreDataProperties.h
-//  Train
+//  
 //
-//  Created by Pradeep Narendra on 10/11/16.
-//  Copyright © 2016 Pradeep. All rights reserved.
+//  Created by Pradeep Narendra on 10/16/16.
+//
 //
 
 #import "Stations+CoreDataClass.h"
@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Stations *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *stationName;
 @property (nullable, nonatomic, copy) NSString *stationId;
+@property (nullable, nonatomic, copy) NSString *stationName;
+@property (nonatomic) int16_t statusColor;
 
 @end
 

@@ -8,27 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		E790C846E232A3B42C7B7E18 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D136A230158CADF79AE180 /* libPods-Train.a */; };
+		E9231A321DB3728D00CD302D /* Messages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A131DB3728D00CD302D /* Messages+CoreDataClass.m */; };
+		E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A151DB3728D00CD302D /* Messages+CoreDataProperties.m */; };
+		E9231A341DB3728D00CD302D /* SubTasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A171DB3728D00CD302D /* SubTasks+CoreDataClass.m */; };
+		E9231A351DB3728D00CD302D /* SubTasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A191DB3728D00CD302D /* SubTasks+CoreDataProperties.m */; };
+		E9231A361DB3728D00CD302D /* User+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A1B1DB3728D00CD302D /* User+CoreDataClass.m */; };
+		E9231A371DB3728D00CD302D /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A1D1DB3728D00CD302D /* User+CoreDataProperties.m */; };
+		E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A1F1DB3728D00CD302D /* Stations+CoreDataClass.m */; };
+		E9231A391DB3728D00CD302D /* Stations+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */; };
+		E9231A3A1DB3728D00CD302D /* Tasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */; };
+		E9231A3B1DB3728D00CD302D /* Tasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */; };
+		E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */; };
+		E9231A3D1DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A291DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m */; };
+		E9231A3E1DB3728D00CD302D /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A2B1DB3728D00CD302D /* Designation+CoreDataClass.m */; };
+		E9231A3F1DB3728D00CD302D /* Designation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A2D1DB3728D00CD302D /* Designation+CoreDataProperties.m */; };
+		E9231A401DB3728D00CD302D /* HomeImages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A2F1DB3728D00CD302D /* HomeImages+CoreDataClass.m */; };
+		E9231A411DB3728D00CD302D /* HomeImages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A311DB3728D00CD302D /* HomeImages+CoreDataProperties.m */; };
+		E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A431DB372C600CD302D /* TasksHeaderView.m */; };
+		E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A441DB372C600CD302D /* TasksHeaderView.xib */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
 		E96B97DB1DB2469500D0FCE4 /* PostOnWallApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97DA1DB2469500D0FCE4 /* PostOnWallApi.m */; };
-		E96B97E01DB2477B00D0FCE4 /* User+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97DD1DB2477B00D0FCE4 /* User+CoreDataClass.m */; };
-		E96B97E11DB2477B00D0FCE4 /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97DF1DB2477B00D0FCE4 /* User+CoreDataProperties.m */; };
 		E96B97E41DB2529300D0FCE4 /* GetWallMessagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97E31DB2529300D0FCE4 /* GetWallMessagesApi.m */; };
-		E96B97ED1DB2556900D0FCE4 /* Messages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97E61DB2556900D0FCE4 /* Messages+CoreDataClass.m */; };
-		E96B97EF1DB2556900D0FCE4 /* HomeImages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97EA1DB2556900D0FCE4 /* HomeImages+CoreDataClass.m */; };
-		E96B97F61DB2627D00D0FCE4 /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97F51DB2627D00D0FCE4 /* Messages+CoreDataProperties.m */; };
 		E96B97F91DB270C800D0FCE4 /* WhatsNewMessagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97F81DB270C800D0FCE4 /* WhatsNewMessagesApi.m */; };
 		E96B97FC1DB2710800D0FCE4 /* SendWhatsNewMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97FB1DB2710800D0FCE4 /* SendWhatsNewMessage.m */; };
-		E96B97FF1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97FE1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.m */; };
-		E96B98041DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98011DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.m */; };
-		E96B98051DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98031DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.m */; };
 		E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98071DB2D65200D0FCE4 /* GetStationTasksApi.m */; };
 		E96B980B1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */; };
-		E96B98141DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B980D1DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.m */; };
-		E96B98151DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B980F1DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.m */; };
-		E96B98161DB2DEC400D0FCE4 /* Tasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98111DB2DEC400D0FCE4 /* Tasks+CoreDataClass.m */; };
-		E96B98171DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98131DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.m */; };
 		E98C0C811DA03B40005D09A5 /* LeaveMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */; };
 		E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C861DA057ED005D09A5 /* WhatsNewCell.m */; };
 		E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C8B1DA06866005D09A5 /* StationInfoViewController.m */; };
@@ -39,10 +45,6 @@
 		E99DB5341DB116E50074E90E /* ForgotpasswordAuthKeyApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E99DB5331DB116E50074E90E /* ForgotpasswordAuthKeyApi.m */; };
 		E99DB5371DB118A10074E90E /* ResetPasswordApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E99DB5361DB118A10074E90E /* ResetPasswordApi.m */; };
 		E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964E61DACBEB6009364CD /* StationsListViewController.m */; };
-		E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */; };
-		E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */; };
-		E9C964F31DACC6F7009364CD /* Stations+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */; };
-		E9C964F41DACC6F7009364CD /* Stations+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */; };
 		E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F61DACC903009364CD /* CoreDataManager.m */; };
 		E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */; };
 		E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DF67891DB012640094A039 /* LaunchViewController.m */; };
@@ -81,6 +83,41 @@
 /* Begin PBXFileReference section */
 		66A746174463AE8DB3A15CB1 /* Pods-Train.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.debug.xcconfig"; sourceTree = "<group>"; };
 		A8D136A230158CADF79AE180 /* libPods-Train.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Train.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9231A121DB3728D00CD302D /* Messages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A131DB3728D00CD302D /* Messages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A141DB3728D00CD302D /* Messages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A151DB3728D00CD302D /* Messages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A161DB3728D00CD302D /* SubTasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A171DB3728D00CD302D /* SubTasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SubTasks+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A181DB3728D00CD302D /* SubTasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A191DB3728D00CD302D /* SubTasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SubTasks+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A1A1DB3728D00CD302D /* User+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A1B1DB3728D00CD302D /* User+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A1C1DB3728D00CD302D /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A1D1DB3728D00CD302D /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A1E1DB3728D00CD302D /* Stations+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A1F1DB3728D00CD302D /* Stations+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A201DB3728D00CD302D /* Stations+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A221DB3728D00CD302D /* Tasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A241DB3728D00CD302D /* Tasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A261DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WhatsNewMessages+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A281DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A291DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WhatsNewMessages+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A2A1DB3728D00CD302D /* Designation+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A2B1DB3728D00CD302D /* Designation+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A2C1DB3728D00CD302D /* Designation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A2D1DB3728D00CD302D /* Designation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A2E1DB3728D00CD302D /* HomeImages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeImages+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A2F1DB3728D00CD302D /* HomeImages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HomeImages+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A301DB3728D00CD302D /* HomeImages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeImages+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A311DB3728D00CD302D /* HomeImages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HomeImages+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A421DB372C600CD302D /* TasksHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksHeaderView.h; sourceTree = "<group>"; };
+		E9231A431DB372C600CD302D /* TasksHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksHeaderView.m; sourceTree = "<group>"; };
+		E9231A441DB372C600CD302D /* TasksHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasksHeaderView.xib; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
@@ -90,40 +127,16 @@
 		E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		E96B97D91DB2469500D0FCE4 /* PostOnWallApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostOnWallApi.h; sourceTree = "<group>"; };
 		E96B97DA1DB2469500D0FCE4 /* PostOnWallApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostOnWallApi.m; sourceTree = "<group>"; };
-		E96B97DC1DB2477B00D0FCE4 /* User+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B97DD1DB2477B00D0FCE4 /* User+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B97DE1DB2477B00D0FCE4 /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B97DF1DB2477B00D0FCE4 /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E96B97E21DB2529300D0FCE4 /* GetWallMessagesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetWallMessagesApi.h; sourceTree = "<group>"; };
 		E96B97E31DB2529300D0FCE4 /* GetWallMessagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetWallMessagesApi.m; sourceTree = "<group>"; };
-		E96B97E51DB2556900D0FCE4 /* Messages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B97E61DB2556900D0FCE4 /* Messages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B97E91DB2556900D0FCE4 /* HomeImages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeImages+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B97EA1DB2556900D0FCE4 /* HomeImages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HomeImages+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B97F41DB2627D00D0FCE4 /* Messages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B97F51DB2627D00D0FCE4 /* Messages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E96B97F71DB270C800D0FCE4 /* WhatsNewMessagesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewMessagesApi.h; sourceTree = "<group>"; };
 		E96B97F81DB270C800D0FCE4 /* WhatsNewMessagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsNewMessagesApi.m; sourceTree = "<group>"; };
 		E96B97FA1DB2710800D0FCE4 /* SendWhatsNewMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendWhatsNewMessage.h; sourceTree = "<group>"; };
 		E96B97FB1DB2710800D0FCE4 /* SendWhatsNewMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendWhatsNewMessage.m; sourceTree = "<group>"; };
-		E96B97FD1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HomeImages+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B97FE1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HomeImages+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E96B98001DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B98011DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WhatsNewMessages+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B98021DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B98031DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WhatsNewMessages+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E96B98061DB2D65200D0FCE4 /* GetStationTasksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStationTasksApi.h; sourceTree = "<group>"; };
 		E96B98071DB2D65200D0FCE4 /* GetStationTasksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStationTasksApi.m; sourceTree = "<group>"; };
 		E96B98091DB2D66C00D0FCE4 /* GetStationSubTasksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStationSubTasksApi.h; sourceTree = "<group>"; };
 		E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStationSubTasksApi.m; sourceTree = "<group>"; };
-		E96B980C1DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B980D1DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SubTasks+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B980E1DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B980F1DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SubTasks+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E96B98101DB2DEC400D0FCE4 /* Tasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataClass.h"; sourceTree = "<group>"; };
-		E96B98111DB2DEC400D0FCE4 /* Tasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataClass.m"; sourceTree = "<group>"; };
-		E96B98121DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E96B98131DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E98C0C7F1DA03B40005D09A5 /* LeaveMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveMessageCell.h; sourceTree = "<group>"; };
 		E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveMessageCell.m; sourceTree = "<group>"; };
 		E98C0C851DA057ED005D09A5 /* WhatsNewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewCell.h; sourceTree = "<group>"; };
@@ -144,14 +157,6 @@
 		E99DB5361DB118A10074E90E /* ResetPasswordApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordApi.m; sourceTree = "<group>"; };
 		E9C964E51DACBEB6009364CD /* StationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsListViewController.h; sourceTree = "<group>"; };
 		E9C964E61DACBEB6009364CD /* StationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsListViewController.m; sourceTree = "<group>"; };
-		E9C964E91DACC6F7009364CD /* Designation+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataClass.h"; sourceTree = "<group>"; };
-		E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataClass.m"; sourceTree = "<group>"; };
-		E9C964EB1DACC6F7009364CD /* Designation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Designation+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataProperties.m"; sourceTree = "<group>"; };
-		E9C964ED1DACC6F7009364CD /* Stations+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataClass.h"; sourceTree = "<group>"; };
-		E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataClass.m"; sourceTree = "<group>"; };
-		E9C964EF1DACC6F7009364CD /* Stations+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Stations+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E9C964F51DACC903009364CD /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		E9C964F61DACC903009364CD /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		E9C964F81DAD01E0009364CD /* StationsDestinationsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsDestinationsCell.h; sourceTree = "<group>"; };
@@ -275,38 +280,38 @@
 			children = (
 				E9C964F51DACC903009364CD /* CoreDataManager.h */,
 				E9C964F61DACC903009364CD /* CoreDataManager.m */,
-				E96B97DC1DB2477B00D0FCE4 /* User+CoreDataClass.h */,
-				E96B97DD1DB2477B00D0FCE4 /* User+CoreDataClass.m */,
-				E96B97DE1DB2477B00D0FCE4 /* User+CoreDataProperties.h */,
-				E96B97DF1DB2477B00D0FCE4 /* User+CoreDataProperties.m */,
-				E9C964E91DACC6F7009364CD /* Designation+CoreDataClass.h */,
-				E9C964EA1DACC6F7009364CD /* Designation+CoreDataClass.m */,
-				E9C964EB1DACC6F7009364CD /* Designation+CoreDataProperties.h */,
-				E9C964EC1DACC6F7009364CD /* Designation+CoreDataProperties.m */,
-				E9C964ED1DACC6F7009364CD /* Stations+CoreDataClass.h */,
-				E9C964EE1DACC6F7009364CD /* Stations+CoreDataClass.m */,
-				E9C964EF1DACC6F7009364CD /* Stations+CoreDataProperties.h */,
-				E9C964F01DACC6F7009364CD /* Stations+CoreDataProperties.m */,
-				E96B97E51DB2556900D0FCE4 /* Messages+CoreDataClass.h */,
-				E96B97E61DB2556900D0FCE4 /* Messages+CoreDataClass.m */,
-				E96B97F41DB2627D00D0FCE4 /* Messages+CoreDataProperties.h */,
-				E96B97F51DB2627D00D0FCE4 /* Messages+CoreDataProperties.m */,
-				E96B97E91DB2556900D0FCE4 /* HomeImages+CoreDataClass.h */,
-				E96B97EA1DB2556900D0FCE4 /* HomeImages+CoreDataClass.m */,
-				E96B97FD1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.h */,
-				E96B97FE1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.m */,
-				E96B98001DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.h */,
-				E96B98011DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.m */,
-				E96B98021DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.h */,
-				E96B98031DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.m */,
-				E96B980C1DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.h */,
-				E96B980D1DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.m */,
-				E96B980E1DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.h */,
-				E96B980F1DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.m */,
-				E96B98101DB2DEC400D0FCE4 /* Tasks+CoreDataClass.h */,
-				E96B98111DB2DEC400D0FCE4 /* Tasks+CoreDataClass.m */,
-				E96B98121DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.h */,
-				E96B98131DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.m */,
+				E9231A121DB3728D00CD302D /* Messages+CoreDataClass.h */,
+				E9231A131DB3728D00CD302D /* Messages+CoreDataClass.m */,
+				E9231A141DB3728D00CD302D /* Messages+CoreDataProperties.h */,
+				E9231A151DB3728D00CD302D /* Messages+CoreDataProperties.m */,
+				E9231A161DB3728D00CD302D /* SubTasks+CoreDataClass.h */,
+				E9231A171DB3728D00CD302D /* SubTasks+CoreDataClass.m */,
+				E9231A181DB3728D00CD302D /* SubTasks+CoreDataProperties.h */,
+				E9231A191DB3728D00CD302D /* SubTasks+CoreDataProperties.m */,
+				E9231A1A1DB3728D00CD302D /* User+CoreDataClass.h */,
+				E9231A1B1DB3728D00CD302D /* User+CoreDataClass.m */,
+				E9231A1C1DB3728D00CD302D /* User+CoreDataProperties.h */,
+				E9231A1D1DB3728D00CD302D /* User+CoreDataProperties.m */,
+				E9231A1E1DB3728D00CD302D /* Stations+CoreDataClass.h */,
+				E9231A1F1DB3728D00CD302D /* Stations+CoreDataClass.m */,
+				E9231A201DB3728D00CD302D /* Stations+CoreDataProperties.h */,
+				E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */,
+				E9231A221DB3728D00CD302D /* Tasks+CoreDataClass.h */,
+				E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */,
+				E9231A241DB3728D00CD302D /* Tasks+CoreDataProperties.h */,
+				E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */,
+				E9231A261DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.h */,
+				E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */,
+				E9231A281DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.h */,
+				E9231A291DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m */,
+				E9231A2A1DB3728D00CD302D /* Designation+CoreDataClass.h */,
+				E9231A2B1DB3728D00CD302D /* Designation+CoreDataClass.m */,
+				E9231A2C1DB3728D00CD302D /* Designation+CoreDataProperties.h */,
+				E9231A2D1DB3728D00CD302D /* Designation+CoreDataProperties.m */,
+				E9231A2E1DB3728D00CD302D /* HomeImages+CoreDataClass.h */,
+				E9231A2F1DB3728D00CD302D /* HomeImages+CoreDataClass.m */,
+				E9231A301DB3728D00CD302D /* HomeImages+CoreDataProperties.h */,
+				E9231A311DB3728D00CD302D /* HomeImages+CoreDataProperties.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -441,6 +446,9 @@
 		E9F3B7521D9C5FCA00A98B85 /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				E9231A421DB372C600CD302D /* TasksHeaderView.h */,
+				E9231A431DB372C600CD302D /* TasksHeaderView.m */,
+				E9231A441DB372C600CD302D /* TasksHeaderView.xib */,
 				E9F3B7591D9C5FE900A98B85 /* GalleryCollectionViewCell.h */,
 				E9F3B75A1D9C5FE900A98B85 /* GalleryCollectionViewCell.m */,
 				E9F3B75C1D9C66DC00A98B85 /* HomeMessagesCell.h */,
@@ -579,6 +587,7 @@
 				E9FB6B6D1DA98B0F00769D8C /* proximanova-bold-webfont.ttf in Resources */,
 				E9F3B7141D9C4C7700A98B85 /* Main.storyboard in Resources */,
 				E9FB6B701DA98B0F00769D8C /* proximanova-sbold-webfont.ttf in Resources */,
+				E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */,
 				E9FB6B6E1DA98B0F00769D8C /* proximanova-light-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,60 +647,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E96B97E11DB2477B00D0FCE4 /* User+CoreDataProperties.m in Sources */,
-				E9C964F21DACC6F7009364CD /* Designation+CoreDataProperties.m in Sources */,
+				E9231A3A1DB3728D00CD302D /* Tasks+CoreDataClass.m in Sources */,
 				E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
-				E96B97E01DB2477B00D0FCE4 /* User+CoreDataClass.m in Sources */,
 				E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */,
 				E99DB5311DB114A10074E90E /* ForgotPasswordApi.m in Sources */,
-				E96B98051DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataProperties.m in Sources */,
 				E99DB5371DB118A10074E90E /* ResetPasswordApi.m in Sources */,
 				E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
-				E96B98151DB2DEC400D0FCE4 /* SubTasks+CoreDataProperties.m in Sources */,
-				E9C964F11DACC6F7009364CD /* Designation+CoreDataClass.m in Sources */,
+				E9231A371DB3728D00CD302D /* User+CoreDataProperties.m in Sources */,
 				E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */,
 				E9F3B70B1D9C4C7700A98B85 /* main.m in Sources */,
-				E9C964F41DACC6F7009364CD /* Stations+CoreDataProperties.m in Sources */,
 				E9FB6B751DA997D000769D8C /* SignUpEntryCell.m in Sources */,
+				E9231A341DB3728D00CD302D /* SubTasks+CoreDataClass.m in Sources */,
+				E9231A351DB3728D00CD302D /* SubTasks+CoreDataProperties.m in Sources */,
 				E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */,
+				E9231A401DB3728D00CD302D /* HomeImages+CoreDataClass.m in Sources */,
 				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
 				E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */,
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,
 				E96B97F91DB270C800D0FCE4 /* WhatsNewMessagesApi.m in Sources */,
-				E96B97FF1DB281CC00D0FCE4 /* HomeImages+CoreDataProperties.m in Sources */,
-				E96B97ED1DB2556900D0FCE4 /* Messages+CoreDataClass.m in Sources */,
 				E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */,
-				E96B97EF1DB2556900D0FCE4 /* HomeImages+CoreDataClass.m in Sources */,
+				E9231A3B1DB3728D00CD302D /* Tasks+CoreDataProperties.m in Sources */,
 				E9F3B74D1D9C59EB00A98B85 /* NSAttributedString+StringWithImage.m in Sources */,
 				E9F3B7401D9C59AD00A98B85 /* CustomAlertModel.m in Sources */,
+				E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
 				E96B97E41DB2529300D0FCE4 /* GetWallMessagesApi.m in Sources */,
-				E96B98041DB29BCD00D0FCE4 /* WhatsNewMessages+CoreDataClass.m in Sources */,
-				E96B97F61DB2627D00D0FCE4 /* Messages+CoreDataProperties.m in Sources */,
+				E9231A3E1DB3728D00CD302D /* Designation+CoreDataClass.m in Sources */,
 				E96B97FC1DB2710800D0FCE4 /* SendWhatsNewMessage.m in Sources */,
+				E9231A391DB3728D00CD302D /* Stations+CoreDataProperties.m in Sources */,
 				E96B97DB1DB2469500D0FCE4 /* PostOnWallApi.m in Sources */,
 				E9F3B75B1D9C5FE900A98B85 /* GalleryCollectionViewCell.m in Sources */,
-				E96B98141DB2DEC400D0FCE4 /* SubTasks+CoreDataClass.m in Sources */,
-				E96B98171DB2DEC400D0FCE4 /* Tasks+CoreDataProperties.m in Sources */,
 				E9F8A1591DAC21950057531B /* LoginApi.m in Sources */,
 				E9F3B73B1D9C58B200A98B85 /* LoginViewController.m in Sources */,
 				E99DB5341DB116E50074E90E /* ForgotpasswordAuthKeyApi.m in Sources */,
+				E9231A321DB3728D00CD302D /* Messages+CoreDataClass.m in Sources */,
 				E9F3B7411D9C59AD00A98B85 /* CustomAlertViewController.m in Sources */,
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,
+				E9231A3F1DB3728D00CD302D /* Designation+CoreDataProperties.m in Sources */,
+				E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */,
 				E9F3B7381D9C58B200A98B85 /* AppDelegate.m in Sources */,
 				E96B980B1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m in Sources */,
-				E9C964F31DACC6F7009364CD /* Stations+CoreDataClass.m in Sources */,
 				E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */,
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
+				E9231A411DB3728D00CD302D /* HomeImages+CoreDataProperties.m in Sources */,
+				E9231A3D1DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
-				E96B98161DB2DEC400D0FCE4 /* Tasks+CoreDataClass.m in Sources */,
 				E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */,
+				E9231A361DB3728D00CD302D /* User+CoreDataClass.m in Sources */,
+				E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,
+				E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */,
 				E9F3B7391D9C58B200A98B85 /* AppUtilityClass.m in Sources */,
 				E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */,
 				E98C0C811DA03B40005D09A5 /* LeaveMessageCell.m in Sources */,

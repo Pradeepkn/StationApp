@@ -88,10 +88,10 @@ const int kWriteUpdateMessageTag = 201;
     selectedButtonColor = self.informationButton.titleLabel.textColor;
     unselectedButtonColor = self.whatsNewButton.titleLabel.textColor;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
-    [self getHomeMessages];
-    [self informationButtonClicked:nil];
     [self initializeMessagesFetchedResultsController];
+    [self getHomeMessages];
     [self getWhatsNewMessages];
+    [self informationButtonClicked:nil];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
@@ -113,11 +113,13 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)getHomeMessages {
+    __weak HomeViewController *weakSelf = self;
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
     wallMessagesApiObject.email = self.loggedInUser.email;
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
+            [weakSelf.homeGalleryCollectionView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
         }
@@ -125,13 +127,11 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)getWhatsNewMessages {
-    __weak HomeViewController *weakSelf = self;
     WhatsNewMessagesApi *whatsNewMessageApiObject = [WhatsNewMessagesApi new];
     whatsNewMessageApiObject.email = self.loggedInUser.email;
     [[APIManager sharedInstance]makeAPIRequestWithObject:whatsNewMessageApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
-            [weakSelf.whatsNewTableView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
         }
@@ -234,14 +234,14 @@ const int kWriteUpdateMessageTag = 201;
 
 - (NSFetchRequest *)getHomeImagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:YES];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     return request;
 }
 
 - (NSFetchRequest *)getWhatsNewMessagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"WhatsNewMessages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:YES];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     return request;
 }
@@ -394,47 +394,86 @@ const int kWriteUpdateMessageTag = 201;
 #pragma mark - NSFetchedResultsControllerDelegate
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    [[self homeTopTableView] beginUpdates];
+    if ([controller isEqual:_messagesFetchedResultsController]) {
+        [[self homeTopTableView] beginUpdates];
+    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
+        [[self whatsNewTableView] beginUpdates];
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [[self homeTopTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [[self homeTopTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeMove:
-        case NSFetchedResultsChangeUpdate:
-            break;
+    if ([controller isEqual:_messagesFetchedResultsController]) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [[self homeTopTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [[self homeTopTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeMove:
+            case NSFetchedResultsChangeUpdate:
+                break;
+        }
+    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [[self whatsNewTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [[self whatsNewTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeMove:
+            case NSFetchedResultsChangeUpdate:
+                break;
+        }
     }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            [self configureMessagesCell:[[self homeTopTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-        case NSFetchedResultsChangeMove:
-            [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    if ([controller isEqual:_messagesFetchedResultsController]) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeUpdate:
+                [self configureMessagesCell:[[self homeTopTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+                break;
+            case NSFetchedResultsChangeMove:
+                [[self homeTopTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [[self whatsNewTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [[self whatsNewTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+            case NSFetchedResultsChangeUpdate:
+                [self configureWhatsNewCell:[[self whatsNewTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+                break;
+            case NSFetchedResultsChangeMove:
+                [[self whatsNewTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [[self whatsNewTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [[self homeTopTableView] endUpdates];
-    [[self whatsNewTableView] endUpdates];
+    if ([controller isEqual:_messagesFetchedResultsController]) {
+        [[self homeTopTableView] endUpdates];
+    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
+        [[self whatsNewTableView] endUpdates];
+    }
 }
 
 #pragma mark -

@@ -779,7 +779,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="ejt-vs-Zvm"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                                                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
                                                                     <inset key="imageEdgeInsets" minX="120" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <state key="normal" title="Select station">
                                                                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1750,7 +1750,7 @@
                                             <frame key="frameInset" width="355" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8T8-uB-3w6">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8T8-uB-3w6">
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1760,7 +1760,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="6R0-zP-A4Q"/>
                                                         <constraint firstAttribute="height" constant="30" id="z1L-js-Pd9"/>
                                                     </constraints>
-                                                    <state key="normal" title="!">
+                                                    <state key="normal">
                                                         <color key="titleColor" red="0.90196078430000004" green="0.20392156859999999" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>

@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/15/16.
+//  Created by Pradeep Narendra on 10/16/16.
 //
 //
 
@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<User *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *name;
-@property (nullable, nonatomic, copy) NSString *email;
 @property (nullable, nonatomic, copy) NSString *designation;
+@property (nullable, nonatomic, copy) NSString *email;
+@property (nullable, nonatomic, copy) NSString *name;
 @property (nullable, nonatomic, copy) NSString *stationName;
 
 @end

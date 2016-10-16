@@ -14,10 +14,10 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"SubTasks"];
 }
 
-@dynamic stationSubActivityInfoRef;
-@dynamic name;
-@dynamic executeAgency;
 @dynamic deadline;
+@dynamic executeAgency;
+@dynamic name;
+@dynamic stationSubActivityInfoRef;
 @dynamic status;
 
 @end

@@ -148,6 +148,9 @@
             Stations *stationList = [NSEntityDescription insertNewObjectForEntityForName:@"Stations" inManagedObjectContext:moc];
             [stationList setStationId:[dic valueForKey:@"_id"]];
             [stationList setStationName:[dic valueForKey:@"stationName"]];
+            if ([dic valueForKey:@"statusColor"]) {
+                [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
+            }
         }
     }
     return [self saveData];
@@ -183,8 +186,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in messages) {
-        NSString *message = [dic valueForKey:@"message"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"message == %@",message];
+        NSString *messageId = [dic valueForKey:@"messageId"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageId == %@",messageId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -192,6 +195,7 @@
             [messages setMessage:[dic valueForKey:@"message"]];
             [messages setDesignation:[dic valueForKey:@"designation"]];
             [messages setCreateDate:[dic valueForKey:@"createDate"]];
+            [messages setMessageId:[dic valueForKey:@"messageId"]];
             [messages setAddedDate:[NSDate date ]];
         }
     }
@@ -206,8 +210,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in images) {
-        NSString *imagePath = [dic valueForKey:@"imagePath"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imagePath == %@",imagePath];
+        NSString *imagePath = [dic valueForKey:@"imageId"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imagePath];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -215,6 +219,7 @@
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
+            [images setImageId:[dic valueForKey:@"imageId"]];
         }
     }
     return [self saveData];
@@ -226,8 +231,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in whatsNewMessages) {
-        NSString *message = [dic valueForKey:@"message"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"message == %@",message];
+        NSString *messageId = [dic valueForKey:@"createDate"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createDate == %@",messageId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -236,6 +241,7 @@
             [messages setDesignation:[dic valueForKey:@"designation"]];
             [messages setCreateDate:[dic valueForKey:@"createDate"]];
             [messages setStationName:[dic valueForKey:@"stationName"]];
+            [messages setMessageId:[dic valueForKey:@"messageId"]];
             [messages setAddedDate:[NSDate date ]];
         }
     }
@@ -259,6 +265,7 @@
             [tasks setDomain:[dic valueForKey:@"domain"]];
             [tasks setEventName:[dic valueForKey:@"eventName"]];
             [tasks setRefId:[dic valueForKey:@"refId"]];
+            [tasks setStatus:[[dic valueForKey:@"status"] integerValue]];
         }
     }
     return [self saveData];

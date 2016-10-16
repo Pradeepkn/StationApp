@@ -1,9 +1,9 @@
 //
 //  Designation+CoreDataClass.m
-//  Train
+//  
 //
-//  Created by Pradeep Narendra on 10/11/16.
-//  Copyright © 2016 Pradeep. All rights reserved.
+//  Created by Pradeep Narendra on 10/16/16.
+//
 //
 
 #import "Designation+CoreDataClass.h"
