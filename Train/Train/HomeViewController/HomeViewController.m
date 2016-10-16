@@ -325,12 +325,6 @@ const int kWriteUpdateMessageTag = 201;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == kTopTableView) {
         HomeMessagesCell *messagesCell = (HomeMessagesCell *)[tableView dequeueReusableCellWithIdentifier:kHomeMessagesCellIdentifier forIndexPath:indexPath];
-        if (indexPath.row == 0) {
-            [AppUtilityClass shapeTopCell:messagesCell withRadius:kBubbleRadius];
-        }
-        if(indexPath.row == (messagesCount - 1) || messagesCount == 1){
-            [AppUtilityClass shapeBottomCell:messagesCell withRadius:kBubbleRadius];
-        }
         [self configureMessagesCell:messagesCell atIndexPath:indexPath];
         return messagesCell;
     } else if (tableView.tag == kOverallStatusTableView){
