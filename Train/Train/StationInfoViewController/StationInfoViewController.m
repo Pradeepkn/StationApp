@@ -37,6 +37,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
     self.navigationController.navigationBarHidden = NO;
     [self getStationTasks];
     [self initializeStationsInfoFetchedResultsController];
+    self.title = self.selectedStation.stationName;
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -116,6 +117,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
     headerView.frame = CGRectMake(0, 0, self.stationInfoTableView.bounds.size.width, 50);
     [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
     headerView.percentageLabel.text = self.percentageCompleted;
+    [headerView.progressView setProgress:([self.percentageCompleted floatValue]/100)];
     return headerView;
 }
 

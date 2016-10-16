@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *mileStoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deadLineLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *statusInfoSymbol;
 
 @end
