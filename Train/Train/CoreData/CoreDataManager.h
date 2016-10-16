@@ -15,6 +15,7 @@
 #import "WhatsNewMessages+CoreDataClass.h"
 #import "Tasks+CoreDataClass.h"
 #import "SubTasks+CoreDataClass.h"
+#import "StationGalleryInfo+CoreDataClass.h"
 
 @interface CoreDataManager : NSObject
 
@@ -29,7 +30,8 @@
 - (BOOL)saveHomeImages:(NSArray *)images;
 - (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages;
 - (BOOL)saveSubTasks:(NSArray *)subTasks;
-- (BOOL)saveStationTasks:(NSArray *)stationTasks;
+- (BOOL)saveStationTasks:(NSArray *)stationTasks  forStationId:(NSString *)stationId;
+- (BOOL)saveStationGalleryInfoImages:(NSArray *)images forKey:(NSString *)weekKey;
 
 - (User *)fetchLogedInUser;
 - (NSArray *)fetchAllStations ;
@@ -37,6 +39,7 @@
 - (NSArray *)fetchHomeMessages;
 - (NSArray *)fetchHomeImages;
 - (NSArray *)fetchWhatsNewMessages;
+- (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey;
 
 - (BOOL)saveData;
 

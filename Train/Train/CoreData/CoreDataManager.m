@@ -225,6 +225,30 @@
     return [self saveData];
 }
 
+#pragma mark - Save Home Images
+
+- (BOOL)saveStationGalleryInfoImages:(NSArray *)images forKey:(NSString *)weekKey{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in images) {
+        NSString *imagePath = [dic valueForKey:@"imageId"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imagePath];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            StationGalleryInfo *images = [NSEntityDescription insertNewObjectForEntityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
+            [images setImagePath:[dic valueForKey:@"imagePath"]];
+            [images setStationName:[dic valueForKey:@"stationName"]];
+            [images setImageName:[dic valueForKey:@"imageTitle"]];
+            [images setImageId:[dic valueForKey:@"imageId"]];
+            [images setGalleryWeek:weekKey];
+        }
+    }
+    return [self saveData];
+}
+
 - (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -250,7 +274,7 @@
 
 #pragma mark - Save Station Tasks
 
-- (BOOL)saveStationTasks:(NSArray *)stationTasks {
+- (BOOL)saveStationTasks:(NSArray *)stationTasks forStationId:(NSString *)stationId {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:moc];
@@ -266,6 +290,7 @@
             [tasks setEventName:[dic valueForKey:@"eventName"]];
             [tasks setRefId:[dic valueForKey:@"refId"]];
             [tasks setStatus:[[dic valueForKey:@"status"] integerValue]];
+            [tasks setStationId:stationId];
         }
     }
     return [self saveData];
@@ -365,6 +390,19 @@
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+#pragma mark - fetch station Gallery Images
+
+- (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"galleryWeek == %@",weekKey];
+    [request setPredicate:predicate];
     [request setEntity:entity];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];

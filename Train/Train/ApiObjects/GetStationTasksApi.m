@@ -46,7 +46,7 @@
     self.percentageCompleted = [apiDataSource[@"PercentageTaskCompleted"] integerValue];
     if ([apiDataSource[@"tasks"] isKindOfClass:[NSArray class]]) {
         NSArray *tasksDataSource = apiDataSource[@"tasks"];
-        [[CoreDataManager sharedManager] saveStationTasks:tasksDataSource];
+        [[CoreDataManager sharedManager] saveStationTasks:tasksDataSource forStationId:self.stationId];
     }
 }
 

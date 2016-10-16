@@ -953,7 +953,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ad-P4-gbe">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="inD-vv-n3r"/>
+                                            <constraint firstAttribute="height" constant="50" id="inD-vv-n3r"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -978,7 +978,7 @@
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="5vy-zR-88z"/>
-                                            <constraint firstAttribute="height" constant="20" id="sEQ-Hb-DcH"/>
+                                            <constraint firstAttribute="height" constant="30" id="sEQ-Hb-DcH"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -992,7 +992,7 @@
                                     <constraint firstItem="B05-Yt-Dee" firstAttribute="width" secondItem="6ad-P4-gbe" secondAttribute="width" id="Wxc-xG-Mmq"/>
                                     <constraint firstAttribute="bottom" secondItem="B05-Yt-Dee" secondAttribute="bottom" id="cCg-04-tnc"/>
                                     <constraint firstAttribute="bottom" secondItem="6ad-P4-gbe" secondAttribute="bottom" id="i61-WZ-BHl"/>
-                                    <constraint firstAttribute="height" constant="40" id="tv7-Ir-OaO"/>
+                                    <constraint firstAttribute="height" constant="50" id="tv7-Ir-OaO"/>
                                     <constraint firstAttribute="trailing" secondItem="B05-Yt-Dee" secondAttribute="trailing" id="wZh-LF-q8Z"/>
                                 </constraints>
                             </view>
@@ -1332,6 +1332,7 @@
                         <outlet property="line1Label" destination="4Zr-1H-CU5" id="zh3-eW-MXb"/>
                         <outlet property="line2Label" destination="nN8-j3-1Yn" id="ifl-Iq-1ed"/>
                         <outlet property="line3Label" destination="SsB-ne-Ba3" id="hAk-7x-u6v"/>
+                        <outlet property="stationNameLabel" destination="1Vr-Lb-4tH" id="RIu-Ir-uXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGc-lX-lP6" userLabel="First Responder" sceneMemberID="firstResponder"/>

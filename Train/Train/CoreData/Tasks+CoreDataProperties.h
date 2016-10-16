@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *eventName;
 @property (nullable, nonatomic, copy) NSString *refId;
 @property (nonatomic) int16_t status;
+@property (nullable, nonatomic, copy) NSString *stationId;
 
 @end
 

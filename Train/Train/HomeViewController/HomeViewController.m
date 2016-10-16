@@ -26,6 +26,7 @@
 #import "WhatsNewMessagesApi.h"
 #import "SendWhatsNewMessage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "StationGalleryInfoViewController.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -331,7 +332,6 @@ const int kWriteUpdateMessageTag = 201;
         StationsStatusCell *overallStatusCell = (StationsStatusCell *)[tableView dequeueReusableCellWithIdentifier:kOverallStatusCellIdentifier forIndexPath:indexPath];
         if (indexPath.row == 0) {
             [AppUtilityClass shapeTopCell:overallStatusCell withRadius:kBubbleRadius];
-            overallStatusCell.statusColor.backgroundColor = [UIColor redColor];
         }
         if (indexPath.row == stationsCount - 1) {
             [AppUtilityClass shapeBottomCell:overallStatusCell withRadius:kBubbleRadius];
@@ -365,6 +365,17 @@ const int kWriteUpdateMessageTag = 201;
 {
     Stations *object = [[self stationsFetchedResultsController] objectAtIndexPath:indexPath];
     stationsCell.stationLabel.text = object.stationName;
+    switch (object.statusColor) {
+        case kNotCompleted:
+            stationsCell.statusColor.backgroundColor = [UIColor redColor];
+            break;
+        case kCompleted:
+            stationsCell.statusColor.backgroundColor = [UIColor greenColor];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)configureWhatsNewCell:(WhatsNewCell *)whatsNewCell atIndexPath:(NSIndexPath*)indexPath
@@ -517,6 +528,8 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)infoButtonClicked:(UIButton*)sender {
+    NSArray *stations = [[self stationsFetchedResultsController] fetchedObjects];
+    self.stationInfoSelectedStation = (Stations *)[stations objectAtIndex:sender.tag];
     [self performSegueWithIdentifier:kSationGalleryInfoSegueIdentifier sender:self];
 }
 
@@ -632,6 +645,10 @@ const int kWriteUpdateMessageTag = 201;
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:kStationInfoSegueIdentifier]) {
         StationInfoViewController *stationInfoVC = (StationInfoViewController *)[segue destinationViewController];
+        stationInfoVC.selectedStation = self.stationInfoSelectedStation;
+    }
+    if ([segue.identifier isEqualToString:kSationGalleryInfoSegueIdentifier]) {
+        StationGalleryInfoViewController *stationInfoVC = (StationGalleryInfoViewController *)[segue destinationViewController];
         stationInfoVC.selectedStation = self.stationInfoSelectedStation;
     }
 }

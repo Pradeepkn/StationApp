@@ -18,5 +18,6 @@
 @dynamic eventName;
 @dynamic refId;
 @dynamic status;
+@dynamic stationId;
 
 @end

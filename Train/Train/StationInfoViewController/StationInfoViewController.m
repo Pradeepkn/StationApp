@@ -23,7 +23,7 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
 
 @property (weak, nonatomic) IBOutlet UITableView *stationInfoTableView;
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
-
+@property (nonatomic, strong) NSString *percentageCompleted;
 @end
 
 @implementation StationInfoViewController
@@ -45,6 +45,7 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
     stationTasksApi.stationId = self.selectedStation.stationId;
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
+        weakSelf.percentageCompleted = [NSString stringWithFormat:@"%ld%%", stationTasksApi.percentageCompleted];
         if (!error) {
             [weakSelf.stationInfoTableView reloadData];
         }else{
@@ -72,6 +73,8 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tasks"];
     NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:NO];
     [request setSortDescriptors:@[message]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",self.selectedStation.stationId];
+    [request setPredicate:predicate];
     return request;
 }
 
@@ -108,6 +111,7 @@ static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
     TasksHeaderView *headerView = (TasksHeaderView *)[[NSBundle mainBundle] loadNibNamed:kTasksHeaderViewNibName owner:nil options:nil][0];
     headerView.frame = CGRectMake(0, 0, self.stationInfoTableView.bounds.size.width, 50);
     [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
+    headerView.percentageLabel.text = self.percentageCompleted;
     return headerView;
 }
 

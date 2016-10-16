@@ -12,11 +12,13 @@
 #import "LocalizationKeys.h"
 #import "AppUtilityClass.h"
 #import "AppConstants.h"
+#import "StaionGalleryInfoApi.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 
-@interface StationGalleryInfoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate> {
+@interface StationGalleryInfoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
     
 }
 
@@ -24,6 +26,9 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (weak, nonatomic) IBOutlet UILabel *line2Label;
 @property (weak, nonatomic) IBOutlet UILabel *line3Label;
 @property (weak, nonatomic) IBOutlet UITableView *galleryTableView;
+@property (weak, nonatomic) IBOutlet UILabel *stationNameLabel;
+@property (strong, nonatomic) User *loggedInUser;
+@property (nonatomic, strong) NSArray *weekKeys;
 
 @end
 
@@ -31,7 +36,8 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self getStationTasks];
+//    [self initializeStationsInfoFetchedResultsController];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -41,6 +47,26 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 - (IBAction)addButtonClicked:(id)sender {
 }
 
+- (void)getStationTasks {
+    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
+    __weak StationGalleryInfoViewController *weakSelf = self;
+    StaionGalleryInfoApi *stationGalleryApi = [StaionGalleryInfoApi new];
+    stationGalleryApi.stationId = self.selectedStation.stationId;
+    stationGalleryApi.email = self.loggedInUser.email;
+    [[APIManager sharedInstance]makeAPIRequestWithObject:stationGalleryApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+            weakSelf.line1Label.text = stationGalleryApi.established;
+            weakSelf.line2Label.text = stationGalleryApi.area;
+            weakSelf.line3Label.text = stationGalleryApi.avgPassengerFootfail;
+            weakSelf.stationNameLabel.text = stationGalleryApi.stationName;
+            weakSelf.weekKeys = stationGalleryApi.weekKeys;
+            [weakSelf.galleryTableView reloadData];
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
 
 #pragma mark - Table view data source
 
@@ -53,7 +79,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 40;
+    return self.weekKeys.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -97,17 +123,24 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSUInteger count = 4;
+    NSUInteger count = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:section]].count;
     return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
-    [self customiseCollectionCiewCell:cell];
+    [self customiseCollectionCiewCell:cell forIndexPath:indexPath];
     return cell;
 }
 
-- (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell {
+- (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath{
+    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
+    StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray objectAtIndex:indexPath.row];
+    cell.imageTitleLabel.text = stationGalleryInfo.imageName;
+    NSString *imagePath = @"http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg";
+    [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [cell.collectionImageView setImage:image];
+    }];
 }
 
 #pragma mark -

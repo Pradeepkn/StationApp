@@ -17,7 +17,6 @@
 		E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A1F1DB3728D00CD302D /* Stations+CoreDataClass.m */; };
 		E9231A391DB3728D00CD302D /* Stations+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */; };
 		E9231A3A1DB3728D00CD302D /* Tasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */; };
-		E9231A3B1DB3728D00CD302D /* Tasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */; };
 		E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */; };
 		E9231A3D1DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A291DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m */; };
 		E9231A3E1DB3728D00CD302D /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A2B1DB3728D00CD302D /* Designation+CoreDataClass.m */; };
@@ -26,6 +25,11 @@
 		E9231A411DB3728D00CD302D /* HomeImages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A311DB3728D00CD302D /* HomeImages+CoreDataProperties.m */; };
 		E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A431DB372C600CD302D /* TasksHeaderView.m */; };
 		E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A441DB372C600CD302D /* TasksHeaderView.xib */; };
+		E9231A491DB3830E00CD302D /* StationSubTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A481DB3830E00CD302D /* StationSubTasksViewController.m */; };
+		E9231A4C1DB3835900CD302D /* StaionGalleryInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A4B1DB3835900CD302D /* StaionGalleryInfoApi.m */; };
+		E9231A511DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A4E1DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m */; };
+		E9231A551DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A541DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m */; };
+		E9231A581DB39D0A00CD302D /* Tasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A571DB39D0A00CD302D /* Tasks+CoreDataProperties.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
@@ -101,8 +105,6 @@
 		E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Stations+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E9231A221DB3728D00CD302D /* Tasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataClass.h"; sourceTree = "<group>"; };
 		E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataClass.m"; sourceTree = "<group>"; };
-		E9231A241DB3728D00CD302D /* Tasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E9231A261DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataClass.h"; sourceTree = "<group>"; };
 		E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WhatsNewMessages+CoreDataClass.m"; sourceTree = "<group>"; };
 		E9231A281DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WhatsNewMessages+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -118,6 +120,16 @@
 		E9231A421DB372C600CD302D /* TasksHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksHeaderView.h; sourceTree = "<group>"; };
 		E9231A431DB372C600CD302D /* TasksHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksHeaderView.m; sourceTree = "<group>"; };
 		E9231A441DB372C600CD302D /* TasksHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasksHeaderView.xib; sourceTree = "<group>"; };
+		E9231A471DB3830E00CD302D /* StationSubTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationSubTasksViewController.h; sourceTree = "<group>"; };
+		E9231A481DB3830E00CD302D /* StationSubTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationSubTasksViewController.m; sourceTree = "<group>"; };
+		E9231A4A1DB3835900CD302D /* StaionGalleryInfoApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaionGalleryInfoApi.h; sourceTree = "<group>"; };
+		E9231A4B1DB3835900CD302D /* StaionGalleryInfoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaionGalleryInfoApi.m; sourceTree = "<group>"; };
+		E9231A4D1DB3874900CD302D /* StationGalleryInfo+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StationGalleryInfo+CoreDataClass.h"; sourceTree = "<group>"; };
+		E9231A4E1DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataClass.m"; sourceTree = "<group>"; };
+		E9231A531DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StationGalleryInfo+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A541DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9231A561DB39D0A00CD302D /* Tasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tasks+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9231A571DB39D0A00CD302D /* Tasks+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tasks+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
@@ -271,6 +283,8 @@
 				E98C0C8B1DA06866005D09A5 /* StationInfoViewController.m */,
 				E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */,
 				E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */,
+				E9231A471DB3830E00CD302D /* StationSubTasksViewController.h */,
+				E9231A481DB3830E00CD302D /* StationSubTasksViewController.m */,
 			);
 			path = StationInfoViewController;
 			sourceTree = "<group>";
@@ -298,8 +312,8 @@
 				E9231A211DB3728D00CD302D /* Stations+CoreDataProperties.m */,
 				E9231A221DB3728D00CD302D /* Tasks+CoreDataClass.h */,
 				E9231A231DB3728D00CD302D /* Tasks+CoreDataClass.m */,
-				E9231A241DB3728D00CD302D /* Tasks+CoreDataProperties.h */,
-				E9231A251DB3728D00CD302D /* Tasks+CoreDataProperties.m */,
+				E9231A561DB39D0A00CD302D /* Tasks+CoreDataProperties.h */,
+				E9231A571DB39D0A00CD302D /* Tasks+CoreDataProperties.m */,
 				E9231A261DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.h */,
 				E9231A271DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m */,
 				E9231A281DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.h */,
@@ -312,6 +326,10 @@
 				E9231A2F1DB3728D00CD302D /* HomeImages+CoreDataClass.m */,
 				E9231A301DB3728D00CD302D /* HomeImages+CoreDataProperties.h */,
 				E9231A311DB3728D00CD302D /* HomeImages+CoreDataProperties.m */,
+				E9231A4D1DB3874900CD302D /* StationGalleryInfo+CoreDataClass.h */,
+				E9231A4E1DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m */,
+				E9231A531DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.h */,
+				E9231A541DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -496,6 +514,8 @@
 				E96B98071DB2D65200D0FCE4 /* GetStationTasksApi.m */,
 				E96B98091DB2D66C00D0FCE4 /* GetStationSubTasksApi.h */,
 				E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */,
+				E9231A4A1DB3835900CD302D /* StaionGalleryInfoApi.h */,
+				E9231A4B1DB3835900CD302D /* StaionGalleryInfoApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -650,6 +670,7 @@
 				E9231A3A1DB3728D00CD302D /* Tasks+CoreDataClass.m in Sources */,
 				E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
+				E9231A581DB39D0A00CD302D /* Tasks+CoreDataProperties.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
 				E9DF678A1DB012640094A039 /* LaunchViewController.m in Sources */,
 				E99DB5311DB114A10074E90E /* ForgotPasswordApi.m in Sources */,
@@ -669,12 +690,14 @@
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,
 				E96B97F91DB270C800D0FCE4 /* WhatsNewMessagesApi.m in Sources */,
 				E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */,
-				E9231A3B1DB3728D00CD302D /* Tasks+CoreDataProperties.m in Sources */,
 				E9F3B74D1D9C59EB00A98B85 /* NSAttributedString+StringWithImage.m in Sources */,
 				E9F3B7401D9C59AD00A98B85 /* CustomAlertModel.m in Sources */,
+				E9231A511DB3874900CD302D /* StationGalleryInfo+CoreDataClass.m in Sources */,
+				E9231A491DB3830E00CD302D /* StationSubTasksViewController.m in Sources */,
 				E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,
+				E9231A551DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m in Sources */,
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
 				E96B97E41DB2529300D0FCE4 /* GetWallMessagesApi.m in Sources */,
 				E9231A3E1DB3728D00CD302D /* Designation+CoreDataClass.m in Sources */,
@@ -699,6 +722,7 @@
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
 				E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */,
 				E9231A361DB3728D00CD302D /* User+CoreDataClass.m in Sources */,
+				E9231A4C1DB3835900CD302D /* StaionGalleryInfoApi.m in Sources */,
 				E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,
 				E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */,
