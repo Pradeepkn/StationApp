@@ -72,6 +72,7 @@ const int kWriteUpdateMessageTag = 201;
 
 @property (strong, nonatomic) User *loggedInUser;
 @property (strong, nonatomic) Stations *selectedStation;
+@property (strong, nonatomic) Stations *stationInfoSelectedStation;
 
 @property (nonatomic, strong) NSFetchedResultsController *messagesFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *stationsFetchedResultsController;
@@ -94,7 +95,6 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
-    whatsNewIndexPath = nil;
     self.whatsNewContainerView.hidden = YES;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.whatsNewButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
@@ -417,6 +417,7 @@ const int kWriteUpdateMessageTag = 201;
             break;
     }
 }
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     switch(type) {
@@ -435,9 +436,11 @@ const int kWriteUpdateMessageTag = 201;
             break;
     }
 }
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [[self homeTopTableView] endUpdates];
+    [[self whatsNewTableView] endUpdates];
 }
 
 #pragma mark -
@@ -485,6 +488,8 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)stationStatusButtonClicked:(UIButton *)sender {
+    NSArray *stations = [[self stationsFetchedResultsController] fetchedObjects];
+    self.stationInfoSelectedStation = (Stations *)[stations objectAtIndex:sender.tag];
     [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
@@ -586,14 +591,17 @@ const int kWriteUpdateMessageTag = 201;
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:kStationInfoSegueIdentifier]) {
+        StationInfoViewController *stationInfoVC = (StationInfoViewController *)[segue destinationViewController];
+        stationInfoVC.selectedStation = self.stationInfoSelectedStation;
+    }
 }
-*/
+
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataManager.h"
 
 @interface StationInfoViewController : UIViewController
+
+@property (strong, nonatomic) Stations *selectedStation;
 
 @end

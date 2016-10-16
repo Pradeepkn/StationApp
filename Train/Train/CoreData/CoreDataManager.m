@@ -220,6 +220,28 @@
     return [self saveData];
 }
 
+- (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in whatsNewMessages) {
+        NSString *message = [dic valueForKey:@"message"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"message == %@",message];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            WhatsNewMessages *messages = [NSEntityDescription insertNewObjectForEntityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
+            [messages setMessage:[dic valueForKey:@"message"]];
+            [messages setDesignation:[dic valueForKey:@"designation"]];
+            [messages setCreateDate:[dic valueForKey:@"createDate"]];
+            [messages setStationName:[dic valueForKey:@"stationName"]];
+            [messages setAddedDate:[NSDate date ]];
+        }
+    }
+    return [self saveData];
+}
+
 #pragma mark - Save Station Tasks
 
 - (BOOL)saveStationTasks:(NSArray *)stationTasks {
