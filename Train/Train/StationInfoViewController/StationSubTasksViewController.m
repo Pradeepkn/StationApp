@@ -104,8 +104,10 @@ static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Remarks"];
     NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO];
     [request setSortDescriptors:@[message]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
-    [request setPredicate:predicate];
+    NSLog(@"View Task ID = %@", self.selectedTask.refId);
+//
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
+//    [request setPredicate:predicate];
     return request;
 }
 

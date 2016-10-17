@@ -26,6 +26,7 @@
 #import "SendWhatsNewMessage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "StationGalleryInfoViewController.h"
+#import "UIColor+AppColor.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -151,10 +152,18 @@ const int kWriteUpdateMessageTag = 201;
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              if (!error) {
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              if (dataDict.allKeys.count > 0) {
                                                   [self getHomeMessages];
                                               }else{
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  };
                                               }
                                           }];
 }
@@ -172,10 +181,18 @@ const int kWriteUpdateMessageTag = 201;
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              if (!error) {
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
                                                   [self getWhatsNewMessages];
                                               }else{
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
                                               }
                                           }];
 }

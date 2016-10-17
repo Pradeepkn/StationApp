@@ -65,4 +65,6 @@
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
++ (NSString *)getErrorMessageFor:(NSDictionary *)errorDict;
+
 @end

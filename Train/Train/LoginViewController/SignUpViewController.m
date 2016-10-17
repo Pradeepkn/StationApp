@@ -33,6 +33,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
     self.signUpTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }

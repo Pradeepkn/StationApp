@@ -90,10 +90,18 @@ static NSInteger kKeyBoardOffSet = 120;
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              if (!error) {
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
                                                   [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
                                               }else{
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
                                               }
                                           }];
 }

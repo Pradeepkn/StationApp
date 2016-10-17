@@ -607,8 +607,8 @@
 				TargetAttributes = {
 					E9F3B7051D9C4C7700A98B85 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 2N2JMM8P7N;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 6C8K52Y7MV;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -830,8 +830,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: pradeep kn (JY2HD8322R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: pradeep kn (JY2HD8322R)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -853,7 +853,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5ba57f4d-e9c5-47c8-98f4-672e1b637b91";
+				PROVISIONING_PROFILE = "51ce053e-d036-4225-9cce-b9c4f0dad554";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -880,8 +880,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: inbrix ab";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: inbrix ab";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -896,7 +896,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "9b9cbee0-d928-4276-8150-ea67d7926a66";
+				PROVISIONING_PROFILE = "91ad9ab5-f1ba-4954-a6ce-c4224d179f36";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -908,15 +908,16 @@
 			baseConfigurationReference = 66A746174463AE8DB3A15CB1 /* Pods-Train.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: pradeep kn (JY2HD8322R)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2N2JMM8P7N;
+				DEVELOPMENT_TEAM = 6C8K52Y7MV;
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.novatelligence.medipal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irsmobile.inbrixsolutions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "51ce053e-d036-4225-9cce-b9c4f0dad554";
+				PROVISIONING_PROFILE_SPECIFIER = Inbrix_Development;
 			};
 			name = Debug;
 		};
@@ -925,15 +926,16 @@
 			baseConfigurationReference = EF3F9E1A2569736DB2861EAB /* Pods-Train.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2N2JMM8P7N;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: inbrix ab";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: inbrix ab";
+				DEVELOPMENT_TEAM = 6C8K52Y7MV;
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.novatelligence.medipal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.irsmobile.inbrixsolutions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "91ad9ab5-f1ba-4954-a6ce-c4224d179f36";
+				PROVISIONING_PROFILE_SPECIFIER = Inbrix_In_House_Enterprise;
 			};
 			name = Release;
 		};

@@ -51,6 +51,11 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
 #pragma mark -
 #pragma mark - Collection View Data Source
 

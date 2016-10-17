@@ -233,4 +233,24 @@
     return newImage;
 }
 
++ (NSString *)getErrorMessageFor:(NSDictionary *)errorDict {
+    NSInteger statusCode = [errorDict[@"statuscode"] integerValue];
+    NSString *errorMessage;
+    if (statusCode != 200) {
+        errorMessage = errorDict[@"message"];
+    }
+    NSString *capitalisedSentence = nil;
+    
+    //Does the string live in memory and does it have at least one letter?
+    if (errorMessage && errorMessage.length > 0) {
+        // Yes, it does.
+        
+        capitalisedSentence = [errorMessage stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                  withString:[[errorMessage substringToIndex:1] capitalizedString]];
+    } else {
+        // No, it doesn't.
+    }
+    return capitalisedSentence;
+}
+
 @end

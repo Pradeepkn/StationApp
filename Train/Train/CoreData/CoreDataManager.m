@@ -140,13 +140,14 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in stations) {
-        NSString *stationId = [dic valueForKey:@"stationName"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName == %@",stationId];
+        id stationReferenceId = [dic valueForKey:@"_id"];
+        NSString *stationId = [NSString stringWithFormat:@"%@",stationReferenceId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",stationId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             Stations *stationList = [NSEntityDescription insertNewObjectForEntityForName:@"Stations" inManagedObjectContext:moc];
-            [stationList setStationId:[dic valueForKey:@"_id"]];
+            [stationList setStationId:stationId];
             [stationList setStationName:[dic valueForKey:@"stationName"]];
             if ([dic valueForKey:@"statusColor"]) {
                 [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
@@ -164,13 +165,14 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Designation" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in designations) {
-        NSString *stationId = [dic valueForKey:@"designation"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"designationName == %@",stationId];
+        id designationReferenceId = [dic valueForKey:@"_id"];
+        NSString *designationId = [NSString stringWithFormat:@"%@",designationReferenceId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"designationId == %@",designationId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             Designation *designationList = [NSEntityDescription insertNewObjectForEntityForName:@"Designation" inManagedObjectContext:moc];
-            [designationList setDesignationId:[dic valueForKey:@"_id"]];
+            [designationList setDesignationId:designationId];
             [designationList setDesignationName:[dic valueForKey:@"designation"]];
         }
     }
@@ -186,7 +188,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in messages) {
-        NSString *messageId = [dic valueForKey:@"messageId"];
+        id messageReferenceId = [dic valueForKey:@"messageId"];
+        NSString *messageId = [NSString stringWithFormat:@"%@",messageReferenceId];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"messageId == %@",messageId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
@@ -195,7 +198,7 @@
             [messages setMessage:[dic valueForKey:@"message"]];
             [messages setDesignation:[dic valueForKey:@"designation"]];
             [messages setCreateDate:[dic valueForKey:@"createDate"]];
-            [messages setMessageId:[dic valueForKey:@"messageId"]];
+            [messages setMessageId:messageId];
             [messages setAddedDate:[NSDate date ]];
         }
     }
@@ -210,8 +213,9 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in images) {
-        NSString *imagePath = [dic valueForKey:@"imageId"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imagePath];
+        id imageReferenceId = [dic valueForKey:@"imageId"];
+        NSString *imageId = [NSString stringWithFormat:@"%@",imageReferenceId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imageId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -219,7 +223,7 @@
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
-            [images setImageId:[dic valueForKey:@"imageId"]];
+            [images setImageId:imageId];
         }
     }
     return [self saveData];
@@ -233,8 +237,9 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in images) {
-        NSString *imagePath = [dic valueForKey:@"imageId"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imagePath];
+        id imageReferenceId = [dic valueForKey:@"imageId"];
+        NSString *imageId = [NSString stringWithFormat:@"%@",imageReferenceId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imageId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -242,7 +247,7 @@
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
-            [images setImageId:[dic valueForKey:@"imageId"]];
+            [images setImageId:imageId];
             [images setGalleryWeek:weekKey];
         }
     }
@@ -255,15 +260,15 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in whatsNewMessages) {
-        NSString *messageId = [dic valueForKey:@"createDate"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createDate == %@",messageId];
+        NSString *createDateIdentifier = [dic valueForKey:@"createDate"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createDate == %@",createDateIdentifier];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             WhatsNewMessages *messages = [NSEntityDescription insertNewObjectForEntityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
             [messages setMessage:[dic valueForKey:@"message"]];
             [messages setDesignation:[dic valueForKey:@"designation"]];
-            [messages setCreateDate:[dic valueForKey:@"createDate"]];
+            [messages setCreateDate:createDateIdentifier];
             [messages setStationName:[dic valueForKey:@"stationName"]];
             [messages setMessageId:[dic valueForKey:@"messageId"]];
             [messages setAddedDate:[NSDate date ]];
@@ -280,7 +285,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in stationTasks) {
-        NSString *refId = [dic valueForKey:@"refId"];
+        id tasksReferenceId = [dic valueForKey:@"refId"];
+        NSString *refId = [NSString stringWithFormat:@"%@",tasksReferenceId];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"refId == %@",refId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
@@ -288,7 +294,7 @@
             Tasks *tasks = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:moc];
             [tasks setDomain:[dic valueForKey:@"domain"]];
             [tasks setEventName:[dic valueForKey:@"eventName"]];
-            [tasks setRefId:[dic valueForKey:@"refId"]];
+            [tasks setRefId:refId];
             [tasks setStatus:[[dic valueForKey:@"status"] integerValue]];
             [tasks setStationId:stationId];
         }
@@ -299,19 +305,20 @@
 #pragma mark - Save Station sub tasks
 
 - (BOOL)saveSubTasks:(NSArray *)subTasks forTaskId:(NSString *)taskId{
+    NSLog(@"Task ID = %@", taskId);
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in subTasks) {
-        NSString *stationSubActivityId = [NSString stringWithFormat:@"%ld",[[dic valueForKey:@"stationSubActivityId"] integerValue]];
+        id stationSubActivityIdentifier = [dic valueForKey:@"stationSubActivityId"];
+        NSString *stationSubActivityId = [NSString stringWithFormat:@"%@",stationSubActivityIdentifier];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityId == %@",stationSubActivityId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             SubTasks *subTasks = [NSEntityDescription insertNewObjectForEntityForName:@"SubTasks" inManagedObjectContext:moc];
             [subTasks setName:[dic valueForKey:@"name"]];
-            NSString *stationSubActivityId = [NSString stringWithFormat:@"%ld",[[dic valueForKey:@"stationSubActivityId"] integerValue]];
             [subTasks setStationSubActivityId:stationSubActivityId];
             [subTasks setExecuteAgency:[dic valueForKey:@"executeAgency"]];
             [subTasks setDeadline:[dic valueForKey:@"deadline"]];
@@ -330,7 +337,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Remarks" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in remarks) {
-        NSString *remarksId = [dic valueForKey:@"remarksId"];
+        id remarksIdentifier = [dic valueForKey:@"remarksId"];
+        NSString *remarksId = [NSString stringWithFormat:@"%@",remarksIdentifier];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
