@@ -216,10 +216,16 @@
     return shapeLayer;
 }
 
-+ (void)addBorderToView:(UIView*)view {
-    view.layer.borderWidth = 1.0f;
-    view.layer.borderColor = [UIColor appImageColor].CGColor;
-    view.layer.cornerRadius = 3.0f;
++ (void)addDottedBorderToView:(UIView*)view {
+    CAShapeLayer * dotborder = [CAShapeLayer layer];
+    dotborder.strokeColor = [UIColor appImageColor].CGColor;//your own color
+    dotborder.fillColor = nil;
+    dotborder.lineDashPattern = @[@4, @2];//your own patten
+    dotborder.cornerRadius = 3.0f;
+    dotborder.lineWidth = 1.0f;
+    [view.layer addSublayer:dotborder];
+    dotborder.path = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
+    dotborder.frame = view.bounds;
 }
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {

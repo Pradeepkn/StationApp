@@ -61,7 +61,7 @@
 
 + (CAShapeLayer *) addDashedBorderWithColor: (CGColorRef) color ForView:(UIView*)view;
 
-+ (void)addBorderToView:(UIView*)view;
++ (void)addDottedBorderToView:(UIView*)view;
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 

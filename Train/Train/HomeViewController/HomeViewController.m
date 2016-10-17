@@ -90,9 +90,12 @@ const int kWriteUpdateMessageTag = 201;
     unselectedButtonColor = self.whatsNewButton.titleLabel.textColor;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
+    [self informationButtonClicked:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     [self getHomeMessages];
     [self getWhatsNewMessages];
-    [self informationButtonClicked:nil];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
@@ -518,7 +521,7 @@ const int kWriteUpdateMessageTag = 201;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
     [self customiseCollectionCiewCell:cell atIndexPath:indexPath];
-    [AppUtilityClass addOverlayOnView:cell.collectionImageView];
+//    [AppUtilityClass addOverlayOnView:cell.collectionImageView];
     return cell;
 }
 

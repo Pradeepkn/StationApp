@@ -11,6 +11,7 @@
 #import "AppUtilityClass.h"
 #import "UIColor+AppColor.h"
 #import "UploadImagesApi.h"
+#import <TTPLLibrary/NSData+Base64.h>
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 
@@ -25,8 +26,9 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (weak, nonatomic) IBOutlet UICollectionView *galleryCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 
-@property (strong, nonatomic) NSMutableArray *addImages;
+@property (strong, nonatomic) NSMutableArray *selectedImages;
 @property (strong, nonatomic) NSMutableArray *imagesTitle;
+@property (strong, nonatomic) NSMutableArray *uploadingImages;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
 
 @property (strong, nonatomic) User *loggedInUser;
@@ -37,14 +39,37 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.addImages = [[NSMutableArray alloc] init];
+    self.selectedImages = [[NSMutableArray alloc] init];
     self.imagesTitle = [[NSMutableArray alloc] init];
+    self.uploadingImages = [[NSMutableArray alloc] init];
     self.imagePickerController = [[UIImagePickerController alloc] init];
     self.imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.imagePickerController.delegate = self;
-    [AppUtilityClass addBorderToView:self.imageContainerView];
-    self.navigationController.navigationBarHidden = NO;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
+    self.addTitleTxtField.tag = 0;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    for (CAShapeLayer *layer in self.imageContainerView.subviews) {
+        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
+            [layer removeFromSuperlayer];
+        }
+    }
+    [AppUtilityClass addDottedBorderToView:self.imageContainerView];
+    for (CAShapeLayer *layer in self.separatorView.subviews) {
+        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
+            [layer removeFromSuperlayer];
+        }
+    }
+    self.separatorView.backgroundColor = [UIColor clearColor];
+    [AppUtilityClass addDottedBorderToView:self.separatorView];
+    [self.galleryCollectionView reloadData];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -64,7 +89,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSUInteger count = self.addImages.count;
+    NSUInteger count = self.selectedImages.count;
     if (count < 5) {
         count += 1;
     }
@@ -81,18 +106,18 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == self.addImages.count) {
+    if (indexPath.row == self.selectedImages.count) {
         cell.closeButton.hidden = YES;
         [cell.collectionImageView setImage:[UIImage imageNamed:@"plus-icon-smal"]];
         cell.collectionImageView.contentMode = UIViewContentModeCenter;
         [AppUtilityClass addDashedBorderWithColor:[UIColor blackColor].CGColor ForView:cell];
-        [AppUtilityClass addBorderToView:cell.collectionImageView];
+        [AppUtilityClass addDottedBorderToView:cell.collectionImageView];
     }else {
         cell.closeButton.hidden = NO;
         [cell.closeButton addTarget:self action:@selector(deleteSelectedImage:) forControlEvents:UIControlEventTouchUpInside];
         cell.closeButton.tag = indexPath.row;
         cell.collectionImageView.contentMode = UIViewContentModeScaleAspectFill;
-        UIImage *cellImage = [self.addImages objectAtIndex:indexPath.row];
+        UIImage *cellImage = [self.selectedImages objectAtIndex:indexPath.row];
         [cell.collectionImageView setImage:cellImage];
         cell.collectionImageView.layer.borderWidth = 0.0f;
     }
@@ -102,23 +127,31 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == self.addImages.count) {
+    self.addTitleTxtField.tag = indexPath.row;
+    if (indexPath.row == self.selectedImages.count) {
         self.galleryButton.hidden = NO;
         self.cameraButton.hidden = NO;
         self.selectedImageView.hidden = YES;
         self.separatorView.hidden = NO;
+        self.addTitleTxtField.text = @"";
     }else {
-        UIImage *cellImage = [self.addImages objectAtIndex:indexPath.row];
+        self.addTitleTxtField.text = [self.imagesTitle objectAtIndex:indexPath.row];
+        UIImage *cellImage = [self.selectedImages objectAtIndex:indexPath.row];
         self.selectedImageView.image = cellImage;
-        self.galleryButton.hidden = YES;
-        self.cameraButton.hidden = YES;
-        self.selectedImageView.hidden = NO;
-        self.separatorView.hidden = YES;
+        [self showImage];
     }
 }
 
+- (void)showImage {
+    self.galleryButton.hidden = YES;
+    self.cameraButton.hidden = YES;
+    self.selectedImageView.hidden = NO;
+    self.separatorView.hidden = YES;
+}
+
 - (void)deleteSelectedImage:(UIButton *)sender {
-    [self.addImages removeObjectAtIndex:sender.tag];
+    [self.selectedImages removeObjectAtIndex:sender.tag];
+    [self.imagesTitle removeObjectAtIndex:sender.tag];
     [self.galleryCollectionView reloadData];
 }
 
@@ -127,8 +160,12 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     [self dismissViewControllerAnimated:YES completion:NULL];
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self.addImages addObject:[AppUtilityClass imageWithImage:image scaledToSize:self.selectedImageView.frame.size]];
+    self.selectedImageView.image = image;
+    [self showImage];
+
+    [self.selectedImages addObject:[AppUtilityClass imageWithImage:image scaledToSize:self.selectedImageView.frame.size]];
     [self.galleryCollectionView reloadData];
+    [self.addTitleTxtField becomeFirstResponder];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -136,36 +173,59 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 }
 
 - (IBAction)galleryButtonClicked:(id)sender {
+    if (self.selectedImages.count != self.imagesTitle.count) {
+        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
+        return;
+    }
     self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 
 - (IBAction)cameraButtonClicked:(id)sender {
+    if (self.selectedImages.count != self.imagesTitle.count) {
+        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
+        return;
+    }
     self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 
 - (IBAction)sendButtonClicked:(id)sender {
-    
+    for (int index = 0; index < self.selectedImages.count; index++) {
+        NSMutableDictionary *imageObject = [[NSMutableDictionary alloc] init];
+        [imageObject setObject:[self.imagesTitle objectAtIndex:index] forKey:@"imageTitle"];
+        UIImage *selectedImage = (UIImage*)[self.selectedImages objectAtIndex:index];
+        [imageObject setObject:[UIImagePNGRepresentation(selectedImage) base64String] forKey:@"imageBase64"];
+        [self.uploadingImages addObject:imageObject];
+    }
+    [self postImagesToServer];
 }
 
-- (void)postImages:(NSString *)images {
+- (void)postImagesToServer {
     [AppUtilityClass showLoaderOnView:self.view];
     
     __weak UploadImagesViewController *weakSelf = self;
     UploadImagesApi *uploadImagesApi = [UploadImagesApi new];
     uploadImagesApi.email = self.loggedInUser.email;
     uploadImagesApi.stationId = self.selectedStation.stationId;
-    uploadImagesApi.images = self.addImages;
+    uploadImagesApi.images = self.uploadingImages;
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:uploadImagesApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              if (!error) {
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
                                                   [self.navigationController popViewControllerAnimated:YES];
                                               }else{
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
                                               }
                                           }];
 }
@@ -182,12 +242,14 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    
+- (BOOL) textFieldShouldReturn:(UITextField *)textField{
+    if ([textField.text isEqualToString:@""]) {
+        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
+        return NO;
+    }
+    [self.imagesTitle addObject:textField.text];
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
