@@ -14,14 +14,18 @@
 #import "SubTasksCell.h"
 #import "OverallStatusCell.h"
 #import "TasksHeaderView.h"
+#import "SendRemarksApi.h"
+#import "UpdateSubTasksStatusApi.h"
 #import "SubActivitiesHeaderView.h"
+#import "RemarksStatusUpdateViewController.h"
 
 static NSString *const kSubTasksCellIdentifier = @"SubTasksCellIdentifier";
 static NSString *const kOverallStatusInfoCellIdentifier = @"OverallStatusInfoCell";
 static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
 static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
+static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpdateSegue";
 
-@interface StationSubTasksViewController ()<NSFetchedResultsControllerDelegate>
+@interface StationSubTasksViewController ()<NSFetchedResultsControllerDelegate, RemarksStatusDelegate>
 
 @property (strong, nonatomic) User *loggedInUser;
 @property (weak, nonatomic) IBOutlet UITableView *subTasksListTableView;
@@ -32,6 +36,9 @@ static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *remarksFetchedResultsController;
+
+@property (nonatomic, assign) BOOL isRemarksUpdate;
+@property (nonatomic, strong) SubTasks *selectedSubTask;
 
 @end
 
@@ -116,7 +123,7 @@ static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:self.subTasksListTableView]) {
         SubTasks *object = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.name widthOfTextView:self.subTasksListTableView.frame.size.width/3 - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
+        return [AppUtilityClass sizeOfText:object.name widthOfTextView:self.subTasksListTableView.frame.size.width/2 - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
     }else {
         Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
         return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.remarksTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
@@ -251,7 +258,9 @@ static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:self.subTasksListTableView]) {
-        self.selectedTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
+        self.selectedSubTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
+        self.isRemarksUpdate = NO;
+        [self displayRemarksStatusUpdateView];
     }
 }
 
@@ -336,7 +345,78 @@ static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 }
 
 - (IBAction)remarksButtonClicked:(id)sender {
+    self.isRemarksUpdate = YES;
+    [self displayRemarksStatusUpdateView];
+}
+
+- (void)displayRemarksStatusUpdateView {
+    RemarksStatusUpdateViewController *remarksStatusVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RemarksStatusUpdateViewController"];
+    remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    remarksStatusVC.delegate = self;
+    remarksStatusVC.isRemarksUpdate = self.isRemarksUpdate;
+    remarksStatusVC.selectedStation = self.selectedStation;
+    if (!self.isRemarksUpdate) {
+        remarksStatusVC.statusCode = self.selectedTask.status;
+    }
+    [self presentViewController:remarksStatusVC animated:YES completion:^{
+        ;
+    }];
+}
+
+- (void)updateRemarks:(NSString *)remarksMessage {
+    [AppUtilityClass showLoaderOnView:self.view];
     
+    __weak StationSubTasksViewController *weakSelf = self;
+    SendRemarksApi *sendRemarksApiObject = [SendRemarksApi new];
+    sendRemarksApiObject.email = self.loggedInUser.email;
+    sendRemarksApiObject.stationId = self.selectedStation.stationId;
+    sendRemarksApiObject.message = remarksMessage;
+    sendRemarksApiObject.taskId = self.selectedTask.refId;
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:sendRemarksApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
+                                                  [self getStationTasks];
+                                              }else{
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
+                                              }
+                                          }];
+}
+
+- (void)updateStatus:(TasksStatus)status{
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak StationSubTasksViewController *weakSelf = self;
+    UpdateSubTasksStatusApi *updateSubTaskStatusApiObject = [UpdateSubTasksStatusApi new];
+    updateSubTaskStatusApiObject.status = status;
+    updateSubTaskStatusApiObject.stationSubActivityId = self.selectedSubTask.stationSubActivityId;
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:updateSubTaskStatusApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
+                                                  [self getStationTasks];
+                                              }else{
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
+                                              }
+                                          }];
 }
 
 - (void)didReceiveMemoryWarning {

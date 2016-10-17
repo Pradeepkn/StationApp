@@ -39,6 +39,9 @@
 		E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A741DB3F98200CD302D /* UploadImagesViewController.m */; };
 		E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A781DB4284400CD302D /* UploadImagesApi.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
+		E93B0FEB1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */; };
+		E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */; };
+		E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
 		E96B97DB1DB2469500D0FCE4 /* PostOnWallApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97DA1DB2469500D0FCE4 /* PostOnWallApi.m */; };
@@ -155,6 +158,12 @@
 		E9231A781DB4284400CD302D /* UploadImagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesApi.m; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
+		E93B0FE91DB55B7F008B8232 /* RemarksStatusUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarksStatusUpdateViewController.h; sourceTree = "<group>"; };
+		E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarksStatusUpdateViewController.m; sourceTree = "<group>"; };
+		E93B0FEC1DB5749D008B8232 /* SendRemarksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRemarksApi.h; sourceTree = "<group>"; };
+		E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRemarksApi.m; sourceTree = "<group>"; };
+		E93B0FEF1DB58077008B8232 /* UpdateSubTasksStatusApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateSubTasksStatusApi.h; sourceTree = "<group>"; };
+		E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateSubTasksStatusApi.m; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
 		E95F0DB71D9F80D6008BFC77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
 		E95F0DB91D9F80D9008BFC77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -297,6 +306,8 @@
 				E98C0C8E1DA06871005D09A5 /* SendMessageViewController.m */,
 				E9231A731DB3F98200CD302D /* UploadImagesViewController.h */,
 				E9231A741DB3F98200CD302D /* UploadImagesViewController.m */,
+				E93B0FE91DB55B7F008B8232 /* RemarksStatusUpdateViewController.h */,
+				E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */,
 			);
 			path = SendMessageViewController;
 			sourceTree = "<group>";
@@ -465,10 +476,10 @@
 				E9F3B7371D9C58B200A98B85 /* LoginViewController.m */,
 				E9FB6B611DA9834700769D8C /* SignUpViewController.h */,
 				E9FB6B621DA9834700769D8C /* SignUpViewController.m */,
-				E9C964E51DACBEB6009364CD /* StationsListViewController.h */,
-				E9C964E61DACBEB6009364CD /* StationsListViewController.m */,
 				E96B97D51DB17AE300D0FCE4 /* ResetPasswordViewController.h */,
 				E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */,
+				E9C964E51DACBEB6009364CD /* StationsListViewController.h */,
+				E9C964E61DACBEB6009364CD /* StationsListViewController.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -554,6 +565,10 @@
 				E9231A4B1DB3835900CD302D /* StaionGalleryInfoApi.m */,
 				E9231A771DB4284400CD302D /* UploadImagesApi.h */,
 				E9231A781DB4284400CD302D /* UploadImagesApi.m */,
+				E93B0FEC1DB5749D008B8232 /* SendRemarksApi.h */,
+				E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */,
+				E93B0FEF1DB58077008B8232 /* UpdateSubTasksStatusApi.h */,
+				E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -737,6 +752,7 @@
 				E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */,
 				E9231A3C1DB3728D00CD302D /* WhatsNewMessages+CoreDataClass.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
+				E93B0FEB1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,
 				E9231A551DB395EA00CD302D /* StationGalleryInfo+CoreDataProperties.m in Sources */,
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
@@ -766,8 +782,10 @@
 				E9231A411DB3728D00CD302D /* HomeImages+CoreDataProperties.m in Sources */,
 				E9231A3D1DB3728D00CD302D /* WhatsNewMessages+CoreDataProperties.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
+				E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */,
 				E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */,
 				E9231A361DB3728D00CD302D /* User+CoreDataClass.m in Sources */,
+				E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */,
 				E9231A4C1DB3835900CD302D /* StaionGalleryInfoApi.m in Sources */,
 				E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,

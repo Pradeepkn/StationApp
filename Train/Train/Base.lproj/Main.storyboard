@@ -10,6 +10,9 @@
         <array key="proximanova-bold-webfont.ttf">
             <string>ProximaNova-Bold</string>
         </array>
+        <array key="proximanova-light-webfont.ttf">
+            <string>ProximaNova-Light</string>
+        </array>
         <array key="proximanova-reg-webfont.ttf">
             <string>ProximaNova-Regular</string>
         </array>
@@ -1137,7 +1140,230 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jv9-Na-3Pe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2345" y="-223"/>
+            <point key="canvasLocation" x="2345" y="-224"/>
+        </scene>
+        <!--Remarks Status Update View Controller-->
+        <scene sceneID="8vU-uw-SWF">
+            <objects>
+                <viewController storyboardIdentifier="RemarksStatusUpdateViewController" id="nMX-WM-FPE" customClass="RemarksStatusUpdateViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bZZ-uf-KJA"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yag-Od-c94"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hjN-3a-Gkn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IOV-eF-5Bt">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfZ-sk-7cX">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="De9-Ln-t3Q"/>
+                                            <constraint firstAttribute="width" constant="44" id="a1a-YN-Fej"/>
+                                        </constraints>
+                                        <state key="normal" image="left-arrow"/>
+                                        <connections>
+                                            <action selector="backButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="rH6-gF-ueE"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3B7-vT-gLj">
+                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="3B7-vT-gLj" firstAttribute="centerX" secondItem="IOV-eF-5Bt" secondAttribute="centerX" id="BpY-0b-i9c"/>
+                                    <constraint firstItem="3B7-vT-gLj" firstAttribute="bottom" secondItem="qfZ-sk-7cX" secondAttribute="bottom" id="JWk-NA-6ym"/>
+                                    <constraint firstItem="qfZ-sk-7cX" firstAttribute="top" secondItem="IOV-eF-5Bt" secondAttribute="top" constant="20" id="Oqd-c6-B51"/>
+                                    <constraint firstItem="3B7-vT-gLj" firstAttribute="top" secondItem="qfZ-sk-7cX" secondAttribute="top" id="TWI-KQ-Tq5"/>
+                                    <constraint firstAttribute="height" constant="64" id="asg-jk-ga7"/>
+                                    <constraint firstItem="qfZ-sk-7cX" firstAttribute="leading" secondItem="IOV-eF-5Bt" secondAttribute="leading" id="ivZ-6F-beE"/>
+                                    <constraint firstItem="3B7-vT-gLj" firstAttribute="leading" secondItem="qfZ-sk-7cX" secondAttribute="trailing" constant="8" symbolic="YES" id="lTS-Ju-bdK"/>
+                                </constraints>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="saU-FI-Sw8">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c12-wx-Xs6">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="YrY-w3-ggg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="16"/>
+                                        <state key="normal" title="Submit">
+                                            <color key="titleColor" red="0.78823529410000004" green="0.050980392159999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="submitRemarksButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="9nE-rz-986"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBW-xz-D0c">
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter remarks..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Ob-44-iop">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="077-VD-ciQ"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jYm-4d-SVG">
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="nMX-WM-FPE" id="kit-om-StX"/>
+                                                </connections>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="9Ob-44-iop" firstAttribute="top" secondItem="uBW-xz-D0c" secondAttribute="top" constant="10" id="1ac-cC-oVT"/>
+                                            <constraint firstItem="jYm-4d-SVG" firstAttribute="top" secondItem="uBW-xz-D0c" secondAttribute="top" constant="10" id="3Hu-k2-hdw"/>
+                                            <constraint firstAttribute="trailing" secondItem="jYm-4d-SVG" secondAttribute="trailing" constant="10" id="Ddl-Ad-AyC"/>
+                                            <constraint firstAttribute="bottom" secondItem="jYm-4d-SVG" secondAttribute="bottom" constant="10" id="Dyf-lh-sty"/>
+                                            <constraint firstAttribute="trailing" secondItem="9Ob-44-iop" secondAttribute="trailing" constant="10" id="Jw2-RS-EEk"/>
+                                            <constraint firstItem="jYm-4d-SVG" firstAttribute="leading" secondItem="uBW-xz-D0c" secondAttribute="leading" constant="10" id="aag-S4-fhK"/>
+                                            <constraint firstItem="9Ob-44-iop" firstAttribute="leading" secondItem="uBW-xz-D0c" secondAttribute="leading" constant="10" id="tmR-tf-J3Z"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="uBW-xz-D0c" firstAttribute="leading" secondItem="saU-FI-Sw8" secondAttribute="leading" id="92U-dA-Kxq"/>
+                                    <constraint firstItem="uBW-xz-D0c" firstAttribute="top" secondItem="saU-FI-Sw8" secondAttribute="top" id="Kgg-cv-psj"/>
+                                    <constraint firstAttribute="trailing" secondItem="c12-wx-Xs6" secondAttribute="trailing" id="M3k-G7-e1W"/>
+                                    <constraint firstAttribute="height" constant="120" id="UaA-Da-wVA"/>
+                                    <constraint firstAttribute="trailing" secondItem="uBW-xz-D0c" secondAttribute="trailing" id="hvC-rP-AOX"/>
+                                    <constraint firstItem="c12-wx-Xs6" firstAttribute="leading" secondItem="saU-FI-Sw8" secondAttribute="leading" id="kPj-cU-bDG"/>
+                                    <constraint firstAttribute="bottom" secondItem="c12-wx-Xs6" secondAttribute="bottom" id="nSX-kH-1fg"/>
+                                    <constraint firstItem="c12-wx-Xs6" firstAttribute="top" secondItem="uBW-xz-D0c" secondAttribute="bottom" constant="1" id="rQk-fY-4h3"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8z-Ya-j35">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0AO-Zg-gOH">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="i1b-vf-gDw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="18"/>
+                                        <color key="textColor" red="0.1960784314" green="0.1843137255" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3x-gO-OZj">
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="P0o-H0-OJt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="-60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="To Start" image="to-start">
+                                            <color key="titleColor" red="0.43137254899999999" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="statusUpdateButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="f21-dw-XJd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="knP-zG-U35">
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="-54" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="On Going" image="ongoing">
+                                            <color key="titleColor" red="0.43137254899999999" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="statusUpdateButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="dFw-ur-guP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMt-Cm-BQt">
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="-56" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Delayed" image="caution-icon">
+                                            <color key="titleColor" red="0.43137254899999999" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="statusUpdateButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="iRx-ja-6yw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZv-0A-0zd">
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="-44" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Completed" image="tick-mark">
+                                            <color key="titleColor" red="0.43137254899999999" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="statusUpdateButtonClicked:" destination="nMX-WM-FPE" eventType="touchUpInside" id="Tei-4s-eL5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="knP-zG-U35" secondAttribute="trailing" constant="11" id="0nt-zb-8gn"/>
+                                    <constraint firstAttribute="trailing" secondItem="oZv-0A-0zd" secondAttribute="trailing" constant="12" id="2Yr-yL-NTv"/>
+                                    <constraint firstItem="knP-zG-U35" firstAttribute="top" secondItem="0AO-Zg-gOH" secondAttribute="bottom" id="3BX-Ll-OTC"/>
+                                    <constraint firstItem="WMt-Cm-BQt" firstAttribute="width" secondItem="R3x-gO-OZj" secondAttribute="width" id="8uE-No-ioG"/>
+                                    <constraint firstItem="knP-zG-U35" firstAttribute="width" secondItem="R3x-gO-OZj" secondAttribute="width" id="9rm-nr-0k7"/>
+                                    <constraint firstItem="oZv-0A-0zd" firstAttribute="height" secondItem="R3x-gO-OZj" secondAttribute="height" id="Bey-rj-i4j"/>
+                                    <constraint firstItem="oZv-0A-0zd" firstAttribute="width" secondItem="R3x-gO-OZj" secondAttribute="width" id="I94-XH-UyU"/>
+                                    <constraint firstItem="knP-zG-U35" firstAttribute="height" secondItem="R3x-gO-OZj" secondAttribute="height" id="Ici-LR-VPZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="WMt-Cm-BQt" secondAttribute="bottom" constant="16" id="Orv-sh-hDU"/>
+                                    <constraint firstItem="WMt-Cm-BQt" firstAttribute="height" secondItem="R3x-gO-OZj" secondAttribute="height" id="PEY-85-VLK"/>
+                                    <constraint firstItem="knP-zG-U35" firstAttribute="leading" secondItem="R3x-gO-OZj" secondAttribute="trailing" constant="6" id="WlF-cb-JdU"/>
+                                    <constraint firstItem="0AO-Zg-gOH" firstAttribute="leading" secondItem="p8z-Ya-j35" secondAttribute="leading" id="ec6-gg-8th"/>
+                                    <constraint firstItem="R3x-gO-OZj" firstAttribute="top" secondItem="0AO-Zg-gOH" secondAttribute="bottom" id="laz-Gs-Ukf"/>
+                                    <constraint firstItem="R3x-gO-OZj" firstAttribute="leading" secondItem="p8z-Ya-j35" secondAttribute="leading" constant="12" id="sFH-Ff-fIU"/>
+                                    <constraint firstAttribute="bottom" secondItem="oZv-0A-0zd" secondAttribute="bottom" constant="16" id="txX-WZ-HC5"/>
+                                    <constraint firstItem="WMt-Cm-BQt" firstAttribute="leading" secondItem="p8z-Ya-j35" secondAttribute="leading" constant="12" id="u4z-55-KNe"/>
+                                    <constraint firstAttribute="trailing" secondItem="0AO-Zg-gOH" secondAttribute="trailing" id="zKE-hO-FJH"/>
+                                    <constraint firstItem="0AO-Zg-gOH" firstAttribute="top" secondItem="p8z-Ya-j35" secondAttribute="top" id="zdn-f8-SCb"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="p8z-Ya-j35" firstAttribute="top" secondItem="saU-FI-Sw8" secondAttribute="bottom" constant="60" id="AoF-ZH-R8q"/>
+                            <constraint firstAttribute="trailing" secondItem="saU-FI-Sw8" secondAttribute="trailing" constant="20" id="Dl1-vh-4Lf"/>
+                            <constraint firstItem="saU-FI-Sw8" firstAttribute="leading" secondItem="hjN-3a-Gkn" secondAttribute="leading" constant="20" id="Eoh-DB-ckZ"/>
+                            <constraint firstItem="p8z-Ya-j35" firstAttribute="leading" secondItem="hjN-3a-Gkn" secondAttribute="leading" constant="20" id="Hiy-EC-Stc"/>
+                            <constraint firstItem="IOV-eF-5Bt" firstAttribute="top" secondItem="hjN-3a-Gkn" secondAttribute="top" id="Jyi-gj-h6a"/>
+                            <constraint firstItem="IOV-eF-5Bt" firstAttribute="leading" secondItem="hjN-3a-Gkn" secondAttribute="leading" id="b1Y-rC-q5l"/>
+                            <constraint firstItem="saU-FI-Sw8" firstAttribute="top" secondItem="IOV-eF-5Bt" secondAttribute="bottom" constant="20" id="fTF-3w-BYX"/>
+                            <constraint firstItem="p8z-Ya-j35" firstAttribute="centerY" secondItem="hjN-3a-Gkn" secondAttribute="centerY" id="irW-o9-QQw"/>
+                            <constraint firstAttribute="trailing" secondItem="p8z-Ya-j35" secondAttribute="trailing" constant="20" id="r2q-oL-HC0"/>
+                            <constraint firstItem="p8z-Ya-j35" firstAttribute="centerX" secondItem="hjN-3a-Gkn" secondAttribute="centerX" id="sIE-8E-5GX"/>
+                            <constraint firstAttribute="trailing" secondItem="IOV-eF-5Bt" secondAttribute="trailing" id="we4-YB-iy3"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="completedButton" destination="oZv-0A-0zd" id="3Mf-Bs-PhH"/>
+                        <outlet property="delayedButton" destination="WMt-Cm-BQt" id="nuU-16-Q6q"/>
+                        <outlet property="navigationTopView" destination="IOV-eF-5Bt" id="913-D0-4Ks"/>
+                        <outlet property="onGoingButton" destination="knP-zG-U35" id="n3P-um-mLh"/>
+                        <outlet property="remarksContainerView" destination="saU-FI-Sw8" id="j89-6q-Dpr"/>
+                        <outlet property="remarksTextField" destination="9Ob-44-iop" id="4Yv-bG-vg7"/>
+                        <outlet property="remarksTextView" destination="jYm-4d-SVG" id="1LH-ZY-ZLl"/>
+                        <outlet property="statusContainerView" destination="p8z-Ya-j35" id="rC4-vO-I85"/>
+                        <outlet property="titleLabel" destination="3B7-vT-gLj" id="wsc-Sm-FJe"/>
+                        <outlet property="toStartButton" destination="R3x-gO-OZj" id="etl-1b-jA2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EVC-OO-jQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3972" y="-1022.3388305847077"/>
         </scene>
         <!--Station Gallery Info View Controller-->
         <scene sceneID="2wQ-VQ-ktq">
@@ -2313,9 +2539,12 @@
         <image name="information-active" width="9" height="11"/>
         <image name="left-arrow" width="14" height="12"/>
         <image name="massage-icon" width="9" height="8"/>
+        <image name="ongoing" width="14" height="13"/>
         <image name="plus" width="16" height="16"/>
         <image name="plus-icon-smal" width="22" height="22"/>
         <image name="tick-blue-icon" width="11" height="8"/>
+        <image name="tick-mark" width="11" height="11"/>
+        <image name="to-start" width="10" height="10"/>
         <image name="user" width="11" height="11"/>
         <image name="user-icon" width="11" height="12"/>
         <image name="visible-icon" width="13" height="10"/>

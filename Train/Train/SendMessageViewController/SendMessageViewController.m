@@ -13,6 +13,10 @@
 
 static NSString *const kHomeMessagesCellIdentifier = @"MessageCellIdentifier";
 
+static NSString *const kFirstMessage = @"Congratulations to you and your team for the good performance. Wish you success in this endevour. Regards,";
+static NSString *const kSecondMessage = @"Kindly intervene into the current status of your redevelopment initiatives and resolve all pending delays.";
+static NSString *const kThirdMessage = @"Custom";
+
 @interface SendMessageViewController (){
     NSArray *prePopulatedArray;
 }
@@ -25,7 +29,7 @@ static NSString *const kHomeMessagesCellIdentifier = @"MessageCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    prePopulatedArray = [NSArray arrayWithObjects:@"Congratulations to you and your team",@"Kindly intervene into the current work", @"Kindly send your current feedback on project", @"Custom", nil];
+    prePopulatedArray = [NSArray arrayWithObjects:kFirstMessage,kSecondMessage, kThirdMessage, nil];
     self.navigationController.navigationBarHidden = NO;
 }
 
