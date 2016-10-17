@@ -63,6 +63,8 @@
 
 + (void)addDottedBorderToView:(UIView*)view;
 
++ (void)addLineDottedBorderToView:(UIView*)view;
+
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 + (NSString *)getErrorMessageFor:(NSDictionary *)errorDict;

@@ -228,6 +228,18 @@
     dotborder.frame = view.bounds;
 }
 
++ (void)addLineDottedBorderToView:(UIView*)view {
+    CAShapeLayer * dotborder = [CAShapeLayer layer];
+    dotborder.strokeColor = [UIColor appImageColor].CGColor;//your own color
+    dotborder.fillColor = nil;
+    dotborder.lineDashPattern = @[@4, @2];//your own patten
+    dotborder.cornerRadius = 0.0f;
+    dotborder.lineWidth = 0.5f;
+    [view.layer addSublayer:dotborder];
+    dotborder.path = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
+    dotborder.frame = view.bounds;
+}
+
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     //UIGraphicsBeginImageContext(newSize);
     // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).

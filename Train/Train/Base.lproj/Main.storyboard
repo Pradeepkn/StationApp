@@ -1404,7 +1404,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-Eu-QgG">
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-xq-NGE">
                                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="30" maxX="25" maxY="0.0"/>
@@ -1430,7 +1430,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sen-zO-zHD" customClass="LBorderView">
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="cpB-Ro-ald"/>
+                                                    <constraint firstAttribute="height" constant="0.5" id="cpB-Ro-ald"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1549,6 +1549,11 @@
                                     <constraint firstAttribute="bottom" secondItem="G6R-lQ-cyt" secondAttribute="bottom" constant="10" id="cd4-Ys-BnC"/>
                                     <constraint firstItem="6i4-Eu-QgG" firstAttribute="leading" secondItem="xWB-8l-q5f" secondAttribute="leading" constant="10" id="guZ-1a-zHJ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYH-Co-EQQ">
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1556,7 +1561,7 @@
                                     <constraint firstAttribute="height" constant="50" id="rnT-76-tSS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="18"/>
-                                <state key="normal" title="Send">
+                                <state key="normal" title="Upload">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -1591,11 +1596,13 @@
                     <connections>
                         <outlet property="addTitleTxtField" destination="NOp-ES-aI2" id="r2R-af-J0E"/>
                         <outlet property="cameraButton" destination="8Ln-8r-xuY" id="DrQ-mZ-Tb2"/>
+                        <outlet property="collectionViewHeightConstraint" destination="Itk-zm-B5g" id="R4y-yn-Wa8"/>
                         <outlet property="containerView" destination="xWB-8l-q5f" id="92X-gb-HE1"/>
                         <outlet property="galleryButton" destination="Mz9-xq-NGE" id="xYg-DY-bvE"/>
                         <outlet property="galleryCollectionView" destination="G6R-lQ-cyt" id="SyU-OA-bg3"/>
                         <outlet property="imageContainerView" destination="6i4-Eu-QgG" id="9Zk-Jk-Ku3"/>
                         <outlet property="selectedImageView" destination="J1l-sx-Gq1" id="r9m-mo-LKx"/>
+                        <outlet property="sendButton" destination="BYH-Co-EQQ" id="D3P-VG-rsn"/>
                         <outlet property="separatorView" destination="sen-zO-zHD" id="CuO-EG-ZHr"/>
                     </connections>
                 </viewController>

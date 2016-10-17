@@ -30,6 +30,8 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (strong, nonatomic) NSMutableArray *imagesTitle;
 @property (strong, nonatomic) NSMutableArray *uploadingImages;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
 @property (strong, nonatomic) User *loggedInUser;
 
@@ -56,12 +58,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    for (CAShapeLayer *layer in self.imageContainerView.subviews) {
-        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    [AppUtilityClass addDottedBorderToView:self.imageContainerView];
+
     for (CAShapeLayer *layer in self.separatorView.subviews) {
         if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
             [layer removeFromSuperlayer];
@@ -70,6 +67,15 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     self.separatorView.backgroundColor = [UIColor clearColor];
     [AppUtilityClass addDottedBorderToView:self.separatorView];
     [self.galleryCollectionView reloadData];
+}
+
+- (void)addBorderForImageContainerView {
+    for (CAShapeLayer *layer in self.imageContainerView.subviews) {
+        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
+            [layer removeFromSuperlayer];
+        }
+    }
+    [AppUtilityClass addDottedBorderToView:self.imageContainerView];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -95,6 +101,23 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     }
     if (count > 5) {
         count = 5;
+    }
+    if (count == 1) {
+        self.collectionViewHeightConstraint.constant = 0;
+        self.sendButton.enabled = NO;
+        self.sendButton.alpha = 0.5f;
+        self.addTitleTxtField.enabled = NO;
+        self.selectedImageView.image = nil;
+        self.selectedImageView.hidden = YES;
+        self.cameraButton.hidden = NO;
+        self.galleryButton.hidden = NO;
+        self.separatorView.hidden = NO;
+        self.addTitleTxtField.text = @"";
+    }else {
+        self.collectionViewHeightConstraint.constant = 100;
+        self.sendButton.enabled = YES;
+        self.sendButton.alpha = 1.0f;
+        self.addTitleTxtField.enabled = YES;
     }
     return count;
 }
@@ -134,10 +157,12 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         self.selectedImageView.hidden = YES;
         self.separatorView.hidden = NO;
         self.addTitleTxtField.text = @"";
+        self.addTitleTxtField.enabled = NO;
     }else {
         self.addTitleTxtField.text = [self.imagesTitle objectAtIndex:indexPath.row];
         UIImage *cellImage = [self.selectedImages objectAtIndex:indexPath.row];
         self.selectedImageView.image = cellImage;
+        self.addTitleTxtField.enabled = YES;
         [self showImage];
     }
 }
@@ -247,6 +272,12 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
         return NO;
     }
+    if (self.imagesTitle.count == self.selectedImages.count) {
+        if ([self.imagesTitle objectAtIndex:(self.selectedImages.count - 1)]) {
+            [self.imagesTitle removeObjectAtIndex:(self.selectedImages.count - 1)];
+        }
+    }
+    
     [self.imagesTitle addObject:textField.text];
     [textField resignFirstResponder];
     return YES;
