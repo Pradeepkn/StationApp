@@ -417,6 +417,24 @@ const int kWriteUpdateMessageTag = 201;
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return YES - we will be able to delete all rows
+    if ([tableView isEqual:self.homeTopTableView] || [tableView isEqual:self.whatsNewTableView]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+    [[CoreDataManager sharedManager] deleteWallMessage:messageObject];
+    // Perform the real delete action here. Note: you may need to check editing style
+    //   if you do not perform delete only.
+    NSLog(@"Deleted row.");
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
@@ -530,8 +548,7 @@ const int kWriteUpdateMessageTag = 201;
     HomeImages *object = [[self imagesFetchedResultsController] objectAtIndexPath:indexPath];
     imagesCell.imageTitleLabel.text = object.imageName;
     imagesCell.imageDescription.text = object.stationName;
-    NSString *imagePath = @"http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg";
-    [imagesCell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [imagesCell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:object.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [imagesCell.collectionImageView setImage:image];
     }];
 }
@@ -602,13 +619,17 @@ const int kWriteUpdateMessageTag = 201;
         if (textView.tag == kLeaveAMessageTag) {
             messageCell = self.leaveAMessageCell;
             placeHolderText = kLeaveAMessageKey;
-            [self postMessagesOnWall:textView.text];
+            if (textView.text.length) {
+                [self postMessagesOnWall:textView.text];
+            }
             textView.text = @"";
         }else {
             messageCell = self.writeAnUpdateMessageCell;
             if (self.selectedStation) {
                 placeHolderText = kWriteAnUpdate;
-                [self postWhatsNewMessage:textView.text];
+                if (textView.text.length) {
+                    [self postWhatsNewMessage:textView.text];
+                }
                 textView.text = @"";
             }else {
                 [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please select station", nil)];

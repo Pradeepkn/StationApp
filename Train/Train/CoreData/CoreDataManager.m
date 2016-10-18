@@ -316,15 +316,18 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityId == %@",stationSubActivityId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
+        SubTasks *subTasksObject;
         if (array.count == 0) {
-            SubTasks *subTasks = [NSEntityDescription insertNewObjectForEntityForName:@"SubTasks" inManagedObjectContext:moc];
-            [subTasks setName:[dic valueForKey:@"name"]];
-            [subTasks setStationSubActivityId:stationSubActivityId];
-            [subTasks setExecuteAgency:[dic valueForKey:@"executeAgency"]];
-            [subTasks setDeadline:[dic valueForKey:@"deadline"]];
-            [subTasks setTaskId:taskId];
-            [subTasks setStatus:[[dic valueForKey:@"status"] integerValue]];
+            subTasksObject = [NSEntityDescription insertNewObjectForEntityForName:@"SubTasks" inManagedObjectContext:moc];
+        }else {
+            subTasksObject = (SubTasks *)[array firstObject];
         }
+        [subTasksObject setName:[dic valueForKey:@"name"]];
+        [subTasksObject setStationSubActivityId:stationSubActivityId];
+        [subTasksObject setExecuteAgency:[dic valueForKey:@"executeAgency"]];
+        [subTasksObject setDeadline:[dic valueForKey:@"deadline"]];
+        [subTasksObject setTaskId:taskId];
+        [subTasksObject setStatus:[[dic valueForKey:@"status"] integerValue]];
     }
     return [self saveData];
 }
@@ -449,6 +452,23 @@
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];
     return  result;
+}
+
+- (void)deleteWallMessage:(Messages *)message {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"messageId == %@", message.messageId];
+    [request setPredicate:predicate];
+    //... add sorts if you want them
+    NSError *fetchError;
+    NSArray *fetchedProducts=[moc executeFetchRequest:request error:&fetchError];
+    
+    for (NSManagedObject *product in fetchedProducts) {
+        [moc deleteObject:product];
+    }
+    [self saveData];
 }
 
 #pragma mark - Saving data

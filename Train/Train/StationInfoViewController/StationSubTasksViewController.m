@@ -112,9 +112,9 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO];
     [request setSortDescriptors:@[message]];
     NSLog(@"View Task ID = %@", self.selectedTask.refId);
-//
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
-//    [request setPredicate:predicate];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
+    [request setPredicate:predicate];
     return request;
 }
 
@@ -203,16 +203,22 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         case kTaskToStart:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
             subTasksCell.mileStoneLabel.textColor = [UIColor appGreyColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor appGreyColor];
             break;
         case kTaskOnTrack:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
             subTasksCell.mileStoneLabel.textColor = [UIColor appTextColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor appTextColor];
+            break;
         case kTaskDelayed:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
             subTasksCell.mileStoneLabel.textColor = [UIColor appRedColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor appRedColor];
+            break;
         case kTaskCompleted:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
             subTasksCell.mileStoneLabel.textColor = [UIColor appTextColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor appTextColor];
             break;
         default:
             break;
@@ -356,7 +362,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     remarksStatusVC.isRemarksUpdate = self.isRemarksUpdate;
     remarksStatusVC.selectedStation = self.selectedStation;
     if (!self.isRemarksUpdate) {
-        remarksStatusVC.statusCode = self.selectedTask.status;
+        remarksStatusVC.statusCode = self.selectedSubTask.status;
     }
     [self presentViewController:remarksStatusVC animated:YES completion:^{
         ;

@@ -45,5 +45,7 @@
 
 - (BOOL)saveData;
 
+- (void)deleteWallMessage:(Messages *)message;
+
 @end
 

@@ -187,6 +187,14 @@
     return attributedString;
 }
 
++ (NSMutableAttributedString *)updateBoldFontWithRegularForText:(NSString *)completeText forLabel:(UILabel *)label{
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:completeText];
+    NSString *boldString = @"STATION";
+    NSRange boldRange = [completeText rangeOfString:boldString];
+    [attributedString addAttribute: NSFontAttributeName value:[UIFont fontWithName:kProximaNovaBold size:label.font.pointSize] range:boldRange];
+    return attributedString;
+}
+
 + (void)addOverlayOnView:(UIView *)view {
     UIView *overlay = [[UIView alloc] initWithFrame:view.frame];
     [overlay setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];

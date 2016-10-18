@@ -146,8 +146,8 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
     StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray objectAtIndex:indexPath.row];
     cell.imageTitleLabel.text = stationGalleryInfo.imageName;
-    NSString *imagePath = @"http://www.gettyimages.pt/gi-resources/images/Homepage/Hero/PT/PT_hero_42_153645159.jpg";
-    [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    cell.imageDescription.text = stationGalleryInfo.stationName;
+    [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.collectionImageView setImage:image];
     }];
 }
