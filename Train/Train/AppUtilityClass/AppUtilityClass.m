@@ -134,6 +134,9 @@
 
 + (NSString *)calculateSHA:(NSString *)yourString
 {
+    if (yourString == nil) {
+        return @"StationApp";
+    }
     const char *ptr = [yourString UTF8String];
     
     int i =0;

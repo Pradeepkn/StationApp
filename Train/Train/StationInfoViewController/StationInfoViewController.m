@@ -35,9 +35,13 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
-    [self getStationTasks];
     [self initializeStationsInfoFetchedResultsController];
     self.title = self.selectedStation.stationName;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getStationTasks];
 }
 
 - (IBAction)backButtonClicked:(id)sender {

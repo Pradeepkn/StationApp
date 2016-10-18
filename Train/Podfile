@@ -18,7 +18,7 @@ pod 'BLMultiColorLoader'
 
 pod 'SDWebImage', '~>3.8'
 
-pod 'JTSActionSheet', '~>1.0.1'
+pod 'DRPageScrollView'
 
 end
 

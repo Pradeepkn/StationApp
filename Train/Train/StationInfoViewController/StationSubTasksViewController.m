@@ -33,6 +33,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @property (nonatomic, strong) NSMutableArray *subActivitiesArray;
 @property (nonatomic, strong) NSMutableArray *remarksArray;
 @property (nonatomic, strong) NSString *activityName;
+@property (weak, nonatomic) IBOutlet UIButton *remarksButton;
 
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *remarksFetchedResultsController;
@@ -57,6 +58,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [self initializeStationsInfoFetchedResultsController];
     [self getStationTasks];
     [self hideRightBarButton:YES];
+    self.remarksButton.hidden = YES;
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -65,11 +67,15 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (IBAction)editButtonClicked:(UIBarButtonItem *)sender {
     if (sender.tag == 100) {
+        sender.tag = 200;
         self.isViewEditable = YES;
         self.navigationItem.rightBarButtonItem.title = @"Done";
+        self.remarksButton.hidden = NO;
     }else {
+        sender.tag = 100;
         self.isViewEditable = NO;
         self.navigationItem.rightBarButtonItem.title = @"Edit";
+        self.remarksButton.hidden = YES;
     }
 }
 

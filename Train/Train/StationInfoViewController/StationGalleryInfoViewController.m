@@ -7,15 +7,15 @@
 //
 
 #import "StationGalleryInfoViewController.h"
-#import <JTSActionSheet/JTSActionSheet.h>
 #import "GalleryCollectionViewCell.h"
 #import "LocalizationKeys.h"
 #import "AppUtilityClass.h"
 #import "AppConstants.h"
 #import "StaionGalleryInfoApi.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "StationGalleryViewCell.h"
 #import "UploadImagesViewController.h"
+#import "ImagesGalleryViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -156,7 +156,13 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
+    ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
+    imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    imageGalleryVC.galleryInfoArray = galleryArray;
+    [self presentViewController:imageGalleryVC animated:YES completion:^{
+        ;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

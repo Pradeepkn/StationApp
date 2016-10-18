@@ -51,7 +51,8 @@ static NSInteger kKeyBoardOffSet = 120;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
     self.passwordTxtField.text = @"Prad33pkn";
-
+//    self.usernameTxtField.text = @"antararaychaudhur@gmail.com";
+//    self.passwordTxtField.text = @"antara20";
     [self getStationsAndDesignations];
     if ([AppUtilityClass getUserEmail] && [AppUtilityClass getUserPassword]) {
         self.usernameTxtField.text = [AppUtilityClass getUserEmail];

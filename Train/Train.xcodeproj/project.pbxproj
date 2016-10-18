@@ -39,6 +39,9 @@
 		E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A741DB3F98200CD302D /* UploadImagesViewController.m */; };
 		E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A781DB4284400CD302D /* UploadImagesApi.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
+		E93094651DB66A56007A6758 /* ImagesGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93094641DB66A56007A6758 /* ImagesGalleryViewController.m */; };
+		E93094671DB66BD8007A6758 /* ImagesGalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */; };
+		E930946A1DB66C29007A6758 /* ImagesGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93094691DB66C29007A6758 /* ImagesGalleryView.m */; };
 		E93B0FEB1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */; };
 		E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */; };
 		E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */; };
@@ -158,6 +161,11 @@
 		E9231A781DB4284400CD302D /* UploadImagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesApi.m; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
+		E93094631DB66A56007A6758 /* ImagesGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesGalleryViewController.h; sourceTree = "<group>"; };
+		E93094641DB66A56007A6758 /* ImagesGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesGalleryViewController.m; sourceTree = "<group>"; };
+		E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesGalleryView.xib; sourceTree = "<group>"; };
+		E93094681DB66C29007A6758 /* ImagesGalleryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesGalleryView.h; sourceTree = "<group>"; };
+		E93094691DB66C29007A6758 /* ImagesGalleryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesGalleryView.m; sourceTree = "<group>"; };
 		E93B0FE91DB55B7F008B8232 /* RemarksStatusUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemarksStatusUpdateViewController.h; sourceTree = "<group>"; };
 		E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemarksStatusUpdateViewController.m; sourceTree = "<group>"; };
 		E93B0FEC1DB5749D008B8232 /* SendRemarksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRemarksApi.h; sourceTree = "<group>"; };
@@ -480,6 +488,8 @@
 				E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */,
 				E9C964E51DACBEB6009364CD /* StationsListViewController.h */,
 				E9C964E61DACBEB6009364CD /* StationsListViewController.m */,
+				E93094631DB66A56007A6758 /* ImagesGalleryViewController.h */,
+				E93094641DB66A56007A6758 /* ImagesGalleryViewController.m */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";
@@ -530,6 +540,9 @@
 				E9231A6E1DB3C8DD00CD302D /* SubActivitiesHeaderView.xib */,
 				E9231A701DB3F5ED00CD302D /* StationGalleryViewCell.h */,
 				E9231A711DB3F5ED00CD302D /* StationGalleryViewCell.m */,
+				E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */,
+				E93094681DB66C29007A6758 /* ImagesGalleryView.h */,
+				E93094691DB66C29007A6758 /* ImagesGalleryView.m */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -591,9 +604,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E9F3B7051D9C4C7700A98B85 /* STATION APP */ = {
+		E9F3B7051D9C4C7700A98B85 /* Train */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9F3B7201D9C4C7700A98B85 /* Build configuration list for PBXNativeTarget "STATION APP" */;
+			buildConfigurationList = E9F3B7201D9C4C7700A98B85 /* Build configuration list for PBXNativeTarget "Train" */;
 			buildPhases = (
 				3EA17F86D015272B63464B7C /* Check Pods Manifest.lock */,
 				E9F3B7021D9C4C7700A98B85 /* Sources */,
@@ -606,7 +619,7 @@
 			);
 			dependencies = (
 			);
-			name = "STATION APP";
+			name = Train;
 			productName = Train;
 			productReference = E9F3B7061D9C4C7700A98B85 /* STATION APP.app */;
 			productType = "com.apple.product-type.application";
@@ -640,7 +653,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E9F3B7051D9C4C7700A98B85 /* STATION APP */,
+				E9F3B7051D9C4C7700A98B85 /* Train */,
 			);
 		};
 /* End PBXProject section */
@@ -659,6 +672,7 @@
 				E9F3B7191D9C4C7700A98B85 /* Assets.xcassets in Resources */,
 				E9FB6B6D1DA98B0F00769D8C /* proximanova-bold-webfont.ttf in Resources */,
 				E9231A6F1DB3C8DD00CD302D /* SubActivitiesHeaderView.xib in Resources */,
+				E93094671DB66BD8007A6758 /* ImagesGalleryView.xib in Resources */,
 				E9F3B7141D9C4C7700A98B85 /* Main.storyboard in Resources */,
 				E9FB6B701DA98B0F00769D8C /* proximanova-sbold-webfont.ttf in Resources */,
 				E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */,
@@ -724,6 +738,7 @@
 				E9231A3A1DB3728D00CD302D /* Tasks+CoreDataClass.m in Sources */,
 				E9231A721DB3F5ED00CD302D /* StationGalleryViewCell.m in Sources */,
 				E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */,
+				E930946A1DB66C29007A6758 /* ImagesGalleryView.m in Sources */,
 				E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */,
 				E9231A581DB39D0A00CD302D /* Tasks+CoreDataProperties.m in Sources */,
 				E9F3B7171D9C4C7700A98B85 /* Train.xcdatamodeld in Sources */,
@@ -789,6 +804,7 @@
 				E9231A4C1DB3835900CD302D /* StaionGalleryInfoApi.m in Sources */,
 				E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,
+				E93094651DB66A56007A6758 /* ImagesGalleryViewController.m in Sources */,
 				E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */,
 				E9F3B7391D9C58B200A98B85 /* AppUtilityClass.m in Sources */,
 				E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */,
@@ -933,7 +949,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.irsmobile.inbrixsolutions;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "STATION APP";
 				PROVISIONING_PROFILE = "51ce053e-d036-4225-9cce-b9c4f0dad554";
 				PROVISIONING_PROFILE_SPECIFIER = Inbrix_Development;
 			};
@@ -951,7 +967,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.irsmobile.inbrixsolutions;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "STATION APP";
 				PROVISIONING_PROFILE = "91ad9ab5-f1ba-4954-a6ce-c4224d179f36";
 				PROVISIONING_PROFILE_SPECIFIER = Inbrix_In_House_Enterprise;
 			};
@@ -969,7 +985,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9F3B7201D9C4C7700A98B85 /* Build configuration list for PBXNativeTarget "STATION APP" */ = {
+		E9F3B7201D9C4C7700A98B85 /* Build configuration list for PBXNativeTarget "Train" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9F3B7211D9C4C7700A98B85 /* Debug */,

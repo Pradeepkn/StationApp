@@ -123,12 +123,15 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"email == %@",email];
     [request setPredicate:predicate];
     NSArray *array = [moc executeFetchRequest:request error:nil];
+    User *userModel;
     if (array.count == 0) {
-        User *userModel = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
-        [userModel setEmail:[logedInDict valueForKey:@"email"]];
-        [userModel setDesignation:[logedInDict valueForKey:@"designation"]];
-        [userModel setStationName:[logedInDict valueForKey:@"stationName"]];
+        userModel = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:moc];
+    }else {
+        userModel = (User *)[array firstObject];
     }
+    [userModel setEmail:[logedInDict valueForKey:@"email"]];
+    [userModel setDesignation:[logedInDict valueForKey:@"designation"]];
+    [userModel setStationName:[logedInDict valueForKey:@"stationName"]];
     return [self saveData];
 }
 
@@ -290,14 +293,17 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"refId == %@",refId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
+        Tasks *tasks;
         if (array.count == 0) {
-            Tasks *tasks = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:moc];
-            [tasks setDomain:[dic valueForKey:@"domain"]];
-            [tasks setEventName:[dic valueForKey:@"eventName"]];
-            [tasks setRefId:refId];
-            [tasks setStatus:[[dic valueForKey:@"status"] integerValue]];
-            [tasks setStationId:stationId];
+            tasks = [NSEntityDescription insertNewObjectForEntityForName:@"Tasks" inManagedObjectContext:moc];
+        }else {
+            tasks = (Tasks *)[array firstObject];
         }
+        [tasks setDomain:[dic valueForKey:@"domain"]];
+        [tasks setEventName:[dic valueForKey:@"eventName"]];
+        [tasks setRefId:refId];
+        [tasks setStatus:[[dic valueForKey:@"status"] integerValue]];
+        [tasks setStationId:stationId];
     }
     return [self saveData];
 }

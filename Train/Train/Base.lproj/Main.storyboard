@@ -1613,6 +1613,109 @@
             </objects>
             <point key="canvasLocation" x="1565.5999999999999" y="-1361.4692653673164"/>
         </scene>
+        <!--Images Gallery View Controller-->
+        <scene sceneID="nif-vU-IH7">
+            <objects>
+                <viewController storyboardIdentifier="ImagesGalleryViewController" id="zgF-Be-Usi" customClass="ImagesGalleryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KEq-eh-rdo"/>
+                        <viewControllerLayoutGuide type="bottom" id="dX5-f4-D3h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WMA-9p-ErU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lW-xM-uJU">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="C4b-gJ-t5H"/>
+                                    <constraint firstAttribute="height" constant="36" id="l5c-TP-rsi"/>
+                                </constraints>
+                                <state key="normal" image="close-icon"/>
+                                <connections>
+                                    <action selector="closeButtonClicked:" destination="zgF-Be-Usi" eventType="touchUpInside" id="pfg-m0-Vrv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xo4-bS-78l">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="apS-W9-s21"/>
+                                    <constraint firstAttribute="width" constant="50" id="uN1-jK-72z"/>
+                                </constraints>
+                                <state key="normal" image="Escalator-circle-left-arrwo"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="previousButtonClicked:" destination="zgF-Be-Usi" eventType="touchUpInside" id="2h4-zC-lm0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1h-wZ-pRJ">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="3LL-fQ-vBp"/>
+                                    <constraint firstAttribute="height" constant="50" id="qgL-zQ-vxv"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="90" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="1 from 6" image="Escalator-circle-right-arrwo">
+                                    <color key="titleColor" red="0.43137254899999999" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextButtonClicked:" destination="zgF-Be-Usi" eventType="touchUpInside" id="AWe-7f-HnW"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Station Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qw-Wm-yN6">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="dhV-fg-XST"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRU-7G-HXQ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="yZh-on-Vzs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dX5-f4-D3h" firstAttribute="top" secondItem="k1h-wZ-pRJ" secondAttribute="bottom" constant="19" id="2O7-KK-I4x"/>
+                            <constraint firstItem="7lW-xM-uJU" firstAttribute="leading" secondItem="WMA-9p-ErU" secondAttribute="leading" id="3Pe-jL-4is"/>
+                            <constraint firstItem="KRU-7G-HXQ" firstAttribute="leading" secondItem="WMA-9p-ErU" secondAttribute="leading" constant="16" id="3Rq-33-ddf"/>
+                            <constraint firstItem="dX5-f4-D3h" firstAttribute="top" secondItem="Xo4-bS-78l" secondAttribute="bottom" constant="20" id="706-5e-UBA"/>
+                            <constraint firstItem="7lW-xM-uJU" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" id="CmW-cB-dr8"/>
+                            <constraint firstItem="6qw-Wm-yN6" firstAttribute="leading" secondItem="7lW-xM-uJU" secondAttribute="trailing" constant="8" id="JxK-l0-dYw"/>
+                            <constraint firstAttribute="trailing" secondItem="6qw-Wm-yN6" secondAttribute="trailing" constant="54" id="KJM-Gw-M3c"/>
+                            <constraint firstItem="KRU-7G-HXQ" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" constant="20" id="Qjq-9r-kde"/>
+                            <constraint firstAttribute="trailing" secondItem="KRU-7G-HXQ" secondAttribute="trailing" constant="16" id="UI3-iN-cOi"/>
+                            <constraint firstItem="6qw-Wm-yN6" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" id="d2i-he-prZ"/>
+                            <constraint firstItem="Xo4-bS-78l" firstAttribute="leading" secondItem="WMA-9p-ErU" secondAttribute="leading" constant="16" id="hbB-Oi-Jb2"/>
+                            <constraint firstAttribute="trailing" secondItem="k1h-wZ-pRJ" secondAttribute="trailing" constant="13" id="lLx-YZ-04G"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="7lW-xM-uJU" id="UeE-Cu-3If"/>
+                        <outlet property="imageNameLabel" destination="KRU-7G-HXQ" id="Tnb-1N-uUn"/>
+                        <outlet property="nextButton" destination="k1h-wZ-pRJ" id="Wr7-AT-6mK"/>
+                        <outlet property="previousButton" destination="Xo4-bS-78l" id="d12-pV-Ltd"/>
+                        <outlet property="stationNameLabel" destination="6qw-Wm-yN6" id="URa-vb-sV7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTc-n4-Bl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1565.5999999999999" y="-2113.4932533733136"/>
+        </scene>
         <!--Add New Photos-->
         <scene sceneID="CNx-pe-JB6">
             <objects>
@@ -2508,6 +2611,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="qOq-hb-6UY" id="Xnf-jL-oWV"/>
+                        <outlet property="remarksButton" destination="dRn-7J-jaD" id="5lt-84-NLj"/>
                         <outlet property="remarksTableView" destination="GTP-io-6Vj" id="HUB-p2-3RH"/>
                         <outlet property="subTasksListTableView" destination="Gjl-2H-ADj" id="yry-lI-SXO"/>
                     </connections>
@@ -2521,7 +2625,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2541,11 +2645,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Escalator-circle-left-arrwo" width="7" height="11"/>
+        <image name="Escalator-circle-right-arrwo" width="7" height="11"/>
         <image name="Escalator-img" width="320" height="568"/>
         <image name="Logo" width="200" height="200"/>
         <image name="ava-icon" width="35" height="35"/>
         <image name="camera" width="22" height="18"/>
         <image name="caution-icon" width="13" height="11"/>
+        <image name="close-icon" width="10" height="10"/>
         <image name="closed-lock" width="9" height="11"/>
         <image name="down-arrow" width="7" height="5"/>
         <image name="help-icon" width="11" height="11"/>

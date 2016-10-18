@@ -21,8 +21,8 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BLMultiColorLoader (0.1.6)
+  - DRPageScrollView (1.0.0)
   - IQKeyboardManager (4.0.6)
-  - JTSActionSheet (1.0.1)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -34,8 +34,8 @@ PODS:
 
 DEPENDENCIES:
   - BLMultiColorLoader
+  - DRPageScrollView
   - IQKeyboardManager
-  - JTSActionSheet (~> 1.0.1)
   - SDWebImage (~> 3.8)
   - TTPLAPIManager (from `https://github.com/iosttpl/TTPLAPIManager.git`)
   - TTPLLibrary (from `https://github.com/iosttpl/TTPLLibrary.git`)
@@ -57,8 +57,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   BLMultiColorLoader: 9208e4541a88ec12e0da5af0e3619a805ab7ff6e
+  DRPageScrollView: 141e79e419ee420a5699fa8a269ccb3fd09ee0cd
   IQKeyboardManager: c52debb1967799ae7addb98eab0cf328083a874f
-  JTSActionSheet: d7e5350ce63b5ff23ced9db653ed1c768358124e
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   TTPLAPIManager: a2360fad848ae9dcb05056292cf0d479e325264c
   TTPLLibrary: d88a85ad87aab8929b1da53382d092f75ad3d365

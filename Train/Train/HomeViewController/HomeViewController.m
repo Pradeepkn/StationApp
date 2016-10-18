@@ -27,6 +27,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "StationGalleryInfoViewController.h"
 #import "UIColor+AppColor.h"
+#import "ImagesGalleryViewController.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -557,7 +558,11 @@ const int kWriteUpdateMessageTag = 201;
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    [self launchImage];
+//    ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
+//    imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+//    [self presentViewController:imageGalleryVC animated:YES completion:^{
+//        ;
+//    }];
 }
 
 - (void)messageButtonClicked:(UIButton*)sender {
@@ -582,6 +587,14 @@ const int kWriteUpdateMessageTag = 201;
         stationsListVC.isStationSelected = YES;
     stationsListVC.delegate = self;
     [self presentViewController:stationsListVC animated:YES completion:^{
+        ;
+    }];
+}
+
+- (void)showImageGalleryList:(UIButton *)sender {
+    ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
+    imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:imageGalleryVC animated:YES completion:^{
         ;
     }];
 }
