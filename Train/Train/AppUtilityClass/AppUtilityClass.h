@@ -69,4 +69,6 @@
 
 + (NSString *)getErrorMessageFor:(NSDictionary *)errorDict;
 
++ (void)purgeAllModels;
+
 @end

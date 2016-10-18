@@ -44,6 +44,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @property (nonatomic, strong) SubTasks *selectedSubTask;
 @property (nonatomic, assign) BOOL isEditable;
 @property (nonatomic, assign) BOOL isViewEditable;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksHeightConstraint;
 
 @end
 
@@ -58,7 +59,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [self initializeStationsInfoFetchedResultsController];
     [self getStationTasks];
     [self hideRightBarButton:YES];
+    self.remarksHeightConstraint.constant = 0.0f;
     self.remarksButton.hidden = YES;
+    self.subTasksListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.remarksTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -71,10 +75,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         self.isViewEditable = YES;
         self.navigationItem.rightBarButtonItem.title = @"Done";
         self.remarksButton.hidden = NO;
+        self.remarksHeightConstraint.constant = 50.0f;
     }else {
         sender.tag = 100;
         self.isViewEditable = NO;
         self.navigationItem.rightBarButtonItem.title = @"Edit";
+        self.remarksHeightConstraint.constant = 0.0f;
         self.remarksButton.hidden = YES;
     }
 }
@@ -84,9 +90,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     __weak StationSubTasksViewController *weakSelf = self;
     GetStationSubTasksApi *stationsubTasksApi = [GetStationSubTasksApi new];
     stationsubTasksApi.stationId = self.selectedStation.stationId;
-    stationsubTasksApi.email = self.loggedInUser.email;
+    stationsubTasksApi.email = [AppUtilityClass getUserEmail];
     stationsubTasksApi.taskId = self.selectedTask.refId;
+    [AppUtilityClass showLoaderOnView:self.view];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsubTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
@@ -106,6 +114,8 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     } else {
         self.navigationItem.rightBarButtonItem.title = @"Edit";
         self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.remarksHeightConstraint.constant = 0.0f;
+        self.remarksButton.hidden = YES;
     }
 }
 
@@ -410,7 +420,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     
     __weak StationSubTasksViewController *weakSelf = self;
     SendRemarksApi *sendRemarksApiObject = [SendRemarksApi new];
-    sendRemarksApiObject.email = self.loggedInUser.email;
+    sendRemarksApiObject.email = [AppUtilityClass getUserEmail];
     sendRemarksApiObject.stationId = self.selectedStation.stationId;
     sendRemarksApiObject.message = remarksMessage;
     sendRemarksApiObject.taskId = self.selectedTask.refId;

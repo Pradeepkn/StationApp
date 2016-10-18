@@ -97,6 +97,9 @@ const int kWriteUpdateMessageTag = 201;
 - (void)viewWillAppear:(BOOL)animated {
     [self getHomeMessages];
     [self getWhatsNewMessages];
+    self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
@@ -120,7 +123,7 @@ const int kWriteUpdateMessageTag = 201;
 - (void)getHomeMessages {
     __weak HomeViewController *weakSelf = self;
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
-    wallMessagesApiObject.email = self.loggedInUser.email;
+    wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
@@ -133,7 +136,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (void)getWhatsNewMessages {
     WhatsNewMessagesApi *whatsNewMessageApiObject = [WhatsNewMessagesApi new];
-    whatsNewMessageApiObject.email = self.loggedInUser.email;
+    whatsNewMessageApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:whatsNewMessageApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
@@ -148,7 +151,7 @@ const int kWriteUpdateMessageTag = 201;
     
     __weak HomeViewController *weakSelf = self;
     PostOnWallApi *postOnWallApiObject = [PostOnWallApi new];
-    postOnWallApiObject.email = self.loggedInUser.email;
+    postOnWallApiObject.email = [AppUtilityClass getUserEmail];
     postOnWallApiObject.designation = self.loggedInUser.designation;
     postOnWallApiObject.message = message;
     
@@ -177,7 +180,7 @@ const int kWriteUpdateMessageTag = 201;
     
     __weak HomeViewController *weakSelf = self;
     SendWhatsNewMessage *postOnWallApiObject = [SendWhatsNewMessage new];
-    postOnWallApiObject.email = self.loggedInUser.email;
+    postOnWallApiObject.email = [AppUtilityClass getUserEmail];
     postOnWallApiObject.stationId = self.selectedStation.stationId;
     postOnWallApiObject.message = message;
     
@@ -318,7 +321,7 @@ const int kWriteUpdateMessageTag = 201;
     if (tableView.tag == kOverallStatusTableView) {
         UIView *view = [UIView new];
         UILabel *overAllStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.bounds.size.width - 15, 20)];
-        overAllStatusLabel.text = @"Over All Status";
+        overAllStatusLabel.text = @"Overall Status";
         overAllStatusLabel.font = [UIFont fontWithName:kProximaNovaSemibold size:16.0f];
         overAllStatusLabel.textColor = [UIColor darkGrayColor];
         [view addSubview:overAllStatusLabel];

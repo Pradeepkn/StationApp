@@ -1501,7 +1501,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </imageView>
-                                                                    <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJT-Qs-PbH">
+                                                                    <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJT-Qs-PbH">
                                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1743,7 +1743,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-Eu-QgG">
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-xq-NGE">
                                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="30" maxX="25" maxY="0.0"/>
@@ -1767,9 +1767,16 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sen-zO-zHD" customClass="LBorderView">
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dashedLine" translatesAutoresizingMaskIntoConstraints="NO" id="ICj-Ly-ZhD"/>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="0.5" id="cpB-Ro-ald"/>
+                                                    <constraint firstAttribute="height" constant="2" id="cpB-Ro-ald"/>
+                                                    <constraint firstItem="ICj-Ly-ZhD" firstAttribute="leading" secondItem="sen-zO-zHD" secondAttribute="leading" id="dcU-BE-lOj"/>
+                                                    <constraint firstItem="ICj-Ly-ZhD" firstAttribute="top" secondItem="sen-zO-zHD" secondAttribute="top" id="p5s-Kp-iKS"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ICj-Ly-ZhD" secondAttribute="bottom" id="pbi-bv-Ddc"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ICj-Ly-ZhD" secondAttribute="trailing" id="tnm-gn-mPM"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -2518,7 +2525,7 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-Ni-we2">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ut-Ni-we2">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="5UY-0v-rsU"/>
                                                                 <constraint firstAttribute="width" constant="30" id="7rV-ar-6Df"/>
@@ -2612,6 +2619,7 @@
                     <connections>
                         <outlet property="editButton" destination="qOq-hb-6UY" id="Xnf-jL-oWV"/>
                         <outlet property="remarksButton" destination="dRn-7J-jaD" id="5lt-84-NLj"/>
+                        <outlet property="remarksHeightConstraint" destination="Uef-gL-dYn" id="B5o-1d-Lx7"/>
                         <outlet property="remarksTableView" destination="GTP-io-6Vj" id="HUB-p2-3RH"/>
                         <outlet property="subTasksListTableView" destination="Gjl-2H-ADj" id="yry-lI-SXO"/>
                     </connections>
@@ -2654,6 +2662,7 @@
         <image name="caution-icon" width="13" height="11"/>
         <image name="close-icon" width="10" height="10"/>
         <image name="closed-lock" width="9" height="11"/>
+        <image name="dashedLine" width="400" height="2"/>
         <image name="down-arrow" width="7" height="5"/>
         <image name="help-icon" width="11" height="11"/>
         <image name="img-close" width="13" height="13"/>

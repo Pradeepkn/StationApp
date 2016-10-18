@@ -12,16 +12,34 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Qy-o2-DPn">
+                <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Qy-o2-DPn">
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XG-b9-7Db">
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="L9L-fX-ESO"/>
+                    </constraints>
+                </view>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gI-An-zVe">
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="vKl-6V-sbw"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="0Qy-o2-DPn" secondAttribute="trailing" id="2qy-TC-plk"/>
+                <constraint firstAttribute="bottom" secondItem="3gI-An-zVe" secondAttribute="bottom" id="3GK-MD-PD7"/>
+                <constraint firstItem="3gI-An-zVe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OGn-hu-QdO"/>
+                <constraint firstAttribute="trailing" secondItem="3gI-An-zVe" secondAttribute="trailing" id="RwK-XP-UA9"/>
                 <constraint firstItem="0Qy-o2-DPn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="T0V-7Z-rTw"/>
                 <constraint firstAttribute="bottom" secondItem="0Qy-o2-DPn" secondAttribute="bottom" id="Udv-3E-paM"/>
+                <constraint firstItem="7XG-b9-7Db" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="avW-4G-d6S"/>
                 <constraint firstItem="0Qy-o2-DPn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bBb-2Z-idz"/>
+                <constraint firstAttribute="trailing" secondItem="7XG-b9-7Db" secondAttribute="trailing" id="lbE-D9-vFV"/>
+                <constraint firstItem="7XG-b9-7Db" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x3K-KV-eFk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

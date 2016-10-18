@@ -58,6 +58,8 @@ static NSInteger kKeyBoardOffSet = 120;
         self.usernameTxtField.text = [AppUtilityClass getUserEmail];
         self.passwordTxtField.text = [AppUtilityClass getUserPassword];
         [self loginButtonClicked:self.loginButton];
+    }else {
+        [AppUtilityClass purgeAllModels];
     }
 }
 
@@ -94,6 +96,7 @@ static NSInteger kKeyBoardOffSet = 120;
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
+                                                  [AppUtilityClass storeUserEmail:weakSelf.usernameTxtField.text];
                                                   [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {

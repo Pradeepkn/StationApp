@@ -12,6 +12,7 @@
 #import "CustomAlertViewController.h"
 #import "UIColor+AppColor.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "CoreDataManager.h"
 
 @implementation AppUtilityClass
 
@@ -280,6 +281,19 @@
         // No, it doesn't.
     }
     return capitalisedSentence;
+}
+
++ (void)purgeAllModels {
+    [[CoreDataManager sharedManager] deleteAllObjects:@"Stations"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"Designation"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"User"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"Messages"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"HomeImages"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"WhatsNewMessages"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"Tasks"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"SubTasks"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"StationGalleryInfo"];
+    [[CoreDataManager sharedManager] deleteAllObjects:@"Remarks"];
 }
 
 @end

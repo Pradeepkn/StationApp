@@ -42,6 +42,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getStationTasks];
+    self.stationInfoTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -49,10 +50,12 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 }
 
 - (void)getStationTasks {
+    [AppUtilityClass showLoaderOnView:self.view];
     __weak StationInfoViewController *weakSelf = self;
     GetStationTasksApi *stationTasksApi = [GetStationTasksApi new];
     stationTasksApi.stationId = self.selectedStation.stationId;
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         NSLog(@"Response = %@", responseDictionary);
         weakSelf.percentageCompleted = [NSString stringWithFormat:@"%ld%%", stationTasksApi.percentageCompleted];
         if (!error) {

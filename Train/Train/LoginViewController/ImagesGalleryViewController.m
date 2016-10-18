@@ -43,7 +43,6 @@
         ImagesGalleryView *view = (ImagesGalleryView *) [nibViews firstObject];
         __weak ImagesGalleryViewController *weakSelf = self;
         [self.pageScrollView addPageWithHandler:^(UIView *pageView) {
-            [weakSelf updateNextButtonTitle];
             weakSelf.stationNameLabel.text = stationGalleryInfo.stationName;
             weakSelf.imageNameLabel.text = stationGalleryInfo.imageName;
             [view.imageView  sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -51,6 +50,7 @@
             }];
             [pageView addSubview:view];
             applyConstraints(view);
+            [weakSelf updateNextButtonTitle];
         }];
     }
     [self.view bringSubviewToFront:self.closeButton];
@@ -89,7 +89,7 @@
 }
 
 - (void)updateNextButtonTitle {
-    [self.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.pageScrollView.currentPage, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
+    [self.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.pageScrollView.currentPage + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
 }
 
 void applyConstraints(UIView *view) {

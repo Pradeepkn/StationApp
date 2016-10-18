@@ -65,7 +65,6 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         }
     }
     self.separatorView.backgroundColor = [UIColor clearColor];
-    [AppUtilityClass addDottedBorderToView:self.separatorView];
     [self.galleryCollectionView reloadData];
 }
 
@@ -231,7 +230,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     
     __weak UploadImagesViewController *weakSelf = self;
     UploadImagesApi *uploadImagesApi = [UploadImagesApi new];
-    uploadImagesApi.email = self.loggedInUser.email;
+    uploadImagesApi.email = [AppUtilityClass getUserEmail];
     uploadImagesApi.stationId = self.selectedStation.stationId;
     uploadImagesApi.images = self.uploadingImages;
     

@@ -59,9 +59,11 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     __weak StationGalleryInfoViewController *weakSelf = self;
     StaionGalleryInfoApi *stationGalleryApi = [StaionGalleryInfoApi new];
     stationGalleryApi.stationId = self.selectedStation.stationId;
-    stationGalleryApi.email = self.loggedInUser.email;
+    stationGalleryApi.email = [AppUtilityClass getUserEmail];
+    [AppUtilityClass showLoaderOnView:self.view];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationGalleryApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
             weakSelf.line1Label.text = stationGalleryApi.established;
             weakSelf.line2Label.text = stationGalleryApi.area;
