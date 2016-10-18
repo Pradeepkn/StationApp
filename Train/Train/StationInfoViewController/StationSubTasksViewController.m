@@ -37,8 +37,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *remarksFetchedResultsController;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+
 @property (nonatomic, assign) BOOL isRemarksUpdate;
 @property (nonatomic, strong) SubTasks *selectedSubTask;
+@property (nonatomic, assign) BOOL isEditable;
+@property (nonatomic, assign) BOOL isViewEditable;
 
 @end
 
@@ -46,16 +50,27 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = self.selectedStation.stationName;
     self.navigationController.navigationBarHidden = NO;
     self.subActivitiesArray = [[NSMutableArray alloc] init];
     self.remarksArray = [[NSMutableArray alloc] init];
     [self initializeStationsInfoFetchedResultsController];
     [self getStationTasks];
-    self.title = self.selectedStation.stationName;
+    [self hideRightBarButton:YES];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)editButtonClicked:(UIBarButtonItem *)sender {
+    if (sender.tag == 100) {
+        self.isViewEditable = YES;
+        self.navigationItem.rightBarButtonItem.title = @"Done";
+    }else {
+        self.isViewEditable = NO;
+        self.navigationItem.rightBarButtonItem.title = @"Edit";
+    }
 }
 
 - (void)getStationTasks {
@@ -69,11 +84,23 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
+            self.isEditable = stationsubTasksApi.editStatus;
+            [weakSelf hideRightBarButton:self.isEditable];
             [weakSelf.subTasksListTableView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
         }
     }];
+}
+
+- (void)hideRightBarButton:(BOOL)isHidden {
+    if (!isHidden) {
+        self.navigationItem.rightBarButtonItem.title = @"";
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        self.navigationItem.rightBarButtonItem.title = @"Edit";
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
 }
 
 - (void)initializeStationsInfoFetchedResultsController
@@ -263,6 +290,9 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.isViewEditable) {
+        return;
+    }
     if ([tableView isEqual:self.subTasksListTableView]) {
         self.selectedSubTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
         self.isRemarksUpdate = NO;

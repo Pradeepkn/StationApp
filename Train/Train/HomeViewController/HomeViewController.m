@@ -329,7 +329,7 @@ const int kWriteUpdateMessageTag = 201;
         self.leaveAMessageCell.leaveMessageTextField.delegate = self;
         self.leaveAMessageCell.leaveMessageTextView.delegate = self;
         self.leaveAMessageCell.leaveMessageTextView.tag = kLeaveAMessageTag;
-        return self.leaveAMessageCell;
+        return self.leaveAMessageCell.contentView;
     }
     if (tableView.tag == kWhatsNewTableView) {
         self.writeAnUpdateMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier];
@@ -337,7 +337,7 @@ const int kWriteUpdateMessageTag = 201;
         self.writeAnUpdateMessageCell.leaveMessageTextField.delegate = self;
         self.writeAnUpdateMessageCell.leaveMessageTextView.delegate = self;
         self.writeAnUpdateMessageCell.leaveMessageTextView.tag = kWriteUpdateMessageTag;
-        return self.writeAnUpdateMessageCell;
+        return self.writeAnUpdateMessageCell.contentView;
     }
     return [UIView new];
 }

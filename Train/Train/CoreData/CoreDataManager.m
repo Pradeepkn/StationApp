@@ -345,14 +345,17 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
+        Remarks *remarks;
         if (array.count == 0) {
-            Remarks *remarks = [NSEntityDescription insertNewObjectForEntityForName:@"Remarks" inManagedObjectContext:moc];
-            [remarks setInsertDate:[dic valueForKey:@"insertDate"]];
-            [remarks setRemarksId:[dic valueForKey:@"remarksId"]];
-            [remarks setMessage:[dic valueForKey:@"message"]];
-            [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
-            [remarks setTaskId:taskId];
+            remarks = [NSEntityDescription insertNewObjectForEntityForName:@"Remarks" inManagedObjectContext:moc];
+        }else {
+            remarks = (Remarks *)[array firstObject];
         }
+        [remarks setInsertDate:[dic valueForKey:@"insertDate"]];
+        [remarks setRemarksId:[dic valueForKey:@"remarksId"]];
+        [remarks setMessage:[dic valueForKey:@"message"]];
+        [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
+        [remarks setTaskId:taskId];
     }
     return [self saveData];
 }

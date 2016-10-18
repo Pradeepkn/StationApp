@@ -2500,9 +2500,14 @@
                                 <action selector="backButtonClicked:" destination="Pb3-75-tyh" id="X4O-y1-voi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="qOq-hb-6UY"/>
+                        <barButtonItem key="rightBarButtonItem" tag="100" title="Edit" id="qOq-hb-6UY">
+                            <connections>
+                                <action selector="editButtonClicked:" destination="Pb3-75-tyh" id="8cE-2p-LzY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="qOq-hb-6UY" id="Xnf-jL-oWV"/>
                         <outlet property="remarksTableView" destination="GTP-io-6Vj" id="HUB-p2-3RH"/>
                         <outlet property="subTasksListTableView" destination="Gjl-2H-ADj" id="yry-lI-SXO"/>
                     </connections>
@@ -2516,7 +2521,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
