@@ -117,6 +117,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         self.sendButton.enabled = YES;
         self.sendButton.alpha = 1.0f;
         self.addTitleTxtField.enabled = YES;
+        self.selectedImageView.hidden = NO;
     }
     return count;
 }
@@ -177,18 +178,20 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     [self.selectedImages removeObjectAtIndex:sender.tag];
     [self.imagesTitle removeObjectAtIndex:sender.tag];
     [self.galleryCollectionView reloadData];
+    if ([self.selectedImages firstObject]) {
+        UIImage *firstImage = [self.selectedImages firstObject];
+        [self.selectedImageView setImage:firstImage];
+    }
 }
 
 #pragma mark - Image picker delegates
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    [self dismissViewControllerAnimated:YES completion:NULL];
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    self.selectedImageView.image = image;
-    [self showImage];
-
     [self.selectedImages addObject:[AppUtilityClass imageWithImage:image scaledToSize:self.selectedImageView.frame.size]];
     [self.galleryCollectionView reloadData];
+    [self showImage];
+    self.selectedImageView.image = image;
     [self.addTitleTxtField becomeFirstResponder];
 }
 

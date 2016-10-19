@@ -30,7 +30,7 @@
     [self updateNextButtonTitle];
     self.view.backgroundColor = [UIColor whiteColor];
     self.pageScrollView = [DRPageScrollView new];
-
+    self.pageScrollView.scrollEnabled = NO;
     self.pageScrollView.pageReuseEnabled = YES;
     [self.view addSubview:self.pageScrollView];
     applyConstraints(self.pageScrollView);
@@ -43,8 +43,6 @@
         ImagesGalleryView *view = (ImagesGalleryView *) [nibViews firstObject];
         __weak ImagesGalleryViewController *weakSelf = self;
         [self.pageScrollView addPageWithHandler:^(UIView *pageView) {
-            weakSelf.stationNameLabel.text = stationGalleryInfo.stationName;
-            weakSelf.imageNameLabel.text = stationGalleryInfo.imageName;
             [view.imageView  sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 [view.imageView setImage:image];
             }];
@@ -58,6 +56,14 @@
     [self.view bringSubviewToFront:self.previousButton];
     [self.view bringSubviewToFront:self.stationNameLabel];
     [self.view bringSubviewToFront:self.imageNameLabel];
+}
+
+- (void)updateImageNames {
+    NSInteger currentPage = self.pageScrollView.currentPage;
+    StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:currentPage];
+    
+    self.stationNameLabel.text = stationGalleryInfo.stationName;
+    self.imageNameLabel.text = stationGalleryInfo.imageName;
 }
 
 - (IBAction)closeButtonClicked:(id)sender {
@@ -90,6 +96,7 @@
 
 - (void)updateNextButtonTitle {
     [self.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.pageScrollView.currentPage + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
+    [self updateImageNames];
 }
 
 void applyConstraints(UIView *view) {
