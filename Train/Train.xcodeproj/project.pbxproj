@@ -53,6 +53,8 @@
 		E96B97FC1DB2710800D0FCE4 /* SendWhatsNewMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97FB1DB2710800D0FCE4 /* SendWhatsNewMessage.m */; };
 		E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B98071DB2D65200D0FCE4 /* GetStationTasksApi.m */; };
 		E96B980B1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */; };
+		E98636131DB7731D0033D358 /* UpdateRemarksStatusApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E98636121DB7731D0033D358 /* UpdateRemarksStatusApi.m */; };
+		E98636161DB77A1F0033D358 /* GetRemarksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E98636151DB77A1F0033D358 /* GetRemarksApi.m */; };
 		E98C0C811DA03B40005D09A5 /* LeaveMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */; };
 		E98C0C871DA057ED005D09A5 /* WhatsNewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C861DA057ED005D09A5 /* WhatsNewCell.m */; };
 		E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C0C8B1DA06866005D09A5 /* StationInfoViewController.m */; };
@@ -189,6 +191,10 @@
 		E96B98071DB2D65200D0FCE4 /* GetStationTasksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStationTasksApi.m; sourceTree = "<group>"; };
 		E96B98091DB2D66C00D0FCE4 /* GetStationSubTasksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStationSubTasksApi.h; sourceTree = "<group>"; };
 		E96B980A1DB2D66C00D0FCE4 /* GetStationSubTasksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStationSubTasksApi.m; sourceTree = "<group>"; };
+		E98636111DB7731D0033D358 /* UpdateRemarksStatusApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateRemarksStatusApi.h; sourceTree = "<group>"; };
+		E98636121DB7731D0033D358 /* UpdateRemarksStatusApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateRemarksStatusApi.m; sourceTree = "<group>"; };
+		E98636141DB77A1F0033D358 /* GetRemarksApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRemarksApi.h; sourceTree = "<group>"; };
+		E98636151DB77A1F0033D358 /* GetRemarksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRemarksApi.m; sourceTree = "<group>"; };
 		E98C0C7F1DA03B40005D09A5 /* LeaveMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveMessageCell.h; sourceTree = "<group>"; };
 		E98C0C801DA03B40005D09A5 /* LeaveMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveMessageCell.m; sourceTree = "<group>"; };
 		E98C0C851DA057ED005D09A5 /* WhatsNewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewCell.h; sourceTree = "<group>"; };
@@ -582,6 +588,10 @@
 				E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */,
 				E93B0FEF1DB58077008B8232 /* UpdateSubTasksStatusApi.h */,
 				E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */,
+				E98636111DB7731D0033D358 /* UpdateRemarksStatusApi.h */,
+				E98636121DB7731D0033D358 /* UpdateRemarksStatusApi.m */,
+				E98636141DB77A1F0033D358 /* GetRemarksApi.h */,
+				E98636151DB77A1F0033D358 /* GetRemarksApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -773,6 +783,7 @@
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
 				E96B97E41DB2529300D0FCE4 /* GetWallMessagesApi.m in Sources */,
 				E9231A3E1DB3728D00CD302D /* Designation+CoreDataClass.m in Sources */,
+				E98636131DB7731D0033D358 /* UpdateRemarksStatusApi.m in Sources */,
 				E96B97FC1DB2710800D0FCE4 /* SendWhatsNewMessage.m in Sources */,
 				E9231A391DB3728D00CD302D /* Stations+CoreDataProperties.m in Sources */,
 				E96B97DB1DB2469500D0FCE4 /* PostOnWallApi.m in Sources */,
@@ -803,6 +814,7 @@
 				E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */,
 				E9231A4C1DB3835900CD302D /* StaionGalleryInfoApi.m in Sources */,
 				E9231A331DB3728D00CD302D /* Messages+CoreDataProperties.m in Sources */,
+				E98636161DB77A1F0033D358 /* GetRemarksApi.m in Sources */,
 				E9F3B73A1D9C58B200A98B85 /* HomeViewController.m in Sources */,
 				E93094651DB66A56007A6758 /* ImagesGalleryViewController.m in Sources */,
 				E9231A381DB3728D00CD302D /* Stations+CoreDataClass.m in Sources */,

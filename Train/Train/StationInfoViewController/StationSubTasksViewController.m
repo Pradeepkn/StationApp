@@ -18,6 +18,8 @@
 #import "UpdateSubTasksStatusApi.h"
 #import "SubActivitiesHeaderView.h"
 #import "RemarksStatusUpdateViewController.h"
+#import "UpdateRemarksStatusApi.h"
+#import "GetRemarksApi.h"
 
 static NSString *const kSubTasksCellIdentifier = @"SubTasksCellIdentifier";
 static NSString *const kOverallStatusInfoCellIdentifier = @"OverallStatusInfoCell";
@@ -42,6 +44,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 @property (nonatomic, assign) BOOL isRemarksUpdate;
 @property (nonatomic, strong) SubTasks *selectedSubTask;
+@property (nonatomic, strong) Remarks *selectedRemarks;
 @property (nonatomic, assign) BOOL isEditable;
 @property (nonatomic, assign) BOOL isViewEditable;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksHeightConstraint;
@@ -107,6 +110,22 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }];
 }
 
+- (void)getStationRemarks {
+    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
+    __weak StationSubTasksViewController *weakSelf = self;
+    GetRemarksApi *remarksApi = [GetRemarksApi new];
+    remarksApi.taskId = self.selectedTask.refId;
+    [AppUtilityClass showLoaderOnView:self.view];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:remarksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
+        [[weakSelf remarksTableView] reloadData];
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+        }else{
+        }
+    }];
+}
+
 - (void)hideRightBarButton:(BOOL)isHidden {
     if (!isHidden) {
         self.navigationItem.rightBarButtonItem.title = @"";
@@ -152,7 +171,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (NSFetchRequest *)getRemarksFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Remarks"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES];
     [request setSortDescriptors:@[message]];
     NSLog(@"View Task ID = %@", self.selectedTask.refId);
 
@@ -273,17 +292,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
     overallStatusHeaderCell.statusInfoLabel.text = object.message;
     switch (object.status) {
-        case kTaskToStart:
-            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appGreyColor];
-            break;
-        case kTaskOnTrack:
-            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
-        case kTaskDelayed:
+        case kNotCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
             overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appRedColor];
-        case kTaskCompleted:
+            break;
+        case kCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
             overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
             break;
@@ -312,7 +325,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     if ([tableView isEqual:self.subTasksListTableView]) {
         self.selectedSubTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
         self.isRemarksUpdate = NO;
-        [self displayRemarksStatusUpdateView];
+        [self displayRemarksStatusUpdateViewWithMessage:NO];
+    }else {
+        self.selectedRemarks = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
+        self.isRemarksUpdate = YES;
+        [self displayRemarksStatusUpdateViewWithMessage:YES];
     }
 }
 
@@ -350,6 +367,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                 break;
             case NSFetchedResultsChangeMove:
             case NSFetchedResultsChangeUpdate:
+                [[self remarksTableView] reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
     }
@@ -398,10 +416,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (IBAction)remarksButtonClicked:(id)sender {
     self.isRemarksUpdate = YES;
-    [self displayRemarksStatusUpdateView];
+    [self displayRemarksStatusUpdateViewWithMessage:NO];
 }
 
-- (void)displayRemarksStatusUpdateView {
+- (void)displayRemarksStatusUpdateViewWithMessage:(BOOL)withMessage {
     RemarksStatusUpdateViewController *remarksStatusVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RemarksStatusUpdateViewController"];
     remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     remarksStatusVC.delegate = self;
@@ -409,6 +427,16 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     remarksStatusVC.selectedStation = self.selectedStation;
     if (!self.isRemarksUpdate) {
         remarksStatusVC.statusCode = self.selectedSubTask.status;
+    }else {
+        if (self.isViewEditable && withMessage) {
+            remarksStatusVC.isRemarksStatusUpdate = YES;
+            if (self.selectedRemarks.status == 1) {
+                remarksStatusVC.isRemarksCompleted = NO;
+            }else {
+                remarksStatusVC.isRemarksCompleted = YES;
+            }
+            remarksStatusVC.remarksMessage = self.selectedRemarks.message;
+        }
     }
     [self presentViewController:remarksStatusVC animated:YES completion:^{
         ;
@@ -431,7 +459,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
-                                                  [self getStationTasks];
+                                                  [self getStationRemarks];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
@@ -459,6 +487,33 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
                                                   [self getStationTasks];
+                                              }else{
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  }
+                                              }
+                                          }];
+}
+
+- (void)updateRemarksStatus:(DashboardStatus)status{
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak StationSubTasksViewController *weakSelf = self;
+    UpdateRemarksStatusApi *updateRemarksStatusApiObject = [UpdateRemarksStatusApi new];
+    updateRemarksStatusApiObject.status = status;
+    updateRemarksStatusApiObject.remarksId = self.selectedRemarks.remarksId;
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:updateRemarksStatusApiObject
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              if (dataDict.allKeys.count > 0) {
+                                                  [self getStationRemarks];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {

@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *completedButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *navigationTopView;
+@property (weak, nonatomic) IBOutlet UIView *remarksCompletedContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *completedViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UISwitch *remarksSwitch;
 
 @end
 
@@ -31,9 +34,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.7];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateViewElements];
+}
+
+- (void)updateViewElements {
     if (self.isRemarksUpdate) {
         self.remarksContainerView.hidden = NO;
         self.statusContainerView.hidden = YES;
+        if (self.isRemarksStatusUpdate) {
+            self.remarksCompletedContainerView.hidden = NO;
+            self.completedViewHeightConstraint.constant = 40.0f;
+            [self.remarksSwitch setOn:self.isRemarksCompleted];
+            self.remarksTextView.text = self.remarksMessage;
+            self.remarksTextView.editable = NO;
+            self.remarksTextField.text = @" ";
+            [self.remarksTextView scrollRectToVisible:CGRectMake(0,0,1,1) animated:YES];
+        }else {
+            self.completedViewHeightConstraint.constant = 0.0f;
+            self.remarksCompletedContainerView.hidden = YES;
+            [self.remarksTextView becomeFirstResponder];
+        }
     }else {
         self.remarksContainerView.hidden = YES;
         self.statusContainerView.hidden = NO;
@@ -67,6 +91,7 @@
 }
 
 - (IBAction)backButtonClicked:(id)sender {
+    [self.view endEditing:YES];
     [self removeViewFromSuperView];
 }
 
@@ -76,12 +101,26 @@
     }];
 }
 
+- (IBAction)remarksStatusUpdated:(UISwitch *)sender {
+
+}
+
 - (IBAction)submitRemarksButtonClicked:(id)sender {
-    if (self.remarksTextView.text.length) {
-        [self.delegate updateRemarks:self.remarksTextView.text];
+    if (self.isRemarksStatusUpdate) {
+        if (self.remarksSwitch.isOn) {
+            [self.delegate updateRemarksStatus:kCompleted];
+        }else {
+            [self.delegate updateRemarksStatus:kNotCompleted];
+        }
         [self removeViewFromSuperView];
+        return;
     }else {
-        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter remarks message", nil)];
+        if (self.remarksTextView.text.length) {
+            [self.delegate updateRemarks:self.remarksTextView.text];
+            [self removeViewFromSuperView];
+        }else {
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter remarks message", nil)];
+        }
     }
 }
 

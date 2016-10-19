@@ -57,6 +57,7 @@ static NSString *const kStationIdKey = @"stationId";
 static NSString *const kTaskIdKey = @"taskId";
 
 static NSString *const kStationSubActivityIdKey = @"stationSubActivityId";
+static NSString *const kStationRemarksIdKey = @"remarksId";
 static NSString *const kStatusKey = @"status";
 
 static NSString *const kImagesKey = @"images";
