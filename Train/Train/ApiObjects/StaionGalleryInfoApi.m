@@ -22,6 +22,7 @@
 
 - (NSString *)urlForAPIRequest{
     return [NSString stringWithFormat:@"%@/getStationInfo",[super baseURL]];
+//    return @"http://www.mocky.io/v2/58094802100000260f4c63bb";
 }
 
 - (NSMutableDictionary *)requestParameters{
@@ -51,6 +52,7 @@
             [[CoreDataManager sharedManager] saveStationGalleryInfoImages:weeklyImges[weekKey] forKey:weekKey];
         }
     }
+    self.editStatus = [apiDataSource[@"editStatus"] boolValue];
     if ([apiDataSource[@"stationData"] isKindOfClass:[NSArray class]]) {
         for (NSDictionary *stationData in apiDataSource[@"stationData"]) {
             self.stationName = stationData[@"stationName"];

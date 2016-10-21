@@ -33,8 +33,6 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
-@property (strong, nonatomic) User *loggedInUser;
-
 @end
 
 @implementation UploadImagesViewController
@@ -47,8 +45,9 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     self.imagePickerController = [[UIImagePickerController alloc] init];
     self.imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.imagePickerController.delegate = self;
-    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     self.addTitleTxtField.tag = 0;
+    self.separatorView.backgroundColor = [UIColor clearColor];
+    [self.galleryCollectionView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,23 +57,6 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    for (CAShapeLayer *layer in self.separatorView.subviews) {
-        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    self.separatorView.backgroundColor = [UIColor clearColor];
-    [self.galleryCollectionView reloadData];
-}
-
-- (void)addBorderForImageContainerView {
-    for (CAShapeLayer *layer in self.imageContainerView.subviews) {
-        if ([layer respondsToSelector:@selector(removeFromSuperlayer)]) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    [AppUtilityClass addDottedBorderToView:self.imageContainerView];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -105,13 +87,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         self.collectionViewHeightConstraint.constant = 0;
         self.sendButton.enabled = NO;
         self.sendButton.alpha = 0.5f;
-        self.addTitleTxtField.enabled = NO;
-        self.selectedImageView.image = nil;
-        self.selectedImageView.hidden = YES;
-        self.cameraButton.hidden = NO;
-        self.galleryButton.hidden = NO;
-        self.separatorView.hidden = NO;
-        self.addTitleTxtField.text = @"";
+        [self hideImageView];
     }else {
         self.collectionViewHeightConstraint.constant = 100;
         self.sendButton.enabled = YES;
@@ -133,7 +109,6 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         cell.closeButton.hidden = YES;
         [cell.collectionImageView setImage:[UIImage imageNamed:@"plus-icon-smal"]];
         cell.collectionImageView.contentMode = UIViewContentModeCenter;
-        [AppUtilityClass addDashedBorderWithColor:[UIColor blackColor].CGColor ForView:cell];
         [AppUtilityClass addDottedBorderToView:cell.collectionImageView];
     }else {
         cell.closeButton.hidden = NO;
@@ -152,36 +127,44 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.addTitleTxtField.tag = indexPath.row;
     if (indexPath.row == self.selectedImages.count) {
-        self.galleryButton.hidden = NO;
-        self.cameraButton.hidden = NO;
-        self.selectedImageView.hidden = YES;
-        self.separatorView.hidden = NO;
-        self.addTitleTxtField.text = @"";
-        self.addTitleTxtField.enabled = NO;
+        [self hideImageView];
     }else {
-        self.addTitleTxtField.text = [self.imagesTitle objectAtIndex:indexPath.row];
-        UIImage *cellImage = [self.selectedImages objectAtIndex:indexPath.row];
-        self.selectedImageView.image = cellImage;
-        self.addTitleTxtField.enabled = YES;
-        [self showImage];
+        [self showImageViewForIndex:indexPath.row];
     }
 }
 
-- (void)showImage {
+- (void)showImageViewForIndex:(NSInteger)rowIndex {
     self.galleryButton.hidden = YES;
     self.cameraButton.hidden = YES;
-    self.selectedImageView.hidden = NO;
     self.separatorView.hidden = YES;
+    self.selectedImageView.hidden = NO;
+    self.addTitleTxtField.enabled = YES;
+    if (self.imagesTitle.count > rowIndex) {
+        self.addTitleTxtField.text = [self.imagesTitle objectAtIndex:rowIndex];
+    }else {
+        self.addTitleTxtField.text = @"";
+    }
+    if (self.selectedImages.count > rowIndex) {
+        UIImage *cellImage = [self.selectedImages objectAtIndex:rowIndex];
+        self.selectedImageView.image = cellImage;
+    }
+}
+
+- (void)hideImageView {
+    self.addTitleTxtField.enabled = NO;
+    self.selectedImageView.image = nil;
+    self.selectedImageView.hidden = YES;
+    self.cameraButton.hidden = NO;
+    self.galleryButton.hidden = NO;
+    self.separatorView.hidden = NO;
+    self.addTitleTxtField.text = @"";
 }
 
 - (void)deleteSelectedImage:(UIButton *)sender {
     [self.selectedImages removeObjectAtIndex:sender.tag];
     [self.imagesTitle removeObjectAtIndex:sender.tag];
     [self.galleryCollectionView reloadData];
-    if ([self.selectedImages firstObject]) {
-        UIImage *firstImage = [self.selectedImages firstObject];
-        [self.selectedImageView setImage:firstImage];
-    }
+    [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 1];
 }
 
 #pragma mark - Image picker delegates
@@ -189,30 +172,45 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     [self.selectedImages addObject:[AppUtilityClass imageWithImage:image scaledToSize:self.selectedImageView.frame.size]];
-    [self.galleryCollectionView reloadData];
-    [self showImage];
-    self.selectedImageView.image = image;
     [self.addTitleTxtField becomeFirstResponder];
+    [self.galleryCollectionView reloadData];
+    if (self.selectedImages.count > 0) {
+        if (self.selectedImages.count == 5) {
+            [self autoSelectCollectionViewRowAtIndex:self.selectedImages.count - 1];
+        }else {
+            [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 2];
+        }
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 1];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)galleryButtonClicked:(id)sender {
-    if (self.selectedImages.count != self.imagesTitle.count) {
-        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
-        return;
+- (NSInteger)getCellCount {
+    NSUInteger count = self.selectedImages.count;
+    if (count < 5) {
+        count += 1;
     }
+    if (count > 5) {
+        count = 5;
+    }
+    return count;
+}
+
+- (void)autoSelectCollectionViewRowAtIndex:(NSInteger)index {
+    NSIndexPath *indexPathForFirstRow = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.galleryCollectionView selectItemAtIndexPath:indexPathForFirstRow animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.galleryCollectionView didSelectItemAtIndexPath:indexPathForFirstRow];
+}
+
+- (IBAction)galleryButtonClicked:(id)sender {
     self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 
 - (IBAction)cameraButtonClicked:(id)sender {
-    if (self.selectedImages.count != self.imagesTitle.count) {
-        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
-        return;
-    }
     self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
@@ -274,13 +272,9 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
         return NO;
     }
-    if (self.imagesTitle.count == self.selectedImages.count) {
-        if ([self.imagesTitle objectAtIndex:(self.selectedImages.count - 1)]) {
-            [self.imagesTitle removeObjectAtIndex:(self.selectedImages.count - 1)];
-        }
-    }
     
     [self.imagesTitle addObject:textField.text];
+    [self.galleryCollectionView reloadData];
     [textField resignFirstResponder];
     return YES;
 }

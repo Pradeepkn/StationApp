@@ -1395,6 +1395,7 @@
                         <outlet property="navigationTopView" destination="IOV-eF-5Bt" id="913-D0-4Ks"/>
                         <outlet property="onGoingButton" destination="knP-zG-U35" id="n3P-um-mLh"/>
                         <outlet property="remarksCompletedContainerView" destination="dHb-1q-Leo" id="MOv-R9-tOG"/>
+                        <outlet property="remarksContainerHeightConstraint" destination="UaA-Da-wVA" id="xsS-M3-dPm"/>
                         <outlet property="remarksContainerView" destination="saU-FI-Sw8" id="j89-6q-Dpr"/>
                         <outlet property="remarksSwitch" destination="GNK-qr-xyI" id="JKf-fh-4tM"/>
                         <outlet property="remarksTextField" destination="9Ob-44-iop" id="4Yv-bG-vg7"/>
@@ -1484,7 +1485,6 @@
                                         <state key="normal" image="plus"/>
                                         <connections>
                                             <action selector="addButtonClicked:" destination="7se-k7-4cy" eventType="touchUpInside" id="o4y-qr-5Og"/>
-                                            <action selector="backButtonClicked:" destination="LgZ-VW-jQp" eventType="touchUpInside" id="nVP-tf-Q5P"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1643,6 +1643,7 @@
                         <outlet property="line1Label" destination="4Zr-1H-CU5" id="zh3-eW-MXb"/>
                         <outlet property="line2Label" destination="nN8-j3-1Yn" id="ifl-Iq-1ed"/>
                         <outlet property="line3Label" destination="SsB-ne-Ba3" id="hAk-7x-u6v"/>
+                        <outlet property="rightBarButton" destination="11J-4N-9YW" id="ZJW-W4-qnK"/>
                         <outlet property="stationNameLabel" destination="1Vr-Lb-4tH" id="RIu-Ir-uXM"/>
                         <segue destination="8Gw-s2-vwU" kind="show" identifier="UploadImageSegue" id="y9E-eg-l81"/>
                     </connections>
@@ -1781,7 +1782,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6i4-Eu-QgG">
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Escalator-circle" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Escalator-circle" translatesAutoresizingMaskIntoConstraints="NO" id="J1l-sx-Gq1"/>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-xq-NGE">
                                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="30" maxX="25" maxY="0.0"/>
@@ -1992,7 +1993,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="74S-SA-DZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2303.1999999999998" y="-1770.7646176911546"/>
+            <point key="canvasLocation" x="2345" y="-1769"/>
         </scene>
         <!--Stations List View Controller-->
         <scene sceneID="COa-PM-XiP">
@@ -2671,7 +2672,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

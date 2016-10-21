@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIView *remarksCompletedContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *completedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UISwitch *remarksSwitch;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksContainerHeightConstraint;
 
 @end
 
@@ -41,6 +42,19 @@
     [self updateViewElements];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.isRemarksStatusUpdate) {
+        NSInteger remarksContainerViewHeight = [AppUtilityClass sizeOfText:self.remarksTextView.text widthOfTextView:self.remarksTextView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height +86;
+        if (remarksContainerViewHeight > self.view.frame.size.height - 150) {
+            remarksContainerViewHeight = self.view.frame.size.height - 150;
+        }else if (remarksContainerViewHeight < 140) {
+            remarksContainerViewHeight = 140.0f;
+        }
+        self.remarksContainerHeightConstraint.constant = remarksContainerViewHeight;
+    }
+}
+
 - (void)updateViewElements {
     if (self.isRemarksUpdate) {
         self.remarksContainerView.hidden = NO;
@@ -52,7 +66,7 @@
             self.remarksTextView.text = self.remarksMessage;
             self.remarksTextView.editable = NO;
             self.remarksTextField.text = @" ";
-            [self.remarksTextView scrollRectToVisible:CGRectMake(0,0,1,1) animated:YES];
+            self.remarksTextView.scrollsToTop = YES;
         }else {
             self.completedViewHeightConstraint.constant = 0.0f;
             self.remarksCompletedContainerView.hidden = YES;

@@ -16,6 +16,7 @@
 #import "UploadImagesViewController.h"
 #import "ImagesGalleryViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIColor+AppColor.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -32,6 +33,7 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 @property (weak, nonatomic) IBOutlet UILabel *stationNameLabel;
 @property (strong, nonatomic) User *loggedInUser;
 @property (nonatomic, strong) NSArray *weekKeys;
+@property (weak, nonatomic) IBOutlet UIButton *rightBarButton;
 
 @end
 
@@ -43,6 +45,7 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self isViewEditable:NO];
     [self getStationTasks];
 }
 
@@ -70,11 +73,21 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
             weakSelf.line3Label.text = stationGalleryApi.avgPassengerFootfail;
             weakSelf.stationNameLabel.text = stationGalleryApi.stationName;
             weakSelf.weekKeys = stationGalleryApi.weekKeys;
+            [weakSelf isViewEditable:stationGalleryApi.editStatus];
             [weakSelf.galleryTableView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
         }
     }];
+}
+
+
+- (void)isViewEditable:(BOOL)editable {
+    if (editable) {
+        self.rightBarButton.hidden = NO;
+    } else {
+        self.rightBarButton.hidden = YES;
+    }
 }
 
 #pragma mark - Table view data source
