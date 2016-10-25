@@ -175,6 +175,8 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
     imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     imageGalleryVC.galleryInfoArray = galleryArray;
+    imageGalleryVC.isFromDashBoard = NO;
+    imageGalleryVC.selectedImageIndex = indexPath.row;
     [self presentViewController:imageGalleryVC animated:YES completion:^{
         ;
     }];

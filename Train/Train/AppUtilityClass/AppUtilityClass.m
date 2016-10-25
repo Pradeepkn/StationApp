@@ -301,7 +301,7 @@
 
 + (NSString *)getWhatsNewMessageDate:(NSDate *)date {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd MMM yy"];
+    [formatter setDateFormat:@"dd MMM yy, hh:mm a"];
     //UTC to Local time zone conversions to add +5:30 hours
     NSTimeZone *outputTimeZone = [NSTimeZone localTimeZone];
     [formatter setTimeZone:outputTimeZone];

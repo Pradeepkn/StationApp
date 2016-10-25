@@ -114,6 +114,9 @@
 	}
 	
 	previousPage = self.currentPage;
+    if (self.scrollHandler) {
+        _scrollHandler(YES);
+    }
 }
 
 - (void)queuePageView:(UIView *)pageView {

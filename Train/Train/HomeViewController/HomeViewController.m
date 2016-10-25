@@ -325,7 +325,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (NSFetchRequest *)getHomeImagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
     [request setSortDescriptors:@[stations]];
     return request;
 }
@@ -624,7 +624,6 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)imagesCell atIndexPath:(NSIndexPath *)indexPath{
-
     HomeImages *object = [[self imagesFetchedResultsController] objectAtIndexPath:indexPath];
     imagesCell.imageTitleLabel.text = object.imageName;
     imagesCell.imageDescription.text = object.stationName;
@@ -637,11 +636,15 @@ const int kWriteUpdateMessageTag = 201;
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
-//    imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-//    [self presentViewController:imageGalleryVC animated:YES completion:^{
-//        ;
-//    }];
+    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchHomeImages];
+    ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
+    imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    imageGalleryVC.galleryInfoArray = galleryArray;
+    imageGalleryVC.isFromDashBoard = YES;
+    imageGalleryVC.selectedImageIndex = indexPath.row;
+    [self presentViewController:imageGalleryVC animated:YES completion:^{
+        ;
+    }];
 }
 
 - (void)messageButtonClicked:(UIButton*)sender {

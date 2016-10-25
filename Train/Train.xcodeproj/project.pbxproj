@@ -18,6 +18,7 @@
 		E9231A721DB3F5ED00CD302D /* StationGalleryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A711DB3F5ED00CD302D /* StationGalleryViewCell.m */; };
 		E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A741DB3F98200CD302D /* UploadImagesViewController.m */; };
 		E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A781DB4284400CD302D /* UploadImagesApi.m */; };
+		E9275FBA1DBF90720077CAB1 /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9275FB91DBF90720077CAB1 /* Messages+CoreDataProperties.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E93094651DB66A56007A6758 /* ImagesGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93094641DB66A56007A6758 /* ImagesGalleryViewController.m */; };
 		E93094671DB66BD8007A6758 /* ImagesGalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */; };
@@ -49,7 +50,6 @@
 		E954AAA51DBF4BA400A6B6F1 /* ProximaNova-RegItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E954AAA01DBF4BA400A6B6F1 /* ProximaNova-RegItalic.otf */; };
 		E954AAA61DBF4BA400A6B6F1 /* ProximaNova-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E954AAA11DBF4BA400A6B6F1 /* ProximaNova-RegularItalic.otf */; };
 		E954AAA71DBF4BA400A6B6F1 /* ProximaNova-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E954AAA21DBF4BA400A6B6F1 /* ProximaNova-SemiboldItalic.otf */; };
-		E954AAAA1DBF6B6200A6B6F1 /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AAA91DBF6B6200A6B6F1 /* Messages+CoreDataProperties.m */; };
 		E95F0DB61D9F80D6008BFC77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = E95F0DB81D9F80D6008BFC77 /* Localization.strings */; };
 		E96B97D71DB17AE300D0FCE4 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97D61DB17AE300D0FCE4 /* ResetPasswordViewController.m */; };
 		E96B97DB1DB2469500D0FCE4 /* PostOnWallApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E96B97DA1DB2469500D0FCE4 /* PostOnWallApi.m */; };
@@ -126,6 +126,8 @@
 		E9231A741DB3F98200CD302D /* UploadImagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesViewController.m; sourceTree = "<group>"; };
 		E9231A771DB4284400CD302D /* UploadImagesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImagesApi.h; sourceTree = "<group>"; };
 		E9231A781DB4284400CD302D /* UploadImagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesApi.m; sourceTree = "<group>"; };
+		E9275FB81DBF90720077CAB1 /* Messages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E9275FB91DBF90720077CAB1 /* Messages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E93094631DB66A56007A6758 /* ImagesGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesGalleryViewController.h; sourceTree = "<group>"; };
@@ -182,8 +184,6 @@
 		E954AAA01DBF4BA400A6B6F1 /* ProximaNova-RegItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegItalic.otf"; sourceTree = "<group>"; };
 		E954AAA11DBF4BA400A6B6F1 /* ProximaNova-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegularItalic.otf"; sourceTree = "<group>"; };
 		E954AAA21DBF4BA400A6B6F1 /* ProximaNova-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-SemiboldItalic.otf"; sourceTree = "<group>"; };
-		E954AAA81DBF6B6200A6B6F1 /* Messages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E954AAA91DBF6B6200A6B6F1 /* Messages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E95F0DB21D9F7EEF008BFC77 /* LocalizationKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationKeys.h; sourceTree = "<group>"; };
 		E95F0DB71D9F80D6008BFC77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
 		E95F0DB91D9F80D9008BFC77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -417,8 +417,8 @@
 		E954AA9A1DBF214500A6B6F1 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
-				E954AAA81DBF6B6200A6B6F1 /* Messages+CoreDataProperties.h */,
-				E954AAA91DBF6B6200A6B6F1 /* Messages+CoreDataProperties.m */,
+				E9275FB81DBF90720077CAB1 /* Messages+CoreDataProperties.h */,
+				E9275FB91DBF90720077CAB1 /* Messages+CoreDataProperties.m */,
 				E954AA781DBF20B900A6B6F1 /* Messages+CoreDataClass.h */,
 				E954AA791DBF20B900A6B6F1 /* Messages+CoreDataClass.m */,
 			);
@@ -868,7 +868,7 @@
 				E9FB6B751DA997D000769D8C /* SignUpEntryCell.m in Sources */,
 				E954AA861DBF20B900A6B6F1 /* Designation+CoreDataClass.m in Sources */,
 				E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */,
-				E954AAAA1DBF6B6200A6B6F1 /* Messages+CoreDataProperties.m in Sources */,
+				E9275FBA1DBF90720077CAB1 /* Messages+CoreDataProperties.m in Sources */,
 				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
 				E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */,
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,

@@ -30,20 +30,27 @@
     [self updateNextButtonTitle];
     self.view.backgroundColor = [UIColor whiteColor];
     self.pageScrollView = [DRPageScrollView new];
-    self.pageScrollView.scrollEnabled = NO;
     self.pageScrollView.pageReuseEnabled = YES;
     [self.view addSubview:self.pageScrollView];
     applyConstraints(self.pageScrollView);
-    
     // Note: you can either take this nib approach or directly instantiate your UI elements programatically and add them to pageView.
-    
+    __weak ImagesGalleryViewController *weakSelf = self;
+
     for (int index = 0; index < self.galleryInfoArray.count; index++) {
-        StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:index];
+        StationGalleryInfo *stationGalleryInfo;
+        HomeImages *homeGalleryInfo;
+        NSString *imagePath;
+        if (self.isFromDashBoard) {
+            homeGalleryInfo = (HomeImages *)[self.galleryInfoArray objectAtIndex:index];
+            imagePath = homeGalleryInfo.imagePath;
+        }else {
+            stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:index];
+            imagePath = stationGalleryInfo.imagePath;
+        }
         NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ImagesGalleryView" owner:self options:nil];
         ImagesGalleryView *view = (ImagesGalleryView *) [nibViews firstObject];
-        __weak ImagesGalleryViewController *weakSelf = self;
         [self.pageScrollView addPageWithHandler:^(UIView *pageView) {
-            [view.imageView  sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [view.imageView  sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 [view.imageView setImage:image];
             }];
             [pageView addSubview:view];
@@ -51,19 +58,38 @@
             [weakSelf updateNextButtonTitle];
         }];
     }
+    self.pageScrollView.scrollHandler = ^(BOOL isScrolled) {
+        if (isScrolled) {
+            [weakSelf updateNextButtonTitle];
+        }
+    };
     [self.view bringSubviewToFront:self.closeButton];
     [self.view bringSubviewToFront:self.nextButton];
     [self.view bringSubviewToFront:self.previousButton];
     [self.view bringSubviewToFront:self.stationNameLabel];
     [self.view bringSubviewToFront:self.imageNameLabel];
+    [self autoScrollToSelectedIndex];
+}
+
+- (void)autoScrollToSelectedIndex {
+    __weak ImagesGalleryViewController *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.pageScrollView.currentPage = weakSelf.selectedImageIndex;
+        [weakSelf updateNextButtonTitle];
+    });
 }
 
 - (void)updateImageNames {
     NSInteger currentPage = self.pageScrollView.currentPage;
-    StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:currentPage];
-    
-    self.stationNameLabel.text = stationGalleryInfo.stationName;
-    self.imageNameLabel.text = stationGalleryInfo.imageName;
+    if (self.isFromDashBoard) {
+        HomeImages *homeGalleryInfo = (HomeImages *)[self.galleryInfoArray objectAtIndex:currentPage];
+        self.stationNameLabel.text = homeGalleryInfo.stationName;
+        self.imageNameLabel.text = homeGalleryInfo.imageName;
+    }else {
+        StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:currentPage];
+        self.stationNameLabel.text = stationGalleryInfo.stationName;
+        self.imageNameLabel.text = stationGalleryInfo.imageName;
+    }
 }
 
 - (IBAction)closeButtonClicked:(id)sender {

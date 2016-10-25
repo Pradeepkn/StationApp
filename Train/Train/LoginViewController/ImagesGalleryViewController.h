@@ -13,4 +13,8 @@
 
 @property (nonatomic, strong) NSArray *galleryInfoArray;
 
+@property (nonatomic, assign) BOOL isFromDashBoard;
+
+@property (nonatomic, assign) NSInteger selectedImageIndex;
+
 @end

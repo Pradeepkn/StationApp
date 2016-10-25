@@ -11,6 +11,8 @@
 /// The type of block used to define what to display on each page view.
 typedef void(^DRPageHandlerBlock)(UIView *pageView);
 
+typedef void(^DRPageScrollHandlerBlock)(BOOL pageScrolled);
+
 @interface DRPageScrollView : UIScrollView
 
 /// Determines whether page views are reused or not in order to reduce memory consumption.
@@ -21,6 +23,8 @@ typedef void(^DRPageHandlerBlock)(UIView *pageView);
 
 /// The total number of pages in the scroll view.
 @property (nonatomic, readonly) NSInteger numberOfPages;
+
+@property (nonatomic, copy) DRPageScrollHandlerBlock scrollHandler;
 
 /**
  * Sets up a new page for the scroll view.
