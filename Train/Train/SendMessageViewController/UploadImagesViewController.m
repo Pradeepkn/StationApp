@@ -109,7 +109,9 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         cell.closeButton.hidden = YES;
         [cell.collectionImageView setImage:[UIImage imageNamed:@"plus-icon-smal"]];
         cell.collectionImageView.contentMode = UIViewContentModeCenter;
-        [AppUtilityClass addDottedBorderToView:cell.collectionImageView];
+        cell.collectionImageView.layer.cornerRadius = 3.0f;
+        cell.collectionImageView.layer.borderWidth = 1.0f;
+        cell.collectionImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     }else {
         cell.closeButton.hidden = NO;
         [cell.closeButton addTarget:self action:@selector(deleteSelectedImage:) forControlEvents:UIControlEventTouchUpInside];
