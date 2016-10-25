@@ -27,6 +27,7 @@
 		E93B0FEB1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FEA1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m */; };
 		E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */; };
 		E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */; };
+		E94D1FC91DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E94D1FC81DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.m */; };
 		E954AA7C1DBF20B900A6B6F1 /* SubTasks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA551DBF20B800A6B6F1 /* SubTasks+CoreDataClass.m */; };
 		E954AA7D1DBF20B900A6B6F1 /* SubTasks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA571DBF20B800A6B6F1 /* SubTasks+CoreDataProperties.m */; };
 		E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA591DBF20B800A6B6F1 /* User+CoreDataClass.m */; };
@@ -40,7 +41,6 @@
 		E954AA861DBF20B900A6B6F1 /* Designation+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA691DBF20B900A6B6F1 /* Designation+CoreDataClass.m */; };
 		E954AA871DBF20B900A6B6F1 /* Designation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA6B1DBF20B900A6B6F1 /* Designation+CoreDataProperties.m */; };
 		E954AA881DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA6D1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.m */; };
-		E954AA891DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA6F1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.m */; };
 		E954AA8A1DBF20B900A6B6F1 /* Remarks+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA711DBF20B900A6B6F1 /* Remarks+CoreDataClass.m */; };
 		E954AA8B1DBF20B900A6B6F1 /* Remarks+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA731DBF20B900A6B6F1 /* Remarks+CoreDataProperties.m */; };
 		E954AA8C1DBF20B900A6B6F1 /* WhatsNewMessages+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = E954AA751DBF20B900A6B6F1 /* WhatsNewMessages+CoreDataClass.m */; };
@@ -144,6 +144,8 @@
 		E93B0FED1DB5749D008B8232 /* SendRemarksApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRemarksApi.m; sourceTree = "<group>"; };
 		E93B0FEF1DB58077008B8232 /* UpdateSubTasksStatusApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateSubTasksStatusApi.h; sourceTree = "<group>"; };
 		E93B0FF01DB58077008B8232 /* UpdateSubTasksStatusApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateSubTasksStatusApi.m; sourceTree = "<group>"; };
+		E94D1FC71DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StationGalleryInfo+CoreDataProperties.h"; sourceTree = "<group>"; };
+		E94D1FC81DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E954AA541DBF20B800A6B6F1 /* SubTasks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataClass.h"; sourceTree = "<group>"; };
 		E954AA551DBF20B800A6B6F1 /* SubTasks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SubTasks+CoreDataClass.m"; sourceTree = "<group>"; };
 		E954AA561DBF20B800A6B6F1 /* SubTasks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SubTasks+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -170,8 +172,6 @@
 		E954AA6B1DBF20B900A6B6F1 /* Designation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Designation+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E954AA6C1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StationGalleryInfo+CoreDataClass.h"; sourceTree = "<group>"; };
 		E954AA6D1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataClass.m"; sourceTree = "<group>"; };
-		E954AA6E1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StationGalleryInfo+CoreDataProperties.h"; sourceTree = "<group>"; };
-		E954AA6F1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E954AA701DBF20B900A6B6F1 /* Remarks+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Remarks+CoreDataClass.h"; sourceTree = "<group>"; };
 		E954AA711DBF20B900A6B6F1 /* Remarks+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Remarks+CoreDataClass.m"; sourceTree = "<group>"; };
 		E954AA721DBF20B900A6B6F1 /* Remarks+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Remarks+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -389,8 +389,8 @@
 			children = (
 				E954AA6C1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.h */,
 				E954AA6D1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.m */,
-				E954AA6E1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.h */,
-				E954AA6F1DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.m */,
+				E94D1FC71DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.h */,
+				E94D1FC81DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.m */,
 			);
 			name = StationGalleryInfo;
 			sourceTree = "<group>";
@@ -875,6 +875,7 @@
 				E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */,
 				E9275FC01DBFB9AA0077CAB1 /* Messages+CoreDataProperties.m in Sources */,
 				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
+				E94D1FC91DBFEFF3008983F4 /* StationGalleryInfo+CoreDataProperties.m in Sources */,
 				E98C0C8F1DA06871005D09A5 /* SendMessageViewController.m in Sources */,
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,
 				E9231A671DB3AFCF00CD302D /* SubTasksCell.m in Sources */,
@@ -915,7 +916,6 @@
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
 				E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
-				E954AA891DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataProperties.m in Sources */,
 				E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */,
 				E9FB6B631DA9834700769D8C /* SignUpViewController.m in Sources */,
 				E93B0FEE1DB5749D008B8232 /* SendRemarksApi.m in Sources */,

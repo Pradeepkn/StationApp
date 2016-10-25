@@ -77,6 +77,8 @@
 
 + (NSString *)getProfileIconNameForProfileName:(NSString *)profileName;
 
++ (NSMutableAttributedString *)updateBoldFontForText:(NSString *)boldText withLightFontForText:(NSString *)lightFontText;
+
 + (void)purgeAllModels;
 
 

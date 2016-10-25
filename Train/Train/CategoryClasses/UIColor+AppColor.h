@@ -34,4 +34,6 @@
 
 + (UIColor *)appImageColor;
 
++ (UIColor *)appLightTextColor;
+
 @end

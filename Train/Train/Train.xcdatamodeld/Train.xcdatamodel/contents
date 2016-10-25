@@ -27,12 +27,13 @@
         <attribute name="taskId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="StationGalleryInfo" representedClassName="StationGalleryInfo" syncable="YES">
-        <attribute name="addedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="galleryWeek" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="stationName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weekNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Stations" representedClassName="Stations" syncable="YES">
         <attribute name="stationCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -75,7 +76,7 @@
         <element name="HomeImages" positionX="-36" positionY="45" width="128" height="120"/>
         <element name="Messages" positionX="-45" positionY="27" width="128" height="135"/>
         <element name="Remarks" positionX="-9" positionY="108" width="128" height="120"/>
-        <element name="StationGalleryInfo" positionX="-18" positionY="90" width="128" height="135"/>
+        <element name="StationGalleryInfo" positionX="-18" positionY="90" width="128" height="150"/>
         <element name="Stations" positionX="-63" positionY="-18" width="128" height="105"/>
         <element name="SubTasks" positionX="18" positionY="117" width="128" height="135"/>
         <element name="Tasks" positionX="0" positionY="108" width="128" height="120"/>

@@ -250,7 +250,7 @@
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             StationGalleryInfo *images = [NSEntityDescription insertNewObjectForEntityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
-            [images setAddedDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
+            [images setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];

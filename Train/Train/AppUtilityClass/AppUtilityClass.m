@@ -199,6 +199,17 @@
     return attributedString;
 }
 
++ (NSMutableAttributedString *)updateBoldFontForText:(NSString *)boldText withLightFontForText:(NSString *)lightFontText{
+    NSString *completeText = [NSString stringWithFormat:@"%@  %@", boldText, lightFontText];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:completeText];
+    NSRange boldRange = [completeText rangeOfString:lightFontText];
+    [attributedString addAttribute: NSFontAttributeName value:[UIFont fontWithName:kProximaNovaRegular size:16] range:boldRange];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:kProximaNovaRegular size:16], NSFontAttributeName, [UIColor appLightTextColor],  NSForegroundColorAttributeName, nil];
+
+    [attributedString addAttributes:attrsDictionary range:boldRange];
+    return attributedString;
+}
+
 + (void)addOverlayOnView:(UIView *)view {
     UIView *overlay = [[UIView alloc] initWithFrame:view.frame];
     [overlay setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];

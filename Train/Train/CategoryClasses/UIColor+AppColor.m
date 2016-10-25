@@ -60,4 +60,8 @@
     return RGBACOLOR(110, 93, 93, 1.0);
 }
 
++ (UIColor *)appLightTextColor {
+    return RGBACOLOR(247, 164, 165, 1.0);
+}
+
 @end

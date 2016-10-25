@@ -2,7 +2,7 @@
 //  StationGalleryInfo+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/25/16.
+//  Created by Pradeep Narendra on 10/26/16.
 //
 //
 
@@ -14,11 +14,12 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"StationGalleryInfo"];
 }
 
-@dynamic addedDate;
+@dynamic insertDate;
 @dynamic galleryWeek;
 @dynamic imageId;
 @dynamic imageName;
 @dynamic imagePath;
 @dynamic stationName;
+@dynamic weekNumber;
 
 @end

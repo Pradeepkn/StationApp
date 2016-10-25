@@ -72,11 +72,11 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
         NSLog(@"Response = %@", responseDictionary);
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
-            weakSelf.stateLabel.text = stationGalleryApi.stationName;
-            weakSelf.zoneLabel.text = stationGalleryApi.zoneName;
-            weakSelf.divisionLabel.text = stationGalleryApi.divisionName;
-            weakSelf.stationAreaLabel.text = [NSString stringWithFormat:@"%@ sq.m.", stationGalleryApi.area];
-            weakSelf.averageDailyFootFallLabel.text = stationGalleryApi.avgPassengerFootfail;
+            weakSelf.stateLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.stateName withLightFontForText:@"State"];
+            weakSelf.zoneLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.zoneName withLightFontForText:@"Zone"];
+            weakSelf.divisionLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.divisionName withLightFontForText:@"Division"];
+            weakSelf.stationAreaLabel.attributedText = [AppUtilityClass updateBoldFontForText:[NSString stringWithFormat:@"%@ sq.m.", stationGalleryApi.area] withLightFontForText:@"Area"];
+            weakSelf.averageDailyFootFallLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.avgPassengerFootfail withLightFontForText:@"Average Passenger Footfail"];
             weakSelf.stationNameLabel.text = [NSString stringWithFormat:@"%@ (%@)", stationGalleryApi.stationName,stationGalleryApi.stationCode];
             weakSelf.weekKeys = stationGalleryApi.weekKeys;
             [weakSelf isViewEditable:stationGalleryApi.editStatus];
@@ -124,7 +124,8 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     StationGalleryViewCell *cell = (StationGalleryViewCell *)[tableView dequeueReusableCellWithIdentifier:kGalleryCellIdentifier forIndexPath:indexPath];
-    cell.weekLabel.text = [self.weekKeys objectAtIndex:indexPath.row];
+    NSArray *weekKeyArray = [[self.weekKeys objectAtIndex:indexPath.row] componentsSeparatedByString:@"#"];
+    cell.weekLabel.text = [weekKeyArray firstObject];
     return cell;
 }
 
