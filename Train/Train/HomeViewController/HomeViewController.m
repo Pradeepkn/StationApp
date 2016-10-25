@@ -70,6 +70,7 @@ const int kWriteUpdateMessageTag = 201;
 @property (weak, nonatomic) IBOutlet UITextView *messageInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topInputViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTopTableView;
@@ -131,6 +132,7 @@ const int kWriteUpdateMessageTag = 201;
     self.downArrowImage.hidden = YES;
     self.selectStationButton.hidden = YES;
     self.clearButton.hidden = YES;
+    self.overlayView.hidden = YES;
     self.topInputViewHeightConstraint.constant -= 40.0f;
     self.selectStationHeightConstraint.constant = 0.0f;
     self.messageInputTextView.tag = kLeaveAMessageTag;
@@ -147,6 +149,7 @@ const int kWriteUpdateMessageTag = 201;
     self.downArrowImage.hidden = NO;
     self.selectStationButton.hidden = NO;
     self.clearButton.hidden = YES;
+    self.overlayView.hidden = YES;
     self.topInputViewHeightConstraint.constant += 40.0f;
     self.selectStationHeightConstraint.constant = 40.0f;
     self.messageInputTextView.tag = kWriteUpdateMessageTag;
@@ -170,6 +173,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (IBAction)clearButtonSelected:(UIButton *)sender {
     sender.hidden = YES;
+    self.overlayView.hidden = YES;
     [self resetPlaceHolderText];
     [self.view endEditing:YES];
 }
@@ -690,6 +694,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     self.clearButton.hidden = NO;
+    self.overlayView.hidden = NO;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -699,6 +704,7 @@ const int kWriteUpdateMessageTag = 201;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         self.clearButton.hidden = YES;
+        self.overlayView.hidden = YES;
         NSString *placeHolderText = @"";
         
         if (textView.tag == kLeaveAMessageTag) {
@@ -749,6 +755,8 @@ const int kWriteUpdateMessageTag = 201;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+    self.overlayView.hidden = YES;
+    self.clearButton.hidden = YES;
     [self reloadTableViews];
 }
 

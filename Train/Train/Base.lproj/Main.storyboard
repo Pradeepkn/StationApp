@@ -1028,6 +1028,9 @@
                                     <constraint firstAttribute="trailing" secondItem="B05-Yt-Dee" secondAttribute="trailing" id="wZh-LF-q8Z"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6b-4T-xWF">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1037,6 +1040,9 @@
                             <constraint firstItem="teB-7F-OXN" firstAttribute="top" secondItem="eEg-9O-4JX" secondAttribute="bottom" constant="10" id="M95-LO-tOx"/>
                             <constraint firstItem="N2Z-as-v1l" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" id="PJQ-a7-xJ5"/>
                             <constraint firstAttribute="trailing" secondItem="eEg-9O-4JX" secondAttribute="trailing" id="WCv-I6-a4s"/>
+                            <constraint firstItem="I6b-4T-xWF" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" id="bdy-lQ-RL3"/>
+                            <constraint firstItem="I6b-4T-xWF" firstAttribute="top" secondItem="ML4-y9-zVS" secondAttribute="bottom" constant="8" id="d32-uk-fpT"/>
+                            <constraint firstItem="N2Z-as-v1l" firstAttribute="top" secondItem="I6b-4T-xWF" secondAttribute="bottom" id="elD-2z-ShM"/>
                             <constraint firstItem="D5L-82-ItO" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" id="fu3-Fh-nxe"/>
                             <constraint firstItem="teB-7F-OXN" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" constant="10" id="g5v-v5-BFB"/>
                             <constraint firstItem="D5L-82-ItO" firstAttribute="top" secondItem="ML4-y9-zVS" secondAttribute="bottom" constant="8" id="gbr-4o-gBV"/>
@@ -1045,6 +1051,7 @@
                             <constraint firstItem="Edv-28-ihh" firstAttribute="top" secondItem="N2Z-as-v1l" secondAttribute="bottom" id="mLt-yu-N9v"/>
                             <constraint firstItem="eEg-9O-4JX" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" id="tMp-aP-Ahd"/>
                             <constraint firstItem="N2Z-as-v1l" firstAttribute="top" secondItem="teB-7F-OXN" secondAttribute="bottom" id="tYi-nX-Yh4"/>
+                            <constraint firstAttribute="trailing" secondItem="I6b-4T-xWF" secondAttribute="trailing" id="umK-j6-YGP"/>
                             <constraint firstAttribute="trailing" secondItem="teB-7F-OXN" secondAttribute="trailing" constant="10" id="urf-vc-JiQ"/>
                             <constraint firstItem="eEg-9O-4JX" firstAttribute="top" secondItem="ML4-y9-zVS" secondAttribute="bottom" constant="8" id="v83-fY-D4x"/>
                             <constraint firstItem="ML4-y9-zVS" firstAttribute="leading" secondItem="Ol5-iC-HEg" secondAttribute="leading" id="xKL-iO-ELX"/>
@@ -1060,6 +1067,7 @@
                         <outlet property="homeTopTableView" destination="Ai7-hT-K6f" id="NRw-Xa-NIG"/>
                         <outlet property="informationButton" destination="6ad-P4-gbe" id="If4-4v-wEt"/>
                         <outlet property="messageInputTextView" destination="djg-es-ZA5" id="mhp-Qv-9ZU"/>
+                        <outlet property="overlayView" destination="I6b-4T-xWF" id="ISa-Qg-Pfb"/>
                         <outlet property="placeHolderTextField" destination="MFK-fq-fGs" id="UJJ-1c-Lec"/>
                         <outlet property="profileNameButton" destination="C6f-rc-dSA" id="J6N-cu-S0T"/>
                         <outlet property="selectStationButton" destination="jVQ-Ce-yLY" id="xew-8N-Adf"/>
