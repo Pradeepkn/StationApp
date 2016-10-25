@@ -102,7 +102,9 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
             self.isEditable = stationsubTasksApi.editStatus;
-            [weakSelf hideRightBarButton:self.isEditable];
+            if (self.remarksButton.hidden) {
+                [weakSelf hideRightBarButton:self.isEditable];
+            }
             [weakSelf.subTasksListTableView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
@@ -262,11 +264,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     subTasksCell.mileStoneLabel.text = object.name;
     subTasksCell.deadLineLabel.text = object.deadline;
     subTasksCell.statusInfoSymbol.hidden = NO;
+    subTasksCell.statusInfoSymbol.userInteractionEnabled = NO;
     switch (object.status) {
         case kTaskToStart:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor appGreyColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor appGreyColor];
+            subTasksCell.mileStoneLabel.textColor = [UIColor lightGrayColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor lightGrayColor];
             break;
         case kTaskOnTrack:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
@@ -280,8 +283,8 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
             break;
         case kTaskCompleted:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor appTextColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor appTextColor];
+            subTasksCell.mileStoneLabel.textColor = [UIColor grayColor];
+            subTasksCell.deadLineLabel.textColor = [UIColor grayColor];
             break;
         default:
             break;

@@ -17,6 +17,7 @@
 #import "ImagesGalleryViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIColor+AppColor.h"
+#import "NSString+AutoCapitalizeString.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -160,8 +161,8 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 - (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath{
     NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
     StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray objectAtIndex:indexPath.row];
-    cell.imageTitleLabel.text = stationGalleryInfo.imageName;
-    cell.imageDescription.text = stationGalleryInfo.stationName;
+    cell.imageTitleLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName];
+    cell.imageDescription.text = [NSString autoCapitalize:stationGalleryInfo.stationName];
     [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.collectionImageView setImage:image];
     }];

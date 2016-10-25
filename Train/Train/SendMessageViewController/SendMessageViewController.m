@@ -13,8 +13,8 @@
 
 static NSString *const kHomeMessagesCellIdentifier = @"MessageCellIdentifier";
 
-static NSString *const kFirstMessage = @"Congratulations to you and your team for the good performance. Wish you success in this endeavor. Regards,";
-static NSString *const kSecondMessage = @"Kindly intervene into the current status of your redevelopment initiatives and resolve all pending delays.";
+static NSString *const kFirstMessage = @"Congratulations to you and your team for the good performance. Wish you success in this endeavor. \n\nRegards,";
+static NSString *const kSecondMessage = @"Kindly intervene into the current status of your redevelopment initiatives and resolve all pending delays. \n\nRegards,";
 static NSString *const kThirdMessage = @"Custom";
 
 @interface SendMessageViewController (){
@@ -45,7 +45,8 @@ static NSString *const kThirdMessage = @"Custom";
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 48;
+    CGFloat rowHeight = [AppUtilityClass sizeOfText:[prePopulatedArray objectAtIndex:indexPath.row] widthOfTextView:self.sendMessagesTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height;
+    return rowHeight>40?rowHeight:40;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -76,6 +77,8 @@ static NSString *const kThirdMessage = @"Custom";
             [AppUtilityClass shapeBottomCell:messagesCell withRadius:kBubbleRadius];
         }
         messagesCell.messageDescriptionLabel.text = [prePopulatedArray objectAtIndex:indexPath.row];
+        messagesCell.messageDescriptionLabel.numberOfLines = 0;
+        messagesCell.messageDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         return messagesCell;
 }
 

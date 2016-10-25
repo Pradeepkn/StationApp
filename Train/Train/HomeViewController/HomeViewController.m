@@ -28,6 +28,7 @@
 #import "StationGalleryInfoViewController.h"
 #import "UIColor+AppColor.h"
 #import "ImagesGalleryViewController.h"
+#import "NSString+AutoCapitalizeString.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -114,7 +115,6 @@ const int kWriteUpdateMessageTag = 201;
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:self.loggedInUser.email] forState:UIControlStateNormal];
     [self addStatusBar];
-    self.homeTableView.scrollEnabled = NO;
 }
 
 - (void)addStatusBar {
@@ -625,7 +625,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)imagesCell atIndexPath:(NSIndexPath *)indexPath{
     HomeImages *object = [[self imagesFetchedResultsController] objectAtIndexPath:indexPath];
-    imagesCell.imageTitleLabel.text = object.imageName;
+    imagesCell.imageTitleLabel.text = [NSString autoCapitalize:object.imageName];
     imagesCell.imageDescription.text = object.stationName;
     [imagesCell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:object.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [imagesCell.collectionImageView setImage:image];

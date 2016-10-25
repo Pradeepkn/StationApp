@@ -10,6 +10,7 @@
 #import "ImagesGalleryView.h"
 #import "DRPageScrollView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "NSString+AutoCapitalizeString.h"
 
 @interface ImagesGalleryViewController ()
 
@@ -27,8 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Images";
-    [self updateNextButtonTitle];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.pageScrollView = [DRPageScrollView new];
     self.pageScrollView.pageReuseEnabled = YES;
     [self.view addSubview:self.pageScrollView];
@@ -55,7 +54,6 @@
             }];
             [pageView addSubview:view];
             applyConstraints(view);
-            [weakSelf updateNextButtonTitle];
         }];
     }
     self.pageScrollView.scrollHandler = ^(BOOL isScrolled) {
@@ -74,21 +72,21 @@
 - (void)autoScrollToSelectedIndex {
     __weak ImagesGalleryViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.selectedImageIndex + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
+        [weakSelf updateImageNamesAtIndex:self.selectedImageIndex];
         weakSelf.pageScrollView.currentPage = weakSelf.selectedImageIndex;
-        [weakSelf updateNextButtonTitle];
     });
 }
 
-- (void)updateImageNames {
-    NSInteger currentPage = self.pageScrollView.currentPage;
+- (void)updateImageNamesAtIndex:(NSInteger)currentPage {
     if (self.isFromDashBoard) {
         HomeImages *homeGalleryInfo = (HomeImages *)[self.galleryInfoArray objectAtIndex:currentPage];
-        self.stationNameLabel.text = homeGalleryInfo.stationName;
-        self.imageNameLabel.text = homeGalleryInfo.imageName;
+        self.stationNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.stationName];
+        self.imageNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.imageName];
     }else {
         StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:currentPage];
-        self.stationNameLabel.text = stationGalleryInfo.stationName;
-        self.imageNameLabel.text = stationGalleryInfo.imageName;
+        self.stationNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.stationName];
+        self.imageNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName];
     }
 }
 
@@ -122,7 +120,11 @@
 
 - (void)updateNextButtonTitle {
     [self.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.pageScrollView.currentPage + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
-    [self updateImageNames];
+    NSInteger currentPage = self.pageScrollView.currentPage;
+    if (currentPage <= 0) {
+        currentPage = 0;
+    }
+    [self updateImageNamesAtIndex:currentPage];
 }
 
 void applyConstraints(UIView *view) {

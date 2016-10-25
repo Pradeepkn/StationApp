@@ -19,6 +19,7 @@
 		E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A741DB3F98200CD302D /* UploadImagesViewController.m */; };
 		E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A781DB4284400CD302D /* UploadImagesApi.m */; };
 		E9275FBA1DBF90720077CAB1 /* Messages+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9275FB91DBF90720077CAB1 /* Messages+CoreDataProperties.m */; };
+		E9275FBD1DBFA75D0077CAB1 /* NSString+AutoCapitalizeString.m in Sources */ = {isa = PBXBuildFile; fileRef = E9275FBC1DBFA75C0077CAB1 /* NSString+AutoCapitalizeString.m */; };
 		E92ED0251DAAF134009192BB /* StationGalleryInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */; };
 		E93094651DB66A56007A6758 /* ImagesGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93094641DB66A56007A6758 /* ImagesGalleryViewController.m */; };
 		E93094671DB66BD8007A6758 /* ImagesGalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */; };
@@ -128,6 +129,8 @@
 		E9231A781DB4284400CD302D /* UploadImagesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImagesApi.m; sourceTree = "<group>"; };
 		E9275FB81DBF90720077CAB1 /* Messages+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Messages+CoreDataProperties.h"; sourceTree = "<group>"; };
 		E9275FB91DBF90720077CAB1 /* Messages+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Messages+CoreDataProperties.m"; sourceTree = "<group>"; };
+		E9275FBB1DBFA75C0077CAB1 /* NSString+AutoCapitalizeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AutoCapitalizeString.h"; sourceTree = "<group>"; };
+		E9275FBC1DBFA75C0077CAB1 /* NSString+AutoCapitalizeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AutoCapitalizeString.m"; sourceTree = "<group>"; };
 		E92ED0231DAAF134009192BB /* StationGalleryInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryInfoViewController.h; sourceTree = "<group>"; };
 		E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryInfoViewController.m; sourceTree = "<group>"; };
 		E93094631DB66A56007A6758 /* ImagesGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesGalleryViewController.h; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				E9F3B73D1D9C59AD00A98B85 /* CustomAlertModel.m */,
 				E9F3B73E1D9C59AD00A98B85 /* CustomAlertViewController.h */,
 				E9F3B73F1D9C59AD00A98B85 /* CustomAlertViewController.m */,
+				E9275FBB1DBFA75C0077CAB1 /* NSString+AutoCapitalizeString.h */,
+				E9275FBC1DBFA75C0077CAB1 /* NSString+AutoCapitalizeString.m */,
 			);
 			path = AppUtilityClass;
 			sourceTree = "<group>";
@@ -874,6 +879,7 @@
 				E9F3B7511D9C59EB00A98B85 /* UITextField+PaddingText.m in Sources */,
 				E9231A671DB3AFCF00CD302D /* SubTasksCell.m in Sources */,
 				E954AA831DBF20B900A6B6F1 /* Tasks+CoreDataProperties.m in Sources */,
+				E9275FBD1DBFA75D0077CAB1 /* NSString+AutoCapitalizeString.m in Sources */,
 				E96B97F91DB270C800D0FCE4 /* WhatsNewMessagesApi.m in Sources */,
 				E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */,
 				E9F3B74D1D9C59EB00A98B85 /* NSAttributedString+StringWithImage.m in Sources */,
