@@ -52,7 +52,8 @@
 }
 
 + (UIColor *)appTextColor {
-    return RGBACOLOR(110, 93, 93, 1.0);
+    return [UIColor blackColor];
+//    return RGBACOLOR(110, 93, 93, 1.0);
 }
 
 + (UIColor *)appImageColor {

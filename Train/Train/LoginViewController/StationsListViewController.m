@@ -107,7 +107,7 @@ static NSInteger kTableCellHeight = 48.0f;
         [AppUtilityClass shapeBottomCell:cell withRadius:6.0];
     }
     if (selectedIndex == indexPath.row) {
-        cell.nameLabel.textColor = [UIColor appBlueColor];
+        cell.nameLabel.textColor = [UIColor appRedColor];
         cell.nameLabel.font = [UIFont fontWithName:kProximaNovaSemibold size:cell.nameLabel.font.pointSize];
         cell.selectedStatusBtn.hidden = NO;
     }

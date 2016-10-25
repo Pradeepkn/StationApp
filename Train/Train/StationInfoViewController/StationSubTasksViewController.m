@@ -171,8 +171,9 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (NSFetchRequest *)getRemarksFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Remarks"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES];
-    [request setSortDescriptors:@[message]];
+    NSSortDescriptor *status = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES];
+    NSSortDescriptor *insertDate = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
+    [request setSortDescriptors:@[status, insertDate]];
     NSLog(@"View Task ID = %@", self.selectedTask.refId);
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];

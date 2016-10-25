@@ -69,6 +69,15 @@
 
 + (NSString *)getErrorMessageFor:(NSDictionary *)errorDict;
 
++ (NSDate *)getDateFromMiliSeconds:(id)miliSeconds;
+
++ (NSString *)getHomeMessageDate:(NSDate *)date;
+
++ (NSString *)getWhatsNewMessageDate:(NSDate *)date;
+
++ (NSString *)getProfileIconNameForProfileName:(NSString *)profileName;
+
 + (void)purgeAllModels;
+
 
 @end

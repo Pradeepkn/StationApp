@@ -10,9 +10,11 @@
 
 @interface WhatsNewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *indicatorColor;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *newsTextLabel;
+@property (weak, nonatomic) IBOutlet UIButton *swipeButton;
 
 @end

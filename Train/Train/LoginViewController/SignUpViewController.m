@@ -121,8 +121,8 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
             signUpEntryCell.dropDownButton.hidden = NO;
             signUpEntryCell.dropDownButton.tag = 100;
             signUpEntryCell.entryTextField.userInteractionEnabled = NO;
-            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
-                            forKeyPath:@"_placeholderLabel.textColor"];
+//            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
+//                            forKeyPath:@"_placeholderLabel.textColor"];
             break;
         case 3:
             [signUpEntryCell.entryTextField setPlaceholder:@"Choose station"];
@@ -130,8 +130,8 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
             signUpEntryCell.dropDownButton.hidden = NO;
             signUpEntryCell.dropDownButton.tag = 200;
             signUpEntryCell.entryTextField.userInteractionEnabled = NO;
-            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
-                                          forKeyPath:@"_placeholderLabel.textColor"];
+//            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
+//                                          forKeyPath:@"_placeholderLabel.textColor"];
             break;
         case 4:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];

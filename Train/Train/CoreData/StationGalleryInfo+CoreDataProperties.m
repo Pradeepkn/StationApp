@@ -2,7 +2,7 @@
 //  StationGalleryInfo+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -15,10 +15,10 @@
 }
 
 @dynamic addedDate;
+@dynamic galleryWeek;
 @dynamic imageId;
 @dynamic imageName;
 @dynamic imagePath;
 @dynamic stationName;
-@dynamic galleryWeek;
 
 @end

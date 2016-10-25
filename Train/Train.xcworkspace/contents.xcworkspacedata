@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Train/CoreData/Messages+CoreDataProperties.h">
+   </FileRef>
+   <FileRef
+      location = "group:Train/CoreData/Messages+CoreDataProperties.m">
+   </FileRef>
+   <FileRef
       location = "group:Train.xcodeproj">
    </FileRef>
    <FileRef

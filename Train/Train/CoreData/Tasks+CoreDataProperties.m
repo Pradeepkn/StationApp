@@ -2,7 +2,7 @@
 //  Tasks+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -17,7 +17,7 @@
 @dynamic domain;
 @dynamic eventName;
 @dynamic refId;
-@dynamic status;
 @dynamic stationId;
+@dynamic status;
 
 @end

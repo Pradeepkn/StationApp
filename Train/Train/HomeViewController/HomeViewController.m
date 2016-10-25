@@ -59,6 +59,17 @@ const int kWriteUpdateMessageTag = 201;
     NSInteger stationsCount;
     NSInteger whatsNewMessagesCount;
 }
+@property (weak, nonatomic) IBOutlet UIButton *selectStationButton;
+
+@property (weak, nonatomic) IBOutlet UIView *topInputContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectStationHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *downArrowImage;
+@property (weak, nonatomic) IBOutlet UIButton *profileNameButton;
+@property (weak, nonatomic) IBOutlet UITextField *placeHolderTextField;
+@property (weak, nonatomic) IBOutlet UITextView *messageInputTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topInputViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *clearButton;
+
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTopTableView;
 @property (weak, nonatomic) IBOutlet UITableView *homeTableView;
@@ -100,10 +111,30 @@ const int kWriteUpdateMessageTag = 201;
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.profileNameButton setImage:nil forState:UIControlStateNormal];
+    [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:self.loggedInUser.email] forState:UIControlStateNormal];
+    [self addStatusBar];
+    self.homeTableView.scrollEnabled = NO;
+}
+
+- (void)addStatusBar {
+    UIApplication *app = [UIApplication sharedApplication];
+    CGFloat statusBarHeight = app.statusBarFrame.size.height;
+    
+    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
+    statusBarView.backgroundColor  =  [UIColor appRedColor];
+    [self.view addSubview:statusBarView];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
     self.whatsNewContainerView.hidden = YES;
+    self.downArrowImage.hidden = YES;
+    self.selectStationButton.hidden = YES;
+    self.clearButton.hidden = YES;
+    self.topInputViewHeightConstraint.constant -= 40.0f;
+    self.selectStationHeightConstraint.constant = 0.0f;
+    self.messageInputTextView.tag = kLeaveAMessageTag;
+    self.placeHolderTextField.placeholder = kLeaveAMessageKey;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.whatsNewButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
     [self.whatsNewButton setImage:[UIImage imageNamed:@"whats-news-unactive"] forState:UIControlStateNormal];
@@ -113,11 +144,47 @@ const int kWriteUpdateMessageTag = 201;
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {
     self.whatsNewContainerView.hidden = NO;
+    self.downArrowImage.hidden = NO;
+    self.selectStationButton.hidden = NO;
+    self.clearButton.hidden = YES;
+    self.topInputViewHeightConstraint.constant += 40.0f;
+    self.selectStationHeightConstraint.constant = 40.0f;
+    self.messageInputTextView.tag = kWriteUpdateMessageTag;
+    self.placeHolderTextField.placeholder = kWriteAnUpdate;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTintColor:unselectedButtonColor];
     [self.whatsNewButton setImage:[UIImage imageNamed:@"whats-news-active"] forState:UIControlStateNormal];
     [self.informationButton setImage:[UIImage imageNamed:@"information-unactive"] forState:UIControlStateNormal];
+}
+
+- (IBAction)selectStationButtonAction:(UIButton *)sender {
+    StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
+    stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    stationsListVC.isStationSelected = YES;
+    stationsListVC.delegate = self;
+    [self presentViewController:stationsListVC animated:YES completion:^{
+        ;
+    }];
+}
+
+- (IBAction)clearButtonSelected:(UIButton *)sender {
+    sender.hidden = YES;
+    [self resetPlaceHolderText];
+    [self.view endEditing:YES];
+}
+
+- (void)resetPlaceHolderText {
+    self.messageInputTextView.text = @"";
+    self.placeHolderTextField.text = @"";
+    NSString *placeHolderText = @"";
+    
+    if (self.messageInputTextView.tag == kLeaveAMessageTag) {
+        placeHolderText = kLeaveAMessageKey;
+    }else {
+        placeHolderText = kWriteAnUpdate;
+    }
+    self.placeHolderTextField.placeholder = placeHolderText;
 }
 
 - (void)getHomeMessages {
@@ -244,7 +311,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (NSFetchRequest *)getMessagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Messages"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"createDate" ascending:NO];
     [request setSortDescriptors:@[message]];
     return request;
 }
@@ -258,14 +325,14 @@ const int kWriteUpdateMessageTag = 201;
 
 - (NSFetchRequest *)getHomeImagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     return request;
 }
 
 - (NSFetchRequest *)getWhatsNewMessagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"WhatsNewMessages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"addedDate" ascending:NO];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"createDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     return request;
 }
@@ -275,12 +342,12 @@ const int kWriteUpdateMessageTag = 201;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.tag == kTopTableView) {
         Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 80;
+        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height + 80;
     } else if (tableView.tag == kOverallStatusTableView) {
         return 40;
     }else if (tableView.tag == kWhatsNewTableView) {
         WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.whatsNewTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:16.0f]].height + 40;
+        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.whatsNewTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height + 60;
     }
     return 0;
 }
@@ -307,12 +374,8 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (tableView.tag == kTopTableView) {
-        return 60;
-    } else if (tableView.tag == kOverallStatusTableView) {
+    if (tableView.tag == kOverallStatusTableView) {
         return 25;
-    }else  if (tableView.tag == kWhatsNewTableView) {
-        return 100;
     }
     return 0;
 }
@@ -327,21 +390,6 @@ const int kWriteUpdateMessageTag = 201;
         [view addSubview:overAllStatusLabel];
         view.backgroundColor = self.view.backgroundColor;
         return view;
-    }
-    if (tableView.tag == kTopTableView) {
-        self.leaveAMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier];
-        self.leaveAMessageCell.leaveMessageTextField.delegate = self;
-        self.leaveAMessageCell.leaveMessageTextView.delegate = self;
-        self.leaveAMessageCell.leaveMessageTextView.tag = kLeaveAMessageTag;
-        return self.leaveAMessageCell.contentView;
-    }
-    if (tableView.tag == kWhatsNewTableView) {
-        self.writeAnUpdateMessageCell = (LeaveMessageCell *)[tableView dequeueReusableCellWithIdentifier:kLeaveMessageCellIdentifier];
-        [self.writeAnUpdateMessageCell.selectStationButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
-        self.writeAnUpdateMessageCell.leaveMessageTextField.delegate = self;
-        self.writeAnUpdateMessageCell.leaveMessageTextView.delegate = self;
-        self.writeAnUpdateMessageCell.leaveMessageTextView.tag = kWriteUpdateMessageTag;
-        return self.writeAnUpdateMessageCell.contentView;
     }
     return [UIView new];
 }
@@ -379,9 +427,15 @@ const int kWriteUpdateMessageTag = 201;
 - (void)configureMessagesCell:(HomeMessagesCell *)messagesCell atIndexPath:(NSIndexPath*)indexPath
 {
     Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+    messagesCell.userNameLabel.text = object.username?:object.messageId;
     messagesCell.messageDescriptionLabel.text = object.message;
     messagesCell.headerLabel.text = object.designation;
-    messagesCell.messageDateLabel.text = object.createDate;
+    messagesCell.messageDateLabel.text = [AppUtilityClass getHomeMessageDate:object.createDate];
+    if (object.deleteMessage) {
+        messagesCell.swipeButton.hidden = NO;
+    }else {
+        messagesCell.swipeButton.hidden = YES;
+    }
 }
 
 - (void)configureStationsCell:(StationsStatusCell *)stationsCell atIndexPath:(NSIndexPath*)indexPath
@@ -406,7 +460,13 @@ const int kWriteUpdateMessageTag = 201;
     WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
     whatsNewCell.stationLabel.text = object.stationName;
     whatsNewCell.newsTextLabel.text = object.message;
-    whatsNewCell.dateLabel.text = object.createDate;
+    whatsNewCell.dateLabel.text = [AppUtilityClass getWhatsNewMessageDate:object.createDate];
+    whatsNewCell.userNameLabel.text = object.username;
+    if (object.deleteMessage) {
+        whatsNewCell.swipeButton.hidden = NO;
+    }else {
+        whatsNewCell.swipeButton.hidden = YES;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -424,16 +484,32 @@ const int kWriteUpdateMessageTag = 201;
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return YES - we will be able to delete all rows
-    if ([tableView isEqual:self.homeTopTableView] || [tableView isEqual:self.whatsNewTableView]) {
-        return YES;
+    if ([tableView isEqual:self.homeTopTableView]) {
+        Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+        if (messageObject.deleteMessage) {
+            return YES;
+        }
+        return NO;
+    }else if ([tableView isEqual:self.whatsNewTableView]) {
+        WhatsNewMessages *whatsNewMessageObject = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
+        if (whatsNewMessageObject.deleteMessage) {
+            return YES;
+        }
+        return NO;
     }
     return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
-    [[CoreDataManager sharedManager] deleteWallMessage:messageObject];
+    if ([tableView isEqual:self.homeTopTableView]) {
+        Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+        [[CoreDataManager sharedManager] deleteWallMessage:messageObject];
+    }
+    else if ([tableView isEqual:self.whatsNewTableView]) {
+        WhatsNewMessages *whatsNewMessageObject = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
+        [[CoreDataManager sharedManager] deleteWhatsNewMessage:whatsNewMessageObject];
+    }
     // Perform the real delete action here. Note: you may need to check editing style
     //   if you do not perform delete only.
     NSLog(@"Deleted row.");
@@ -584,16 +660,6 @@ const int kWriteUpdateMessageTag = 201;
     [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
-- (void)showStationsOrDesignationsList:(UIButton *)sender {
-    StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
-    stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        stationsListVC.isStationSelected = YES;
-    stationsListVC.delegate = self;
-    [self presentViewController:stationsListVC animated:YES completion:^{
-        ;
-    }];
-}
-
 - (void)showImageGalleryList:(UIButton *)sender {
     ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
     imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -603,7 +669,7 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)userSelectedState:(Stations *)selectedStation{
-    [self.writeAnUpdateMessageCell.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
+    [self.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
     self.selectedStation = selectedStation;
 }
 
@@ -620,7 +686,7 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    
+    self.clearButton.hidden = NO;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -629,18 +695,16 @@ const int kWriteUpdateMessageTag = 201;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
-        LeaveMessageCell *messageCell;
+        self.clearButton.hidden = YES;
         NSString *placeHolderText = @"";
         
         if (textView.tag == kLeaveAMessageTag) {
-            messageCell = self.leaveAMessageCell;
             placeHolderText = kLeaveAMessageKey;
             if (textView.text.length) {
                 [self postMessagesOnWall:textView.text];
             }
             textView.text = @"";
         }else {
-            messageCell = self.writeAnUpdateMessageCell;
             if (self.selectedStation) {
                 placeHolderText = kWriteAnUpdate;
                 if (textView.text.length) {
@@ -651,30 +715,26 @@ const int kWriteUpdateMessageTag = 201;
                 [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please select station", nil)];
             }
         }
-        messageCell.leaveMessageTextField.placeholder = placeHolderText;
+        self.placeHolderTextField.placeholder = placeHolderText;
         [textView resignFirstResponder];
-        [self reloadTableViews];
         return NO;
     }
     return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    LeaveMessageCell *messageCell;
     NSString *placeHolderText = @"";
 
     if (textView.tag == kLeaveAMessageTag) {
-        messageCell = self.leaveAMessageCell;
         placeHolderText = kLeaveAMessageKey;
     }else {
-        messageCell = self.writeAnUpdateMessageCell;
         placeHolderText = kWriteAnUpdate;
     }
 
     if (textView.text.length > 0) {
-        messageCell.leaveMessageTextField.placeholder = @"";
+        self.placeHolderTextField.placeholder = @"";
     }else {
-        messageCell.leaveMessageTextField.placeholder = placeHolderText;
+        self.placeHolderTextField.placeholder = placeHolderText;
     }
 }
 

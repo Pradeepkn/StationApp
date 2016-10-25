@@ -2,7 +2,7 @@
 //  Stations+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *stationId;
 @property (nullable, nonatomic, copy) NSString *stationName;
 @property (nonatomic) int16_t statusColor;
+@property (nullable, nonatomic, copy) NSString *stationCode;
 
 @end
 

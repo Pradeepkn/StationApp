@@ -2,7 +2,7 @@
 //  Remarks+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -15,11 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Remarks *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *taskId;
-@property (nullable, nonatomic, copy) NSString *insertDate;
-@property (nullable, nonatomic, copy) NSString *remarksId;
+@property (nullable, nonatomic, copy) NSDate *insertDate;
 @property (nullable, nonatomic, copy) NSString *message;
+@property (nullable, nonatomic, copy) NSString *remarksId;
 @property (nonatomic) int16_t status;
+@property (nullable, nonatomic, copy) NSString *taskId;
 
 @end
 

@@ -283,6 +283,53 @@
     return capitalisedSentence;
 }
 
++ (NSDate *)getDateFromMiliSeconds:(id)miliSeconds {
+    NSTimeInterval seconds = [miliSeconds doubleValue] / 1000;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:seconds];
+    return date;
+}
+
++ (NSString *)getHomeMessageDate:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd MMM yy, hh:mm a"];
+    //UTC to Local time zone conversions to add +5:30 hours
+    NSTimeZone *outputTimeZone = [NSTimeZone localTimeZone];
+    [formatter setTimeZone:outputTimeZone];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
+}
+
++ (NSString *)getWhatsNewMessageDate:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd MMM yy"];
+    //UTC to Local time zone conversions to add +5:30 hours
+    NSTimeZone *outputTimeZone = [NSTimeZone localTimeZone];
+    [formatter setTimeZone:outputTimeZone];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
+}
+
++ (NSString *)getProfileIconNameForProfileName:(NSString *)profileName {
+    profileName = [profileName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *profileIconName;
+    if (profileName.length <= 0) {
+        return @"";
+    }
+    NSArray *profileNames = [profileName componentsSeparatedByString:@" "];
+    NSMutableArray *profileSubNames = [[NSMutableArray alloc] init];
+    for (NSString *validString in profileNames) {
+        if (validString.length > 0) {
+            [profileSubNames addObject:validString];
+        }
+    }
+    if (profileSubNames.count > 1) {
+        profileIconName = [NSString stringWithFormat:@"%@%@", [[[profileSubNames firstObject] substringToIndex:1] capitalizedString], [[[profileSubNames objectAtIndex:1] substringToIndex:1] capitalizedString]];
+    }else{
+        profileIconName = [NSString stringWithFormat:@"%@", [[[profileSubNames firstObject] substringToIndex:1] capitalizedString]];
+    }
+    return profileIconName;
+}
+
 + (void)purgeAllModels {
     [[CoreDataManager sharedManager] deleteAllObjects:@"Stations"];
     [[CoreDataManager sharedManager] deleteAllObjects:@"Designation"];

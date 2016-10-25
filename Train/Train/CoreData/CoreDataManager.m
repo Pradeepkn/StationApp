@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataManager.h"
+#import "AppUtilityClass.h"
 
 @interface CoreDataManager ()
 
@@ -200,9 +201,10 @@
             Messages *messages = [NSEntityDescription insertNewObjectForEntityForName:@"Messages" inManagedObjectContext:moc];
             [messages setMessage:[dic valueForKey:@"message"]];
             [messages setDesignation:[dic valueForKey:@"designation"]];
-            [messages setCreateDate:[dic valueForKey:@"createDate"]];
+            [messages setCreateDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"createDate"]]];
+            [messages setDeleteMessage:[[dic valueForKey:@"deleteMessage"] boolValue]];
             [messages setMessageId:messageId];
-            [messages setAddedDate:[NSDate date ]];
+            [messages setUsername:[dic valueForKey:@"username"]];
         }
     }
     return [self saveData];
@@ -223,6 +225,7 @@
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             HomeImages *images = [NSEntityDescription insertNewObjectForEntityForName:@"HomeImages" inManagedObjectContext:moc];
+            [images setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
@@ -247,6 +250,7 @@
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             StationGalleryInfo *images = [NSEntityDescription insertNewObjectForEntityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
+            [images setAddedDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
             [images setImagePath:[dic valueForKey:@"imagePath"]];
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
@@ -263,7 +267,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in whatsNewMessages) {
-        NSString *createDateIdentifier = [dic valueForKey:@"createDate"];
+        NSDate *createDateIdentifier = [AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"createDate"]];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"createDate == %@",createDateIdentifier];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
@@ -271,10 +275,11 @@
             WhatsNewMessages *messages = [NSEntityDescription insertNewObjectForEntityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
             [messages setMessage:[dic valueForKey:@"message"]];
             [messages setDesignation:[dic valueForKey:@"designation"]];
-            [messages setCreateDate:createDateIdentifier];
+            [messages setCreateDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"createDate"]]];
             [messages setStationName:[dic valueForKey:@"stationName"]];
             [messages setMessageId:[dic valueForKey:@"messageId"]];
-            [messages setAddedDate:[NSDate date ]];
+            [messages setDeleteMessage:[[dic valueForKey:@"deleteMessage"] boolValue]];
+            [messages setUsername:[dic valueForKey:@"username"]];
         }
     }
     return [self saveData];
@@ -357,7 +362,7 @@
         }else {
             remarks = (Remarks *)[array firstObject];
         }
-        [remarks setInsertDate:[dic valueForKey:@"insertDate"]];
+        [remarks setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
         [remarks setRemarksId:[dic valueForKey:@"remarksId"]];
         [remarks setMessage:[dic valueForKey:@"message"]];
         [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
@@ -419,7 +424,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
     [request setEntity:entity];
-    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"addedDate" ascending:YES];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"createDate" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptorGroup];
     [request setSortDescriptors:sortDescriptors];
     NSError *error = nil;
@@ -467,6 +472,23 @@
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSPredicate *predicate=[NSPredicate predicateWithFormat:@"messageId == %@", message.messageId];
+    [request setPredicate:predicate];
+    //... add sorts if you want them
+    NSError *fetchError;
+    NSArray *fetchedProducts=[moc executeFetchRequest:request error:&fetchError];
+    
+    for (NSManagedObject *product in fetchedProducts) {
+        [moc deleteObject:product];
+    }
+    [self saveData];
+}
+
+- (void)deleteWhatsNewMessage:(WhatsNewMessages *)message {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"WhatsNewMessages" inManagedObjectContext:moc];
     [request setEntity:entity];
     NSPredicate *predicate=[NSPredicate predicateWithFormat:@"messageId == %@", message.messageId];
     [request setPredicate:predicate];

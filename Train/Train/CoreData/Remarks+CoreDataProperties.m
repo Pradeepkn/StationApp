@@ -2,7 +2,7 @@
 //  Remarks+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -14,10 +14,10 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Remarks"];
 }
 
-@dynamic taskId;
 @dynamic insertDate;
-@dynamic remarksId;
 @dynamic message;
+@dynamic remarksId;
 @dynamic status;
+@dynamic taskId;
 
 @end

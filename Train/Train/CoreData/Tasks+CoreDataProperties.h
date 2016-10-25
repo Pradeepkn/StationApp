@@ -2,7 +2,7 @@
 //  Tasks+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *domain;
 @property (nullable, nonatomic, copy) NSString *eventName;
 @property (nullable, nonatomic, copy) NSString *refId;
-@property (nonatomic) int16_t status;
 @property (nullable, nonatomic, copy) NSString *stationId;
+@property (nonatomic) int16_t status;
 
 @end
 

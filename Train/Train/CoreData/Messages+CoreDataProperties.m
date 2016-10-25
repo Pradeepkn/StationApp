@@ -2,7 +2,7 @@
 //  Messages+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/16/16.
+//  Created by Pradeep Narendra on 10/25/16.
 //
 //
 
@@ -14,10 +14,11 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Messages"];
 }
 
-@dynamic addedDate;
 @dynamic createDate;
 @dynamic designation;
 @dynamic message;
 @dynamic messageId;
+@dynamic deleteMessage;
+@dynamic username;
 
 @end

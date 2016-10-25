@@ -155,7 +155,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
             overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appRedColor];
         case kTaskCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appGreyColor];
             break;
         default:
             break;

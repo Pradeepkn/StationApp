@@ -46,6 +46,7 @@
 - (BOOL)saveData;
 
 - (void)deleteWallMessage:(Messages *)message;
+- (void)deleteWhatsNewMessage:(WhatsNewMessages *)message;
 - (void) deleteAllObjects: (NSString *) entityDescription;
 
 @end

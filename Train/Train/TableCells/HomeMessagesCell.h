@@ -10,9 +10,11 @@
 
 @interface HomeMessagesCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *messageCellContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *swipeButton;
 
 @end
