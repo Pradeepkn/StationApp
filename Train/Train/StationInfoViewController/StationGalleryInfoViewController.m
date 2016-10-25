@@ -27,9 +27,12 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *line1Label;
-@property (weak, nonatomic) IBOutlet UILabel *line2Label;
-@property (weak, nonatomic) IBOutlet UILabel *line3Label;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *zoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *divisionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stationAreaLabel;
+@property (weak, nonatomic) IBOutlet UILabel *averageDailyFootFallLabel;
+
 @property (weak, nonatomic) IBOutlet UITableView *galleryTableView;
 @property (weak, nonatomic) IBOutlet UILabel *stationNameLabel;
 @property (strong, nonatomic) User *loggedInUser;
@@ -69,10 +72,12 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
         NSLog(@"Response = %@", responseDictionary);
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
-            weakSelf.line1Label.text = stationGalleryApi.established;
-            weakSelf.line2Label.text = stationGalleryApi.area;
-            weakSelf.line3Label.text = stationGalleryApi.avgPassengerFootfail;
-            weakSelf.stationNameLabel.text = stationGalleryApi.stationName;
+            weakSelf.stateLabel.text = stationGalleryApi.stationName;
+            weakSelf.zoneLabel.text = stationGalleryApi.zoneName;
+            weakSelf.divisionLabel.text = stationGalleryApi.divisionName;
+            weakSelf.stationAreaLabel.text = stationGalleryApi.area;
+            weakSelf.averageDailyFootFallLabel.text = stationGalleryApi.avgPassengerFootfail;
+            weakSelf.stationNameLabel.text = [NSString stringWithFormat:@"%@ (%@)", stationGalleryApi.stationName,stationGalleryApi.stationCode];
             weakSelf.weekKeys = stationGalleryApi.weekKeys;
             [weakSelf isViewEditable:stationGalleryApi.editStatus];
             [weakSelf.galleryTableView reloadData];

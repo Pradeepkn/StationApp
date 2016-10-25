@@ -59,6 +59,10 @@
             self.established = stationData[@"established"];
             self.area = stationData[@"area"];
             self.avgPassengerFootfail = stationData[@"avgPassengerFootfail"];
+            self.stateName = stationData[@"state"];
+            self.zoneName = stationData[@"zone"];
+            self.divisionName = stationData[@"division"];
+            self.stationCode = stationData[@"stationCode"];
         }
     }
 }
