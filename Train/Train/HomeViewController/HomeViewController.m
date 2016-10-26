@@ -197,7 +197,7 @@ const int kWriteUpdateMessageTag = 201;
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
     wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             [weakSelf.homeGalleryCollectionView reloadData];
         }else{
@@ -210,7 +210,7 @@ const int kWriteUpdateMessageTag = 201;
     WhatsNewMessagesApi *whatsNewMessageApiObject = [WhatsNewMessagesApi new];
     whatsNewMessageApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:whatsNewMessageApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
@@ -229,7 +229,7 @@ const int kWriteUpdateMessageTag = 201;
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:postOnWallApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
@@ -258,7 +258,7 @@ const int kWriteUpdateMessageTag = 201;
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:postOnWallApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
@@ -287,7 +287,7 @@ const int kWriteUpdateMessageTag = 201;
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:deleteMessageApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
@@ -314,7 +314,7 @@ const int kWriteUpdateMessageTag = 201;
     
     NSError *error = nil;
     if (![[self messagesFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     
@@ -322,7 +322,7 @@ const int kWriteUpdateMessageTag = 201;
     [[self stationsFetchedResultsController] setDelegate:self];
     
     if (![[self stationsFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     
@@ -330,7 +330,7 @@ const int kWriteUpdateMessageTag = 201;
     [[self imagesFetchedResultsController] setDelegate:self];
     
     if (![[self imagesFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     
@@ -338,7 +338,7 @@ const int kWriteUpdateMessageTag = 201;
     [[self whatsNewFetchedResultsController] setDelegate:self];
     
     if (![[self whatsNewFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
 }
@@ -548,7 +548,7 @@ const int kWriteUpdateMessageTag = 201;
     }
     // Perform the real delete action here. Note: you may need to check editing style
     //   if you do not perform delete only.
-    NSLog(@"Deleted row.");
+    //NSLog(@"Deleted row.");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

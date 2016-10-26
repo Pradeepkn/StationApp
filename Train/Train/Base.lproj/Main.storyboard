@@ -912,11 +912,11 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="rX1-kt-9az"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                                            <color key="textColor" red="0.29803921570000003" green="0.18823529410000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXh-S0-sA9">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXh-S0-sA9">
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="A15-MN-aWL"/>
                                                                 <constraint firstAttribute="height" constant="30" id="eIs-Td-aUU"/>
@@ -941,9 +941,9 @@
                                                         <constraint firstItem="aQi-03-dE6" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" constant="4" id="EoN-Gt-zut"/>
                                                         <constraint firstAttribute="trailing" secondItem="AUh-M4-LMU" secondAttribute="trailing" constant="10" id="ICS-eH-KDy"/>
                                                         <constraint firstItem="tsl-rW-U3u" firstAttribute="top" secondItem="dm1-fQ-OmB" secondAttribute="bottom" id="Ksj-wM-IsR"/>
-                                                        <constraint firstAttribute="trailing" secondItem="gXh-S0-sA9" secondAttribute="trailing" constant="10" id="XJe-nG-Eio"/>
+                                                        <constraint firstAttribute="trailing" secondItem="gXh-S0-sA9" secondAttribute="trailing" constant="5" id="XJe-nG-Eio"/>
                                                         <constraint firstAttribute="bottom" secondItem="AUh-M4-LMU" secondAttribute="bottom" constant="4" id="Ycf-EG-ynU"/>
-                                                        <constraint firstItem="gXh-S0-sA9" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" constant="4" id="hAN-V5-KOr"/>
+                                                        <constraint firstItem="gXh-S0-sA9" firstAttribute="top" secondItem="34t-Tn-YdF" secondAttribute="top" id="hAN-V5-KOr"/>
                                                         <constraint firstAttribute="bottom" secondItem="tsl-rW-U3u" secondAttribute="bottom" constant="4" id="iJ8-fH-RrC"/>
                                                         <constraint firstItem="dm1-fQ-OmB" firstAttribute="top" secondItem="aQi-03-dE6" secondAttribute="bottom" constant="-5" id="kui-DQ-qZ6"/>
                                                         <constraint firstItem="AUh-M4-LMU" firstAttribute="leading" secondItem="tsl-rW-U3u" secondAttribute="trailing" constant="8" id="m9I-q8-oed"/>
@@ -2756,7 +2756,7 @@
         <image name="ongoing" width="14" height="13"/>
         <image name="plus" width="16" height="16"/>
         <image name="plus-icon-smal" width="22" height="22"/>
-        <image name="swipe" width="16" height="16"/>
+        <image name="swipe" width="10" height="10"/>
         <image name="tick-blue-icon" width="11" height="8"/>
         <image name="tick-mark" width="11" height="11"/>
         <image name="to-start" width="10" height="10"/>

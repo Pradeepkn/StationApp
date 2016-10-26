@@ -73,7 +73,7 @@
         error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
         // Replace this with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        //NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         //        abort();
     }
     
@@ -105,7 +105,7 @@
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             [managedObjectContext rollback];
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            //NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             //        abort();
             return NO;
         }
@@ -330,7 +330,7 @@
 #pragma mark - Save Station sub tasks
 
 - (BOOL)saveSubTasks:(NSArray *)subTasks forTaskId:(NSString *)taskId{
-    NSLog(@"Task ID = %@", taskId);
+    //NSLog(@"Task ID = %@", taskId);
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
@@ -535,10 +535,10 @@
     
     for (NSManagedObject *managedObject in items) {
         [[self managedObjectContext] deleteObject:managedObject];
-        NSLog(@"%@ object deleted",entityDescription);
+        //NSLog(@"%@ object deleted",entityDescription);
     }
     if (![[self managedObjectContext] save:&error]) {
-        NSLog(@"Error deleting %@ - error:%@",entityDescription,error);
+        //NSLog(@"Error deleting %@ - error:%@",entityDescription,error);
     }
     
 }

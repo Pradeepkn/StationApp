@@ -205,7 +205,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
             [AppUtilityClass storeIntValue:-1 forKey:kSelectedStationIndex];
             [AppUtilityClass storeIntValue:-1 forKey:kSelectedDesignationIndex];
-            NSLog(@"Response = %@", responseDictionary);
+            //NSLog(@"Response = %@", responseDictionary);
             [AppUtilityClass hideLoaderFromView:weakSelf.view];
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
             [self.navigationController popViewControllerAnimated:YES];

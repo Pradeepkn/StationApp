@@ -74,7 +74,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
     stationGalleryApi.email = [AppUtilityClass getUserEmail];
     [AppUtilityClass showLoaderOnView:self.view];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationGalleryApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
             weakSelf.stateLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.stateName withLightFontForText:@"State"];

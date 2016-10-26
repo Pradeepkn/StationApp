@@ -98,7 +98,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [AppUtilityClass showLoaderOnView:self.view];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsubTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
             self.isEditable = stationsubTasksApi.editStatus;
@@ -121,7 +121,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [[APIManager sharedInstance]makeAPIRequestWithObject:remarksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         [[weakSelf remarksTableView] reloadData];
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
         }else{
         }
@@ -149,7 +149,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     
     NSError *error = nil;
     if (![[self stationInfoFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
     
@@ -157,7 +157,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [[self remarksFetchedResultsController] setDelegate:self];
     
     if (![[self remarksFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
 }
@@ -178,7 +178,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     NSSortDescriptor *status = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES];
     NSSortDescriptor *insertDate = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
     [request setSortDescriptors:@[status, insertDate]];
-    NSLog(@"View Task ID = %@", self.selectedTask.refId);
+    //NSLog(@"View Task ID = %@", self.selectedTask.refId);
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
     [request setPredicate:predicate];
@@ -205,11 +205,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:self.subTasksListTableView]) {
         id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][section];
-        NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
+        //NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
         return [sectionInfo numberOfObjects];
     }else {
         id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
-        NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
+        //NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
         return [sectionInfo numberOfObjects];
     }
 }
@@ -459,7 +459,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     sendRemarksApiObject.taskId = self.selectedTask.refId;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:sendRemarksApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
@@ -486,7 +486,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     updateSubTaskStatusApiObject.stationSubActivityId = self.selectedSubTask.stationSubActivityId;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:updateSubTaskStatusApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
@@ -513,7 +513,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     updateRemarksStatusApiObject.remarksId = self.selectedRemarks.remarksId;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:updateRemarksStatusApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];

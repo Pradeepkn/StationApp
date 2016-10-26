@@ -92,7 +92,7 @@ static NSInteger kKeyBoardOffSet = 120;
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:loginApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
@@ -114,7 +114,7 @@ static NSInteger kKeyBoardOffSet = 120;
 - (void)getStationsAndDesignations {
     GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
@@ -162,7 +162,7 @@ static NSInteger kKeyBoardOffSet = 120;
     forgotPasswordApiObject.email = self.usernameTxtField.text;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:forgotPasswordApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass storeUserEmail:self.usernameTxtField.text];
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               [self performSegueWithIdentifier:kResetPasswordSegueIdentifier sender:self];

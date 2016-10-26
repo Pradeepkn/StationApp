@@ -56,7 +56,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
     stationTasksApi.stationId = self.selectedStation.stationId;
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
-        NSLog(@"Response = %@", responseDictionary);
+        //NSLog(@"Response = %@", responseDictionary);
         weakSelf.percentageCompleted = [NSString stringWithFormat:@"%ld%%", stationTasksApi.percentageCompleted];
         if (!error) {
             [weakSelf.stationInfoTableView reloadData];
@@ -76,7 +76,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
     
     NSError *error = nil;
     if (![[self stationInfoFetchedResultsController] performFetch:&error]) {
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
 }

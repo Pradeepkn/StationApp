@@ -239,7 +239,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:uploadImagesApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];

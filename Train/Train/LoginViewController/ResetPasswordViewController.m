@@ -83,7 +83,7 @@
     forgotPasswordAuthApiObject.authKey = self.codeTxtField.text;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:forgotPasswordAuthApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               if (!error) {
                                                   [weakSelf callResetPasswordApi];
@@ -100,7 +100,7 @@
     forgotPasswordApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makePostAPIRequestWithObject:forgotPasswordApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               if (!error) {
                                                   [AppUtilityClass showErrorMessage:NSLocalizedString(@"Sent unique code to your email id.", nil)];
@@ -119,7 +119,7 @@
     resetPasswordApiObject.password = self.passwordTxtField.text;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:resetPasswordApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              NSLog(@"Response = %@", responseDictionary);
+                                              //NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               if (!error) {
                                                   [AppUtilityClass showErrorMessage:NSLocalizedString(@"Password updated successfully.", nil)];
