@@ -237,12 +237,15 @@
 
 #pragma mark - Save Home Images
 
-- (BOOL)saveStationGalleryInfoImages:(NSArray *)images forKey:(NSString *)weekKey{
+- (BOOL)saveStationGalleryInfoImages:(NSDictionary *)imagesDict forKey:(NSString *)weekKey{
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
     [request setEntity:entity];
-    for (NSDictionary *dic in images) {
+    NSString *weekDateRange = imagesDict[@"date"];
+    NSString *weekCompleteKey = [NSString stringWithFormat:@"%@images", weekKey];
+    NSDictionary *imagesArray = imagesDict[weekCompleteKey];
+    for (NSDictionary *dic in imagesArray) {
         id imageReferenceId = [dic valueForKey:@"imageId"];
         NSString *imageId = [NSString stringWithFormat:@"%@",imageReferenceId];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"imageId == %@",imageId];
@@ -255,7 +258,18 @@
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
             [images setImageId:imageId];
-            [images setGalleryWeek:weekKey];
+            [images setGalleryWeek:weekDateRange];
+            [images setWeekNumber:weekKey];
+        }
+    }
+    if (imagesArray.count == 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"galleryWeek == %@",weekDateRange];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            StationGalleryInfo *images = [NSEntityDescription insertNewObjectForEntityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
+            [images setGalleryWeek:weekDateRange];
+            [images setWeekNumber:weekKey];
         }
     }
     return [self saveData];
@@ -438,6 +452,8 @@
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
+    [request setSortDescriptors:@[stations]];
     [request setEntity:entity];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];
@@ -445,11 +461,11 @@
 }
 #pragma mark - fetch station Gallery Images
 
-- (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey {
+- (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey forStationName:(NSString *)stationName{
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"galleryWeek == %@",weekKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"weekNumber == %@ AND stationName == %@",weekKey, stationName];
     [request setPredicate:predicate];
     [request setEntity:entity];
     NSError *error = nil;

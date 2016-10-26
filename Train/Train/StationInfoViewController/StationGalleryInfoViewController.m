@@ -18,13 +18,15 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIColor+AppColor.h"
 #import "NSString+AutoCapitalizeString.h"
+#import "StationGalleryHeaderView.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
+static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionHeader";
 
 @interface StationGalleryInfoViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout> {
-    
+    BOOL isEmptyCells;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
@@ -33,7 +35,9 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 @property (weak, nonatomic) IBOutlet UILabel *stationAreaLabel;
 @property (weak, nonatomic) IBOutlet UILabel *averageDailyFootFallLabel;
 
-@property (weak, nonatomic) IBOutlet UITableView *galleryTableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *imageGalleryCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *emptyView;
+
 @property (weak, nonatomic) IBOutlet UILabel *stationNameLabel;
 @property (strong, nonatomic) User *loggedInUser;
 @property (nonatomic, strong) NSArray *weekKeys;
@@ -45,6 +49,7 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isEmptyCells = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,14 +84,18 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
             weakSelf.averageDailyFootFallLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.avgPassengerFootfail withLightFontForText:@"Average Passenger Footfail"];
             weakSelf.stationNameLabel.text = [NSString stringWithFormat:@"%@ (%@)", stationGalleryApi.stationName,stationGalleryApi.stationCode];
             weakSelf.weekKeys = stationGalleryApi.weekKeys;
+            
+            weakSelf.weekKeys = [weakSelf.weekKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                return [(NSString *)obj1 compare:(NSString *)obj2 options:NSNumericSearch];
+            }];
+            
             [weakSelf isViewEditable:stationGalleryApi.editStatus];
-            [weakSelf.galleryTableView reloadData];
+            [weakSelf.imageGalleryCollectionView reloadData];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
         }
     }];
 }
-
 
 - (void)isViewEditable:(BOOL)editable {
     if (editable) {
@@ -96,80 +105,57 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     }
 }
 
-#pragma mark - Table view data source
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.weekKeys.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [UIView new];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StationGalleryViewCell *cell = (StationGalleryViewCell *)[tableView dequeueReusableCellWithIdentifier:kGalleryCellIdentifier forIndexPath:indexPath];
-    NSArray *weekKeyArray = [[self.weekKeys objectAtIndex:indexPath.row] componentsSeparatedByString:@"#"];
-    cell.weekLabel.text = [weekKeyArray firstObject];
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    //For iOS 8, we need the following code to set the cell separator line stretching to both left and right edge of the view.
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
 #pragma mark -
 #pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return self.weekKeys.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((self.view.frame.size.width - 30) / 2, 100.f);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableview = nil;
+    if (kind == UICollectionElementKindSectionHeader) {
+        StationGalleryHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kGalleryCollectionHeaderIdentifier forIndexPath:indexPath];
+        NSArray *galleryArray = [self getStationGalleryArrayForKey:[self.weekKeys objectAtIndex:indexPath.section]];
+        StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray firstObject];
+        headerView.sectionHeaderLabel.text = stationGalleryInfo.galleryWeek;
+        reusableview = headerView;
+    }
+    return reusableview;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSUInteger count = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:section]].count;
+    NSUInteger count = [self getStationGalleryArrayForKey:[self.weekKeys objectAtIndex:section]].count;
+    if (count > 0 && isEmptyCells) {
+        isEmptyCells = NO;
+        self.emptyView.hidden = YES;
+    }
+    if (isEmptyCells) {
+        self.emptyView.hidden = NO;
+    }
     return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GalleryCollectionViewCell *cell = (GalleryCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kGalleryCollectionViewCellIdentifier forIndexPath:indexPath];
     [self customiseCollectionCiewCell:cell forIndexPath:indexPath];
-//    [AppUtilityClass addOverlayOnView:cell.collectionImageView];
     return cell;
 }
 
 - (void)customiseCollectionCiewCell:(GalleryCollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath{
-    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
+    NSArray *galleryArray = [self getStationGalleryArrayForKey:[self.weekKeys objectAtIndex:indexPath.section]];
     StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray objectAtIndex:indexPath.row];
-    cell.imageTitleLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName];
-    cell.imageDescription.text = [NSString autoCapitalize:stationGalleryInfo.stationName];
-    [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    cell.imageTitleLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName?:@"NA"];
+    cell.imageDescription.text = [NSString autoCapitalize:stationGalleryInfo.stationName?:@"NA"];
+    [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] placeholderImage:[UIImage imageNamed:@"Escalator-circle"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.collectionImageView setImage:image];
     }];
 }
@@ -178,10 +164,10 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:[self.weekKeys objectAtIndex:indexPath.section]];
+
     ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
     imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    imageGalleryVC.galleryInfoArray = galleryArray;
+    imageGalleryVC.galleryInfoArray = [self getStationGalleryArrayForKey:[self.weekKeys objectAtIndex:indexPath.section]];
     imageGalleryVC.isFromDashBoard = NO;
     imageGalleryVC.selectedImageIndex = indexPath.row;
     [self presentViewController:imageGalleryVC animated:YES completion:^{
@@ -189,6 +175,10 @@ static NSString *const kUploadImageSegueIdentifier = @"UploadImageSegue";
     }];
 }
 
+- (NSArray *)getStationGalleryArrayForKey:(NSString *)imageKey {
+        NSArray *galleryArray = [[CoreDataManager sharedManager] fetchStationGalleryImagesForKey:imageKey forStationName:self.selectedStation.stationName];
+    return galleryArray;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

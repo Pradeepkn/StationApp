@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.title = @"Images";
     self.pageScrollView = [DRPageScrollView new];
-    self.pageScrollView.pageReuseEnabled = YES;
+    self.pageScrollView.pageReuseEnabled = NO;
     [self.view addSubview:self.pageScrollView];
     applyConstraints(self.pageScrollView);
     // Note: you can either take this nib approach or directly instantiate your UI elements programatically and add them to pageView.
@@ -66,7 +66,7 @@
     [self.view bringSubviewToFront:self.previousButton];
     [self.view bringSubviewToFront:self.stationNameLabel];
     [self.view bringSubviewToFront:self.imageNameLabel];
-    [self autoScrollToSelectedIndex];
+//    [self autoScrollToSelectedIndex];
 }
 
 - (void)autoScrollToSelectedIndex {
@@ -81,12 +81,12 @@
 - (void)updateImageNamesAtIndex:(NSInteger)currentPage {
     if (self.isFromDashBoard) {
         HomeImages *homeGalleryInfo = (HomeImages *)[self.galleryInfoArray objectAtIndex:currentPage];
-        self.stationNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.stationName];
-        self.imageNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.imageName];
+        self.stationNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.stationName]?:@"NA";
+        self.imageNameLabel.text = [NSString autoCapitalize:homeGalleryInfo.imageName]?:@"NA";
     }else {
         StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:currentPage];
-        self.stationNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.stationName];
-        self.imageNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName];
+        self.stationNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.stationName]?:@"NA";
+        self.imageNameLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName]?:@"NA";
     }
 }
 

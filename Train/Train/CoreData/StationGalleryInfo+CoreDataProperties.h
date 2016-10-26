@@ -15,13 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<StationGalleryInfo *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSDate *insertDate;
 @property (nullable, nonatomic, copy) NSString *galleryWeek;
 @property (nullable, nonatomic, copy) NSString *imageId;
 @property (nullable, nonatomic, copy) NSString *imageName;
 @property (nullable, nonatomic, copy) NSString *imagePath;
+@property (nullable, nonatomic, copy) NSDate *insertDate;
 @property (nullable, nonatomic, copy) NSString *stationName;
-@property (nonatomic) int16_t weekNumber;
+@property (nullable, nonatomic, copy) NSString *weekNumber;
 
 @end
 

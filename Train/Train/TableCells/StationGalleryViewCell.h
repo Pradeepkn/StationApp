@@ -11,5 +11,6 @@
 @interface StationGalleryViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *weekLabel;
+@property (strong, nonatomic) NSIndexPath *path;
 
 @end

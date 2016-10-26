@@ -44,12 +44,11 @@
 
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{
     NSDictionary *apiDataSource = responseDictionary[@"data"];
-    if ([apiDataSource[@"images"] isKindOfClass:[NSArray class]]) {
-        NSArray *arrayOfImages = apiDataSource[@"images"];
-        NSDictionary *weeklyImges =  [arrayOfImages firstObject];
-        self.weekKeys = [NSArray arrayWithArray:[weeklyImges allKeys]];
+    if ([apiDataSource[@"images"] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *imagesDictionary = apiDataSource[@"images"];
+        self.weekKeys = [NSArray arrayWithArray:[imagesDictionary allKeys]];
         for (NSString *weekKey in self.weekKeys) {
-            [[CoreDataManager sharedManager] saveStationGalleryInfoImages:weeklyImges[weekKey] forKey:weekKey];
+            [[CoreDataManager sharedManager] saveStationGalleryInfoImages:imagesDictionary[weekKey] forKey:weekKey];
         }
     }
     self.editStatus = [apiDataSource[@"editStatus"] boolValue];

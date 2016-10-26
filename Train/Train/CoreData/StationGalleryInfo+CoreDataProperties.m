@@ -14,11 +14,11 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"StationGalleryInfo"];
 }
 
-@dynamic insertDate;
 @dynamic galleryWeek;
 @dynamic imageId;
 @dynamic imageName;
 @dynamic imagePath;
+@dynamic insertDate;
 @dynamic stationName;
 @dynamic weekNumber;
 
