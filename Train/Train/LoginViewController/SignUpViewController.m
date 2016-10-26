@@ -50,7 +50,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
         [AppUtilityClass showErrorMessage:@"Please enter last name"];
         return;
     }else if (![inputValues objectForKey:@"2"]) {
-        [AppUtilityClass showErrorMessage:@"Please choose designation."];
+        [AppUtilityClass showErrorMessage:@"Please enter designation."];
         return;
     }else if (![inputValues objectForKey:@"3"]) {
         [AppUtilityClass showErrorMessage:@"Please choose station."];
@@ -118,9 +118,9 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
         case 2:
             [signUpEntryCell.entryTextField setPlaceholder:@"Designation"];
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"designation"] forState:UIControlStateNormal];
-            signUpEntryCell.dropDownButton.hidden = NO;
-            signUpEntryCell.dropDownButton.tag = 100;
-            signUpEntryCell.entryTextField.userInteractionEnabled = NO;
+//            signUpEntryCell.dropDownButton.hidden = NO;
+//            signUpEntryCell.dropDownButton.tag = 100;
+//            signUpEntryCell.entryTextField.userInteractionEnabled = NO;
 //            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
 //                            forKeyPath:@"_placeholderLabel.textColor"];
             break;
@@ -135,6 +135,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
             break;
         case 4:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];
+            signUpEntryCell.entryTextField.keyboardType = UIKeyboardTypeEmailAddress;
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"email"] forState:UIControlStateNormal];
             break;
         case 5:

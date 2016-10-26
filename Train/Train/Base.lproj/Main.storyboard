@@ -366,9 +366,8 @@
                                                     </constraints>
                                                     <state key="normal" image="user"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bz-93-pjB">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bz-93-pjB">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="46" id="8Ni-cT-Hor"/>
                                                         <constraint firstAttribute="height" constant="46" id="cY6-aN-0VD"/>
                                                     </constraints>
                                                     <state key="normal" image="down-arrow"/>
@@ -377,10 +376,11 @@
                                             <constraints>
                                                 <constraint firstItem="3bz-93-pjB" firstAttribute="centerY" secondItem="gJN-A4-hsT" secondAttribute="centerY" id="1Ma-Gw-pvz"/>
                                                 <constraint firstItem="x6e-hC-gW2" firstAttribute="leading" secondItem="jr1-dV-kwT" secondAttribute="trailing" constant="7" id="3fM-FZ-1eO"/>
-                                                <constraint firstAttribute="trailing" secondItem="3bz-93-pjB" secondAttribute="trailing" id="4GF-gF-SaD"/>
+                                                <constraint firstAttribute="trailing" secondItem="3bz-93-pjB" secondAttribute="trailing" constant="20" id="4GF-gF-SaD"/>
                                                 <constraint firstAttribute="trailing" secondItem="x6e-hC-gW2" secondAttribute="trailing" id="Jss-6o-wWs"/>
                                                 <constraint firstItem="jr1-dV-kwT" firstAttribute="leading" secondItem="gJN-A4-hsT" secondAttribute="leading" constant="8" id="Kx4-R1-6wf"/>
                                                 <constraint firstItem="jr1-dV-kwT" firstAttribute="centerY" secondItem="gJN-A4-hsT" secondAttribute="centerY" id="vd3-q0-8ta"/>
+                                                <constraint firstItem="3bz-93-pjB" firstAttribute="leading" secondItem="jr1-dV-kwT" secondAttribute="trailing" constant="8" id="viO-5a-Zex"/>
                                                 <constraint firstItem="x6e-hC-gW2" firstAttribute="centerY" secondItem="gJN-A4-hsT" secondAttribute="centerY" id="z3A-yw-0nU"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2706,7 +2706,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
