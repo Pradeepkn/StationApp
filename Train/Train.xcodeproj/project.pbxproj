@@ -760,6 +760,7 @@
 				TargetAttributes = {
 					E9F3B7051D9C4C7700A98B85 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = RKJ9KVAX24;
 						ProvisioningStyle = Manual;
 					};
 				};

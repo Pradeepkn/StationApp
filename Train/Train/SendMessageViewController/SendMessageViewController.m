@@ -100,7 +100,7 @@ static NSString *const kThirdMessage = @"Custom";
     if (indexPath.row == (prePopulatedArray.count - 1)) {
         messageBody = @" ";
     }
-    NSString *sms = [NSString stringWithFormat:@"sms:+919964280738&body=%@", messageBody];
+    NSString *sms = [NSString stringWithFormat:@"sms:&body=%@", messageBody];
     NSString *url = [sms stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
