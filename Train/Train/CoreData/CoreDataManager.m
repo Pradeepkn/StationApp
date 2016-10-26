@@ -353,6 +353,7 @@
         [subTasksObject setDeadline:[dic valueForKey:@"deadline"]];
         [subTasksObject setTaskId:taskId];
         [subTasksObject setStatus:[[dic valueForKey:@"status"] integerValue]];
+        [subTasksObject setSortDate:[[dic valueForKey:@"sortDate"] intValue]];
     }
     return [self saveData];
 }

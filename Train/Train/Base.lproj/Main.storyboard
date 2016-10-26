@@ -1211,7 +1211,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="YrY-w3-ggg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1698,6 +1698,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9YA-bm-fbp">
+                                <connections>
+                                    <outlet property="delegate" destination="zgF-Be-Usi" id="Rpi-Np-bf1"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lW-xM-uJU">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="C4b-gJ-t5H"/>
@@ -1770,8 +1775,12 @@
                             <constraint firstItem="7lW-xM-uJU" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" id="CmW-cB-dr8"/>
                             <constraint firstItem="6qw-Wm-yN6" firstAttribute="leading" secondItem="7lW-xM-uJU" secondAttribute="trailing" constant="8" id="JxK-l0-dYw"/>
                             <constraint firstAttribute="trailing" secondItem="6qw-Wm-yN6" secondAttribute="trailing" constant="54" id="KJM-Gw-M3c"/>
+                            <constraint firstItem="9YA-bm-fbp" firstAttribute="top" secondItem="WMA-9p-ErU" secondAttribute="top" id="OU9-Kb-TwB"/>
+                            <constraint firstItem="dX5-f4-D3h" firstAttribute="top" secondItem="9YA-bm-fbp" secondAttribute="bottom" id="Ppy-vj-gg2"/>
                             <constraint firstItem="KRU-7G-HXQ" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" constant="20" id="Qjq-9r-kde"/>
+                            <constraint firstItem="9YA-bm-fbp" firstAttribute="leading" secondItem="WMA-9p-ErU" secondAttribute="leading" id="SOw-hm-qrM"/>
                             <constraint firstAttribute="trailing" secondItem="KRU-7G-HXQ" secondAttribute="trailing" constant="16" id="UI3-iN-cOi"/>
+                            <constraint firstAttribute="trailing" secondItem="9YA-bm-fbp" secondAttribute="trailing" id="c89-Vh-Xt1"/>
                             <constraint firstItem="6qw-Wm-yN6" firstAttribute="top" secondItem="KEq-eh-rdo" secondAttribute="bottom" id="d2i-he-prZ"/>
                             <constraint firstItem="Xo4-bS-78l" firstAttribute="leading" secondItem="WMA-9p-ErU" secondAttribute="leading" constant="16" id="hbB-Oi-Jb2"/>
                             <constraint firstAttribute="trailing" secondItem="k1h-wZ-pRJ" secondAttribute="trailing" constant="13" id="lLx-YZ-04G"/>
@@ -1780,6 +1789,7 @@
                     <connections>
                         <outlet property="closeButton" destination="7lW-xM-uJU" id="UeE-Cu-3If"/>
                         <outlet property="imageNameLabel" destination="KRU-7G-HXQ" id="Tnb-1N-uUn"/>
+                        <outlet property="imageScrollView" destination="9YA-bm-fbp" id="RHW-Qi-4G1"/>
                         <outlet property="nextButton" destination="k1h-wZ-pRJ" id="Wr7-AT-6mK"/>
                         <outlet property="previousButton" destination="Xo4-bS-78l" id="d12-pV-Ltd"/>
                         <outlet property="stationNameLabel" destination="6qw-Wm-yN6" id="URa-vb-sV7"/>
@@ -2706,7 +2716,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

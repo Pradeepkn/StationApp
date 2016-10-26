@@ -164,10 +164,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (NSFetchRequest *)getTasksFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"SubTasks"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"deadline" ascending:YES];
-    NSSortDescriptor *status = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO];
+    NSSortDescriptor *deadline = [NSSortDescriptor sortDescriptorWithKey:@"deadline" ascending:YES];
+    NSSortDescriptor *sortDate = [NSSortDescriptor sortDescriptorWithKey:@"sortDate" ascending:YES];
 
-    [request setSortDescriptors:@[status,message]];
+    [request setSortDescriptors:@[sortDate,deadline]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
     [request setPredicate:predicate];
     return request;

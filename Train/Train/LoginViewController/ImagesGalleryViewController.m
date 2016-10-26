@@ -12,14 +12,16 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "NSString+AutoCapitalizeString.h"
 
-@interface ImagesGalleryViewController ()
+@interface ImagesGalleryViewController () {
+    BOOL isFirstTimeLaunch;
+}
 
-@property (nonatomic, strong) DRPageScrollView *pageScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *previousButton;
 @property (weak, nonatomic) IBOutlet UILabel *stationNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageNameLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 
 @end
 
@@ -27,14 +29,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isFirstTimeLaunch = YES;
     self.title = @"Images";
-    self.pageScrollView = [DRPageScrollView new];
-    self.pageScrollView.pageReuseEnabled = NO;
-    [self.view addSubview:self.pageScrollView];
-    applyConstraints(self.pageScrollView);
-    // Note: you can either take this nib approach or directly instantiate your UI elements programatically and add them to pageView.
-    __weak ImagesGalleryViewController *weakSelf = self;
-
+    CGFloat screenWidth = self.view.frame.size.width;
+    CGFloat screenHeight = self.view.frame.size.height;
+    [self.imageScrollView setContentSize:CGSizeMake(self.galleryInfoArray.count * screenWidth, screenHeight)];
     for (int index = 0; index < self.galleryInfoArray.count; index++) {
         StationGalleryInfo *stationGalleryInfo;
         HomeImages *homeGalleryInfo;
@@ -46,36 +45,37 @@
             stationGalleryInfo = (StationGalleryInfo *)[self.galleryInfoArray objectAtIndex:index];
             imagePath = stationGalleryInfo.imagePath;
         }
-        NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ImagesGalleryView" owner:self options:nil];
-        ImagesGalleryView *view = (ImagesGalleryView *) [nibViews firstObject];
-        [self.pageScrollView addPageWithHandler:^(UIView *pageView) {
-            [view.imageView  sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                [view.imageView setImage:image];
-            }];
-            [pageView addSubview:view];
-            applyConstraints(view);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(index*screenWidth, 80, screenWidth, screenHeight - 160)];
+        [imageView  sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [imageView setImage:image];
         }];
+        [self.imageScrollView addSubview:imageView];
     }
-    self.pageScrollView.scrollHandler = ^(BOOL isScrolled) {
-        if (isScrolled) {
-            [weakSelf updateNextButtonTitle];
-        }
-    };
-    [self.view bringSubviewToFront:self.closeButton];
-    [self.view bringSubviewToFront:self.nextButton];
-    [self.view bringSubviewToFront:self.previousButton];
-    [self.view bringSubviewToFront:self.stationNameLabel];
-    [self.view bringSubviewToFront:self.imageNameLabel];
-//    [self autoScrollToSelectedIndex];
+    [self autoScrollToIndex:self.selectedImageIndex];
 }
 
-- (void)autoScrollToSelectedIndex {
-    __weak ImagesGalleryViewController *weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.selectedImageIndex + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
-        [weakSelf updateImageNamesAtIndex:self.selectedImageIndex];
-        weakSelf.pageScrollView.currentPage = weakSelf.selectedImageIndex;
-    });
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    isFirstTimeLaunch = NO;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (!isFirstTimeLaunch) {
+        [self updateNextButtonTitleAtIndex:[self currentPageNumber]];
+    }
+}
+
+- (void)autoScrollToIndex:(NSInteger)index {
+    [self.imageScrollView setContentOffset:CGPointMake(index * self.view.frame.size.width, 0) animated:YES];
+    [self updateNextButtonTitleAtIndex:index];
 }
 
 - (void)updateImageNamesAtIndex:(NSInteger)currentPage {
@@ -97,47 +97,39 @@
 }
 
 - (IBAction)previousButtonClicked:(id)sender {
-    [UIView animateWithDuration:0.3 animations:^{
-        if (self.pageScrollView.currentPage == 0) {
-            return;
-        }
-        self.pageScrollView.currentPage = self.pageScrollView.currentPage - 1;
-    } completion:^(BOOL finished) {
-        [self updateNextButtonTitle];
-    }];
+    int page = self.imageScrollView.contentOffset.x / self.imageScrollView.frame.size.width;
+    if (page == 0) {
+        return;
+    }
+    [self autoScrollToIndex:page-1];
 }
 
 - (IBAction)nextButtonClicked:(id)sender {
-    [UIView animateWithDuration:0.3 animations:^{
-        if (self.pageScrollView.currentPage == self.galleryInfoArray.count - 1) {
-            return;
-        }
-        self.pageScrollView.currentPage = self.pageScrollView.currentPage + 1;
-    } completion:^(BOOL finished) {
-        [self updateNextButtonTitle];
-    }];
-}
-
-- (void)updateNextButtonTitle {
-    [self.nextButton setTitle:[NSString stringWithFormat:@"%ld from %lu", (long)self.pageScrollView.currentPage + 1, (unsigned long)self.galleryInfoArray.count] forState:UIControlStateNormal];
-    NSInteger currentPage = self.pageScrollView.currentPage;
-    if (currentPage <= 0) {
-        currentPage = 0;
+    int page = self.imageScrollView.contentOffset.x / self.imageScrollView.frame.size.width;
+    if (page == self.galleryInfoArray.count - 1) {
+        return;
     }
-    [self updateImageNamesAtIndex:currentPage];
+    [self autoScrollToIndex:page + 1];
 }
 
-void applyConstraints(UIView *view) {
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    NSArray *attributeArray = @[@(NSLayoutAttributeTop), @(NSLayoutAttributeLeft), @(NSLayoutAttributeBottom), @(NSLayoutAttributeRight)];
-    
-    for (NSNumber *attributeNumber in attributeArray) {
-        NSLayoutAttribute attribute = (NSLayoutAttribute)[attributeNumber integerValue];
-        
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:view attribute:attribute relatedBy:NSLayoutRelationEqual toItem:view.superview attribute:attribute multiplier:1 constant:0];
-        
-        [view.superview addConstraint:constraint];
+- (NSInteger)currentPageNumber {
+    int page = self.imageScrollView.contentOffset.x / self.imageScrollView.frame.size.width;
+    return page;
+}
+
+- (void)updateNextButtonTitleAtIndex:(NSInteger)index {
+    NSString *nextButtonTitle = [NSString stringWithFormat:@"%ld from %lu", index + 1, (unsigned long)self.galleryInfoArray.count];
+    [self.nextButton setTitle:nextButtonTitle forState:UIControlStateNormal];
+    [self updateImageNamesAtIndex:index];
+    if (index == 0) {
+        self.previousButton.alpha = 0.5;
+    }else {
+        self.previousButton.alpha = 1.0f;
+    }
+    if (index == self.galleryInfoArray.count - 1) {
+        self.nextButton.alpha = 0.5;
+    }else {
+        self.nextButton.alpha = 1.0f;
     }
 }
 

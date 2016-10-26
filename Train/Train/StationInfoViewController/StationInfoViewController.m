@@ -83,7 +83,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 
 - (NSFetchRequest *)getTasksFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tasks"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:NO];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES];
     [request setSortDescriptors:@[message]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",self.selectedStation.stationId];
     [request setPredicate:predicate];

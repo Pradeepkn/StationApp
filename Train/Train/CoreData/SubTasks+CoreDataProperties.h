@@ -2,7 +2,7 @@
 //  SubTasks+CoreDataProperties.h
 //  
 //
-//  Created by Pradeep Narendra on 10/25/16.
+//  Created by Pradeep Narendra on 10/27/16.
 //
 //
 
@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *stationSubActivityId;
 @property (nonatomic) int16_t status;
 @property (nullable, nonatomic, copy) NSString *taskId;
+@property (nonatomic) int32_t sortDate;
 
 @end
 

@@ -15,6 +15,7 @@
 #import "AppConstants.h"
 #import "UIColor+AppColor.h"
 #import "ForgotPasswordApi.h"
+#import "NSString+emailValidation.h"
 
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
@@ -49,8 +50,8 @@ static NSInteger kKeyBoardOffSet = 120;
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
-    self.passwordTxtField.text = @"Prad33pkn";
+//    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
+//    self.passwordTxtField.text = @"Prad33pkn";
 //    self.usernameTxtField.text = @"antararaychaudhur@gmail.com";
 //    self.passwordTxtField.text = @"antara20";
     [self getStationsAndDesignations];
@@ -150,7 +151,7 @@ static NSInteger kKeyBoardOffSet = 120;
 }
 
 - (IBAction)forgotPasswordButtonClicked:(id)sender {
-    if (self.usernameTxtField.text.length <= 0) {
+    if (self.usernameTxtField.text.length <= 0 || ![self.usernameTxtField.text isValidEmail]) {
         [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter valid e-mail address.", nil)];
         return;
     }

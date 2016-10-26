@@ -2,7 +2,7 @@
 //  SubTasks+CoreDataProperties.m
 //  
 //
-//  Created by Pradeep Narendra on 10/25/16.
+//  Created by Pradeep Narendra on 10/27/16.
 //
 //
 
@@ -20,5 +20,6 @@
 @dynamic stationSubActivityId;
 @dynamic status;
 @dynamic taskId;
+@dynamic sortDate;
 
 @end

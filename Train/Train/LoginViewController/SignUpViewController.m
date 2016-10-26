@@ -13,6 +13,7 @@
 #import "SignUpEntryCell.h"
 #import "IQKeyboardManager.h"
 #import "StationsListViewController.h"
+#import "NSString+emailValidation.h"
 
 static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 
@@ -55,7 +56,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }else if (![inputValues objectForKey:@"3"]) {
         [AppUtilityClass showErrorMessage:@"Please choose station."];
         return;
-    }else if (![inputValues objectForKey:@"4"]) {
+    }else if (![inputValues objectForKey:@"4"] || ![[inputValues objectForKey:@"4"] isValidEmail]) {
         [AppUtilityClass showErrorMessage:@"Please enter valid email address"];
         return;
     }else if (![[inputValues objectForKey:@"5"] isEqualToString:[inputValues objectForKey:@"6"]]) {
@@ -253,6 +254,9 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField.text.length == 0) {
+        return;
+    }
     NSString *keyValue = [NSString stringWithFormat:@"%ld", (long)textField.tag];
     [inputValues setObject:textField.text forKey:keyValue];
 }

@@ -115,7 +115,7 @@ const int kWriteUpdateMessageTag = 201;
 //    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
-    [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:self.loggedInUser.email] forState:UIControlStateNormal];
+    [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
     [self addStatusBar];
 }
 
@@ -461,8 +461,8 @@ const int kWriteUpdateMessageTag = 201;
 - (void)configureMessagesCell:(HomeMessagesCell *)messagesCell atIndexPath:(NSIndexPath*)indexPath
 {
     Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
-    messagesCell.userNameLabel.text = object.username?:object.messageId;
-    messagesCell.messageDescriptionLabel.text = object.message;
+    messagesCell.userNameLabel.text = [NSString autoCapitalize:object.username?:object.messageId];
+    messagesCell.messageDescriptionLabel.text = [NSString autoCapitalize:object.message?:@"NA"];
     messagesCell.headerLabel.text = object.designation;
     messagesCell.messageDateLabel.text = [AppUtilityClass getHomeMessageDate:object.createDate];
     if (object.deleteMessage) {
@@ -492,10 +492,10 @@ const int kWriteUpdateMessageTag = 201;
 - (void)configureWhatsNewCell:(WhatsNewCell *)whatsNewCell atIndexPath:(NSIndexPath*)indexPath
 {
     WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-    whatsNewCell.stationLabel.text = object.stationName;
-    whatsNewCell.newsTextLabel.text = object.message;
+    whatsNewCell.stationLabel.text = [NSString autoCapitalize:object.stationName?:@"NA"];
+    whatsNewCell.newsTextLabel.text = [NSString autoCapitalize:object.message?:@"NA"];
     whatsNewCell.dateLabel.text = [AppUtilityClass getWhatsNewMessageDate:object.createDate];
-    whatsNewCell.userNameLabel.text = object.username;
+    whatsNewCell.userNameLabel.text = [NSString autoCapitalize:object.username?:@"NA"];
     if (object.deleteMessage) {
         whatsNewCell.swipeButton.hidden = NO;
     }else {
