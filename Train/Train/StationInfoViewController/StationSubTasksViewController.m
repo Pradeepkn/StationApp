@@ -164,8 +164,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (NSFetchRequest *)getTasksFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"SubTasks"];
-    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"deadline" ascending:NO];
-    [request setSortDescriptors:@[message]];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"deadline" ascending:YES];
+    NSSortDescriptor *status = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO];
+
+    [request setSortDescriptors:@[status,message]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
     [request setPredicate:predicate];
     return request;
@@ -302,13 +304,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
             break;
         case kCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appTextColor];
+            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appGreyColor];
             break;
         default:
             break;
     }
 }
-
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {

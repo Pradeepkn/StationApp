@@ -29,6 +29,7 @@
 #import "UIColor+AppColor.h"
 #import "ImagesGalleryViewController.h"
 #import "NSString+AutoCapitalizeString.h"
+#import "DeleteMessageApi.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -275,6 +276,35 @@ const int kWriteUpdateMessageTag = 201;
                                           }];
 }
 
+- (void)deleteInfoMessage:(BOOL)isInfo withMessageId:(NSString *)messageId {
+    [AppUtilityClass showLoaderOnView:self.view];
+    
+    __weak HomeViewController *weakSelf = self;
+    DeleteMessageApi *deleteMessageApi = [DeleteMessageApi new];
+    deleteMessageApi.email = [AppUtilityClass getUserEmail];
+    deleteMessageApi.messageId = messageId;
+    deleteMessageApi.isInfoMessage = isInfo;
+    
+    [[APIManager sharedInstance]makePostAPIRequestWithObject:deleteMessageApi
+                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                                              NSLog(@"Response = %@", responseDictionary);
+                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
+                                              NSDictionary *dataDict = responseDictionary[@"data"];
+                                              NSDictionary *errorDict = responseDictionary[@"error"];
+                                              if (dataDict.allKeys.count > 0) {
+                                              }else{
+                                                  if (errorDict.allKeys.count > 0) {
+                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                                                      }else {
+                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                      }
+                                                  };
+                                              }
+                                          }];
+}
+
+
 - (void)initializeMessagesFetchedResultsController
 {
     NSManagedObjectContext *moc = [[CoreDataManager sharedManager] managedObjectContext];
@@ -508,10 +538,12 @@ const int kWriteUpdateMessageTag = 201;
 {
     if ([tableView isEqual:self.homeTopTableView]) {
         Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
+        [self deleteInfoMessage:YES withMessageId:messageObject.messageId];
         [[CoreDataManager sharedManager] deleteWallMessage:messageObject];
     }
     else if ([tableView isEqual:self.whatsNewTableView]) {
         WhatsNewMessages *whatsNewMessageObject = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
+        [self deleteInfoMessage:NO withMessageId:whatsNewMessageObject.messageId];
         [[CoreDataManager sharedManager] deleteWhatsNewMessage:whatsNewMessageObject];
     }
     // Perform the real delete action here. Note: you may need to check editing style

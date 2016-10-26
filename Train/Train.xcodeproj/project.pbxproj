@@ -71,6 +71,7 @@
 		E99DB5371DB118A10074E90E /* ResetPasswordApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E99DB5361DB118A10074E90E /* ResetPasswordApi.m */; };
 		E9B425791DC0D3A800F92295 /* StationGalleryInfo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B425781DC0D3A800F92295 /* StationGalleryInfo+CoreDataProperties.m */; };
 		E9B4257C1DC0F6AB00F92295 /* StationGalleryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B4257B1DC0F6AB00F92295 /* StationGalleryHeaderView.m */; };
+		E9B4257F1DC1108B00F92295 /* DeleteMessageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B4257E1DC1108B00F92295 /* DeleteMessageApi.m */; };
 		E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964E61DACBEB6009364CD /* StationsListViewController.m */; };
 		E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F61DACC903009364CD /* CoreDataManager.m */; };
 		E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C964F91DAD01E0009364CD /* StationsDestinationsCell.m */; };
@@ -229,6 +230,8 @@
 		E9B425781DC0D3A800F92295 /* StationGalleryInfo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StationGalleryInfo+CoreDataProperties.m"; sourceTree = "<group>"; };
 		E9B4257A1DC0F6AB00F92295 /* StationGalleryHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationGalleryHeaderView.h; sourceTree = "<group>"; };
 		E9B4257B1DC0F6AB00F92295 /* StationGalleryHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationGalleryHeaderView.m; sourceTree = "<group>"; };
+		E9B4257D1DC1108B00F92295 /* DeleteMessageApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMessageApi.h; sourceTree = "<group>"; };
+		E9B4257E1DC1108B00F92295 /* DeleteMessageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMessageApi.m; sourceTree = "<group>"; };
 		E9C964E51DACBEB6009364CD /* StationsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationsListViewController.h; sourceTree = "<group>"; };
 		E9C964E61DACBEB6009364CD /* StationsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationsListViewController.m; sourceTree = "<group>"; };
 		E9C964F51DACC903009364CD /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
@@ -692,6 +695,8 @@
 				E98636121DB7731D0033D358 /* UpdateRemarksStatusApi.m */,
 				E98636141DB77A1F0033D358 /* GetRemarksApi.h */,
 				E98636151DB77A1F0033D358 /* GetRemarksApi.m */,
+				E9B4257D1DC1108B00F92295 /* DeleteMessageApi.h */,
+				E9B4257E1DC1108B00F92295 /* DeleteMessageApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -893,6 +898,7 @@
 				E9231A491DB3830E00CD302D /* StationSubTasksViewController.m in Sources */,
 				E9231A791DB4284400CD302D /* UploadImagesApi.m in Sources */,
 				E9FB6B601DA97F5300769D8C /* SignUpApi.m in Sources */,
+				E9B4257F1DC1108B00F92295 /* DeleteMessageApi.m in Sources */,
 				E93B0FEB1DB55B7F008B8232 /* RemarksStatusUpdateViewController.m in Sources */,
 				E98C0C951DA073F9005D09A5 /* OverallStatusCell.m in Sources */,
 				E9F3B74F1D9C59EB00A98B85 /* UIButton+Border.m in Sources */,
