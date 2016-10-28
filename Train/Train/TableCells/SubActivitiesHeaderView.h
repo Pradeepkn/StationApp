@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PaddedLabel.h"
 
 @interface SubActivitiesHeaderView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *subActivityName;
+@property (weak, nonatomic) IBOutlet PaddedLabel *subActivityName;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *subActivityNameHeightConstraint;
 
 @end

@@ -30,6 +30,7 @@
 #import "ImagesGalleryViewController.h"
 #import "NSString+AutoCapitalizeString.h"
 #import "DeleteMessageApi.h"
+#import "GetStationDesignationApi.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
@@ -111,6 +112,12 @@ const int kWriteUpdateMessageTag = 201;
 - (void)viewWillAppear:(BOOL)animated {
     [self getHomeMessages];
     [self getWhatsNewMessages];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if ([[CoreDataManager sharedManager] fetchAllStations].count == 0) {
+            [self getStationsAndDesignations];
+        }
+    });
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -134,7 +141,7 @@ const int kWriteUpdateMessageTag = 201;
     self.selectStationButton.hidden = YES;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
-    self.topInputViewHeightConstraint.constant -= 40.0f;
+    self.topInputViewHeightConstraint.constant = 60.0f;
     self.selectStationHeightConstraint.constant = 0.0f;
     self.messageInputTextView.tag = kLeaveAMessageTag;
     self.placeHolderTextField.placeholder = kLeaveAMessageKey;
@@ -151,7 +158,7 @@ const int kWriteUpdateMessageTag = 201;
     self.selectStationButton.hidden = NO;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
-    self.topInputViewHeightConstraint.constant += 40.0f;
+    self.topInputViewHeightConstraint.constant = 100.0f;
     self.selectStationHeightConstraint.constant = 40.0f;
     self.messageInputTextView.tag = kWriteUpdateMessageTag;
     self.placeHolderTextField.placeholder = kWriteAnUpdate;
@@ -162,10 +169,33 @@ const int kWriteUpdateMessageTag = 201;
     [self.informationButton setImage:[UIImage imageNamed:@"information-unactive"] forState:UIControlStateNormal];
 }
 
+
+
+- (void)getStationsAndDesignations {
+    GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        NSDictionary *errorDict = responseDictionary[@"error"];
+        NSArray *dataDict = responseDictionary[@"data"];
+        if (dataDict.count > 0) {
+            
+        }else{
+            if (errorDict.allKeys.count > 0) {
+                if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                    [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                    return;
+                }
+            }
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
 - (IBAction)selectStationButtonAction:(UIButton *)sender {
     StationsListViewController *stationsListVC = [self.storyboard instantiateViewControllerWithIdentifier:@"StationsListViewController"];
     stationsListVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     stationsListVC.isStationSelected = YES;
+    stationsListVC.isFromRegistration = NO;
     stationsListVC.delegate = self;
     [self presentViewController:stationsListVC animated:YES completion:^{
         ;
@@ -239,10 +269,10 @@ const int kWriteUpdateMessageTag = 201;
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
-                                                  };
+                                                  }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }
@@ -268,10 +298,10 @@ const int kWriteUpdateMessageTag = 201;
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
                                                   }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }
@@ -296,10 +326,10 @@ const int kWriteUpdateMessageTag = 201;
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
-                                                  };
+                                                  }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }
@@ -354,6 +384,8 @@ const int kWriteUpdateMessageTag = 201;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stations"];
     NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"stationName" ascending:YES];
     [request setSortDescriptors:@[stations]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@",@"NA"];
+    [request setPredicate:predicate];
     return request;
 }
 

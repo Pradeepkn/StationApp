@@ -149,11 +149,11 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",stationId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
-        BOOL isNAStation = [[dic valueForKey:@"stationName"] isEqualToString:@"NA"];
-        if (array.count == 0 && !isNAStation) {
+        if (array.count == 0) {
             Stations *stationList = [NSEntityDescription insertNewObjectForEntityForName:@"Stations" inManagedObjectContext:moc];
             [stationList setStationId:stationId];
             [stationList setStationName:[dic valueForKey:@"stationName"]];
+            [stationList setStationCode:[dic valueForKey:@"stationCode"]];
             if ([dic valueForKey:@"statusColor"]) {
                 [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
             }
@@ -405,6 +405,20 @@
 
 #pragma mark - Fetch Stations
 
+- (NSArray *)fetchAllSignUpStations {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+#pragma mark - Fetch Stations
+
 - (NSArray *)fetchAllStations {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -413,6 +427,8 @@
     NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptorGroup];
     [request setSortDescriptors:sortDescriptors];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@",@"NA"];
+    [request setPredicate:predicate];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];
     return  result;

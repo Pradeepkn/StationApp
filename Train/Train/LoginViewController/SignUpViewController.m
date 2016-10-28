@@ -224,6 +224,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }else {
         stationsListVC.isStationSelected = YES;
     }
+    stationsListVC.isFromRegistration = YES;
     stationsListVC.delegate = self;
     [self presentViewController:stationsListVC animated:YES completion:^{
         ;

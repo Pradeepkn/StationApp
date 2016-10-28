@@ -12,6 +12,7 @@
 #import "AppUtilityClass.h"
 #import "AppConstants.h"
 #import "UIColor+AppColor.h"
+#import "GetStationDesignationApi.h"
 
 static NSString *const kStationsCellIdentifier = @"StationsCell";
 
@@ -30,14 +31,49 @@ static NSInteger kTableCellHeight = 48.0f;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.7];
     if (self.isStationSelected) {
-        self.array = [[CoreDataManager sharedManager] fetchAllStations];
+        if (self.isFromRegistration) {
+            self.array = [[CoreDataManager sharedManager] fetchAllSignUpStations];
+        }else {
+            self.array = [[CoreDataManager sharedManager] fetchAllStations];
+        }
+        if (self.array.count == 0) {
+            [self getStationsAndDesignations];
+        }
     }else {
         self.array = [[CoreDataManager sharedManager] fetchAllDesignation];
     }
+
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewFromSuperView)];
     [self.stationsListTableView addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
 }
+
+
+- (void)getStationsAndDesignations {
+    GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        NSDictionary *errorDict = responseDictionary[@"error"];
+        NSArray *dataDict = responseDictionary[@"data"];
+        if (dataDict.count > 0) {
+            if (self.isFromRegistration) {
+                self.array = [[CoreDataManager sharedManager] fetchAllSignUpStations];
+            }else {
+                self.array = [[CoreDataManager sharedManager] fetchAllStations];
+            }
+            [self.stationsListTableView reloadData];
+        }else{
+            if (errorDict.allKeys.count > 0) {
+                if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                    [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                    return;
+                }
+            }
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
 
 - (void)removeViewFromSuperView {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -72,11 +108,11 @@ static NSInteger kTableCellHeight = 48.0f;
     UIView *view = [[UIView alloc] initWithFrame:headerFrame];
     UILabel *selectEntryLabel = [[UILabel alloc] initWithFrame:headerFrame];
     selectEntryLabel.text = self.isStationSelected?@"Select station":@"Select designation";
-    selectEntryLabel.font = [UIFont fontWithName:kProximaNovaRegular size:18.0f];
-    selectEntryLabel.textColor = [UIColor appTextColor];
-    selectEntryLabel.backgroundColor = [UIColor whiteColor];
+    selectEntryLabel.font = [UIFont fontWithName:kProximaNovaSemibold size:18.0f];
+    selectEntryLabel.textColor = [UIColor whiteColor];
+    selectEntryLabel.backgroundColor = [UIColor appRedColor];
     [view addSubview:selectEntryLabel];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [UIColor appRedColor];
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, kTableCellHeight - 1, self.stationsListTableView.bounds.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor lightGrayColor];
     [view addSubview:bottomBorder];

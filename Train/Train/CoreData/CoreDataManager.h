@@ -36,6 +36,7 @@
 - (BOOL)saveStationGalleryInfoImages:(NSDictionary *)imagesDict forKey:(NSString *)weekKey;
 
 - (User *)fetchLogedInUser;
+- (NSArray *)fetchAllSignUpStations;
 - (NSArray *)fetchAllStations ;
 - (NSArray *)fetchAllDesignation;
 - (NSArray *)fetchHomeMessages;

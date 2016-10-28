@@ -220,7 +220,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([tableView isEqual:self.subTasksListTableView]) {
-        return 86.0f;
+        return [self getHeightForText:self.activityName];
     }else {
         return 50.0f;
     }
@@ -228,11 +228,13 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([tableView isEqual:self.subTasksListTableView]) {
+        CGFloat heightOfHeader = [self getHeightForText:self.activityName];
          SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
-        subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, 86);
+        subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, heightOfHeader);
         subHeader.subActivityName.text  = self.activityName;
-        subHeader.backgroundColor = [UIColor lightGrayColor];
+        subHeader.subActivityName.backgroundColor = [UIColor lightGrayColor];
         [AppUtilityClass shapeTopCell:subHeader withRadius:kBubbleRadius];
+        subHeader.subActivityNameHeightConstraint.constant = heightOfHeader - 40;
         return subHeader;
     }else {
         TasksHeaderView *headerView = (TasksHeaderView *)[[NSBundle mainBundle] loadNibNamed:kTasksHeaderViewNibName owner:nil options:nil][0];
@@ -241,8 +243,20 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         headerView.percentageLabel.hidden = YES;
         [headerView.progressView setProgress:0];
         headerView.overallStatusHeaderLabel.text = @"Remarks";
+        headerView.backgroundColor = [UIColor lightGrayColor];
+        headerView.overallStatusHeaderLabel.textColor = [UIColor whiteColor];
         return headerView;
     }
+}
+
+- (CGFloat)getHeightForText:(NSString *)string {
+    CGFloat heightOfHeader = [AppUtilityClass sizeOfText:string widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaSemibold size:18]].height;
+    if (heightOfHeader < 30) {
+        heightOfHeader = 30;
+    }else if (heightOfHeader > 120) {
+        heightOfHeader = 120.0f;
+    }
+    return heightOfHeader + 64;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -470,10 +484,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
                                                   }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }
@@ -497,10 +511,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
                                                   }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }
@@ -524,10 +538,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
                                                   }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }

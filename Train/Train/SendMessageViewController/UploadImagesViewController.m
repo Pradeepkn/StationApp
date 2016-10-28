@@ -249,10 +249,10 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
                                                           [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                      }else {
-                                                          [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                          return;
                                                       }
                                                   }
+                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
                                               }
                                           }];
 }

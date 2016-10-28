@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		E790C846E232A3B42C7B7E18 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D136A230158CADF79AE180 /* libPods-Train.a */; };
 		E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A431DB372C600CD302D /* TasksHeaderView.m */; };
 		E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A441DB372C600CD302D /* TasksHeaderView.xib */; };
@@ -110,6 +111,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		271661091DC3CCA800253BEB /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
+		2716610A1DC3CCA800253BEB /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
 		66A746174463AE8DB3A15CB1 /* Pods-Train.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.debug.xcconfig"; sourceTree = "<group>"; };
 		A8D136A230158CADF79AE180 /* libPods-Train.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Train.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9231A421DB372C600CD302D /* TasksHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksHeaderView.h; sourceTree = "<group>"; };
@@ -621,6 +624,8 @@
 				E9F3B74A1D9C59EB00A98B85 /* UIColor+AppColor.m */,
 				E9F3B74B1D9C59EB00A98B85 /* UITextField+PaddingText.h */,
 				E9F3B74C1D9C59EB00A98B85 /* UITextField+PaddingText.m */,
+				271661091DC3CCA800253BEB /* PaddedLabel.h */,
+				2716610A1DC3CCA800253BEB /* PaddedLabel.m */,
 			);
 			path = CategoryClasses;
 			sourceTree = "<group>";
@@ -761,7 +766,7 @@
 					E9F3B7051D9C4C7700A98B85 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = RKJ9KVAX24;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -922,6 +927,7 @@
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,
 				E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */,
 				E9F3B7381D9C58B200A98B85 /* AppDelegate.m in Sources */,
+				2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */,
 				E954AA841DBF20B900A6B6F1 /* HomeImages+CoreDataClass.m in Sources */,
 				E954AA871DBF20B900A6B6F1 /* Designation+CoreDataProperties.m in Sources */,
 				E9231A6D1DB3C8CC00CD302D /* SubActivitiesHeaderView.m in Sources */,
@@ -1079,15 +1085,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Antara Raychaudhury (57NKN2SSC8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Antara Raychaudhury (57NKN2SSC8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RKJ9KVAX24;
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StationApp.App;
 				PRODUCT_NAME = "STATION APP";
-				PROVISIONING_PROFILE = "abccbbec-3e38-4c79-b7d4-447a97cd7e83";
-				PROVISIONING_PROFILE_SPECIFIER = StationAppAdhoc;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1097,15 +1103,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Antara Raychaudhury (RKJ9KVAX24)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Antara Raychaudhury (RKJ9KVAX24)";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RKJ9KVAX24;
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StationApp.App;
 				PRODUCT_NAME = "STATION APP";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = StationAppAdhoc;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

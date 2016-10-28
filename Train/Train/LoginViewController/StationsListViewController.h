@@ -20,6 +20,7 @@
 @interface StationsListViewController : UIViewController
 
 @property (nonatomic, assign) BOOL isStationSelected;
+@property (nonatomic, assign) BOOL isFromRegistration;
 
 @property (nonatomic, weak) id <StationDesignationDelegate> delegate;
 
