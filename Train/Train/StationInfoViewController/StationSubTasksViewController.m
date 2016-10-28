@@ -231,6 +231,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
          SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
         subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, 86);
         subHeader.subActivityName.text  = self.activityName;
+        subHeader.backgroundColor = [UIColor lightGrayColor];
         [AppUtilityClass shapeTopCell:subHeader withRadius:kBubbleRadius];
         return subHeader;
     }else {

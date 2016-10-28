@@ -149,7 +149,8 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",stationId];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
-        if (array.count == 0) {
+        BOOL isNAStation = [[dic valueForKey:@"stationName"] isEqualToString:@"NA"];
+        if (array.count == 0 && !isNAStation) {
             Stations *stationList = [NSEntityDescription insertNewObjectForEntityForName:@"Stations" inManagedObjectContext:moc];
             [stationList setStationId:stationId];
             [stationList setStationName:[dic valueForKey:@"stationName"]];
