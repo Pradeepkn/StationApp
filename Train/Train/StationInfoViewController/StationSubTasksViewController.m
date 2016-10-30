@@ -80,13 +80,23 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         self.navigationItem.rightBarButtonItem.title = @"Done";
         self.remarksButton.hidden = NO;
         self.remarksHeightConstraint.constant = 50.0f;
-        self.remarksContainerViewHeightConstraint.constant = 50;
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][0];
+        if ([sectionInfo numberOfObjects] == 0) {
+            self.remarksContainerViewHeightConstraint.constant = 50;
+        }else {
+            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.30;
+        }
     }else {
         sender.tag = 100;
         self.isViewEditable = NO;
         self.navigationItem.rightBarButtonItem.title = @"Edit";
         self.remarksHeightConstraint.constant = 0.0f;
-        self.remarksContainerViewHeightConstraint.constant = 0;
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][0];
+        if ([sectionInfo numberOfObjects] == 0) {
+            self.remarksContainerViewHeightConstraint.constant = 0;
+        }else {
+            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.25;
+        }
         self.remarksButton.hidden = YES;
     }
 }
@@ -216,7 +226,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         if ([sectionInfo numberOfObjects] == 0) {
             self.remarksContainerViewHeightConstraint.constant = 0;
         }else {
-            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.30;
+            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.25;
         }
         return [sectionInfo numberOfObjects];
     }

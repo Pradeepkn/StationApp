@@ -13,6 +13,7 @@
 #import "UIColor+AppColor.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "CoreDataManager.h"
+#import "NSString+AutoCapitalizeString.h"
 
 @implementation AppUtilityClass
 
@@ -94,7 +95,7 @@
     CustomAlertModel *alertModel = [[CustomAlertModel alloc] init];
     alertModel.secondaryButtonColor = [UIColor appRedColor];
     alertModel.kAlertMarginOffSet = 20.0f;
-    alertModel.alertMessageBody = message;
+    alertModel.alertMessageBody = [NSString autoCapitalize:message];
     alertModel.buttonsArray = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Ok", nil), nil];
     [[CustomAlertViewController sharedInstance] displayAlertViewOnView:[[UIApplication sharedApplication] keyWindow] withModel:alertModel andCallBack:^(UIButton *sender) {
     }];

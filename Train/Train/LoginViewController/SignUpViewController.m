@@ -206,13 +206,18 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
             [AppUtilityClass storeIntValue:-1 forKey:kSelectedStationIndex];
             [AppUtilityClass storeIntValue:-1 forKey:kSelectedDesignationIndex];
-            //NSLog(@"Response = %@", responseDictionary);
+            NSLog(@"Response = %@", responseDictionary);
             [AppUtilityClass hideLoaderFromView:weakSelf.view];
               NSDictionary *errorDict = responseDictionary[@"error"];
               NSDictionary *dataDict = responseDictionary[@"data"];
               if (dataDict.allKeys.count > 0) {
-                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
-                  [self.navigationController popViewControllerAnimated:YES];
+                  NSString *statusCode = [NSString stringWithFormat:@"%@", dataDict[@"statuscode"]];
+                  if ([statusCode isEqualToString:@"200"]) {
+                      [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
+                      [self.navigationController popViewControllerAnimated:YES];
+                  }else {
+                      [AppUtilityClass showErrorMessage:dataDict[@"message"]];
+                  }
               }else{
                   if (errorDict.allKeys.count > 0) {
                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
