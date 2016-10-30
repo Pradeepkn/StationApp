@@ -48,6 +48,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @property (nonatomic, assign) BOOL isEditable;
 @property (nonatomic, assign) BOOL isViewEditable;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksContainerViewHeightConstraint;
 
 @end
 
@@ -210,7 +211,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         return [sectionInfo numberOfObjects];
     }else {
         id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
-        //NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
+        NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
+        if ([sectionInfo numberOfObjects] == 0) {
+            self.remarksContainerViewHeightConstraint.constant = 0;
+        }else {
+            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.30;
+        }
         return [sectionInfo numberOfObjects];
     }
 }
@@ -246,7 +252,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }else {
         TasksHeaderView *headerView = (TasksHeaderView *)[[NSBundle mainBundle] loadNibNamed:kTasksHeaderViewNibName owner:nil options:nil][0];
         headerView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, 50);
-        [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
         headerView.percentageLabel.hidden = YES;
         [headerView.progressView setProgress:0];
         headerView.progressView.hidden = YES;
@@ -256,8 +261,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         headerView.overallStatusHeaderLabel.textColor = [UIColor appGreyColor];
         id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
         if ([sectionInfo numberOfObjects] == 0) {
-            [AppUtilityClass shapeBottomCell:headerView withRadius:kBubbleRadius];
             headerView.layer.cornerRadius = 6.0f;
+        }else {
+            headerView.layer.cornerRadius = 0.0f;
+            [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
         }
         return headerView;
     }

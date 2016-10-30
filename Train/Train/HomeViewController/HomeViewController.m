@@ -113,12 +113,6 @@ const int kWriteUpdateMessageTag = 201;
 - (void)viewWillAppear:(BOOL)animated {
     [self getHomeMessages];
     [self getWhatsNewMessages];
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if ([[CoreDataManager sharedManager] fetchAllStations].count == 0) {
-            [self getStationsAndDesignations];
-        }
-    });
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -151,6 +145,7 @@ const int kWriteUpdateMessageTag = 201;
     [self.whatsNewButton setImage:[UIImage imageNamed:@"whats-news-unactive"] forState:UIControlStateNormal];
     [self.informationButton setImage:[UIImage imageNamed:@"information-active"] forState:UIControlStateNormal];
     [self.homeTopTableView reloadData];
+    [self.homeTableView reloadData];
 }
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {

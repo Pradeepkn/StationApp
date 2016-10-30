@@ -104,7 +104,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     signUpEntryCell.entryTextField.delegate = self;
     [signUpEntryCell.dropDownButton addTarget:self action:@selector(showStationsOrDesignationsList:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *keyValue = [NSString stringWithFormat:@"%ld", indexPath.row];
+    NSString *keyValue = [NSString stringWithFormat:@"%ld",indexPath.row];
     signUpEntryCell.entryTextField.text = [inputValues objectForKey:keyValue];
     
     switch (indexPath.row) {
@@ -137,6 +137,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
         case 4:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];
             signUpEntryCell.entryTextField.keyboardType = UIKeyboardTypeEmailAddress;
+            signUpEntryCell.entryTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"email"] forState:UIControlStateNormal];
             break;
         case 5:
