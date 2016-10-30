@@ -153,7 +153,7 @@ static NSInteger kKeyBoardOffSet = 140;
 
 - (IBAction)forgotPasswordButtonClicked:(id)sender {
     if (self.usernameTxtField.text.length <= 0 || ![self.usernameTxtField.text isValidEmail]) {
-        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter valid e-mail address.", nil)];
+        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter your valid e-mail address to reset your password.", nil)];
         return;
     }
     __weak LoginViewController *weakSelf = self;

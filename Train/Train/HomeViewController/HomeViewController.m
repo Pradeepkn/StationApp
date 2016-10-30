@@ -108,6 +108,7 @@ const int kWriteUpdateMessageTag = 201;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
     [self informationButtonClicked:nil];
+    [self addStatusBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,7 +119,6 @@ const int kWriteUpdateMessageTag = 201;
     self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
-    [self addStatusBar];
 }
 
 - (void)addStatusBar {
@@ -691,6 +691,7 @@ const int kWriteUpdateMessageTag = 201;
     HomeImages *object = [[self imagesFetchedResultsController] objectAtIndexPath:indexPath];
     imagesCell.imageTitleLabel.text = [NSString autoCapitalize:object.imageName];
     imagesCell.imageDescription.text = object.stationName;
+    NSLog(@"Image Path = %@", object.imagePath);
     [imagesCell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:object.imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [imagesCell.collectionImageView setImage:image];
     }];

@@ -208,12 +208,20 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
             [AppUtilityClass storeIntValue:-1 forKey:kSelectedDesignationIndex];
             //NSLog(@"Response = %@", responseDictionary);
             [AppUtilityClass hideLoaderFromView:weakSelf.view];
-            [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
-            [self.navigationController popViewControllerAnimated:YES];
-            if (!error) {
-            }else{
-                [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
-            }
+              NSDictionary *errorDict = responseDictionary[@"error"];
+              NSDictionary *dataDict = responseDictionary[@"data"];
+              if (dataDict.allKeys.count > 0) {
+                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"User registered successfully. Please login.", nil)];
+                  [self.navigationController popViewControllerAnimated:YES];
+              }else{
+                  if (errorDict.allKeys.count > 0) {
+                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
+                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
+                          return;
+                      }
+                  }
+                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+              }
     }];
 }
 

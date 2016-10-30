@@ -80,11 +80,13 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         self.navigationItem.rightBarButtonItem.title = @"Done";
         self.remarksButton.hidden = NO;
         self.remarksHeightConstraint.constant = 50.0f;
+        self.remarksContainerViewHeightConstraint.constant = 50;
     }else {
         sender.tag = 100;
         self.isViewEditable = NO;
         self.navigationItem.rightBarButtonItem.title = @"Edit";
         self.remarksHeightConstraint.constant = 0.0f;
+        self.remarksContainerViewHeightConstraint.constant = 0;
         self.remarksButton.hidden = YES;
     }
 }
@@ -211,7 +213,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         return [sectionInfo numberOfObjects];
     }else {
         id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
-        NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
         if ([sectionInfo numberOfObjects] == 0) {
             self.remarksContainerViewHeightConstraint.constant = 0;
         }else {

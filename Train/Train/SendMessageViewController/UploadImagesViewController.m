@@ -14,6 +14,7 @@
 #import <TTPLLibrary/NSData+Base64.h>
 #import "UIImage+ImageAdditions.h"
 #import "UIImage+ProportionalFill.h"
+#import "CustomAlertViewController.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 
@@ -172,6 +173,10 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     [self.imagesTitle removeObjectAtIndex:sender.tag];
     [self.galleryCollectionView reloadData];
     [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 1];
+    if ([self getCellCount] == 1) {
+        [self.imagesTitle removeAllObjects];
+        self.addTitleTxtField.text = @"";
+    }
 }
 
 #pragma mark - Image picker delegates
@@ -181,6 +186,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     NSData *dataForCompressedPNGFile = UIImageJPEGRepresentation(image, 0.25f);
     image = [UIImage imageWithData:dataForCompressedPNGFile];
     NSLog(@"Size of image = %lu KB",(dataForCompressedPNGFile.length/1024));
+    self.addTitleTxtField.text = @"";
 
     [self.selectedImages addObject:image];
     [self.addTitleTxtField becomeFirstResponder];
@@ -289,7 +295,16 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField{
     if ([textField.text isEqualToString:@""]) {
-        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
+        CustomAlertModel *alertModel = [[CustomAlertModel alloc] init];
+        alertModel.secondaryButtonColor = [UIColor appRedColor];
+        alertModel.kAlertMarginOffSet = 20.0f;
+        alertModel.alertMessageBody = @"Please enter image title";
+        alertModel.alertType = kVKSuggestion;
+//        alertModel.buttonsArray = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Ok", nil), nil];
+        [[CustomAlertViewController sharedInstance] displayAlertViewOnView:[[UIApplication sharedApplication] keyWindow] withModel:alertModel andCallBack:^(UIButton *sender) {
+        }];
+        
+//        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
         return NO;
     }
     
