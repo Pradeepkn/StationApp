@@ -11,6 +11,8 @@
 #import "DRPageScrollView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "NSString+AutoCapitalizeString.h"
+#import "UIImage+ProportionalFill.h"
+#import "UIImage+ImageAdditions.h"
 
 @interface ImagesGalleryViewController () {
     BOOL isFirstTimeLaunch;
@@ -49,6 +51,7 @@
         [imageView  sd_setImageWithURL:[NSURL URLWithString:imagePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [imageView setImage:image];
         }];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.imageScrollView addSubview:imageView];
     }
     [self autoScrollToIndex:self.selectedImageIndex];

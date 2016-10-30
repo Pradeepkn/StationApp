@@ -1103,7 +1103,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Antara Raychaudhury (RKJ9KVAX24)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Antara Raychaudhury (RKJ9KVAX24)";
 				DEVELOPMENT_TEAM = RKJ9KVAX24;
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

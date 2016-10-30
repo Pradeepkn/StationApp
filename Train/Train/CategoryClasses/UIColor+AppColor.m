@@ -64,4 +64,9 @@
     return RGBACOLOR(247, 164, 165, 1.0);
 }
 
+
++ (UIColor *)appGreyBGColor {
+    return RGBACOLOR(216, 218, 224, 1.0);
+}
+
 @end

@@ -57,4 +57,7 @@
  @since 1.0
  */
 - (UIImage *)colorizeImage:(UIColor *)theColor;
+
+- (UIImage *)scaleImageToSize:(CGSize)newSize;
+
 @end

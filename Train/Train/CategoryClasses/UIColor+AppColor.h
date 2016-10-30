@@ -36,4 +36,6 @@
 
 + (UIColor *)appLightTextColor;
 
++ (UIColor *)appGreyBGColor;
+
 @end

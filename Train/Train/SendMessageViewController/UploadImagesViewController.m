@@ -12,6 +12,8 @@
 #import "UIColor+AppColor.h"
 #import "UploadImagesApi.h"
 #import <TTPLLibrary/NSData+Base64.h>
+#import "UIImage+ImageAdditions.h"
+#import "UIImage+ProportionalFill.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 
@@ -112,14 +114,16 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         cell.collectionImageView.layer.cornerRadius = 3.0f;
         cell.collectionImageView.layer.borderWidth = 1.0f;
         cell.collectionImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        cell.overlayView.hidden = YES;
     }else {
         cell.closeButton.hidden = NO;
         [cell.closeButton addTarget:self action:@selector(deleteSelectedImage:) forControlEvents:UIControlEventTouchUpInside];
         cell.closeButton.tag = indexPath.row;
         cell.collectionImageView.contentMode = UIViewContentModeScaleAspectFill;
         UIImage *cellImage = [self.selectedImages objectAtIndex:indexPath.row];
-        [cell.collectionImageView setImage:cellImage];
+        [cell.collectionImageView setImage:[UIImage squareCropImageToSideLength:cellImage length:cell.collectionImageView.frame.size.width]];
         cell.collectionImageView.layer.borderWidth = 0.0f;
+        cell.overlayView.hidden = NO;
     }
 }
 
@@ -148,7 +152,8 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     }
     if (self.selectedImages.count > rowIndex) {
         UIImage *cellImage = [self.selectedImages objectAtIndex:rowIndex];
-        self.selectedImageView.image = cellImage;
+        [self.selectedImageView setImage:cellImage];
+        self.selectedImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
 }
 
@@ -172,8 +177,12 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 #pragma mark - Image picker delegates
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self.selectedImages addObject:[AppUtilityClass imageWithImage:image scaledToSize:self.selectedImageView.frame.size]];
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    NSData *dataForCompressedPNGFile = UIImageJPEGRepresentation(image, 0.25f);
+    image = [UIImage imageWithData:dataForCompressedPNGFile];
+    NSLog(@"Size of image = %lu KB",(dataForCompressedPNGFile.length/1024));
+
+    [self.selectedImages addObject:image];
     [self.addTitleTxtField becomeFirstResponder];
     [self.galleryCollectionView reloadData];
     if (self.selectedImages.count > 0) {
@@ -184,6 +193,15 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
         }
     }
 }
+
+- (UIImage *)resizeImage:(UIImage*)image newSize:(CGSize)newSize {
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 1];
@@ -239,7 +257,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     
     [[APIManager sharedInstance]makePostAPIRequestWithObject:uploadImagesApi
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              //NSLog(@"Response = %@", responseDictionary);
+                                              NSLog(@"Response = %@", responseDictionary);
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];

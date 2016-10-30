@@ -31,11 +31,13 @@ static NSInteger kTableCellHeight = 48.0f;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.7];
     if (self.isStationSelected) {
-        if (self.isFromRegistration) {
-            self.array = [[CoreDataManager sharedManager] fetchAllSignUpStations];
-        }else {
-            self.array = [[CoreDataManager sharedManager] fetchAllStations];
-        }
+//        if (self.isFromRegistration) {
+//            self.array = [[CoreDataManager sharedManager] fetchAllSignUpStations];
+//        }else {
+//            self.array = [[CoreDataManager sharedManager] fetchAllStations];
+//        }
+        self.array = [[CoreDataManager sharedManager] fetchAllSignUpStations];
+
         if (self.array.count == 0) {
             [self getStationsAndDesignations];
         }

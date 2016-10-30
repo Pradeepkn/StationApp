@@ -99,7 +99,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Tasks *object = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
-    return [AppUtilityClass sizeOfText:object.eventName widthOfTextView:self.stationInfoTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:18]].height + 30;
+    return [AppUtilityClass sizeOfText:object.eventName widthOfTextView:self.stationInfoTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:20]].height + 30;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

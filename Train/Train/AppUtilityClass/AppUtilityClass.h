@@ -79,6 +79,8 @@
 
 + (NSMutableAttributedString *)updateBoldFontForText:(NSString *)boldText withLightFontForText:(NSString *)lightFontText;
 
++ (UIImage *) scaleImage:(UIImage*)image toSize:(CGSize)newSize;
+
 + (void)purgeAllModels;
 
 

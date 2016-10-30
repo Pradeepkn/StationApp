@@ -121,6 +121,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [[APIManager sharedInstance]makeAPIRequestWithObject:remarksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         [[weakSelf remarksTableView] reloadData];
+        [weakSelf.remarksTableView reloadInputViews];
         //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
         }else{
@@ -215,7 +216,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 1.0f;
+    return 0.1f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -232,8 +233,14 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
          SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
         subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, heightOfHeader);
         subHeader.subActivityName.text  = self.activityName;
-        subHeader.subActivityName.backgroundColor = [UIColor lightGrayColor];
+        subHeader.subActivityName.backgroundColor = [UIColor appGreyBGColor];
+        subHeader.subActivityName.textColor = [UIColor appGreyColor];
+
         [AppUtilityClass shapeTopCell:subHeader withRadius:kBubbleRadius];
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][section];
+        if ([sectionInfo numberOfObjects] == 0) {
+            [AppUtilityClass shapeBottomCell:subHeader withRadius:kBubbleRadius];
+        }
         subHeader.subActivityNameHeightConstraint.constant = heightOfHeader - 40;
         return subHeader;
     }else {
@@ -242,9 +249,16 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
         headerView.percentageLabel.hidden = YES;
         [headerView.progressView setProgress:0];
+        headerView.progressView.hidden = YES;
         headerView.overallStatusHeaderLabel.text = @"Remarks";
-        headerView.backgroundColor = [UIColor lightGrayColor];
-        headerView.overallStatusHeaderLabel.textColor = [UIColor whiteColor];
+        headerView.backgroundColor = [UIColor appGreyBGColor];
+        headerView.clipsToBounds = YES;
+        headerView.overallStatusHeaderLabel.textColor = [UIColor appGreyColor];
+        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
+        if ([sectionInfo numberOfObjects] == 0) {
+            [AppUtilityClass shapeBottomCell:headerView withRadius:kBubbleRadius];
+            headerView.layer.cornerRadius = 6.0f;
+        }
         return headerView;
     }
 }
@@ -282,6 +296,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     subTasksCell.deadLineLabel.text = object.deadline;
     subTasksCell.statusInfoSymbol.hidden = NO;
     subTasksCell.statusInfoSymbol.userInteractionEnabled = NO;
+    id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][indexPath.section];
+    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
+        [AppUtilityClass shapeBottomCell:subTasksCell withRadius:kBubbleRadius];
+    }else {
+        subTasksCell.layer.cornerRadius = 0;
+    }
     switch (object.status) {
         case kTaskToStart:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
@@ -312,6 +332,12 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 {
     Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
     overallStatusHeaderCell.statusInfoLabel.text = object.message;
+    id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][indexPath.section];
+    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
+        [AppUtilityClass shapeBottomCell:overallStatusHeaderCell withRadius:kBubbleRadius];
+    }else {
+        overallStatusHeaderCell.layer.cornerRadius = 0;
+    }
     switch (object.status) {
         case kNotCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];

@@ -19,6 +19,7 @@
 #import "UIColor+AppColor.h"
 #import "NSString+AutoCapitalizeString.h"
 #import "StationGalleryHeaderView.h"
+#import "UIImage+ImageAdditions.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -155,8 +156,11 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
     StationGalleryInfo *stationGalleryInfo = (StationGalleryInfo *)[galleryArray objectAtIndex:indexPath.row];
     cell.imageTitleLabel.text = [NSString autoCapitalize:stationGalleryInfo.imageName?:@"NA"];
     cell.imageDescription.text = [NSString autoCapitalize:stationGalleryInfo.stationName?:@"NA"];
+
     [cell.collectionImageView sd_setImageWithURL:[NSURL URLWithString:stationGalleryInfo.imagePath] placeholderImage:[UIImage imageNamed:@"Escalator-circle"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.collectionImageView setImage:image];
+//        [cell.collectionImageView setImage:[AppUtilityClass scaleImage:image toSize:cell.collectionImageView.frame.size]];
+
     }];
 }
 

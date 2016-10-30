@@ -21,7 +21,7 @@ static NSString *const kHomeSegueIdentifier = @"HomeSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegue";
 
-static NSInteger kKeyBoardOffSet = 120;
+static NSInteger kKeyBoardOffSet = 140;
 
 @interface LoginViewController () {
     BOOL isPasswordHidden;
@@ -36,6 +36,7 @@ static NSInteger kKeyBoardOffSet = 120;
 @property (weak, nonatomic) IBOutlet UIButton *forgotPasswordButton;
 @property (weak, nonatomic) IBOutlet UIButton *rememberMeLabelBtn;
 @property (nonatomic, strong) NSArray *array;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottonViewConstraint;
 
 
 @end
@@ -50,8 +51,8 @@ static NSInteger kKeyBoardOffSet = 120;
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
-    self.passwordTxtField.text = @"Prad33pkn";
+//    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
+//    self.passwordTxtField.text = @"Prad33pkn";
 //    self.usernameTxtField.text = @"antararaychaudhur@gmail.com";
 //    self.passwordTxtField.text = @"antara20";
     [self getStationsAndDesignations];
@@ -205,9 +206,9 @@ static NSInteger kKeyBoardOffSet = 120;
 - (void)resetViewFrameToOriginal:(BOOL)toOriginalFrame {
     CGRect viewFrame = self.view.frame;
     if (toOriginalFrame) {
-        viewFrame.origin.y = 0;
+        self.bottonViewConstraint.constant = 0;
     }else {
-        viewFrame.origin.y = -kKeyBoardOffSet;
+        self.bottonViewConstraint.constant = kKeyBoardOffSet;
     }
     self.view.frame = viewFrame;
 }

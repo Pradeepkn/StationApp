@@ -31,6 +31,7 @@
 #import "NSString+AutoCapitalizeString.h"
 #import "DeleteMessageApi.h"
 #import "GetStationDesignationApi.h"
+#import "UIImage+ImageAdditions.h"
 
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
