@@ -387,7 +387,7 @@ const int kWriteUpdateMessageTag = 201;
 
 - (NSFetchRequest *)getHomeImagesFetchRequest {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     return request;
 }

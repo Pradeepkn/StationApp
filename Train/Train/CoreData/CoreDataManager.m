@@ -470,7 +470,7 @@
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
-    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
     [request setEntity:entity];
     NSError *error = nil;
@@ -485,6 +485,8 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"StationGalleryInfo" inManagedObjectContext:moc];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"weekNumber == %@ AND stationName == %@",weekKey, stationName];
     [request setPredicate:predicate];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
+    [request setSortDescriptors:@[stations]];
     [request setEntity:entity];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];

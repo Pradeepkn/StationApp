@@ -35,6 +35,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UIButton *thumbnailCloseButton;
 
 @end
 
@@ -51,6 +52,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     self.addTitleTxtField.tag = 0;
     self.separatorView.backgroundColor = [UIColor clearColor];
     [self.galleryCollectionView reloadData];
+    self.thumbnailCloseButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -187,9 +189,23 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
     image = [UIImage imageWithData:dataForCompressedPNGFile];
     NSLog(@"Size of image = %lu KB",(dataForCompressedPNGFile.length/1024));
     self.addTitleTxtField.text = @"";
-
+    self.thumbnailCloseButton.hidden = NO;
     [self.selectedImages addObject:image];
     [self.addTitleTxtField becomeFirstResponder];
+    [self.galleryCollectionView reloadData];
+    if (self.selectedImages.count > 0) {
+        if (self.selectedImages.count == 5) {
+            [self autoSelectCollectionViewRowAtIndex:self.selectedImages.count - 1];
+        }else {
+            [self autoSelectCollectionViewRowAtIndex:[self getCellCount] - 2];
+        }
+    }
+}
+
+- (IBAction)thumbnailCloseButtonClicked:(id)sender {
+    [self.view endEditing:YES];
+    self.thumbnailCloseButton.hidden = YES;
+    [self.selectedImages removeLastObject];
     [self.galleryCollectionView reloadData];
     if (self.selectedImages.count > 0) {
         if (self.selectedImages.count == 5) {
@@ -307,7 +323,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 //        [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter image title", nil)];
         return NO;
     }
-    
+    self.thumbnailCloseButton.hidden = YES;
     [self.imagesTitle addObject:textField.text];
     [self.galleryCollectionView reloadData];
     [textField resignFirstResponder];
