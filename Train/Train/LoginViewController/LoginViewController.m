@@ -17,7 +17,7 @@
 #import "ForgotPasswordApi.h"
 #import "NSString+emailValidation.h"
 
-static NSString *const kHomeSegueIdentifier = @"HomeSegue";
+static NSString *const kLandingSegueIdentifier = @"LandingSegue";
 static NSString *const kSignUpSegueIdentifier = @"SignUpSegue";
 static NSString *const kResetPasswordSegueIdentifier = @"ResetPasswordSegue";
 
@@ -51,8 +51,8 @@ static NSInteger kKeyBoardOffSet = 140;
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-//    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
-//    self.passwordTxtField.text = @"Prad33pkn";
+    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
+    self.passwordTxtField.text = @"Prad33pkn";
     [self getStationsAndDesignations];
     if ([AppUtilityClass getUserEmail] && [AppUtilityClass getUserPassword]) {
         self.usernameTxtField.text = [AppUtilityClass getUserEmail];
@@ -97,7 +97,7 @@ static NSInteger kKeyBoardOffSet = 140;
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
                                                   [AppUtilityClass storeUserEmail:weakSelf.usernameTxtField.text];
-                                                  [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
+                                                  [self performSegueWithIdentifier:kLandingSegueIdentifier sender:nil];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {

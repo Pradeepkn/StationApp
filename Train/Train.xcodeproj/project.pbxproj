@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
+		2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2795E88C1E92E21000126EBB /* LandingViewController.m */; };
 		35F35ADBBB505B53EB1EE126 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC7A0F3BBCA3D9A3B56D5DF /* libPods-Train.a */; };
 		E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A431DB372C600CD302D /* TasksHeaderView.m */; };
 		E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A441DB372C600CD302D /* TasksHeaderView.xib */; };
@@ -113,6 +114,8 @@
 /* Begin PBXFileReference section */
 		271661091DC3CCA800253BEB /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		2716610A1DC3CCA800253BEB /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
+		2795E88B1E92E21000126EBB /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewController.h; sourceTree = "<group>"; };
+		2795E88C1E92E21000126EBB /* LandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingViewController.m; sourceTree = "<group>"; };
 		9F65A0DB24D69D56165B07DD /* Pods-Train.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.debug.xcconfig"; sourceTree = "<group>"; };
 		ADE786C9792D8BBA608CFF80 /* Pods-Train.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.release.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.release.xcconfig"; sourceTree = "<group>"; };
 		CFC7A0F3BBCA3D9A3B56D5DF /* libPods-Train.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Train.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -588,6 +591,8 @@
 		E9F3B7321D9C58B200A98B85 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2795E88B1E92E21000126EBB /* LandingViewController.h */,
+				2795E88C1E92E21000126EBB /* LandingViewController.m */,
 				E9F3B7331D9C58B200A98B85 /* HomeViewController.h */,
 				E9F3B7341D9C58B200A98B85 /* HomeViewController.m */,
 			);
@@ -936,6 +941,7 @@
 				E98C0C8C1DA06866005D09A5 /* StationInfoViewController.m in Sources */,
 				E954AA811DBF20B900A6B6F1 /* Stations+CoreDataProperties.m in Sources */,
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
+				2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */,
 				E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
 				E93CC3761DC135C100E3CB60 /* SubTasks+CoreDataProperties.m in Sources */,
