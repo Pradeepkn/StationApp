@@ -109,17 +109,21 @@
 }
 
 + (void)shapeTopCell:(UIView *)view withRadius:(CGFloat)radius{
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:(UIRectCornerTopRight|UIRectCornerTopLeft) cornerRadii:CGSizeMake(radius, radius)];
-    layer.path = shadowPath.CGPath;
-    view.layer.mask = layer;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:(UIRectCornerTopRight|UIRectCornerTopLeft) cornerRadii:CGSizeMake(radius, radius)];
+        layer.path = shadowPath.CGPath;
+        view.layer.mask = layer;
+    });
 }
 
 + (void)shapeBottomCell:(UIView *)view  withRadius:(CGFloat)radius{
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:(UIRectCornerBottomRight|UIRectCornerBottomLeft) cornerRadii:CGSizeMake(radius, radius)];
-    layer.path = shadowPath.CGPath;
-    view.layer.mask = layer;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CAShapeLayer *layer = [CAShapeLayer layer];
+        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:(UIRectCornerBottomRight|UIRectCornerBottomLeft) cornerRadii:CGSizeMake(radius, radius)];
+        layer.path = shadowPath.CGPath;
+        view.layer.mask = layer;
+    });
 }
 
 + (CGSize)sizeOfText:(NSString *)textToMesure widthOfTextView:(CGFloat)width withFont:(UIFont*)font

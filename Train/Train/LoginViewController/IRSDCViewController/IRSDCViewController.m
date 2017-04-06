@@ -110,8 +110,7 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (void)streamSectionClicked:(UIButton *)sender {
     selectedSection = sender.tag;
-    [self.irsdcTableView reloadRowsAtIndexPaths:[self.irsdcTableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationLeft] //or UITableViewRowAnimationRight
-;
+    [self.irsdcTableView reloadData];
     NSLog(@"Sender Section = %ld", sender.tag);
 }
 

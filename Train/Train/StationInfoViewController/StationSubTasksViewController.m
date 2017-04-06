@@ -315,11 +315,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     subTasksCell.statusInfoSymbol.hidden = NO;
     subTasksCell.statusInfoSymbol.userInteractionEnabled = NO;
     id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][indexPath.section];
-    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
-        [AppUtilityClass shapeBottomCell:subTasksCell withRadius:kBubbleRadius];
-    }else {
-        subTasksCell.layer.cornerRadius = 0;
-    }
+//    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
+//        [AppUtilityClass shapeBottomCell:subTasksCell withRadius:kBubbleRadius];
+//    }else {
+//        subTasksCell.layer.cornerRadius = 0;
+//    }
     switch (object.status) {
         case kTaskToStart:
             [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
@@ -351,11 +351,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
     overallStatusHeaderCell.statusInfoLabel.text = object.message;
     id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][indexPath.section];
-    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
-        [AppUtilityClass shapeBottomCell:overallStatusHeaderCell withRadius:kBubbleRadius];
-    }else {
-        overallStatusHeaderCell.layer.cornerRadius = 0;
-    }
+//    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
+//        [AppUtilityClass shapeBottomCell:overallStatusHeaderCell withRadius:kBubbleRadius];
+//    }else {
+//        overallStatusHeaderCell.layer.cornerRadius = 0;
+//    }
     switch (object.status) {
         case kNotCompleted:
             [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];

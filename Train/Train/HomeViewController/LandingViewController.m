@@ -52,6 +52,7 @@ const int kHomeTableView = 1000;
 @property (weak, nonatomic) IBOutlet UITextField *placeHolderTextField;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 @property (weak, nonatomic) IBOutlet UIButton *profileNameButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *homeGalleryCollectionView;
@@ -263,7 +264,7 @@ const int kHomeTableView = 1000;
     if (tableView.tag == kHomeTableView) {
         return 0;
     }
-    return 40;
+    return 0;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -398,6 +399,7 @@ const int kHomeTableView = 1000;
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     self.overlayView.hidden = NO;
+    self.clearButton.hidden = NO;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -407,6 +409,7 @@ const int kHomeTableView = 1000;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         self.overlayView.hidden = YES;
+        self.clearButton.hidden = YES;
         NSString *placeHolderText = @"";
         
         placeHolderText = kLeaveAMessageKey;
@@ -439,6 +442,7 @@ const int kHomeTableView = 1000;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
     self.overlayView.hidden = YES;
+    self.clearButton.hidden = YES;
     [self reloadTableViews];
 }
 
@@ -486,6 +490,13 @@ const int kHomeTableView = 1000;
         ;
     }];
 }
+
+- (IBAction)clearButtonSelected:(UIButton *)sender {
+    sender.hidden = YES;
+    self.overlayView.hidden = YES;
+    [self.view endEditing:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

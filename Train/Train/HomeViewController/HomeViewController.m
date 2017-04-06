@@ -11,7 +11,6 @@
 #import "HomeMessagesCell.h"
 #import "LeaveMessageCell.h"
 #import "OverallStatusCell.h"
-#import "WhatsNewCell.h"
 #import "LocalizationKeys.h"
 #import "SendMessageViewController.h"
 #import "AppUtilityClass.h"
@@ -48,10 +47,7 @@ static NSString *const kWriteAnUpdate = @"Write an update";
 
 const int kTopTableView = 1000;
 const int kOverallStatusTableView = 2000;
-const int kWhatsNewTableView = 3000;
-
 const int kLeaveAMessageTag = 101;
-const int kWriteUpdateMessageTag = 201;
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, StationDesignationDelegate, NSFetchedResultsControllerDelegate> {
     UIColor *unselectedButtonColor;
@@ -78,8 +74,7 @@ const int kWriteUpdateMessageTag = 201;
 @property (weak, nonatomic) IBOutlet UIView *bottomTabContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *informationButton;
 @property (weak, nonatomic) IBOutlet UIButton *whatsNewButton;
-@property (weak, nonatomic) IBOutlet UIView *whatsNewContainerView;
-@property (weak, nonatomic) IBOutlet UITableView *whatsNewTableView;
+@property (weak, nonatomic) IBOutlet UIView *leaveMessageContainerView;
 
 @property (strong, nonatomic) LeaveMessageCell *leaveAMessageCell;
 @property (strong, nonatomic) LeaveMessageCell *writeAnUpdateMessageCell;
@@ -104,7 +99,6 @@ const int kWriteUpdateMessageTag = 201;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
     [self informationButtonClicked:nil];
-    [self addStatusBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,22 +106,17 @@ const int kWriteUpdateMessageTag = 201;
     [self getWhatsNewMessages];
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.whatsNewTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
 }
 
-- (void)addStatusBar {
-    UIApplication *app = [UIApplication sharedApplication];
-    CGFloat statusBarHeight = app.statusBarFrame.size.height;
-    
-    UIView *statusBarView =  [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
-    statusBarView.backgroundColor  =  [UIColor appRedColor];
-    [self.view addSubview:statusBarView];
+- (IBAction)backButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
-    self.whatsNewContainerView.hidden = YES;
+    self.leaveMessageContainerView.hidden = YES;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
     self.messageInputTextView.tag = kLeaveAMessageTag;
@@ -141,7 +130,7 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {
-    self.whatsNewContainerView.hidden = NO;
+    self.leaveMessageContainerView.hidden = NO;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
     self.messageInputTextView.tag = kLeaveAMessageTag;
@@ -347,14 +336,6 @@ const int kWriteUpdateMessageTag = 201;
         //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
-    
-    [self setWhatsNewFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getWhatsNewMessagesFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
-    [[self whatsNewFetchedResultsController] setDelegate:self];
-    
-    if (![[self whatsNewFetchedResultsController] performFetch:&error]) {
-        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
 }
 
 - (NSFetchRequest *)getMessagesFetchRequest {
@@ -395,9 +376,6 @@ const int kWriteUpdateMessageTag = 201;
         return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height + 80;
     } else if (tableView.tag == kOverallStatusTableView) {
         return 40;
-    }else if (tableView.tag == kWhatsNewTableView) {
-        WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.whatsNewTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height + 60;
     }
     return 0;
 }
@@ -466,10 +444,6 @@ const int kWriteUpdateMessageTag = 201;
         [overallStatusCell.stationStatusActionButton addTarget:self action:@selector(stationStatusButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self configureStationsCell:overallStatusCell atIndexPath:indexPath];
         return overallStatusCell;
-    }else if (tableView.tag == kWhatsNewTableView) {
-        WhatsNewCell *whatsNewCell = (WhatsNewCell *)[tableView dequeueReusableCellWithIdentifier:kWhatsNewCellIdentifier forIndexPath:indexPath];
-        [self configureWhatsNewCell:whatsNewCell atIndexPath:indexPath];
-        return whatsNewCell;
     }
     return [UITableViewCell new];
 }
@@ -505,20 +479,6 @@ const int kWriteUpdateMessageTag = 201;
     }
 }
 
-- (void)configureWhatsNewCell:(WhatsNewCell *)whatsNewCell atIndexPath:(NSIndexPath*)indexPath
-{
-    WhatsNewMessages *object = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-    whatsNewCell.stationLabel.text = [NSString autoCapitalize:object.stationName?:@"NA"];
-    whatsNewCell.newsTextLabel.text = [NSString autoCapitalize:object.message?:@"NA"];
-    whatsNewCell.dateLabel.text = [AppUtilityClass getWhatsNewMessageDate:object.createDate];
-    whatsNewCell.userNameLabel.text = [NSString autoCapitalize:object.username?:@"NA"];
-    if (object.deleteMessage) {
-        whatsNewCell.swipeButton.hidden = NO;
-    }else {
-        whatsNewCell.swipeButton.hidden = YES;
-    }
-}
-
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -540,12 +500,6 @@ const int kWriteUpdateMessageTag = 201;
             return YES;
         }
         return NO;
-    }else if ([tableView isEqual:self.whatsNewTableView]) {
-        WhatsNewMessages *whatsNewMessageObject = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-        if (whatsNewMessageObject.deleteMessage) {
-            return YES;
-        }
-        return NO;
     }
     return NO;
 }
@@ -556,11 +510,6 @@ const int kWriteUpdateMessageTag = 201;
         Messages *messageObject = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
         [self deleteInfoMessage:YES withMessageId:messageObject.messageId];
         [[CoreDataManager sharedManager] deleteWallMessage:messageObject];
-    }
-    else if ([tableView isEqual:self.whatsNewTableView]) {
-        WhatsNewMessages *whatsNewMessageObject = [[self whatsNewFetchedResultsController] objectAtIndexPath:indexPath];
-        [self deleteInfoMessage:NO withMessageId:whatsNewMessageObject.messageId];
-        [[CoreDataManager sharedManager] deleteWhatsNewMessage:whatsNewMessageObject];
     }
     // Perform the real delete action here. Note: you may need to check editing style
     //   if you do not perform delete only.
@@ -576,8 +525,6 @@ const int kWriteUpdateMessageTag = 201;
 {
     if ([controller isEqual:_messagesFetchedResultsController]) {
         [[self homeTopTableView] beginUpdates];
-    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
-        [[self whatsNewTableView] beginUpdates];
     }
 }
 
@@ -590,18 +537,6 @@ const int kWriteUpdateMessageTag = 201;
                 break;
             case NSFetchedResultsChangeDelete:
                 [[self homeTopTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeMove:
-            case NSFetchedResultsChangeUpdate:
-                break;
-        }
-    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self whatsNewTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self whatsNewTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
                 break;
             case NSFetchedResultsChangeMove:
             case NSFetchedResultsChangeUpdate:
@@ -628,22 +563,6 @@ const int kWriteUpdateMessageTag = 201;
                 [[self homeTopTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
-    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self whatsNewTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self whatsNewTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeUpdate:
-                [self configureWhatsNewCell:[[self whatsNewTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-                break;
-            case NSFetchedResultsChangeMove:
-                [[self whatsNewTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                [[self whatsNewTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-        }
     }
 }
 
@@ -651,8 +570,6 @@ const int kWriteUpdateMessageTag = 201;
 {
     if ([controller isEqual:_messagesFetchedResultsController]) {
         [[self homeTopTableView] endUpdates];
-    }else if ([controller isEqual:_whatsNewFetchedResultsController]) {
-        [[self whatsNewTableView] endUpdates];
     }
 }
 
@@ -798,7 +715,6 @@ const int kWriteUpdateMessageTag = 201;
 - (void)reloadTableViews {
     [self.homeTopTableView reloadData];
     [self.homeTableView reloadData];
-    [self.whatsNewTableView reloadData];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
