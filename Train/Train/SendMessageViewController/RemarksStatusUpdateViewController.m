@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *completedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UISwitch *remarksSwitch;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editStatusHorizontalConstraints;
 
 @end
 
@@ -40,6 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateViewElements];
+    self.editStatusHorizontalConstraints.constant = -70;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -57,8 +59,8 @@
 
 - (void)updateViewElements {
     if (self.isRemarksUpdate) {
-        self.remarksContainerView.hidden = NO;
-        self.statusContainerView.hidden = YES;
+//        self.remarksContainerView.hidden = NO;
+//        self.statusContainerView.hidden = YES;
         if (self.isRemarksStatusUpdate) {
             self.remarksCompletedContainerView.hidden = NO;
             self.completedViewHeightConstraint.constant = 40.0f;
@@ -73,8 +75,8 @@
             [self.remarksTextView becomeFirstResponder];
         }
     }else {
-        self.remarksContainerView.hidden = YES;
-        self.statusContainerView.hidden = NO;
+//        self.remarksContainerView.hidden = YES;
+//        self.statusContainerView.hidden = NO;
     }
     self.titleLabel.text = self.selectedStation.stationName;
     switch (self.statusCode) {
@@ -139,6 +141,7 @@
 }
 
 - (IBAction)statusUpdateButtonClicked:(UIButton *)sender {
+    self.editStatusHorizontalConstraints.constant = -70;
     [self updateButtonBorderWidth];
     [self.toStartButton setBackgroundColor:[UIColor backgroundGrayColor]];
     [self.onGoingButton setBackgroundColor:[UIColor backgroundGrayColor]];
@@ -161,6 +164,21 @@
     }else {
         self.remarksTextField.text = @"";
     }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [UIView animateWithDuration:1.0 animations:^{
+        self.editStatusHorizontalConstraints.constant = -160;
+    }];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    self.editStatusHorizontalConstraints.constant = -70;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+    self.editStatusHorizontalConstraints.constant = -70;
 }
 
 - (void)didReceiveMemoryWarning {
