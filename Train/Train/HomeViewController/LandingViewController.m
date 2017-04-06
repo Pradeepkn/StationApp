@@ -40,6 +40,7 @@ static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectio
 static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifier";
 static NSString *const kSationGalleryInfoSegueIdentifier = @"SationGalleryInfoSegue";
 static NSString *const kHomeMessagesCellIdentifier = @"GlobalMessageCellIdentifier";
+static NSString *const kIRSDCSegueIdentifier = @"IRSDCSegueIdentifier";
 
 const int kHomeTableView = 1000;
 
@@ -82,6 +83,7 @@ const int kHomeTableView = 1000;
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
     [self getHomeMessages];
     self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
@@ -100,6 +102,7 @@ const int kHomeTableView = 1000;
 }
 
 - (IBAction)iRSDCButtonAction:(id)sender {
+    [self performSegueWithIdentifier:kIRSDCSegueIdentifier sender:self];
 }
 
 - (IBAction)otherQueriesButtonAction:(id)sender {

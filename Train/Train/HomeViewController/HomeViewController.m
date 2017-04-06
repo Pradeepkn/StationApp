@@ -63,15 +63,11 @@ const int kWriteUpdateMessageTag = 201;
     NSInteger stationsCount;
     NSInteger whatsNewMessagesCount;
 }
-@property (weak, nonatomic) IBOutlet UIButton *selectStationButton;
 
 @property (weak, nonatomic) IBOutlet UIView *topInputContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectStationHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *downArrowImage;
 @property (weak, nonatomic) IBOutlet UIButton *profileNameButton;
 @property (weak, nonatomic) IBOutlet UITextField *placeHolderTextField;
 @property (weak, nonatomic) IBOutlet UITextView *messageInputTextView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topInputViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
@@ -132,12 +128,8 @@ const int kWriteUpdateMessageTag = 201;
 
 - (IBAction)informationButtonClicked:(UIButton *)sender {
     self.whatsNewContainerView.hidden = YES;
-    self.downArrowImage.hidden = YES;
-    self.selectStationButton.hidden = YES;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
-    self.topInputViewHeightConstraint.constant = 60.0f;
-    self.selectStationHeightConstraint.constant = 0.0f;
     self.messageInputTextView.tag = kLeaveAMessageTag;
     self.placeHolderTextField.placeholder = kLeaveAMessageKey;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
@@ -150,14 +142,10 @@ const int kWriteUpdateMessageTag = 201;
 
 - (IBAction)whatsNewButtonClicked:(UIButton *)sender {
     self.whatsNewContainerView.hidden = NO;
-    self.downArrowImage.hidden = NO;
-    self.selectStationButton.hidden = NO;
     self.clearButton.hidden = YES;
     self.overlayView.hidden = YES;
-    self.topInputViewHeightConstraint.constant = 100.0f;
-    self.selectStationHeightConstraint.constant = 40.0f;
-    self.messageInputTextView.tag = kWriteUpdateMessageTag;
-    self.placeHolderTextField.placeholder = kWriteAnUpdate;
+    self.messageInputTextView.tag = kLeaveAMessageTag;
+    self.placeHolderTextField.placeholder = kLeaveAMessageKey;
     [sender setTitleColor:selectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTitleColor:unselectedButtonColor forState:UIControlStateNormal];
     [self.informationButton setTintColor:unselectedButtonColor];
@@ -737,7 +725,6 @@ const int kWriteUpdateMessageTag = 201;
 }
 
 - (void)userSelectedState:(Stations *)selectedStation{
-    [self.selectStationButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
     self.selectedStation = selectedStation;
 }
 

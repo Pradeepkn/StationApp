@@ -81,6 +81,10 @@ static NSString *const kOperatorCode = @"operator_code";
 
 static NSInteger kBubbleRadius  = 6.f;
 
+static NSInteger kTableCellHeight = 48.0f;
+
+static NSInteger kTableSectionCellHeight = 50.0f;
+
 // User defaults keys
 static NSString *const kSelectedStationIndex = @"SelectedStationIndex";
 static NSString *const kSelectedDesignationIndex = @"SelectedDesignationIndex";

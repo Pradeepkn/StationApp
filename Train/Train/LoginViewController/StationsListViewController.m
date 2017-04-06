@@ -16,8 +16,6 @@
 
 static NSString *const kStationsCellIdentifier = @"StationsCell";
 
-static NSInteger kTableCellHeight = 48.0f;
-
 @interface StationsListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *stationsListTableView;
