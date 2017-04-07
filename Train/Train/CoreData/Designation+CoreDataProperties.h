@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, copy) NSString *designationId;
 @property (nullable, nonatomic, copy) NSString *designationName;
+@property (nonatomic) int16_t phaseNumber;
 
 @end
 

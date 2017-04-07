@@ -18,5 +18,6 @@
 @dynamic stationName;
 @dynamic statusColor;
 @dynamic stationCode;
+@dynamic phaseNumber;
 
 @end

@@ -20,7 +20,11 @@
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/stations",[super baseURL]];
+    if ([AppUtilityClass isFirstPhaseSelected]) {
+        return [NSString stringWithFormat:@"%@/stations",[super baseURL]];
+    }else {
+        return [NSString stringWithFormat:@"%@/nextPhaseStations",[super baseURL]];
+    }
 }
 
 - (NSMutableDictionary *)requestParameters{
@@ -44,9 +48,9 @@
     NSArray *apiDataSource = responseDictionary[@"data"];
     for (NSDictionary *apiDataDict in apiDataSource) {
         NSArray *stationsDataSource = apiDataDict[@"stations"];
-        [[CoreDataManager sharedManager] saveStations:stationsDataSource];
+        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
         NSArray *designationsDataSource = apiDataDict[@"designation"];
-        [[CoreDataManager sharedManager] saveDesignations:designationsDataSource];
+        [[CoreDataManager sharedManager] saveDesignations:designationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
     }
 }
 

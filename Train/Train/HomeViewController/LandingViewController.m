@@ -32,6 +32,7 @@
 #import "DeleteMessageApi.h"
 #import "GetStationDesignationApi.h"
 #import "UIImage+ImageAdditions.h"
+#import "HomeViewController.h"
 
 static NSString *const kLeaveAMessageKey = @"Leave a message";
 static NSString *const kHomeSegueIdentifier = @"HomeSegue";
@@ -92,10 +93,12 @@ const int kHomeTableView = 1000;
 }
 
 - (IBAction)phase1ButtonAction:(id)sender {
+    [AppUtilityClass setToFirstPhaseFlow:YES];
     [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
 }
 
 - (IBAction)nextPhaseButtonAction:(id)sender {
+    [AppUtilityClass setToFirstPhaseFlow:NO];
     [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
 }
 
@@ -503,14 +506,15 @@ const int kHomeTableView = 1000;
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+//    if ([segue.identifier isEqualToString:kHomeSegueIdentifier]) {
+//        HomeViewController *homeViewController = (HomeViewController *)[segue destinationViewController];
+//    }
 }
-*/
 
 @end

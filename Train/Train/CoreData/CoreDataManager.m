@@ -138,7 +138,7 @@
 
 #pragma mark - Save Stations
 
-- (BOOL)saveStations:(NSArray *)stations {
+- (BOOL)saveStations:(NSArray *)stations  forPhase:(NSInteger)phaseNumber {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
@@ -146,7 +146,7 @@
     for (NSDictionary *dic in stations) {
         id stationReferenceId = [dic valueForKey:@"_id"];
         NSString *stationId = [NSString stringWithFormat:@"%@",stationReferenceId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@",stationId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@ && phaseNumber == %ld",stationId, phaseNumber];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
@@ -154,6 +154,7 @@
             [stationList setStationId:stationId];
             [stationList setStationName:[dic valueForKey:@"stationName"]];
             [stationList setStationCode:[dic valueForKey:@"stationCode"]];
+            [stationList setPhaseNumber:phaseNumber];
             if ([dic valueForKey:@"statusColor"]) {
                 [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
             }
@@ -164,7 +165,7 @@
 
 #pragma mark - Save Designations
 
-- (BOOL)saveDesignations:(NSArray *)designations {
+- (BOOL)saveDesignations:(NSArray *)designations forPhase:(NSInteger)phaseNumber {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Designation" inManagedObjectContext:moc];
@@ -172,13 +173,14 @@
     for (NSDictionary *dic in designations) {
         id designationReferenceId = [dic valueForKey:@"_id"];
         NSString *designationId = [NSString stringWithFormat:@"%@",designationReferenceId];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"designationId == %@",designationId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"designationId == %@ && phaseNumber == %ld",designationId, phaseNumber];
         [request setPredicate:predicate];
         NSArray *array = [moc executeFetchRequest:request error:nil];
         if (array.count == 0) {
             Designation *designationList = [NSEntityDescription insertNewObjectForEntityForName:@"Designation" inManagedObjectContext:moc];
             [designationList setDesignationId:designationId];
             [designationList setDesignationName:[dic valueForKey:@"designation"]];
+            [designationList setPhaseNumber:phaseNumber];
         }
     }
     return [self saveData];

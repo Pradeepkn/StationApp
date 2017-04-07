@@ -24,8 +24,8 @@
 
 - (NSManagedObjectContext *)managedObjectContext;
 
-- (BOOL)saveStations:(NSArray *)stations ;
-- (BOOL)saveDesignations:(NSArray *)designations;
+- (BOOL)saveStations:(NSArray *)stations forPhase:(NSInteger)phaseNumber;
+- (BOOL)saveDesignations:(NSArray *)designations forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveLogedInUser:(NSDictionary *)logedInDict;
 - (BOOL)saveMessages:(NSArray *)messages;
 - (BOOL)saveHomeImages:(NSArray *)images;
@@ -48,7 +48,7 @@
 
 - (void)deleteWallMessage:(Messages *)message;
 - (void)deleteWhatsNewMessage:(WhatsNewMessages *)message;
-- (void) deleteAllObjects: (NSString *) entityDescription;
+- (void)deleteAllObjects: (NSString *) entityDescription;
 
 @end
 

@@ -357,6 +357,15 @@
     return newImage;
 }
 
+
++ (void)setToFirstPhaseFlow:(BOOL)selected {
+    [[NSUserDefaults standardUserDefaults] setBool:selected forKey:@"FIRST_PHASE_SELECTED"];
+}
+
++ (BOOL)isFirstPhaseSelected {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"FIRST_PHASE_SELECTED"];
+}
+
 + (void)purgeAllModels {
     [[CoreDataManager sharedManager] deleteAllObjects:@"Stations"];
     [[CoreDataManager sharedManager] deleteAllObjects:@"Designation"];

@@ -99,13 +99,14 @@ const int kLeaveAMessageTag = 101;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
     [self informationButtonClicked:nil];
+    [self getStationsAndDesignations];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self getHomeMessages];
     [self getWhatsNewMessages];
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-//    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.homeTopTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
@@ -142,8 +143,6 @@ const int kLeaveAMessageTag = 101;
     [self.informationButton setImage:[UIImage imageNamed:@"information-unactive"] forState:UIControlStateNormal];
 }
 
-
-
 - (void)getStationsAndDesignations {
     GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
@@ -151,7 +150,7 @@ const int kLeaveAMessageTag = 101;
         NSDictionary *errorDict = responseDictionary[@"error"];
         NSArray *dataDict = responseDictionary[@"data"];
         if (dataDict.count > 0) {
-            
+            [self.homeTableView reloadData];
         }else{
             if (errorDict.allKeys.count > 0) {
                 if ([AppUtilityClass getErrorMessageFor:errorDict]) {
@@ -349,7 +348,7 @@ const int kLeaveAMessageTag = 101;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stations"];
     NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"stationName" ascending:YES];
     [request setSortDescriptors:@[stations]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@",@"NA"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && phaseNumber == %ld",@"NA", [AppUtilityClass isFirstPhaseSelected]?1:2];
     [request setPredicate:predicate];
     return request;
 }

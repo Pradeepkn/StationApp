@@ -44,8 +44,8 @@
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{
     NSArray *apiDataSource = responseDictionary[@"data"];
     for (NSDictionary *apiDataDict in apiDataSource) {
-        NSArray *stationsDataSource = apiDataDict[@"stations"];
-        [[CoreDataManager sharedManager] saveStations:stationsDataSource];
+//        NSArray *stationsDataSource = apiDataDict[@"stations"];
+//        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:<#(NSInteger)#>];
         NSArray *messagesDataSource = apiDataDict[@"messages"];
         [[CoreDataManager sharedManager] saveMessages:messagesDataSource];
         NSArray *imagesDataSource = apiDataDict[@"images"];

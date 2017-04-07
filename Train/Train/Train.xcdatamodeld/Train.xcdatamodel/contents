@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Designation" representedClassName="Designation" syncable="YES">
         <attribute name="designationId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="designationName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phaseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="HomeImages" representedClassName="HomeImages" syncable="YES">
         <attribute name="imageId" optional="YES" attributeType="String" syncable="YES"/>
@@ -36,6 +37,7 @@
         <attribute name="weekNumber" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Stations" representedClassName="Stations" syncable="YES">
+        <attribute name="phaseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stationCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stationId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stationName" optional="YES" attributeType="String" syncable="YES"/>
@@ -73,12 +75,12 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Designation" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Designation" positionX="-54" positionY="-9" width="128" height="90"/>
         <element name="HomeImages" positionX="-36" positionY="45" width="128" height="120"/>
         <element name="Messages" positionX="-45" positionY="27" width="128" height="135"/>
         <element name="Remarks" positionX="-9" positionY="108" width="128" height="120"/>
         <element name="StationGalleryInfo" positionX="-18" positionY="90" width="128" height="150"/>
-        <element name="Stations" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Stations" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="SubTasks" positionX="18" positionY="117" width="128" height="150"/>
         <element name="Tasks" positionX="0" positionY="108" width="128" height="120"/>
         <element name="User" positionX="-54" positionY="0" width="128" height="105"/>

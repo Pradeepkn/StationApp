@@ -16,5 +16,6 @@
 
 @dynamic designationId;
 @dynamic designationName;
+@dynamic phaseNumber;
 
 @end

@@ -22,7 +22,11 @@
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/getStationSubTasks",[super baseURL]];
+    if ([AppUtilityClass isFirstPhaseSelected]) {
+        return [NSString stringWithFormat:@"%@/getStationSubTasks",[super baseURL]];
+    }else {
+        return [NSString stringWithFormat:@"%@/nextPhaseGetStationSubTasks",[super baseURL]];
+    }
 }
 
 - (NSMutableDictionary *)requestParameters{

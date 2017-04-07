@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *stationName;
 @property (nonatomic) int16_t statusColor;
 @property (nullable, nonatomic, copy) NSString *stationCode;
+@property (nonatomic) int16_t phaseNumber;
 
 @end
 

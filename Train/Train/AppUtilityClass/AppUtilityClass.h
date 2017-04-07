@@ -83,5 +83,8 @@
 
 + (void)purgeAllModels;
 
++ (void)setToFirstPhaseFlow:(BOOL)selected;
+
++ (BOOL)isFirstPhaseSelected;
 
 @end
