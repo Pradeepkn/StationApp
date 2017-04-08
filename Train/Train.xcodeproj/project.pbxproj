@@ -10,9 +10,9 @@
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272175891E9427F800AAD6C9 /* IRSDCViewController.m */; };
 		2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2795E88C1E92E21000126EBB /* LandingViewController.m */; };
-		27B983BC1E965C4F00494F0A /* IRSDCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27B983BA1E965C4F00494F0A /* IRSDCTableViewCell.m */; };
-		27B983BD1E965C4F00494F0A /* IRSDCTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B983BB1E965C4F00494F0A /* IRSDCTableViewCell.xib */; };
+		27B983BD1E965C4F00494F0A /* IRSDCSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */; };
 		27E85B551E9516EB00B80475 /* RightAlignImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E85B541E9516EB00B80475 /* RightAlignImageButton.m */; };
+		27ECAAE41E994DA900E3D8BF /* IRSDCSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ECAAE31E994DA900E3D8BF /* IRSDCSectionHeaderView.m */; };
 		35F35ADBBB505B53EB1EE126 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC7A0F3BBCA3D9A3B56D5DF /* libPods-Train.a */; };
 		E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9231A431DB372C600CD302D /* TasksHeaderView.m */; };
 		E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9231A441DB372C600CD302D /* TasksHeaderView.xib */; };
@@ -122,11 +122,11 @@
 		272175891E9427F800AAD6C9 /* IRSDCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCViewController.m; sourceTree = "<group>"; };
 		2795E88B1E92E21000126EBB /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewController.h; sourceTree = "<group>"; };
 		2795E88C1E92E21000126EBB /* LandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingViewController.m; sourceTree = "<group>"; };
-		27B983B91E965C4F00494F0A /* IRSDCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCTableViewCell.h; sourceTree = "<group>"; };
-		27B983BA1E965C4F00494F0A /* IRSDCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCTableViewCell.m; sourceTree = "<group>"; };
-		27B983BB1E965C4F00494F0A /* IRSDCTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IRSDCTableViewCell.xib; sourceTree = "<group>"; };
+		27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IRSDCSectionHeaderView.xib; sourceTree = "<group>"; };
 		27E85B531E9516EB00B80475 /* RightAlignImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightAlignImageButton.h; sourceTree = "<group>"; };
 		27E85B541E9516EB00B80475 /* RightAlignImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightAlignImageButton.m; sourceTree = "<group>"; };
+		27ECAAE21E994DA900E3D8BF /* IRSDCSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCSectionHeaderView.h; sourceTree = "<group>"; };
+		27ECAAE31E994DA900E3D8BF /* IRSDCSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCSectionHeaderView.m; sourceTree = "<group>"; };
 		9F65A0DB24D69D56165B07DD /* Pods-Train.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.debug.xcconfig"; sourceTree = "<group>"; };
 		ADE786C9792D8BBA608CFF80 /* Pods-Train.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Train.release.xcconfig"; path = "Pods/Target Support Files/Pods-Train/Pods-Train.release.xcconfig"; sourceTree = "<group>"; };
 		CFC7A0F3BBCA3D9A3B56D5DF /* libPods-Train.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Train.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -691,9 +691,9 @@
 				E93094661DB66BD8007A6758 /* ImagesGalleryView.xib */,
 				E93094681DB66C29007A6758 /* ImagesGalleryView.h */,
 				E93094691DB66C29007A6758 /* ImagesGalleryView.m */,
-				27B983B91E965C4F00494F0A /* IRSDCTableViewCell.h */,
-				27B983BA1E965C4F00494F0A /* IRSDCTableViewCell.m */,
-				27B983BB1E965C4F00494F0A /* IRSDCTableViewCell.xib */,
+				27ECAAE21E994DA900E3D8BF /* IRSDCSectionHeaderView.h */,
+				27ECAAE31E994DA900E3D8BF /* IRSDCSectionHeaderView.m */,
+				27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -840,7 +840,7 @@
 				E9231A6F1DB3C8DD00CD302D /* SubActivitiesHeaderView.xib in Resources */,
 				E93094671DB66BD8007A6758 /* ImagesGalleryView.xib in Resources */,
 				E9F3B7141D9C4C7700A98B85 /* Main.storyboard in Resources */,
-				27B983BD1E965C4F00494F0A /* IRSDCTableViewCell.xib in Resources */,
+				27B983BD1E965C4F00494F0A /* IRSDCSectionHeaderView.xib in Resources */,
 				E9FB6B701DA98B0F00769D8C /* proximanova-sbold-webfont.ttf in Resources */,
 				E954AAA51DBF4BA400A6B6F1 /* ProximaNova-RegItalic.otf in Resources */,
 				E9231A461DB372C600CD302D /* TasksHeaderView.xib in Resources */,
@@ -959,7 +959,6 @@
 				E954AA8A1DBF20B900A6B6F1 /* Remarks+CoreDataClass.m in Sources */,
 				E99DB5341DB116E50074E90E /* ForgotpasswordAuthKeyApi.m in Sources */,
 				E9F3B7411D9C59AD00A98B85 /* CustomAlertViewController.m in Sources */,
-				27B983BC1E965C4F00494F0A /* IRSDCTableViewCell.m in Sources */,
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,
 				E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */,
 				E9F3B7381D9C58B200A98B85 /* AppDelegate.m in Sources */,
@@ -974,6 +973,7 @@
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
 				2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */,
 				E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */,
+				27ECAAE41E994DA900E3D8BF /* IRSDCSectionHeaderView.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
 				E93CC3761DC135C100E3CB60 /* SubTasks+CoreDataProperties.m in Sources */,
 				E93B0FF11DB58077008B8232 /* UpdateSubTasksStatusApi.m in Sources */,

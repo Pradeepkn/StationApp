@@ -9,13 +9,14 @@
 #import "IRSDCViewController.h"
 #import "AppConstants.h"
 #import "UIColor+AppColor.h"
-#import "IRSDCTableViewCell.h"
+#import "IRSDCSectionHeaderView.h"
 #import "AppUtilityClass.h"
 
 static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 @interface IRSDCViewController () {
     NSInteger selectedSection;
+    NSMutableSet* _collapsedSections;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *irsdcTableView;
@@ -30,7 +31,7 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    selectedSection = -1;
+    _collapsedSections = [NSMutableSet new];
     self.irsdcStreamsArray = [NSMutableArray arrayWithObjects:@"Pre-feasibility study", @"Authorization",@"Appointment of consultant",@"Master plan study",@"Station business plan", nil];
     self.irsdcsubStreamsArray = [NSMutableArray arrayWithObjects:@"Study",@"Report submission",@"Acceptance by IRSDC", nil];
     self.chooseProductButton.layer.cornerRadius = 6.0;
@@ -52,10 +53,7 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == selectedSection) {
-        return self.irsdcsubStreamsArray.count;
-    }
-    return 0;
+    return [_collapsedSections containsObject:@(section)] ? 0 : self.irsdcsubStreamsArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -67,21 +65,18 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    IRSDCTableViewCell *cell = (IRSDCTableViewCell *)[[NSBundle mainBundle] loadNibNamed:@"IRSDCTableViewCell" owner:nil options:nil][0];
-    [cell.streamName setTitle:[self.irsdcStreamsArray objectAtIndex:section] forState:UIControlStateNormal];
-    cell.streamName.tag = section;
-    [cell.streamName addTarget:self action:@selector(streamSectionClicked:) forControlEvents:UIControlEventTouchUpInside];
+    IRSDCSectionHeaderView *headerView = (IRSDCSectionHeaderView *)[[NSBundle mainBundle] loadNibNamed:@"IRSDCSectionHeaderView" owner:nil options:nil][0];
+    headerView.frame = CGRectMake(0, 0, self.irsdcTableView.frame.size.width, kTableSectionCellHeight);
+    
+    [headerView.streamName setTitle:[self.irsdcStreamsArray objectAtIndex:section] forState:UIControlStateNormal];
+    headerView.streamName.tag = section;
+    [headerView.streamName addTarget:self action:@selector(streamSectionClicked:) forControlEvents:UIControlEventTouchUpInside];
     if (section == 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [AppUtilityClass shapeTopCell:cell withRadius:6.0];
+            [AppUtilityClass shapeTopCell:headerView withRadius:6.0];
         });
     }
-    if (selectedSection == section) {
-        [cell.streamName setImage:[UIImage imageNamed:@"Escalator-circle-down-arrwo"] forState:UIControlStateNormal];
-    }else {
-        [cell.streamName setImage:[UIImage imageNamed:@"Escalator-circle-right-arrwo"] forState:UIControlStateNormal];
-    }
-    return cell;
+    return headerView;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -118,8 +113,33 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (void)streamSectionClicked:(UIButton *)sender {
     selectedSection = sender.tag;
-    [self.irsdcTableView reloadData];
+    bool shouldCollapse = ![_collapsedSections containsObject:@(selectedSection)];
+    if (shouldCollapse) {
+        [self.irsdcTableView beginUpdates];
+        NSInteger numOfRows = [self.irsdcTableView numberOfRowsInSection:selectedSection];
+        NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
+        [self.irsdcTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [_collapsedSections addObject:@(selectedSection)];
+        [self.irsdcTableView endUpdates];
+    }
+    else {
+        [self.irsdcTableView beginUpdates];
+        NSInteger numOfRows = self.irsdcsubStreamsArray.count;
+        NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
+        [self.irsdcTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [_collapsedSections removeObject:@(selectedSection)];
+        [self.irsdcTableView endUpdates];
+    }
     NSLog(@"Sender Section = %ld", sender.tag);
+}
+
+-(NSArray*) indexPathsForSection:(NSInteger)section withNumberOfRows:(NSInteger)numberOfRows {
+    NSMutableArray* indexPaths = [NSMutableArray new];
+    for (int i = 0; i < numberOfRows; i++) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:section];
+        [indexPaths addObject:indexPath];
+    }
+    return indexPaths;
 }
 
 - (void)didReceiveMemoryWarning {
