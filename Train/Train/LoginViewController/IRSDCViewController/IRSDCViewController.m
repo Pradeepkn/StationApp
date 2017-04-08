@@ -22,6 +22,7 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 @property (strong, nonatomic) NSMutableArray *irsdcProjectArray;
 @property (strong, nonatomic) NSMutableArray *irsdcStreamsArray;
 @property (strong, nonatomic) NSMutableArray *irsdcsubStreamsArray;
+@property (weak, nonatomic) IBOutlet RightAlignImageButton *chooseProductButton;
 
 @end
 
@@ -30,9 +31,10 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     selectedSection = -1;
-    self.irsdcStreamsArray = [NSMutableArray arrayWithObjects:@"Streams1", @"Streams2", nil];
-    self.irsdcsubStreamsArray = [NSMutableArray arrayWithObjects:@"sub stream1", nil];
-    // Do any additional setup after loading the view.
+    self.irsdcStreamsArray = [NSMutableArray arrayWithObjects:@"Pre-feasibility study", @"Authorization",@"Appointment of consultant",@"Master plan study",@"Station business plan", nil];
+    self.irsdcsubStreamsArray = [NSMutableArray arrayWithObjects:@"Study",@"Report submission",@"Acceptance by IRSDC", nil];
+    self.chooseProductButton.layer.cornerRadius = 6.0;
+    self.chooseProductButton.clipsToBounds = YES;
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -51,7 +53,7 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == selectedSection) {
-        return self.irsdcStreamsArray.count;
+        return self.irsdcsubStreamsArray.count;
     }
     return 0;
 }
@@ -66,13 +68,18 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     IRSDCTableViewCell *cell = (IRSDCTableViewCell *)[[NSBundle mainBundle] loadNibNamed:@"IRSDCTableViewCell" owner:nil options:nil][0];
-    [cell.streamName setTitle:@"Stream" forState:UIControlStateNormal];
+    [cell.streamName setTitle:[self.irsdcStreamsArray objectAtIndex:section] forState:UIControlStateNormal];
     cell.streamName.tag = section;
     [cell.streamName addTarget:self action:@selector(streamSectionClicked:) forControlEvents:UIControlEventTouchUpInside];
     if (section == 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [AppUtilityClass shapeTopCell:cell withRadius:6.0];
         });
+    }
+    if (selectedSection == section) {
+        [cell.streamName setImage:[UIImage imageNamed:@"Escalator-circle-down-arrwo"] forState:UIControlStateNormal];
+    }else {
+        [cell.streamName setImage:[UIImage imageNamed:@"Escalator-circle-right-arrwo"] forState:UIControlStateNormal];
     }
     return cell;
 }
@@ -83,7 +90,8 @@ static NSString *kIRSDCCellIdentifier = @"IRSDCCellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.textLabel.text = @"sub stream";
+    cell.textLabel.text = [self.irsdcsubStreamsArray objectAtIndex:indexPath.row];
+    cell.textLabel.textColor = [UIColor grayColor];
     if (self.irsdcStreamsArray.count == indexPath.section && self.irsdcsubStreamsArray.count == indexPath.row - 1) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [AppUtilityClass shapeBottomCell:cell.contentView withRadius:6.0];

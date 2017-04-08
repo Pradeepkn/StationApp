@@ -111,6 +111,7 @@ static NSInteger kKeyBoardOffSet = 140;
 }
 
 - (void)getStationsAndDesignations {
+    [AppUtilityClass setToFirstPhaseFlow:YES];
     GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);

@@ -25,6 +25,7 @@
                         <state key="normal" title="Button" image="Escalator-circle-right-arrwo">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" image="Escalator-circle-down-arrwo"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -40,6 +41,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Escalator-circle-down-arrwo" width="11" height="7"/>
         <image name="Escalator-circle-right-arrwo" width="7" height="11"/>
     </resources>
 </document>
