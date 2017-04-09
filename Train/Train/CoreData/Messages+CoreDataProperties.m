@@ -20,5 +20,6 @@
 @dynamic messageId;
 @dynamic deleteMessage;
 @dynamic username;
+@dynamic phaseNumber;
 
 @end

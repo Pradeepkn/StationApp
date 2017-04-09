@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *messageId;
 @property (nonatomic) BOOL deleteMessage;
 @property (nullable, nonatomic, copy) NSString *username;
+@property (nonatomic) int16_t phaseNumber;
 
 @end
 

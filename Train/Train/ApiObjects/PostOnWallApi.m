@@ -21,7 +21,11 @@
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/sendInfoMessages",[super baseURL]];
+    if ([AppUtilityClass isFirstPhaseSelected]) {
+        return [NSString stringWithFormat:@"%@/sendInfoMessages",[super baseURL]];
+    }else {
+        return [NSString stringWithFormat:@"%@/nextPhaseSendInfoMessages",[super baseURL]];
+    }
 }
 
 - (NSMutableDictionary *)requestParameters{

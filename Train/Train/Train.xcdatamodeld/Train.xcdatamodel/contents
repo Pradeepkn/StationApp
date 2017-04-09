@@ -10,6 +10,7 @@
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="phaseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stationName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Messages" representedClassName="Messages" syncable="YES">
@@ -18,6 +19,7 @@
         <attribute name="designation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phaseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Remarks" representedClassName="Remarks" syncable="YES">
@@ -76,8 +78,8 @@
     </entity>
     <elements>
         <element name="Designation" positionX="-54" positionY="-9" width="128" height="90"/>
-        <element name="HomeImages" positionX="-36" positionY="45" width="128" height="120"/>
-        <element name="Messages" positionX="-45" positionY="27" width="128" height="135"/>
+        <element name="HomeImages" positionX="-36" positionY="45" width="128" height="135"/>
+        <element name="Messages" positionX="-45" positionY="27" width="128" height="150"/>
         <element name="Remarks" positionX="-9" positionY="108" width="128" height="120"/>
         <element name="StationGalleryInfo" positionX="-18" positionY="90" width="128" height="150"/>
         <element name="Stations" positionX="-63" positionY="-18" width="128" height="120"/>

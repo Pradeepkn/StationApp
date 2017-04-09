@@ -189,7 +189,7 @@
 
 #pragma mark - Save Messages
 
-- (BOOL)saveMessages:(NSArray *)messages {
+- (BOOL)saveMessages:(NSArray *)messages forPhase:(NSInteger)phaseNumber {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Messages" inManagedObjectContext:moc];
@@ -208,6 +208,7 @@
             [messages setDeleteMessage:[[dic valueForKey:@"deleteMessage"] boolValue]];
             [messages setMessageId:messageId];
             [messages setUsername:[dic valueForKey:@"username"]];
+            [messages setPhaseNumber:phaseNumber];
         }
     }
     return [self saveData];
@@ -215,7 +216,7 @@
 
 #pragma mark - Save Home Images
 
-- (BOOL)saveHomeImages:(NSArray *)images {
+- (BOOL)saveHomeImages:(NSArray *)images forPhase:(NSInteger)phaseNumber {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
@@ -233,6 +234,7 @@
             [images setStationName:[dic valueForKey:@"stationName"]];
             [images setImageName:[dic valueForKey:@"imageTitle"]];
             [images setImageId:imageId];
+            [images setPhaseNumber:phaseNumber];
         }
     }
     return [self saveData];

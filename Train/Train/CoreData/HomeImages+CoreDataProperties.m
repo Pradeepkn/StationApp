@@ -19,5 +19,6 @@
 @dynamic imageName;
 @dynamic imagePath;
 @dynamic stationName;
+@dynamic phaseNumber;
 
 @end

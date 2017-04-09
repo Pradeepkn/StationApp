@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *imageName;
 @property (nullable, nonatomic, copy) NSString *imagePath;
 @property (nullable, nonatomic, copy) NSString *stationName;
+@property (nonatomic) int16_t phaseNumber;
 
 @end
 

@@ -27,8 +27,8 @@
 - (BOOL)saveStations:(NSArray *)stations forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveDesignations:(NSArray *)designations forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveLogedInUser:(NSDictionary *)logedInDict;
-- (BOOL)saveMessages:(NSArray *)messages;
-- (BOOL)saveHomeImages:(NSArray *)images;
+- (BOOL)saveMessages:(NSArray *)messages forPhase:(NSInteger)phaseNumber;
+- (BOOL)saveHomeImages:(NSArray *)images forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages;
 - (BOOL)saveStationTasks:(NSArray *)stationTasks  forStationId:(NSString *)stationId;
 - (BOOL)saveSubTasks:(NSArray *)subTasks forTaskId:(NSString *)taskId;
