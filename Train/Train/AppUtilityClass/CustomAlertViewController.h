@@ -53,7 +53,7 @@ typedef void(^AlertTableCellSelectionAction)(id sender);
  @discussion With this method user can display alertview on given baseview
  and can get alertview button action as call back.
  
- @param baseView Container view on which alert view should be expected to display.
+ @param containerView Container view on which alert view should be expected to display.
  @param alertModel AlertModel with user defined view properties.
  @param onCompletion Call back object which is used to assign
  callBackObject on Custom table alert cell action click

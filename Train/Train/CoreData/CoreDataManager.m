@@ -280,6 +280,34 @@
     return [self saveData];
 }
 
+- (BOOL)saveQueries:(NSArray *)queriesData forStation:(NSString *)stationName {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QueriesData" inManagedObjectContext:moc];
+    [request setEntity:entity];
+
+    for (NSDictionary *dict in queriesData) {
+        NSString *topicArea = [dict valueForKey:@"topicArea"];
+        NSArray *query = [dict valueForKey:@"query"];
+        for (NSDictionary *queryDict in query) {
+            NSString *name = [queryDict valueForKey:@"name"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@",name];
+            [request setPredicate:predicate];
+            NSArray *array = [moc executeFetchRequest:request error:nil];
+            if (array.count == 0) {
+                QueriesData *queriesData = [NSEntityDescription insertNewObjectForEntityForName:@"QueriesData" inManagedObjectContext:moc];
+                [queriesData setName:name];
+                [queriesData setStationName:stationName];
+                [queriesData setTopicArea:topicArea];
+                [queriesData setDateReceived:[AppUtilityClass getDateFromMiliSeconds:[queryDict valueForKey:@"dateReceived"]]];
+                [queriesData setDateResponded:[AppUtilityClass getDateFromMiliSeconds:[queryDict valueForKey:@"dateResponded"]]];
+                [queriesData setResponse:[[queryDict valueForKey:@"response"] boolValue]];
+            }
+        }
+    }
+    return [self saveData];
+}
+
 - (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -541,6 +569,36 @@
     }
     [self saveData];
 }
+
+- (NSArray *)fetchQueriesForStationName:(NSString *)stationName {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QueriesData" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName == %@", stationName];
+    [request setPredicate:predicate];
+    NSSortDescriptor *queries = [NSSortDescriptor sortDescriptorWithKey:@"topicArea" ascending:NO];
+    [request setSortDescriptors:@[queries]];
+    
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+- (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"QueriesData" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"topicArea == %@", topicArea];
+    [request setPredicate:predicate];
+    NSSortDescriptor *queries = [NSSortDescriptor sortDescriptorWithKey:@"dateReceived" ascending:NO];
+    [request setSortDescriptors:@[queries]];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
 
 #pragma mark - Saving data
 

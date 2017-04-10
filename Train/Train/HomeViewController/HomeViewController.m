@@ -37,6 +37,7 @@ static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifie
 static NSString *const kHomeMessagesCellIdentifier = @"GlobalMessageCellIdentifier";
 static NSString *const kOverallStatusCellIdentifier = @"OverallStatusCellIdentifier";
 static NSString *const kWhatsNewCellIdentifier = @"WhatsNewCellIdentifier";
+static NSString *const kQueriesSegueIdentifier = @"QueriesSegueIdentifier";
 
 static NSString *const kSendMessageSegueIdentifier = @"SendMessageSegue";
 static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
@@ -66,6 +67,7 @@ const int kLeaveAMessageTag = 101;
 @property (weak, nonatomic) IBOutlet UITextView *messageInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 
 @property (weak, nonatomic) IBOutlet UITableView *homeTopTableView;
@@ -100,6 +102,11 @@ const int kLeaveAMessageTag = 101;
     [self initializeMessagesFetchedResultsController];
     [self informationButtonClicked:nil];
     [self getStationsAndDesignations];
+    if ([AppUtilityClass isFirstPhaseSelected]) {
+        self.titleLabel.text = @"Phase 1 Stations";
+    }else {
+        self.titleLabel.text = @"Next Phase Stations";
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

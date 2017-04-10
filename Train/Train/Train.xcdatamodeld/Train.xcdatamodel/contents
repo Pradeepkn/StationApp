@@ -22,6 +22,14 @@
         <attribute name="phaseNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QueriesData" representedClassName="QueriesData" syncable="YES" codeGenerationType="class">
+        <attribute name="dateReceived" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateResponded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="response" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stationName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="topicArea" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Remarks" representedClassName="Remarks" syncable="YES">
         <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
@@ -87,5 +95,6 @@
         <element name="Tasks" positionX="0" positionY="108" width="128" height="120"/>
         <element name="User" positionX="-54" positionY="0" width="128" height="105"/>
         <element name="WhatsNewMessages" positionX="-18" positionY="72" width="128" height="150"/>
+        <element name="QueriesData" positionX="-18" positionY="99" width="128" height="135"/>
     </elements>
 </model>

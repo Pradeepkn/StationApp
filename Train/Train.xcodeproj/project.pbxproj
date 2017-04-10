@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272175891E9427F800AAD6C9 /* IRSDCViewController.m */; };
+		27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27320DB11E9ACCDE00004F79 /* QueriesViewController.m */; };
 		2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2795E88C1E92E21000126EBB /* LandingViewController.m */; };
 		27B983BD1E965C4F00494F0A /* IRSDCSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */; };
+		27BC86711E9C1882006870DE /* QueriesData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC866F1E9C1882006870DE /* QueriesData+CoreDataProperties.m */; };
 		27E85B551E9516EB00B80475 /* RightAlignImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E85B541E9516EB00B80475 /* RightAlignImageButton.m */; };
 		27ECAAE41E994DA900E3D8BF /* IRSDCSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ECAAE31E994DA900E3D8BF /* IRSDCSectionHeaderView.m */; };
 		35F35ADBBB505B53EB1EE126 /* libPods-Train.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC7A0F3BBCA3D9A3B56D5DF /* libPods-Train.a */; };
@@ -120,9 +122,15 @@
 		2716610A1DC3CCA800253BEB /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
 		272175881E9427F800AAD6C9 /* IRSDCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCViewController.h; sourceTree = "<group>"; };
 		272175891E9427F800AAD6C9 /* IRSDCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCViewController.m; sourceTree = "<group>"; };
+		27320DB01E9ACCDE00004F79 /* QueriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueriesViewController.h; sourceTree = "<group>"; };
+		27320DB11E9ACCDE00004F79 /* QueriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueriesViewController.m; sourceTree = "<group>"; };
 		2795E88B1E92E21000126EBB /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewController.h; sourceTree = "<group>"; };
 		2795E88C1E92E21000126EBB /* LandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingViewController.m; sourceTree = "<group>"; };
 		27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IRSDCSectionHeaderView.xib; sourceTree = "<group>"; };
+		27BC866C1E9C1882006870DE /* QueriesData+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QueriesData+CoreDataClass.h"; sourceTree = "<group>"; };
+		27BC866D1E9C1882006870DE /* QueriesData+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QueriesData+CoreDataClass.m"; sourceTree = "<group>"; };
+		27BC866E1E9C1882006870DE /* QueriesData+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QueriesData+CoreDataProperties.h"; sourceTree = "<group>"; };
+		27BC866F1E9C1882006870DE /* QueriesData+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QueriesData+CoreDataProperties.m"; sourceTree = "<group>"; };
 		27E85B531E9516EB00B80475 /* RightAlignImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightAlignImageButton.h; sourceTree = "<group>"; };
 		27E85B541E9516EB00B80475 /* RightAlignImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightAlignImageButton.m; sourceTree = "<group>"; };
 		27ECAAE21E994DA900E3D8BF /* IRSDCSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCSectionHeaderView.h; sourceTree = "<group>"; };
@@ -401,6 +409,10 @@
 		E954AA951DBF210400A6B6F1 /* Home Images */ = {
 			isa = PBXGroup;
 			children = (
+				27BC866C1E9C1882006870DE /* QueriesData+CoreDataClass.h */,
+				27BC866D1E9C1882006870DE /* QueriesData+CoreDataClass.m */,
+				27BC866E1E9C1882006870DE /* QueriesData+CoreDataProperties.h */,
+				27BC866F1E9C1882006870DE /* QueriesData+CoreDataProperties.m */,
 				E954AA641DBF20B900A6B6F1 /* HomeImages+CoreDataClass.h */,
 				E954AA651DBF20B900A6B6F1 /* HomeImages+CoreDataClass.m */,
 				E954AA661DBF20B900A6B6F1 /* HomeImages+CoreDataProperties.h */,
@@ -496,6 +508,8 @@
 				E92ED0241DAAF134009192BB /* StationGalleryInfoViewController.m */,
 				E9B4257A1DC0F6AB00F92295 /* StationGalleryHeaderView.h */,
 				E9B4257B1DC0F6AB00F92295 /* StationGalleryHeaderView.m */,
+				27320DB01E9ACCDE00004F79 /* QueriesViewController.h */,
+				27320DB11E9ACCDE00004F79 /* QueriesViewController.m */,
 			);
 			path = StationInfoViewController;
 			sourceTree = "<group>";
@@ -926,6 +940,7 @@
 				E9FB6B751DA997D000769D8C /* SignUpEntryCell.m in Sources */,
 				E954AA861DBF20B900A6B6F1 /* Designation+CoreDataClass.m in Sources */,
 				E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */,
+				27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */,
 				E9275FC01DBFB9AA0077CAB1 /* Messages+CoreDataProperties.m in Sources */,
 				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
 				E9B425791DC0D3A800F92295 /* StationGalleryInfo+CoreDataProperties.m in Sources */,
@@ -961,6 +976,7 @@
 				E9F3B7411D9C59AD00A98B85 /* CustomAlertViewController.m in Sources */,
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,
 				E9231A451DB372C600CD302D /* TasksHeaderView.m in Sources */,
+				27BC86711E9C1882006870DE /* QueriesData+CoreDataProperties.m in Sources */,
 				E9F3B7381D9C58B200A98B85 /* AppDelegate.m in Sources */,
 				2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */,
 				E954AA841DBF20B900A6B6F1 /* HomeImages+CoreDataClass.m in Sources */,
@@ -1127,6 +1143,31 @@
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"AFNetworking\"",
+					"-l\"BLMultiColorLoader\"",
+					"-l\"DRPageScrollView\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"SDWebImage\"",
+					"-l\"TTPLAPIManager\"",
+					"-l\"TTPLLibrary\"",
+					"-l\"XMLDictionary\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.StationApp.App;
 				PRODUCT_NAME = "STATION APP";
 				PROVISIONING_PROFILE = "e9b9ceb1-0667-4690-9122-be4878c403bf";
@@ -1145,6 +1186,31 @@
 				INFOPLIST_FILE = Train/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"AFNetworking\"",
+					"-l\"BLMultiColorLoader\"",
+					"-l\"DRPageScrollView\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"SDWebImage\"",
+					"-l\"TTPLAPIManager\"",
+					"-l\"TTPLLibrary\"",
+					"-l\"XMLDictionary\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.StationApp.App;
 				PRODUCT_NAME = "STATION APP";
 				PROVISIONING_PROFILE = "23bedeab-d1dc-4fcb-a9bd-09b9190c08c4";

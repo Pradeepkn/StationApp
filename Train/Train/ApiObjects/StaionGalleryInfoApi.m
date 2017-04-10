@@ -64,6 +64,7 @@
             self.stationCode = stationData[@"stationCode"];
         }
     }
+    [[CoreDataManager sharedManager] saveQueries:apiDataSource[@"queriesData"] forStation:self.stationName];
 }
 
 @end
