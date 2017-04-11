@@ -87,7 +87,7 @@
 }
 
 - (IBAction)submitRemarksButtonClicked:(id)sender {
-    [self.delegate updateStatus:selectedStatus withRemarksMessage:self.remarksTextView.text];
+    [self.delegate updateStatus:self.statusCode withRemarksMessage:self.remarksTextView.text];
     [self removeViewFromSuperView];
 }
 
@@ -101,7 +101,7 @@
     [sender setBackgroundColor:[UIColor whiteColor]];
     sender.layer.borderWidth = 1.0f;
     sender.layer.borderColor = [UIColor appRedColor].CGColor;
-    selectedStatus = sender.tag;
+    self.statusCode = sender.tag;
 }
 
 - (void)updateButtonBorderWidth {

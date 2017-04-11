@@ -287,6 +287,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     remarksStatusVC.delegate = self;
     remarksStatusVC.selectedStation = self.selectedStation;
+    remarksStatusVC.statusCode = self.selectedSubTask.status;
     [self presentViewController:remarksStatusVC animated:YES completion:^{
         ;
     }];
