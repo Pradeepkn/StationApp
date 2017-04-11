@@ -25,7 +25,7 @@
 }
 
 - (NSMutableDictionary *)requestParameters{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.stationSubActivityId, [NSNumber numberWithInteger:self.status]] forKeys:@[kStationSubActivityIdKey, kStatusKey]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.stationSubActivityId, self.remarks,[NSNumber numberWithInteger:self.status]] forKeys:@[kStationSubActivityIdKey, kRemarks, kStatusKey]];
     return parameters;
 }
 
@@ -34,12 +34,12 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.self.stationSubActivityId], @"Checksum", @"application/json", @"Content-Type",nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.stationSubActivityId], @"Checksum", @"application/json", @"Content-Type",nil];
     return dictionary;
 }
 
 - (NSString *)customRawBody {
-    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.stationSubActivityId, [NSNumber numberWithInteger:self.status]] forKeys:@[kStationSubActivityIdKey, kStatusKey]];
+    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.stationSubActivityId, [NSNumber numberWithInteger:self.status], self.remarks] forKeys:@[kStationSubActivityIdKey, kStatusKey, kRemarks]];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:rawBody
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string

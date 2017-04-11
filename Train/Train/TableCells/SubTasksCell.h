@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SubTasksCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UILabel *mileStoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *deadLineLabel;
-@property (weak, nonatomic) IBOutlet UIButton *statusInfoSymbol;
+@property (weak, nonatomic) IBOutlet UILabel *remarksHeaderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *remarksMessageLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksHeaderHeightConstraint;
 
 @end

@@ -54,10 +54,6 @@
         NSArray *subTasksDataSource = apiDataSource[@"subActivities"];
         [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource forTaskId:self.taskId];
     }
-    if ([apiDataSource[@"remarks"] isKindOfClass:[NSArray class]]) {
-        NSArray *subTasksDataSource = apiDataSource[@"remarks"];
-        [[CoreDataManager sharedManager] saveRemarks:subTasksDataSource forTaskId:self.taskId];
-    }
 }
 
 @end

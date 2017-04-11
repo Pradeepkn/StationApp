@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSString *stationSubActivityId;
 @property (nonatomic, assign) NSInteger status;
+@property (nonatomic, strong) NSString *remarks;
 
 @end

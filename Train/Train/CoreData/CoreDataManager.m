@@ -387,19 +387,24 @@
         [subTasksObject setTaskId:taskId];
         [subTasksObject setStatus:[[dic valueForKey:@"status"] integerValue]];
         [subTasksObject setSortDate:[[dic valueForKey:@"sortDate"] intValue]];
+        
+        if ([dic[@"remarks"] isKindOfClass:[NSArray class]]) {
+            NSArray *subTasksDataSource = dic[@"remarks"];
+            [[CoreDataManager sharedManager] saveRemarks:subTasksDataSource forSubActivityId:stationSubActivityId];
+        }
     }
     return [self saveData];
 }
 
 #pragma mark - Save Station sub tasks
 
-- (BOOL)saveRemarks:(NSArray *)remarks forTaskId:(NSString *)taskId{
+- (BOOL)saveRemarks:(NSArray *)remarks forSubActivityId:(NSString *)stationSubActivityId{
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Remarks" inManagedObjectContext:moc];
     [request setEntity:entity];
     for (NSDictionary *dic in remarks) {
-        id remarksIdentifier = [dic valueForKey:@"remarksId"];
+        id remarksIdentifier = [dic valueForKey:@"remarkId"];
         NSString *remarksId = [NSString stringWithFormat:@"%@",remarksIdentifier];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
         [request setPredicate:predicate];
@@ -410,11 +415,11 @@
         }else {
             remarks = (Remarks *)[array firstObject];
         }
-        [remarks setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
-        [remarks setRemarksId:[dic valueForKey:@"remarksId"]];
-        [remarks setMessage:[dic valueForKey:@"message"]];
-        [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
-        [remarks setTaskId:taskId];
+//        [remarks setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
+        [remarks setRemarksId:[dic valueForKey:@"remarkId"]];
+        [remarks setMessage:[dic valueForKey:@"remark"]];
+//        [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
+        [remarks setTaskId:stationSubActivityId];
     }
     return [self saveData];
 }
@@ -519,6 +524,32 @@
     [request setPredicate:predicate];
     NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+- (NSArray *)fetchStationsSubTasksForTaskId:(NSString *)taskId {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",taskId];
+    [request setPredicate:predicate];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"sortDate" ascending:NO];
+    [request setSortDescriptors:@[stations]];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+- (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Remarks" inManagedObjectContext:moc];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",stationSubActivityId];
+    [request setPredicate:predicate];
     [request setEntity:entity];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];

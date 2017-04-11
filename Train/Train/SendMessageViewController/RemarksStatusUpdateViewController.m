@@ -10,7 +10,9 @@
 #import "UIColor+AppColor.h"
 #import "AppUtilityClass.h"
 
-@interface RemarksStatusUpdateViewController ()
+@interface RemarksStatusUpdateViewController () {
+    NSInteger selectedStatus;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *remarksContainerView;
 @property (weak, nonatomic) IBOutlet UIView *statusContainerView;
@@ -23,10 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *completedButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *navigationTopView;
-@property (weak, nonatomic) IBOutlet UIView *remarksCompletedContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *completedViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UISwitch *remarksSwitch;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksContainerHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *editStatusHorizontalConstraints;
 
 @end
@@ -46,38 +44,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (self.isRemarksStatusUpdate) {
-        NSInteger remarksContainerViewHeight = [AppUtilityClass sizeOfText:self.remarksTextView.text widthOfTextView:self.remarksTextView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height +86;
-        if (remarksContainerViewHeight > self.view.frame.size.height - 150) {
-            remarksContainerViewHeight = self.view.frame.size.height - 150;
-        }else if (remarksContainerViewHeight < 140) {
-            remarksContainerViewHeight = 140.0f;
-        }
-        self.remarksContainerHeightConstraint.constant = remarksContainerViewHeight;
-    }
 }
 
 - (void)updateViewElements {
-    if (self.isRemarksUpdate) {
-//        self.remarksContainerView.hidden = NO;
-//        self.statusContainerView.hidden = YES;
-        if (self.isRemarksStatusUpdate) {
-            self.remarksCompletedContainerView.hidden = NO;
-            self.completedViewHeightConstraint.constant = 40.0f;
-            [self.remarksSwitch setOn:self.isRemarksCompleted];
-            self.remarksTextView.text = self.remarksMessage;
-            self.remarksTextView.editable = NO;
-            self.remarksTextField.text = @" ";
-            self.remarksTextView.scrollsToTop = YES;
-        }else {
-            self.completedViewHeightConstraint.constant = 0.0f;
-            self.remarksCompletedContainerView.hidden = YES;
-            [self.remarksTextView becomeFirstResponder];
-        }
-    }else {
-//        self.remarksContainerView.hidden = YES;
-//        self.statusContainerView.hidden = NO;
-    }
     self.titleLabel.text = self.selectedStation.stationName;
     switch (self.statusCode) {
         case kTaskToStart:
@@ -117,27 +86,9 @@
     }];
 }
 
-- (IBAction)remarksStatusUpdated:(UISwitch *)sender {
-
-}
-
 - (IBAction)submitRemarksButtonClicked:(id)sender {
-    if (self.isRemarksStatusUpdate) {
-        if (self.remarksSwitch.isOn) {
-            [self.delegate updateRemarksStatus:kCompleted];
-        }else {
-            [self.delegate updateRemarksStatus:kNotCompleted];
-        }
-        [self removeViewFromSuperView];
-        return;
-    }else {
-        if (self.remarksTextView.text.length) {
-            [self.delegate updateRemarks:self.remarksTextView.text];
-            [self removeViewFromSuperView];
-        }else {
-            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please enter remarks message", nil)];
-        }
-    }
+    [self.delegate updateStatus:selectedStatus withRemarksMessage:self.remarksTextView.text];
+    [self removeViewFromSuperView];
 }
 
 - (IBAction)statusUpdateButtonClicked:(UIButton *)sender {
@@ -150,8 +101,7 @@
     [sender setBackgroundColor:[UIColor whiteColor]];
     sender.layer.borderWidth = 1.0f;
     sender.layer.borderColor = [UIColor appRedColor].CGColor;
-    [self.delegate updateStatus:sender.tag];
-    [self removeViewFromSuperView];
+    selectedStatus = sender.tag;
 }
 
 - (void)updateButtonBorderWidth {

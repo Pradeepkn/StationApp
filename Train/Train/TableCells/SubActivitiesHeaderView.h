@@ -11,7 +11,9 @@
 
 @interface SubActivitiesHeaderView : UIView
 
-@property (weak, nonatomic) IBOutlet PaddedLabel *subActivityName;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *subActivityNameHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *mileStoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deadLineLabel;
+@property (weak, nonatomic) IBOutlet UIButton *statusInfoSymbol;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
 @end

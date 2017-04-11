@@ -62,7 +62,7 @@ static NSString *const kStationRemarksIdKey = @"remarksId";
 static NSString *const kStatusKey = @"status";
 
 static NSString *const kImagesKey = @"images";
-
+static NSString *const kRemarks = @"remarks";
 static NSString *const kNameKey = @"name";
 static NSString *const kPhoneNumberKey = @"phone_number";
 

@@ -34,7 +34,7 @@
 - (BOOL)saveWhatsNewMessages:(NSArray *)whatsNewMessages;
 - (BOOL)saveStationTasks:(NSArray *)stationTasks  forStationId:(NSString *)stationId;
 - (BOOL)saveSubTasks:(NSArray *)subTasks forTaskId:(NSString *)taskId;
-- (BOOL)saveRemarks:(NSArray *)remarks forTaskId:(NSString *)taskId;
+- (BOOL)saveRemarks:(NSArray *)remarks forSubActivityId:(NSString *)stationSubActivityId;
 - (BOOL)saveStationGalleryInfoImages:(NSDictionary *)imagesDict forKey:(NSString *)weekKey;
 
 - (User *)fetchLogedInUser;
@@ -47,6 +47,8 @@
 - (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey forStationName:(NSString *)stationName;
 - (NSArray *)fetchQueriesForStationName:(NSString *)stationName;
 - (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea;
+- (NSArray *)fetchStationsSubTasksForTaskId:(NSString *)taskId;
+- (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId;
 
 - (BOOL)saveData;
 

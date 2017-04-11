@@ -12,20 +12,15 @@
 
 @protocol RemarksStatusDelegate <NSObject>
 
-- (void)updateRemarks:(NSString *)remarksMessage;
-- (void)updateStatus:(TasksStatus)status;
-- (void)updateRemarksStatus:(DashboardStatus)isRemarksCompleted;
+- (void)updateStatus:(TasksStatus)status withRemarksMessage:(NSString *)remarksMessage;
 
 @end
 
 @interface RemarksStatusUpdateViewController : UIViewController
 
 @property (nonatomic, weak) id <RemarksStatusDelegate> delegate;
-@property (nonatomic, assign) BOOL isRemarksUpdate;
 @property (strong, nonatomic) Stations *selectedStation;
 @property (nonatomic, assign) NSInteger statusCode;
-@property (nonatomic, assign) BOOL isRemarksStatusUpdate;
-@property (nonatomic, assign) BOOL isRemarksCompleted;
 @property (nonatomic, strong) NSString *remarksMessage;
 
 @end

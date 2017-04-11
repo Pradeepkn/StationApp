@@ -30,25 +30,20 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @interface StationSubTasksViewController ()<NSFetchedResultsControllerDelegate, RemarksStatusDelegate>
 
 @property (strong, nonatomic) User *loggedInUser;
-@property (weak, nonatomic) IBOutlet UITableView *subTasksListTableView;
-@property (weak, nonatomic) IBOutlet UITableView *remarksTableView;
 @property (nonatomic, strong) NSMutableArray *subActivitiesArray;
 @property (nonatomic, strong) NSMutableArray *remarksArray;
 @property (nonatomic, strong) NSString *activityName;
-@property (weak, nonatomic) IBOutlet UIButton *remarksButton;
 
 @property (nonatomic, strong) NSFetchedResultsController *stationInfoFetchedResultsController;
-@property (nonatomic, strong) NSFetchedResultsController *remarksFetchedResultsController;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
-
-@property (nonatomic, assign) BOOL isRemarksUpdate;
 @property (nonatomic, strong) SubTasks *selectedSubTask;
-@property (nonatomic, strong) Remarks *selectedRemarks;
 @property (nonatomic, assign) BOOL isEditable;
 @property (nonatomic, assign) BOOL isViewEditable;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *remarksContainerViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet PaddedLabel *subActivityName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (weak, nonatomic) IBOutlet UIView *subActivityHeaderView;
+@property (weak, nonatomic) IBOutlet UITableView *subTasksListTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
 
 @end
 
@@ -60,13 +55,24 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     self.navigationController.navigationBarHidden = NO;
     self.subActivitiesArray = [[NSMutableArray alloc] init];
     self.remarksArray = [[NSMutableArray alloc] init];
-    [self initializeStationsInfoFetchedResultsController];
+//    [self initializeStationsInfoFetchedResultsController];
     [self getStationTasks];
     [self hideRightBarButton:YES];
-    self.remarksHeightConstraint.constant = 0.0f;
-    self.remarksButton.hidden = YES;
     self.subTasksListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.remarksTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (void)updateHeaderView {
+    CGFloat heightOfHeader = [self getHeightForText:self.activityName];
+    self.subActivityHeaderView.frame = CGRectMake(0, 74, self.view.bounds.size.width - 32, heightOfHeader);
+    self.subActivityName.text  = self.activityName;
+    self.subActivityName.backgroundColor = [UIColor appGreyBGColor];
+    self.subActivityName.textColor = [UIColor appGreyColor];
+    [AppUtilityClass shapeTopCell:self.subActivityHeaderView withRadius:kBubbleRadius];
+    self.topViewHeightConstraint.constant = heightOfHeader;
+    self.subActivitiesArray = [NSMutableArray arrayWithArray:[[CoreDataManager sharedManager] fetchStationsSubTasksForTaskId:self.selectedTask.refId]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.subTasksListTableView reloadData];
+    });
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -78,26 +84,10 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         sender.tag = 200;
         self.isViewEditable = YES;
         self.navigationItem.rightBarButtonItem.title = @"Done";
-        self.remarksButton.hidden = NO;
-        self.remarksHeightConstraint.constant = 50.0f;
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][0];
-        if ([sectionInfo numberOfObjects] == 0) {
-            self.remarksContainerViewHeightConstraint.constant = 50;
-        }else {
-            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.30;
-        }
     }else {
         sender.tag = 100;
         self.isViewEditable = NO;
         self.navigationItem.rightBarButtonItem.title = @"Edit";
-        self.remarksHeightConstraint.constant = 0.0f;
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][0];
-        if ([sectionInfo numberOfObjects] == 0) {
-            self.remarksContainerViewHeightConstraint.constant = 0;
-        }else {
-            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.25;
-        }
-        self.remarksButton.hidden = YES;
     }
 }
 
@@ -111,33 +101,13 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     [AppUtilityClass showLoaderOnView:self.view];
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsubTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
-        //NSLog(@"Response = %@", responseDictionary);
+        NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
             self.isEditable = stationsubTasksApi.editStatus;
-            if (self.remarksButton.hidden) {
-                [weakSelf hideRightBarButton:self.isEditable];
-            }
-            [weakSelf.subTasksListTableView reloadData];
+            [self updateHeaderView];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
-        }
-    }];
-}
-
-- (void)getStationRemarks {
-    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
-    __weak StationSubTasksViewController *weakSelf = self;
-    GetRemarksApi *remarksApi = [GetRemarksApi new];
-    remarksApi.taskId = self.selectedTask.refId;
-    [AppUtilityClass showLoaderOnView:self.view];
-    [[APIManager sharedInstance]makeAPIRequestWithObject:remarksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-        [AppUtilityClass hideLoaderFromView:weakSelf.view];
-        [[weakSelf remarksTableView] reloadData];
-        [weakSelf.remarksTableView reloadInputViews];
-        //NSLog(@"Response = %@", responseDictionary);
-        if (!error) {
-        }else{
         }
     }];
 }
@@ -149,8 +119,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     } else {
         self.navigationItem.rightBarButtonItem.title = @"Edit";
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        self.remarksHeightConstraint.constant = 0.0f;
-        self.remarksButton.hidden = YES;
     }
 }
 
@@ -163,14 +131,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     
     NSError *error = nil;
     if (![[self stationInfoFetchedResultsController] performFetch:&error]) {
-        //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
-    
-    [self setRemarksFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:[self getRemarksFetchRequest] managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
-    [[self remarksFetchedResultsController] setDelegate:self];
-    
-    if (![[self remarksFetchedResultsController] performFetch:&error]) {
         //NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
@@ -187,49 +147,37 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     return request;
 }
 
-- (NSFetchRequest *)getRemarksFetchRequest {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Remarks"];
-    NSSortDescriptor *status = [NSSortDescriptor sortDescriptorWithKey:@"status" ascending:YES];
-    NSSortDescriptor *insertDate = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:YES];
-    [request setSortDescriptors:@[status, insertDate]];
-    //NSLog(@"View Task ID = %@", self.selectedTask.refId);
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"taskId == %@",self.selectedTask.refId];
-    [request setPredicate:predicate];
-    return request;
-}
-
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        SubTasks *object = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.name widthOfTextView:self.subTasksListTableView.frame.size.width/2 - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
-    }else {
-        Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
-        return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.remarksTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
-    }
-    return 10;
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.subActivitiesArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][section];
-        //NSLog(@"Number of rows = %ld", [sectionInfo numberOfObjects]);
-        return [sectionInfo numberOfObjects];
+    SubTasks *object = [self.subActivitiesArray objectAtIndex:section];
+    return [[CoreDataManager sharedManager] fetchRemarksFor:object.stationSubActivityId].count;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SubTasks *object = [self.subActivitiesArray objectAtIndex:indexPath.section];
+    NSArray *remarksArray = [[CoreDataManager sharedManager] fetchRemarksFor:object.stationSubActivityId];
+    Remarks *remarkObject;
+    if (remarksArray.count > indexPath.row) {
+        remarkObject = (Remarks*)remarksArray[indexPath.row];
     }else {
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
-        if ([sectionInfo numberOfObjects] == 0) {
-            self.remarksContainerViewHeightConstraint.constant = 0;
-        }else {
-            self.remarksContainerViewHeightConstraint.constant = self.view.frame.size.height * 0.25;
-        }
-        return [sectionInfo numberOfObjects];
+        return 0;
     }
+    CGFloat heightOffSet = 25.0f;
+    if (indexPath.row != 0) {
+        heightOffSet = 5.0f;
+    }
+    if (remarkObject.message.length > 0) {
+        heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaSemibold size:20]].height;
+    }else {
+        heightOffSet = 0.0f;
+    }
+    return heightOffSet;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -237,48 +185,19 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        return [self getHeightForText:self.activityName];
-    }else {
-        return 50.0f;
-    }
+    SubTasks *object = [self.subActivitiesArray objectAtIndex:section];
+    return [AppUtilityClass sizeOfText:object.name widthOfTextView:self.subTasksListTableView.frame.size.width/2 - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height + 25;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        CGFloat heightOfHeader = [self getHeightForText:self.activityName];
-         SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
-        subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, heightOfHeader);
-        subHeader.subActivityName.text  = self.activityName;
-        subHeader.subActivityName.backgroundColor = [UIColor appGreyBGColor];
-        subHeader.subActivityName.textColor = [UIColor appGreyColor];
-
-        [AppUtilityClass shapeTopCell:subHeader withRadius:kBubbleRadius];
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][section];
-        if ([sectionInfo numberOfObjects] == 0) {
-            [AppUtilityClass shapeBottomCell:subHeader withRadius:kBubbleRadius];
-        }
-        subHeader.subActivityNameHeightConstraint.constant = heightOfHeader - 40;
-        return subHeader;
-    }else {
-        TasksHeaderView *headerView = (TasksHeaderView *)[[NSBundle mainBundle] loadNibNamed:kTasksHeaderViewNibName owner:nil options:nil][0];
-        headerView.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, 50);
-        headerView.percentageLabel.hidden = YES;
-        [headerView.progressView setProgress:0];
-        headerView.progressView.hidden = YES;
-        headerView.overallStatusHeaderLabel.text = @"Remarks";
-        headerView.backgroundColor = [UIColor appGreyBGColor];
-        headerView.clipsToBounds = YES;
-        headerView.overallStatusHeaderLabel.textColor = [UIColor appGreyColor];
-        id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][section];
-        if ([sectionInfo numberOfObjects] == 0) {
-            headerView.layer.cornerRadius = 6.0f;
-        }else {
-            headerView.layer.cornerRadius = 0.0f;
-            [AppUtilityClass shapeTopCell:headerView withRadius:kBubbleRadius];
-        }
-        return headerView;
-    }
+    SubTasks *object = [self.subActivitiesArray objectAtIndex:section];
+    CGFloat heightOfHeader = [self getHeightForText:object.name];
+    SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
+    subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, heightOfHeader);
+    subHeader.tag = section;
+    [subHeader.actionButton addTarget:self action:@selector(sectionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self configureMessagesCell:subHeader withSubTask:object];
+    return subHeader;
 }
 
 - (CGFloat)getHeightForText:(NSString *)string {
@@ -296,79 +215,56 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        SubTasksCell *subTasksCell = (SubTasksCell *)[tableView dequeueReusableCellWithIdentifier:kSubTasksCellIdentifier forIndexPath:indexPath];
-        [self configureMessagesCell:subTasksCell atIndexPath:indexPath];
-        return subTasksCell;
+    SubTasksCell *subTasksCell = (SubTasksCell *)[tableView dequeueReusableCellWithIdentifier:kSubTasksCellIdentifier forIndexPath:indexPath];
+    [self configureRemarksCell:subTasksCell atIndexPath:indexPath];
+    return subTasksCell;
+}
+
+- (void)configureRemarksCell:(SubTasksCell *)remarksCell atIndexPath:(NSIndexPath*)indexPath {
+    SubTasks *object = [self.subActivitiesArray objectAtIndex:indexPath.section];
+    Remarks *remarkObject = (Remarks*)[[CoreDataManager sharedManager] fetchRemarksFor:object.stationSubActivityId][indexPath.row];
+    remarksCell.remarksMessageLabel.text = remarkObject.message;
+    if (indexPath.row != 0) {
+        remarksCell.remarksHeaderLabel.text = @"";
+        remarksCell.remarksHeaderHeightConstraint.constant = 10.0f;
     }else {
-        OverallStatusCell *overallStatusHeaderCell = (OverallStatusCell *)[tableView dequeueReusableCellWithIdentifier:kOverallStatusInfoCellIdentifier forIndexPath:indexPath];
-        [self configureRemarksCell:overallStatusHeaderCell atIndexPath:indexPath];
-        return overallStatusHeaderCell;
+        remarksCell.remarksHeaderLabel.text = @"Remarks";
+        remarksCell.remarksHeaderHeightConstraint.constant = 20.0f;
     }
 }
 
-- (void)configureMessagesCell:(SubTasksCell *)subTasksCell atIndexPath:(NSIndexPath*)indexPath
-{
-    SubTasks *object = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
-    subTasksCell.mileStoneLabel.text = object.name;
-    subTasksCell.deadLineLabel.text = object.deadline;
-    subTasksCell.statusInfoSymbol.hidden = NO;
-    subTasksCell.statusInfoSymbol.userInteractionEnabled = NO;
-//    id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][indexPath.section];
-//    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
-//        [AppUtilityClass shapeBottomCell:subTasksCell withRadius:kBubbleRadius];
-//    }else {
-//        subTasksCell.layer.cornerRadius = 0;
-//    }
-    switch (object.status) {
+- (void)configureMessagesCell:(SubActivitiesHeaderView *)subActivityHeaderView
+                  withSubTask:(SubTasks *)subTaskObject {
+    subActivityHeaderView.mileStoneLabel.text = subTaskObject.name;
+    subActivityHeaderView.deadLineLabel.text = subTaskObject.deadline;
+    subActivityHeaderView.statusInfoSymbol.hidden = NO;
+    subActivityHeaderView.statusInfoSymbol.userInteractionEnabled = NO;
+    switch (subTaskObject.status) {
         case kTaskToStart:
-            [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor lightGrayColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor lightGrayColor];
+            [subActivityHeaderView.statusInfoSymbol setImage:[UIImage imageNamed:@"to-start"] forState:UIControlStateNormal];
+            subActivityHeaderView.mileStoneLabel.textColor = [UIColor lightGrayColor];
+            subActivityHeaderView.deadLineLabel.textColor = [UIColor lightGrayColor];
             break;
         case kTaskOnTrack:
-            [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor appTextColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor appTextColor];
+            [subActivityHeaderView.statusInfoSymbol setImage:[UIImage imageNamed:@"ongoing"] forState:UIControlStateNormal];
+            subActivityHeaderView.mileStoneLabel.textColor = [UIColor appTextColor];
+            subActivityHeaderView.deadLineLabel.textColor = [UIColor appTextColor];
             break;
         case kTaskDelayed:
-            [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor appRedColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor appRedColor];
+            [subActivityHeaderView.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
+            subActivityHeaderView.mileStoneLabel.textColor = [UIColor appRedColor];
+            subActivityHeaderView.deadLineLabel.textColor = [UIColor appRedColor];
             break;
         case kTaskCompleted:
-            [subTasksCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
-            subTasksCell.mileStoneLabel.textColor = [UIColor grayColor];
-            subTasksCell.deadLineLabel.textColor = [UIColor grayColor];
+            [subActivityHeaderView.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
+            subActivityHeaderView.mileStoneLabel.textColor = [UIColor grayColor];
+            subActivityHeaderView.deadLineLabel.textColor = [UIColor grayColor];
             break;
         default:
             break;
     }
 }
 
-- (void)configureRemarksCell:(OverallStatusCell *)overallStatusHeaderCell atIndexPath:(NSIndexPath*)indexPath
-{
-    Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
-    overallStatusHeaderCell.statusInfoLabel.text = object.message;
-//    id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][indexPath.section];
-//    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
-//        [AppUtilityClass shapeBottomCell:overallStatusHeaderCell withRadius:kBubbleRadius];
-//    }else {
-//        overallStatusHeaderCell.layer.cornerRadius = 0;
-//    }
-    switch (object.status) {
-        case kNotCompleted:
-            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"caution-icon"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appRedColor];
-            break;
-        case kCompleted:
-            [overallStatusHeaderCell.statusInfoSymbol setImage:[UIImage imageNamed:@"tick-mark"] forState:UIControlStateNormal];
-            overallStatusHeaderCell.statusInfoLabel.textColor = [UIColor appGreyColor];
-            break;
-        default:
-            break;
-    }
-}
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -382,105 +278,25 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)sectionButtonTapped:(UIButton *)sender {
     if (!self.isViewEditable) {
         return;
     }
-    if ([tableView isEqual:self.subTasksListTableView]) {
-        self.selectedSubTask = [[self stationInfoFetchedResultsController] objectAtIndexPath:indexPath];
-        self.isRemarksUpdate = NO;
-        [self displayRemarksStatusUpdateViewWithMessage:NO];
-    }else {
-        self.selectedRemarks = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
-        self.isRemarksUpdate = YES;
-        [self displayRemarksStatusUpdateViewWithMessage:YES];
-    }
+    self.selectedSubTask = [self.subActivitiesArray objectAtIndex:sender.tag];
+    RemarksStatusUpdateViewController *remarksStatusVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RemarksStatusUpdateViewController"];
+    remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    remarksStatusVC.delegate = self;
+    remarksStatusVC.selectedStation = self.selectedStation;
+    [self presentViewController:remarksStatusVC animated:YES completion:^{
+        ;
+    }];
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    if ([controller isEqual:self.stationInfoFetchedResultsController]) {
-        [[self subTasksListTableView] beginUpdates];
-    }else {
-        [[self remarksTableView] beginUpdates];
-    }
-}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    if ([controller isEqual:self.stationInfoFetchedResultsController]) {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self subTasksListTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self subTasksListTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeMove:
-            case NSFetchedResultsChangeUpdate:
-                break;
-        }
-    }else {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self remarksTableView] insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self remarksTableView] deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeMove:
-            case NSFetchedResultsChangeUpdate:
-                [[self remarksTableView] reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-        }
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
-{
-    if ([controller isEqual:self.stationInfoFetchedResultsController]) {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self subTasksListTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self subTasksListTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeUpdate:
-                [self configureMessagesCell:[[self subTasksListTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-                break;
-            case NSFetchedResultsChangeMove:
-                break;
-        }
-    }else {
-        switch(type) {
-            case NSFetchedResultsChangeInsert:
-                [[self remarksTableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeDelete:
-                [[self remarksTableView] deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                break;
-            case NSFetchedResultsChangeUpdate:
-                [self configureRemarksCell:[[self remarksTableView] cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-                break;
-            case NSFetchedResultsChangeMove:
-                break;
-        }
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    if ([controller isEqual:self.stationInfoFetchedResultsController]) {
-        [[self subTasksListTableView] endUpdates];
-    }else {
-        [[self remarksTableView] endUpdates];
-    }
 }
 
 - (IBAction)remarksButtonClicked:(id)sender {
-    self.isRemarksUpdate = YES;
     [self displayRemarksStatusUpdateViewWithMessage:NO];
 }
 
@@ -488,21 +304,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     RemarksStatusUpdateViewController *remarksStatusVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RemarksStatusUpdateViewController"];
     remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     remarksStatusVC.delegate = self;
-    remarksStatusVC.isRemarksUpdate = self.isRemarksUpdate;
     remarksStatusVC.selectedStation = self.selectedStation;
-    if (!self.isRemarksUpdate) {
-        remarksStatusVC.statusCode = self.selectedSubTask.status;
-    }else {
-        if (self.isViewEditable && withMessage) {
-            remarksStatusVC.isRemarksStatusUpdate = YES;
-            if (self.selectedRemarks.status == 1) {
-                remarksStatusVC.isRemarksCompleted = NO;
-            }else {
-                remarksStatusVC.isRemarksCompleted = YES;
-            }
-            remarksStatusVC.remarksMessage = self.selectedRemarks.message;
-        }
-    }
     [self presentViewController:remarksStatusVC animated:YES completion:^{
         ;
     }];
@@ -524,7 +326,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
-                                                  [self getStationRemarks];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
@@ -537,13 +338,14 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                           }];
 }
 
-- (void)updateStatus:(TasksStatus)status{
+- (void)updateStatus:(TasksStatus)status withRemarksMessage:(NSString *)remarksMessage{
     [AppUtilityClass showLoaderOnView:self.view];
     
     __weak StationSubTasksViewController *weakSelf = self;
     UpdateSubTasksStatusApi *updateSubTaskStatusApiObject = [UpdateSubTasksStatusApi new];
     updateSubTaskStatusApiObject.status = status;
     updateSubTaskStatusApiObject.stationSubActivityId = self.selectedSubTask.stationSubActivityId;
+    updateSubTaskStatusApiObject.remarks = remarksMessage;
     [[APIManager sharedInstance]makePostAPIRequestWithObject:updateSubTaskStatusApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               //NSLog(@"Response = %@", responseDictionary);
@@ -552,33 +354,6 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
                                                   [self getStationTasks];
-                                              }else{
-                                                  if (errorDict.allKeys.count > 0) {
-                                                      if ([AppUtilityClass getErrorMessageFor:errorDict]) {
-                                                          [AppUtilityClass showErrorMessage:[AppUtilityClass getErrorMessageFor:errorDict]];
-                                                          return;
-                                                      }
-                                                  }
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
-                                              }
-                                          }];
-}
-
-- (void)updateRemarksStatus:(DashboardStatus)status{
-    [AppUtilityClass showLoaderOnView:self.view];
-    
-    __weak StationSubTasksViewController *weakSelf = self;
-    UpdateRemarksStatusApi *updateRemarksStatusApiObject = [UpdateRemarksStatusApi new];
-    updateRemarksStatusApiObject.status = status;
-    updateRemarksStatusApiObject.remarksId = self.selectedRemarks.remarksId;
-    [[APIManager sharedInstance]makePostAPIRequestWithObject:updateRemarksStatusApiObject
-                                          andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
-                                              //NSLog(@"Response = %@", responseDictionary);
-                                              [AppUtilityClass hideLoaderFromView:weakSelf.view];
-                                              NSDictionary *errorDict = responseDictionary[@"error"];
-                                              NSDictionary *dataDict = responseDictionary[@"data"];
-                                              if (dataDict.allKeys.count > 0) {
-                                                  [self getStationRemarks];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {

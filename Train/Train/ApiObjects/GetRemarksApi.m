@@ -44,7 +44,7 @@
     NSDictionary *apiDataSource = responseDictionary[@"data"];
     if ([apiDataSource[@"remarks"] isKindOfClass:[NSArray class]]) {
         NSArray *subTasksDataSource = apiDataSource[@"remarks"];
-        [[CoreDataManager sharedManager] saveRemarks:subTasksDataSource forTaskId:self.taskId];
+        [[CoreDataManager sharedManager] saveRemarks:subTasksDataSource forSubActivityId:self.taskId];
     }
 }
 
