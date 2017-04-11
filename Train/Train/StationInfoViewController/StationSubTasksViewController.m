@@ -170,12 +170,15 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }
     CGFloat heightOffSet = 25.0f;
     if (indexPath.row != 0) {
-        heightOffSet = 5.0f;
+        heightOffSet = 0.0f;
     }
     if (remarkObject.message.length > 0) {
-        heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaSemibold size:20]].height;
+        heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:14]].height;
     }else {
         heightOffSet = 0.0f;
+    }
+    if (heightOffSet < 40) {
+        heightOffSet = 40.0f;
     }
     return heightOffSet;
 }
