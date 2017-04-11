@@ -291,7 +291,7 @@
         NSArray *query = [dict valueForKey:@"query"];
         for (NSDictionary *queryDict in query) {
             NSString *name = [queryDict valueForKey:@"name"];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@",name];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@ && stationName == %@",name, stationName];
             [request setPredicate:predicate];
             NSArray *array = [moc executeFetchRequest:request error:nil];
             if (array.count == 0) {

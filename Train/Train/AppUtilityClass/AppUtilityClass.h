@@ -87,4 +87,8 @@
 
 + (BOOL)isFirstPhaseSelected;
 
++ (void)setToEOL:(BOOL)selected;
+
++ (BOOL)isEOLSelected;
+
 @end

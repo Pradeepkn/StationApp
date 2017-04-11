@@ -11,14 +11,19 @@
 #import "UIColor+AppColor.h"
 #import "IRSDCSectionHeaderView.h"
 #import "AppUtilityClass.h"
+#import "OtherCabinetQueryApi.h"
 
 @interface QueriesViewController () {
     NSInteger selectedSection;
     NSMutableSet* _collapsedSections;
+    UIFont *appFont;
 }
 
 @property (strong, nonatomic) NSMutableArray *topicAreasArray;
-@property (strong, nonatomic) NSMutableArray *queriesArray;
+@property (strong, nonatomic) NSArray *queriesArray;
+@property (strong, nonatomic) User *loggedInUser;
+@property (weak, nonatomic) IBOutlet UITableView *queriesTableView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -27,18 +32,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _collapsedSections = [NSMutableSet new];
-    self.topicAreasArray = [NSMutableArray arrayWithObjects:@"Pre-feasibility study", @"Authorization",@"Appointment of consultant",@"Master plan study",@"Station business plan", nil];
-    self.queriesArray = [NSMutableArray arrayWithObjects:@"Study",@"Report submission",@"Acceptance by IRSDC", nil];
+    self.topicAreasArray = [[NSMutableArray alloc] init];
+    [self getOtherCabinetQueries];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)getOtherCabinetQueries {
+    self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
+    __weak QueriesViewController *weakSelf = self;
+    OtherCabinetQueryApi *othersCabinetQueryApi = [OtherCabinetQueryApi new];
+    othersCabinetQueryApi.email = [AppUtilityClass getUserEmail];
+    [AppUtilityClass showLoaderOnView:self.view];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:othersCabinetQueryApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
+        if (!error) {
+
+            [self getTopicAreas];
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
+
+- (void)getTopicAreas {
+    NSArray *topicArray = [[CoreDataManager sharedManager] fetchQueriesForStationName:@"othersCabinetQuery"];
+    for (QueriesData *queries in topicArray) {
+        if (![self.topicAreasArray containsObject:queries.topicArea]) {
+            [self.topicAreasArray addObject:queries.topicArea];
+        }
+    }
+    [self.queriesTableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return kTableCellHeight;
+    QueriesData *query = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
+    CGFloat cellHeight = [AppUtilityClass sizeOfText:query.name widthOfTextView:self.queriesTableView.frame.size.width - 30 withFont:[UIFont fontWithName:self.titleLabel.font.fontName size:14.0f]].height + 40;
+    if (cellHeight < kTableCellHeight) {
+        return kTableCellHeight;
+    }
+    return cellHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -46,7 +85,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_collapsedSections containsObject:@(section)] ? 0 : self.queriesArray.count;
+    return [_collapsedSections containsObject:@(section)] ? [self queriesArrayCountForSection:section] : 0;
+}
+
+- (NSInteger)queriesArrayCountForSection:(NSInteger)section {
+    NSString *topicArea = [self.topicAreasArray objectAtIndex:section];
+    self.queriesArray = [[CoreDataManager sharedManager] fetchQueriesForTopicArea:topicArea];
+    return self.queriesArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -78,14 +123,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.textLabel.text = [self.queriesArray objectAtIndex:indexPath.row];
+    QueriesData *query = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@\n\nRecieved on : %@\n", query.name, [self getRecievedDate:query.dateReceived]];
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.textColor = [UIColor grayColor];
+    cell.textLabel.font = [UIFont fontWithName:kProximaNovaRegular size:14];
+    
+    CGRect textLabelFrame = cell.textLabel.frame;
+    textLabelFrame.origin.x += 10;
+    textLabelFrame.size.width -= 10;
+    cell.textLabel.frame = textLabelFrame;
+    
     if (self.topicAreasArray.count == indexPath.section && self.queriesArray.count == indexPath.row - 1) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [AppUtilityClass shapeBottomCell:cell.contentView withRadius:6.0];
         });
     }
     return cell;
+}
+
+- (NSString *)getRecievedDate:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd MMM yy"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,21 +168,25 @@
 
 - (void)streamSectionClicked:(UIButton *)sender {
     selectedSection = sender.tag;
-    bool shouldCollapse = ![_collapsedSections containsObject:@(selectedSection)];
+    bool shouldCollapse = [_collapsedSections containsObject:@(selectedSection)];
     if (shouldCollapse) {
         [self.queriesTableView beginUpdates];
         NSInteger numOfRows = [self.queriesTableView numberOfRowsInSection:selectedSection];
         NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
-        [self.queriesTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-        [_collapsedSections addObject:@(selectedSection)];
+        if (indexPaths.count > 0) {
+            [self.queriesTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        }
+        [_collapsedSections removeObject:@(selectedSection)];
         [self.queriesTableView endUpdates];
     }
     else {
         [self.queriesTableView beginUpdates];
-        NSInteger numOfRows = self.queriesArray.count;
+        NSInteger numOfRows = [self queriesArrayCountForSection:selectedSection];
         NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
-        [self.queriesTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-        [_collapsedSections removeObject:@(selectedSection)];
+        if (indexPaths.count > 0) {
+            [self.queriesTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        }
+        [_collapsedSections addObject:@(selectedSection)];
         [self.queriesTableView endUpdates];
     }
     NSLog(@"Sender Section = %ld", sender.tag);

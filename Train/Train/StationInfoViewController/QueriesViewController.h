@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataManager.h"
 
 @interface QueriesViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *queriesTableView;
+@property (strong, nonatomic) Stations *selectedStation;
 
 @end

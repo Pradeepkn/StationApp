@@ -42,6 +42,7 @@ static NSString *const kLeaveMessageCellIdentifier = @"LeaveMessageCellIdentifie
 static NSString *const kSationGalleryInfoSegueIdentifier = @"SationGalleryInfoSegue";
 static NSString *const kHomeMessagesCellIdentifier = @"GlobalMessageCellIdentifier";
 static NSString *const kIRSDCSegueIdentifier = @"IRSDCSegueIdentifier";
+static NSString *const kQueriesSegueIdentifier = @"QueriesSegueIdentifier";
 
 const int kHomeTableView = 1000;
 
@@ -110,6 +111,7 @@ const int kHomeTableView = 1000;
 }
 
 - (IBAction)otherQueriesButtonAction:(id)sender {
+    [self performSegueWithIdentifier:kQueriesSegueIdentifier sender:nil];
 }
 
 - (void)getHomeMessages {

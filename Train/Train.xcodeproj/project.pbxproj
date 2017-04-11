@@ -10,6 +10,7 @@
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272175891E9427F800AAD6C9 /* IRSDCViewController.m */; };
 		27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27320DB11E9ACCDE00004F79 /* QueriesViewController.m */; };
+		278556B01E9CAADF00B45498 /* OtherCabinetQueryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */; };
 		2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2795E88C1E92E21000126EBB /* LandingViewController.m */; };
 		27B983BD1E965C4F00494F0A /* IRSDCSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */; };
 		27BC86711E9C1882006870DE /* QueriesData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BC866F1E9C1882006870DE /* QueriesData+CoreDataProperties.m */; };
@@ -124,6 +125,8 @@
 		272175891E9427F800AAD6C9 /* IRSDCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCViewController.m; sourceTree = "<group>"; };
 		27320DB01E9ACCDE00004F79 /* QueriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueriesViewController.h; sourceTree = "<group>"; };
 		27320DB11E9ACCDE00004F79 /* QueriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueriesViewController.m; sourceTree = "<group>"; };
+		278556AE1E9CAADF00B45498 /* OtherCabinetQueryApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherCabinetQueryApi.h; sourceTree = "<group>"; };
+		278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherCabinetQueryApi.m; sourceTree = "<group>"; };
 		2795E88B1E92E21000126EBB /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewController.h; sourceTree = "<group>"; };
 		2795E88C1E92E21000126EBB /* LandingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingViewController.m; sourceTree = "<group>"; };
 		27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IRSDCSectionHeaderView.xib; sourceTree = "<group>"; };
@@ -753,6 +756,8 @@
 				E98636151DB77A1F0033D358 /* GetRemarksApi.m */,
 				E9B4257D1DC1108B00F92295 /* DeleteMessageApi.h */,
 				E9B4257E1DC1108B00F92295 /* DeleteMessageApi.m */,
+				278556AE1E9CAADF00B45498 /* OtherCabinetQueryApi.h */,
+				278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -934,6 +939,7 @@
 				E9F8A15C1DAC25850057531B /* GetStationDesignationApi.m in Sources */,
 				E9F3B7501D9C59EB00A98B85 /* UIColor+AppColor.m in Sources */,
 				E954AA881DBF20B900A6B6F1 /* StationGalleryInfo+CoreDataClass.m in Sources */,
+				278556B01E9CAADF00B45498 /* OtherCabinetQueryApi.m in Sources */,
 				E954AA7C1DBF20B900A6B6F1 /* SubTasks+CoreDataClass.m in Sources */,
 				E98C0C981DA076AC005D09A5 /* StationsStatusCell.m in Sources */,
 				E9F3B70B1D9C4C7700A98B85 /* main.m in Sources */,

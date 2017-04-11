@@ -51,7 +51,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_collapsedSections containsObject:@(section)] ? 0 : self.irsdcsubStreamsArray.count;
+    return [_collapsedSections containsObject:@(section)] ? self.irsdcsubStreamsArray.count : 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -111,13 +111,13 @@
 
 - (void)streamSectionClicked:(UIButton *)sender {
     selectedSection = sender.tag;
-    bool shouldCollapse = ![_collapsedSections containsObject:@(selectedSection)];
+    bool shouldCollapse = [_collapsedSections containsObject:@(selectedSection)];
     if (shouldCollapse) {
         [self.irsdcTableView beginUpdates];
         NSInteger numOfRows = [self.irsdcTableView numberOfRowsInSection:selectedSection];
         NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
         [self.irsdcTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-        [_collapsedSections addObject:@(selectedSection)];
+        [_collapsedSections removeObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
     }
     else {
@@ -125,7 +125,7 @@
         NSInteger numOfRows = self.irsdcsubStreamsArray.count;
         NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
         [self.irsdcTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-        [_collapsedSections removeObject:@(selectedSection)];
+        [_collapsedSections addObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
     }
     NSLog(@"Sender Section = %ld", sender.tag);

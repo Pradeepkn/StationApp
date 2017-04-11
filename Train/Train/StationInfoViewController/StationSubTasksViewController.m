@@ -314,7 +314,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     subTasksCell.deadLineLabel.text = object.deadline;
     subTasksCell.statusInfoSymbol.hidden = NO;
     subTasksCell.statusInfoSymbol.userInteractionEnabled = NO;
-    id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][indexPath.section];
+//    id< NSFetchedResultsSectionInfo> sectionInfo = [[self stationInfoFetchedResultsController] sections][indexPath.section];
 //    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
 //        [AppUtilityClass shapeBottomCell:subTasksCell withRadius:kBubbleRadius];
 //    }else {
@@ -350,7 +350,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 {
     Remarks *object = [[self remarksFetchedResultsController] objectAtIndexPath:indexPath];
     overallStatusHeaderCell.statusInfoLabel.text = object.message;
-    id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][indexPath.section];
+//    id< NSFetchedResultsSectionInfo> sectionInfo = [[self remarksFetchedResultsController] sections][indexPath.section];
 //    if ([sectionInfo numberOfObjects] == indexPath.row + 1) {
 //        [AppUtilityClass shapeBottomCell:overallStatusHeaderCell withRadius:kBubbleRadius];
 //    }else {
@@ -469,6 +469,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         }
     }
 }
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     if ([controller isEqual:self.stationInfoFetchedResultsController]) {

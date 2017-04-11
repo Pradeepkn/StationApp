@@ -366,6 +366,14 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"FIRST_PHASE_SELECTED"];
 }
 
++ (void)setToEOL:(BOOL)selected {
+    [[NSUserDefaults standardUserDefaults] setBool:selected forKey:@"EOL_SELECTED"];
+}
+
++ (BOOL)isEOLSelected {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"EOL_SELECTED"];
+}
+
 + (void)purgeAllModels {
     [[CoreDataManager sharedManager] deleteAllObjects:@"Stations"];
     [[CoreDataManager sharedManager] deleteAllObjects:@"Designation"];
