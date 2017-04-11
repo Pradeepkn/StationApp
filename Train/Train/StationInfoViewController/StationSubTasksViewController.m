@@ -174,11 +174,11 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }
     if (remarkObject.message.length > 0) {
         heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:14]].height;
+        if (heightOffSet < 40) {
+            heightOffSet = 40.0f;
+        }
     }else {
         heightOffSet = 0.0f;
-    }
-    if (heightOffSet < 40) {
-        heightOffSet = 40.0f;
     }
     return heightOffSet;
 }
