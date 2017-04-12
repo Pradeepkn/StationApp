@@ -11,16 +11,19 @@
 #import "UIColor+AppColor.h"
 #import "IRSDCSectionHeaderView.h"
 #import "AppUtilityClass.h"
+#import "IRSDCProjectsTableViewController.h"
 
-@interface IRSDCViewController () {
+static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
+
+@interface IRSDCViewController ()<StationProjectsDelegate> {
     NSInteger selectedSection;
     NSMutableSet* _collapsedSections;
 }
 
-@property (weak, nonatomic) IBOutlet UITableView *irsdcTableView;
 @property (strong, nonatomic) NSMutableArray *irsdcProjectArray;
 @property (strong, nonatomic) NSMutableArray *irsdcStreamsArray;
 @property (strong, nonatomic) NSMutableArray *irsdcsubStreamsArray;
+@property (weak, nonatomic) IBOutlet UITableView *irsdcTableView;
 @property (weak, nonatomic) IBOutlet RightAlignImageButton *chooseProductButton;
 
 @end
@@ -38,6 +41,10 @@
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)chooseProjectsClicked:(id)sender {
+    [self performSegueWithIdentifier:kIRSDCProjectsIdentifier sender:self];
 }
 
 #pragma mark - Table view data source
@@ -140,19 +147,25 @@
     return indexPaths;
 }
 
+- (void)userSelectedIRSDCProjects:(Stations *)selectedStation {
+    [self.chooseProductButton setTitle:selectedStation.stationName forState:UIControlStateNormal];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:kIRSDCProjectsIdentifier]) {
+        IRSDCProjectsTableViewController *irsdcProjectsTableVC = (IRSDCProjectsTableViewController *)[segue destinationViewController];
+        irsdcProjectsTableVC.delegate = self;
+    }
 }
-*/
 
 @end

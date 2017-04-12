@@ -23,6 +23,13 @@ typedef NS_ENUM(NSInteger, TasksStatus) {
     kTaskCompleted
 };
 
+// Enum to identify Phase
+typedef NS_ENUM(NSInteger, PhaseType) {
+    kFirstPhase = 1,
+    kSecondPhase,
+    kIRSDCType
+};
+
 /******** access token key *********/
 #define ACCESS_TOKEN @"accessToken"
 

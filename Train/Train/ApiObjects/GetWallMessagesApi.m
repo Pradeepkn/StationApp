@@ -51,9 +51,9 @@
 //        NSArray *stationsDataSource = apiDataDict[@"stations"];
 //        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:<#(NSInteger)#>];
         NSArray *messagesDataSource = apiDataDict[@"messages"];
-        [[CoreDataManager sharedManager] saveMessages:messagesDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
+        [[CoreDataManager sharedManager] saveMessages:messagesDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
         NSArray *imagesDataSource = apiDataDict[@"images"];
-        [[CoreDataManager sharedManager] saveHomeImages:imagesDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
+        [[CoreDataManager sharedManager] saveHomeImages:imagesDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     }
 }
 

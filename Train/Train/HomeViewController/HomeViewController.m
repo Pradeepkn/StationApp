@@ -347,7 +347,7 @@ const int kLeaveAMessageTag = 101;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Messages"];
     NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"createDate" ascending:NO];
     [request setSortDescriptors:@[message]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", [AppUtilityClass isFirstPhaseSelected]?1:2];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", [AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     [request setPredicate:predicate];
     return request;
 }
@@ -356,7 +356,7 @@ const int kLeaveAMessageTag = 101;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Stations"];
     NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"stationName" ascending:YES];
     [request setSortDescriptors:@[stations]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && phaseNumber == %ld",@"NA", [AppUtilityClass isFirstPhaseSelected]?1:2];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && phaseNumber == %ld",@"NA", [AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     [request setPredicate:predicate];
     return request;
 }
@@ -365,7 +365,7 @@ const int kLeaveAMessageTag = 101;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HomeImages"];
     NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
     [request setSortDescriptors:@[stations]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", [AppUtilityClass isFirstPhaseSelected]?1:2];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", [AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     [request setPredicate:predicate];
     return request;
 }

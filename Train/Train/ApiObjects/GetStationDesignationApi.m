@@ -9,6 +9,7 @@
 #import "GetStationDesignationApi.h"
 #import "AppUtilityClass.h"
 #import "CoreDataManager.h"
+#import "AppConstants.h"
 
 @implementation GetStationDesignationApi
 
@@ -48,9 +49,9 @@
     NSArray *apiDataSource = responseDictionary[@"data"];
     for (NSDictionary *apiDataDict in apiDataSource) {
         NSArray *stationsDataSource = apiDataDict[@"stations"];
-        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
+        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
         NSArray *designationsDataSource = apiDataDict[@"designation"];
-        [[CoreDataManager sharedManager] saveDesignations:designationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?1:2];
+        [[CoreDataManager sharedManager] saveDesignations:designationsDataSource forPhase:[AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     }
 }
 

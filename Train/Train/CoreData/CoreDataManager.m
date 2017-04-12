@@ -8,6 +8,7 @@
 
 #import "CoreDataManager.h"
 #import "AppUtilityClass.h"
+#import "AppConstants.h"
 
 @interface CoreDataManager ()
 
@@ -630,6 +631,20 @@
     return  result;
 }
 
+- (NSArray *)fetchIRSDCAllStations {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", kIRSDCType];
+    [request setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
 
 #pragma mark - Saving data
 

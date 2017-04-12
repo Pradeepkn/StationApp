@@ -49,6 +49,7 @@
 - (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea;
 - (NSArray *)fetchStationsSubTasksForTaskId:(NSString *)taskId;
 - (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId;
+- (NSArray *)fetchIRSDCAllStations;
 
 - (BOOL)saveData;
 

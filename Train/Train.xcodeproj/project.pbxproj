@@ -10,6 +10,8 @@
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272175891E9427F800AAD6C9 /* IRSDCViewController.m */; };
 		27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27320DB11E9ACCDE00004F79 /* QueriesViewController.m */; };
+		274138101E9EAD0500380A7B /* IRSDCApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2741380F1E9EAD0500380A7B /* IRSDCApi.m */; };
+		274138131E9EBA5000380A7B /* IRSDCProjectsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274138121E9EBA5000380A7B /* IRSDCProjectsTableViewController.m */; };
 		278556B01E9CAADF00B45498 /* OtherCabinetQueryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */; };
 		2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2795E88C1E92E21000126EBB /* LandingViewController.m */; };
 		27B983BD1E965C4F00494F0A /* IRSDCSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */; };
@@ -125,6 +127,10 @@
 		272175891E9427F800AAD6C9 /* IRSDCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCViewController.m; sourceTree = "<group>"; };
 		27320DB01E9ACCDE00004F79 /* QueriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueriesViewController.h; sourceTree = "<group>"; };
 		27320DB11E9ACCDE00004F79 /* QueriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueriesViewController.m; sourceTree = "<group>"; };
+		2741380E1E9EAD0500380A7B /* IRSDCApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCApi.h; sourceTree = "<group>"; };
+		2741380F1E9EAD0500380A7B /* IRSDCApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCApi.m; sourceTree = "<group>"; };
+		274138111E9EBA5000380A7B /* IRSDCProjectsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCProjectsTableViewController.h; sourceTree = "<group>"; };
+		274138121E9EBA5000380A7B /* IRSDCProjectsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCProjectsTableViewController.m; sourceTree = "<group>"; };
 		278556AE1E9CAADF00B45498 /* OtherCabinetQueryApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherCabinetQueryApi.h; sourceTree = "<group>"; };
 		278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherCabinetQueryApi.m; sourceTree = "<group>"; };
 		2795E88B1E92E21000126EBB /* LandingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewController.h; sourceTree = "<group>"; };
@@ -343,6 +349,8 @@
 			children = (
 				272175881E9427F800AAD6C9 /* IRSDCViewController.h */,
 				272175891E9427F800AAD6C9 /* IRSDCViewController.m */,
+				274138111E9EBA5000380A7B /* IRSDCProjectsTableViewController.h */,
+				274138121E9EBA5000380A7B /* IRSDCProjectsTableViewController.m */,
 			);
 			name = IRSDCViewController;
 			path = LoginViewController/IRSDCViewController;
@@ -758,6 +766,8 @@
 				E9B4257E1DC1108B00F92295 /* DeleteMessageApi.m */,
 				278556AE1E9CAADF00B45498 /* OtherCabinetQueryApi.h */,
 				278556AF1E9CAADF00B45498 /* OtherCabinetQueryApi.m */,
+				2741380E1E9EAD0500380A7B /* IRSDCApi.h */,
+				2741380F1E9EAD0500380A7B /* IRSDCApi.m */,
 			);
 			path = ApiObjects;
 			sourceTree = "<group>";
@@ -955,6 +965,7 @@
 				E9231A671DB3AFCF00CD302D /* SubTasksCell.m in Sources */,
 				E954AA831DBF20B900A6B6F1 /* Tasks+CoreDataProperties.m in Sources */,
 				E9275FBD1DBFA75D0077CAB1 /* NSString+AutoCapitalizeString.m in Sources */,
+				274138101E9EAD0500380A7B /* IRSDCApi.m in Sources */,
 				E96B97F91DB270C800D0FCE4 /* WhatsNewMessagesApi.m in Sources */,
 				2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */,
 				E9C964FA1DAD01E0009364CD /* StationsDestinationsCell.m in Sources */,
@@ -994,6 +1005,7 @@
 				E954AA811DBF20B900A6B6F1 /* Stations+CoreDataProperties.m in Sources */,
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
 				2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */,
+				274138131E9EBA5000380A7B /* IRSDCProjectsTableViewController.m in Sources */,
 				E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */,
 				27ECAAE41E994DA900E3D8BF /* IRSDCSectionHeaderView.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,
