@@ -21,6 +21,9 @@
 }
 
 - (NSString *)urlForAPIRequest{
+    if ([AppUtilityClass isEOLSelected]) {
+        return [NSString stringWithFormat:@"%@/EOIUpdateSubtaskStatus",[super baseURL]];
+    }
     return [NSString stringWithFormat:@"%@/updateSubtaskStatus",[super baseURL]];
 }
 
@@ -34,7 +37,8 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.stationSubActivityId], @"Checksum", @"application/json", @"Content-Type",nil];
+    NSDictionary *dictionary;
+    dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[AppUtilityClass calculateSHA:self.stationSubActivityId], @"Checksum", @"application/json", @"Content-Type",nil];
     return dictionary;
 }
 

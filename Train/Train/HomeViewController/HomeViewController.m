@@ -40,7 +40,6 @@ static NSString *const kWhatsNewCellIdentifier = @"WhatsNewCellIdentifier";
 static NSString *const kQueriesSegueIdentifier = @"QueriesSegueIdentifier";
 
 static NSString *const kSendMessageSegueIdentifier = @"SendMessageSegue";
-static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
 static NSString *const kSationGalleryInfoSegueIdentifier = @"SationGalleryInfoSegue";
 
 static NSString *const kLeaveAMessageKey = @"Leave a message";

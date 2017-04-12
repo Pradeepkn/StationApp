@@ -104,6 +104,8 @@ const int kHomeTableView = 1000;
 }
 
 - (IBAction)markEolButtonAction:(id)sender {
+    [AppUtilityClass setToEOL:YES];
+    [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
 - (IBAction)iRSDCButtonAction:(id)sender {

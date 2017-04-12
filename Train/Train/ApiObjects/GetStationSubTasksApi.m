@@ -22,6 +22,9 @@
 }
 
 - (NSString *)urlForAPIRequest{
+    if ([AppUtilityClass isEOLSelected]) {
+        return [NSString stringWithFormat:@"%@/EOIGetStationSubTasks",[super baseURL]];
+    }
     if ([AppUtilityClass isFirstPhaseSelected]) {
         return [NSString stringWithFormat:@"%@/getStationSubTasks",[super baseURL]];
     }else {
@@ -42,8 +45,14 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.taskId], @"application/json",self.email, self.taskId, self.stationId] forKeys:@[@"Checksum", @"Content-Type", kEmailKey, kTaskIdKey, kStationIdKey]];
-    return dictionay;
+    NSMutableDictionary *dictionary;
+    if ([AppUtilityClass isEOLSelected]) {
+        dictionary = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.taskId], @"application/json",self.email, self.taskId] forKeys:@[@"Checksum", @"Content-Type", kEmailKey, kTaskIdKey]];
+    }else {
+        dictionary = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.taskId], @"application/json",self.email, self.taskId, self.stationId] forKeys:@[@"Checksum", @"Content-Type", kEmailKey, kTaskIdKey, kStationIdKey]];
+    }
+
+    return dictionary;
 }
 
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{

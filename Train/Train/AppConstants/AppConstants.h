@@ -90,6 +90,8 @@ static NSString *const kSelectedStationIndex = @"SelectedStationIndex";
 static NSString *const kSelectedDesignationIndex = @"SelectedDesignationIndex";
 static NSString *const kRemeberMeKey = @"RememberMeKey";
 
+static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
+
 // Proxima nova bold
 static NSString *const kProximaNovaSemibold = @"ProximaNova-Semibold";
 static NSString *const kProximaNovaBold = @"ProximaNova-Bold";

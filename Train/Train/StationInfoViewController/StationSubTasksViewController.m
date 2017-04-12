@@ -224,8 +224,8 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (void)configureRemarksCell:(SubTasksCell *)remarksCell atIndexPath:(NSIndexPath*)indexPath {
-    SubTasks *object = [self.subActivitiesArray objectAtIndex:indexPath.section];
-    Remarks *remarkObject = (Remarks*)[[CoreDataManager sharedManager] fetchRemarksFor:object.stationSubActivityId][indexPath.row];
+    SubTasks *subTaskObject = [self.subActivitiesArray objectAtIndex:indexPath.section];
+    Remarks *remarkObject = (Remarks*)[[CoreDataManager sharedManager] fetchRemarksFor:subTaskObject.stationSubActivityId][indexPath.row];
     remarksCell.remarksMessageLabel.text = remarkObject.message;
     if (indexPath.row != 0) {
         remarksCell.remarksHeaderLabel.text = @"";
@@ -234,6 +234,22 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         remarksCell.remarksHeaderLabel.text = @"Remarks";
         remarksCell.remarksHeaderHeightConstraint.constant = 20.0f;
     }
+//    switch (subTaskObject.status) {
+//        case kTaskToStart:
+//            remarksCell.remarksMessageLabel.textColor = [UIColor lightGrayColor];
+//            break;
+//        case kTaskOnTrack:
+//            remarksCell.remarksMessageLabel.textColor = [UIColor appTextColor];
+//            break;
+//        case kTaskDelayed:
+//            remarksCell.remarksMessageLabel.textColor = [UIColor appRedColor];
+//            break;
+//        case kTaskCompleted:
+//            remarksCell.remarksMessageLabel.textColor = [UIColor grayColor];
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 - (void)configureMessagesCell:(SubActivitiesHeaderView *)subActivityHeaderView

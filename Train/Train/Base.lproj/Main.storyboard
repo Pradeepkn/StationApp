@@ -931,7 +931,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="INFORMATION" image="1BECC0AA-0871-44F8-929F-901CD3CA4382">
+                                        <state key="normal" title="INFORMATION" image="C953E4B4-8C48-464A-B26F-35384D9ECFE2">
                                             <color key="titleColor" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -942,7 +942,7 @@
                                         <rect key="frame" x="187" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="LEAVE MESSAGE" image="126553A2-99C9-4093-B0C5-DE99C61B0AEC">
+                                        <state key="normal" title="LEAVE MESSAGE" image="93479A37-E221-40AF-8F30-8B3523CEA683">
                                             <color key="titleColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -2840,7 +2840,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkL-Br-UVA">
-                                                    <rect key="frame" x="10" y="20" width="335" height="29.5"/>
+                                                    <rect key="frame" x="10" y="20" width="335" height="30"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3394,6 +3394,7 @@
                         <segue destination="Pb3-75-tyh" kind="show" identifier="StationSubTaskSegue" id="6x0-wb-H3j"/>
                         <segue destination="waG-BQ-OYi" kind="show" identifier="IRSDCSegueIdentifier" id="n4t-rT-FUg"/>
                         <segue destination="KrK-id-ZXE" kind="show" identifier="QueriesSegueIdentifier" id="mYG-6X-2Ad"/>
+                        <segue destination="raJ-9S-cAR" kind="show" identifier="StationInfoSegue" id="HNX-JL-Yq1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sV7-Hu-ppC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3515,7 +3516,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="126553A2-99C9-4093-B0C5-DE99C61B0AEC" width="11" height="11">
+        <image name="93479A37-E221-40AF-8F30-8B3523CEA683" width="11" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3574,7 +3575,7 @@ ALsAvQDCANkA2wDdC2MLaAtzC3wLjwuTC54LpwusC7QLtwu8C8sLzwvWC94L6wvwC/IL9Av5DAEMBAwJ
 DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
 </mutableData>
         </image>
-        <image name="1BECC0AA-0871-44F8-929F-901CD3CA4382" width="9" height="11">
+        <image name="C953E4B4-8C48-464A-B26F-35384D9ECFE2" width="9" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3662,5 +3663,6 @@ AAAAAAAAAAAAAAAL1w
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6x0-wb-H3j"/>
+        <segue reference="HNX-JL-Yq1"/>
     </inferredMetricsTieBreakers>
 </document>
