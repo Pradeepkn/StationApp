@@ -36,8 +36,7 @@
 }
 
 - (NSDictionary *)customHTTPHeaders {
-    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:[AppUtilityClass getUserEmail]], @"application/json",[AppUtilityClass getUserEmail]] forKeys:@[@"Checksum", @"Content-Type", kEmailKey]];
-    return dictionay;
+    return nil;
 }
 
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{
@@ -61,6 +60,12 @@
     }
 }
 
+- (NSDictionary *)customHTTPHeaders {
+    [super customHTTPHeaders];
+    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:[AppUtilityClass getUserEmail]], @"application/json",[AppUtilityClass getUserEmail]] forKeys:@[@"Checksum", @"Content-Type", kEmailKey]];
+    return dictionay;
+}
+
 @end
 
 @implementation IRSDCGetStationTasks
@@ -80,9 +85,36 @@
     }
 }
 
+- (NSDictionary *)customHTTPHeaders {
+    [super customHTTPHeaders];
+    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.stationId], @"application/json",self.stationId] forKeys:@[@"Checksum", @"Content-Type", kStationIdKey]];
+    return dictionay;
+}
+
 @end
 
 @implementation IRSDCGetStationSubTasks
+- (NSString *)urlForAPIRequest{
+    [super urlForAPIRequest];
+    return [NSString stringWithFormat:@"%@/IRSDCGetStationSubTasks",[super baseURL]];
+}
+
+- (void)parseAPIResponse:(NSDictionary *)responseDictionary{
+    [super parseAPIResponse:responseDictionary];
+    NSDictionary *apiDataSource = responseDictionary[@"data"];
+    self.activityName = apiDataSource[@"activityName"];
+    self.editStatus = [apiDataSource[@"editStatus"] boolValue];
+    if ([apiDataSource[@"subActivities"] isKindOfClass:[NSArray class]]) {
+        NSArray *subTasksDataSource = apiDataSource[@"subActivities"];
+        [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource forTaskId:self.taskId];
+    }
+}
+
+- (NSDictionary *)customHTTPHeaders {
+    [super customHTTPHeaders];
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.taskId], @"application/json",[AppUtilityClass getUserEmail], self.taskId, self.stationId] forKeys:@[@"Checksum", @"Content-Type", kEmailKey, kTaskIdKey, kStationIdKey]];
+    return dictionary;
+}
 
 @end
 

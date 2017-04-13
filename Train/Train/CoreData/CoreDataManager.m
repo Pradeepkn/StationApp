@@ -646,6 +646,20 @@
     return  result;
 }
 
+- (NSArray *)fetchIRSDCAllStationTasksForStationId:(NSString*)stationId {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tasks" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *message = [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES];
+    [request setSortDescriptors:@[message]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@", stationId];
+    [request setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
 #pragma mark - Saving data
 
 - (BOOL)saveData {

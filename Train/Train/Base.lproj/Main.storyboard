@@ -931,7 +931,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="INFORMATION" image="BB1AFF5E-71BF-405D-BB75-8B20A5C900AC">
+                                        <state key="normal" title="INFORMATION" image="A6B0870C-2960-4DF1-9565-FFA563ABDFBF">
                                             <color key="titleColor" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -942,7 +942,7 @@
                                         <rect key="frame" x="187" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="LEAVE MESSAGE" image="693E16FE-28A7-4100-815A-68885396EC6B">
+                                        <state key="normal" title="LEAVE MESSAGE" image="669F1F4F-15BA-4D1B-B482-4895F449EC7F">
                                             <color key="titleColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -2724,7 +2724,8 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-XF-KR5">
                                 <rect key="frame" x="10" y="184" width="355" height="473"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.9435458779" green="0.91396027800000001" blue="0.9133055806" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="s5A-DN-P1o">
                                         <rect key="frame" x="0.0" y="28" width="355" height="44"/>
@@ -2941,7 +2942,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3548,7 +3549,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="693E16FE-28A7-4100-815A-68885396EC6B" width="11" height="11">
+        <image name="669F1F4F-15BA-4D1B-B482-4895F449EC7F" width="11" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3607,7 +3608,7 @@ ALsAvQDCANkA2wDdC2MLaAtzC3wLjwuTC54LpwusC7QLtwu8C8sLzwvWC94L6wvwC/IL9Av5DAEMBAwJ
 DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
 </mutableData>
         </image>
-        <image name="BB1AFF5E-71BF-405D-BB75-8B20A5C900AC" width="9" height="11">
+        <image name="A6B0870C-2960-4DF1-9565-FFA563ABDFBF" width="9" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

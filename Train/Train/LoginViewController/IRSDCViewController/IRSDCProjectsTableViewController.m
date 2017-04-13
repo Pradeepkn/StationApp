@@ -25,18 +25,15 @@
     self.navigationController.navigationBarHidden = NO;
     self.title = @"IRSDC Projects";
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                    style:UIBarButtonItemStylePlain target:nil action:@selector(backButtonClicked:)];
+                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked)];
     [leftButton setImage:[UIImage imageNamed:@"left-arrow"]];
     self.navigationItem.leftBarButtonItem = leftButton;
+    self.projectsArray = [[CoreDataManager sharedManager] fetchIRSDCAllStations];
     [self getIRSDCStations];
 }
 
-- (void)backButtonClicked:(UIBarButtonItem *)backButton {
+- (void)backButtonClicked {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)DoneButtonClicked:(UIBarButtonItem*)barButtonItem {
-    
 }
 
 - (void)getIRSDCStations {
@@ -69,7 +66,14 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 1.0f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.projectsArray.count == 0) {
+        tableView.separatorColor = [UIColor clearColor];
+    }
     return self.projectsArray.count;
 }
 
