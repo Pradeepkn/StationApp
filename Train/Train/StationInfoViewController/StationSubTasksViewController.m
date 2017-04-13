@@ -49,11 +49,14 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.selectedStation.stationName;
+    if ([AppUtilityClass isEOLSelected]) {
+        self.title = @"EOL";
+    }else {
+        self.title = self.selectedStation.stationName;
+    }
     self.navigationController.navigationBarHidden = NO;
     self.subActivitiesArray = [[NSMutableArray alloc] init];
     self.remarksArray = [[NSMutableArray alloc] init];
-//    [self initializeStationsInfoFetchedResultsController];
     [self getStationTasks];
     [self hideRightBarButton:YES];
     self.subTasksListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
