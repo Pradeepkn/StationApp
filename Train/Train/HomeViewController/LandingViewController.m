@@ -13,7 +13,6 @@
 #import "OverallStatusCell.h"
 #import "WhatsNewCell.h"
 #import "LocalizationKeys.h"
-#import "SendMessageViewController.h"
 #import "AppUtilityClass.h"
 #import "StationsStatusCell.h"
 #import "StationInfoViewController.h"

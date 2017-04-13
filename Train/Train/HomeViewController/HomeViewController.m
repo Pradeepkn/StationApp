@@ -752,6 +752,10 @@ const int kLeaveAMessageTag = 101;
         StationGalleryInfoViewController *stationInfoVC = (StationGalleryInfoViewController *)[segue destinationViewController];
         stationInfoVC.selectedStation = self.stationInfoSelectedStation;
     }
+    if ([segue.identifier isEqualToString:kSendMessageSegueIdentifier]) {
+        SendMessageViewController *stationInfoVC = (SendMessageViewController *)[segue destinationViewController];
+        stationInfoVC.selectedStations = self.stationInfoSelectedStation;
+    }
 }
 
 

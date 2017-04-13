@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataManager.h"
 
 @interface SendMessageViewController : UIViewController
+
+@property (nonatomic, strong) Stations *selectedStations;
 
 @end

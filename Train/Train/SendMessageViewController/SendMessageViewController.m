@@ -96,9 +96,12 @@ static NSString *const kThirdMessage = @"Custom";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *messageBody;
-    messageBody = [prePopulatedArray objectAtIndex:indexPath.row];
+    messageBody = [NSString stringWithFormat:@"From %@ : ", self.selectedStations.stationName];
+
     if (indexPath.row == (prePopulatedArray.count - 1)) {
-        messageBody = @" ";
+        messageBody = [messageBody stringByAppendingString:@" "];
+    }else {
+        messageBody = [messageBody stringByAppendingString:[prePopulatedArray objectAtIndex:indexPath.row]];
     }
     NSString *sms = [NSString stringWithFormat:@"sms:&body=%@", messageBody];
     NSString *url = [sms stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
