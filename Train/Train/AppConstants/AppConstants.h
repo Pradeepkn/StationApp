@@ -98,6 +98,8 @@ static NSString *const kSelectedDesignationIndex = @"SelectedDesignationIndex";
 static NSString *const kRemeberMeKey = @"RememberMeKey";
 
 static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
+static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
+static NSString *const kSubTasksCellIdentifier = @"SubTasksCellIdentifier";
 
 // Proxima nova bold
 static NSString *const kProximaNovaSemibold = @"ProximaNova-Semibold";

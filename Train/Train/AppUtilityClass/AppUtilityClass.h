@@ -91,4 +91,8 @@
 
 + (BOOL)isEOLSelected;
 
++ (void)setToIRSDC:(BOOL)selected;
+
++ (BOOL)isIRSDCSelected;
+
 @end

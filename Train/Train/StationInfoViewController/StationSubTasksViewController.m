@@ -21,10 +21,8 @@
 #import "UpdateRemarksStatusApi.h"
 #import "GetRemarksApi.h"
 
-static NSString *const kSubTasksCellIdentifier = @"SubTasksCellIdentifier";
 static NSString *const kOverallStatusInfoCellIdentifier = @"OverallStatusInfoCell";
 static NSString *const kTasksHeaderViewNibName = @"TasksHeaderView";
-static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpdateSegue";
 
 @interface StationSubTasksViewController ()<NSFetchedResultsControllerDelegate, RemarksStatusDelegate>

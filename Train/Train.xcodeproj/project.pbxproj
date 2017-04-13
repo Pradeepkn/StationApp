@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
+		27208A271E9FF4AA007D1DAD /* IRSDCStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27208A261E9FF4AA007D1DAD /* IRSDCStatusViewController.m */; };
+		27208A2A1EA000CC007D1DAD /* SubStreamStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27208A291EA000CC007D1DAD /* SubStreamStatusCell.m */; };
+		27208A301EA01765007D1DAD /* TasksStatusHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27208A2F1EA01765007D1DAD /* TasksStatusHeaderView.m */; };
+		27208A321EA01774007D1DAD /* TasksStatusHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27208A311EA01774007D1DAD /* TasksStatusHeaderView.xib */; };
 		2721758A1E9427F800AAD6C9 /* IRSDCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 272175891E9427F800AAD6C9 /* IRSDCViewController.m */; };
 		27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27320DB11E9ACCDE00004F79 /* QueriesViewController.m */; };
 		274138101E9EAD0500380A7B /* IRSDCApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2741380F1E9EAD0500380A7B /* IRSDCApi.m */; };
@@ -123,6 +127,13 @@
 /* Begin PBXFileReference section */
 		271661091DC3CCA800253BEB /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		2716610A1DC3CCA800253BEB /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
+		27208A251E9FF4AA007D1DAD /* IRSDCStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCStatusViewController.h; sourceTree = "<group>"; };
+		27208A261E9FF4AA007D1DAD /* IRSDCStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCStatusViewController.m; sourceTree = "<group>"; };
+		27208A281EA000CC007D1DAD /* SubStreamStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubStreamStatusCell.h; sourceTree = "<group>"; };
+		27208A291EA000CC007D1DAD /* SubStreamStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubStreamStatusCell.m; sourceTree = "<group>"; };
+		27208A2E1EA01765007D1DAD /* TasksStatusHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksStatusHeaderView.h; sourceTree = "<group>"; };
+		27208A2F1EA01765007D1DAD /* TasksStatusHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksStatusHeaderView.m; sourceTree = "<group>"; };
+		27208A311EA01774007D1DAD /* TasksStatusHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TasksStatusHeaderView.xib; sourceTree = "<group>"; };
 		272175881E9427F800AAD6C9 /* IRSDCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCViewController.h; sourceTree = "<group>"; };
 		272175891E9427F800AAD6C9 /* IRSDCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IRSDCViewController.m; sourceTree = "<group>"; };
 		27320DB01E9ACCDE00004F79 /* QueriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueriesViewController.h; sourceTree = "<group>"; };
@@ -351,6 +362,8 @@
 				272175891E9427F800AAD6C9 /* IRSDCViewController.m */,
 				274138111E9EBA5000380A7B /* IRSDCProjectsTableViewController.h */,
 				274138121E9EBA5000380A7B /* IRSDCProjectsTableViewController.m */,
+				27208A251E9FF4AA007D1DAD /* IRSDCStatusViewController.h */,
+				27208A261E9FF4AA007D1DAD /* IRSDCStatusViewController.m */,
 			);
 			name = IRSDCViewController;
 			path = LoginViewController/IRSDCViewController;
@@ -719,6 +732,11 @@
 				27ECAAE21E994DA900E3D8BF /* IRSDCSectionHeaderView.h */,
 				27ECAAE31E994DA900E3D8BF /* IRSDCSectionHeaderView.m */,
 				27B983BB1E965C4F00494F0A /* IRSDCSectionHeaderView.xib */,
+				27208A281EA000CC007D1DAD /* SubStreamStatusCell.h */,
+				27208A291EA000CC007D1DAD /* SubStreamStatusCell.m */,
+				27208A2E1EA01765007D1DAD /* TasksStatusHeaderView.h */,
+				27208A2F1EA01765007D1DAD /* TasksStatusHeaderView.m */,
+				27208A311EA01774007D1DAD /* TasksStatusHeaderView.xib */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -854,6 +872,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27208A321EA01774007D1DAD /* TasksStatusHeaderView.xib in Resources */,
 				E9FB6B711DA98B0F00769D8C /* proximanova-thin-webfont.ttf in Resources */,
 				E954AAA41DBF4BA400A6B6F1 /* ProximaNova-LightItalic.otf in Resources */,
 				E9FB6B721DA98B0F00769D8C /* proximanova-xbold-webfont.ttf in Resources */,
@@ -956,6 +975,7 @@
 				E9FB6B751DA997D000769D8C /* SignUpEntryCell.m in Sources */,
 				E954AA861DBF20B900A6B6F1 /* Designation+CoreDataClass.m in Sources */,
 				E96B98081DB2D65200D0FCE4 /* GetStationTasksApi.m in Sources */,
+				27208A271E9FF4AA007D1DAD /* IRSDCStatusViewController.m in Sources */,
 				27320DB21E9ACCDE00004F79 /* QueriesViewController.m in Sources */,
 				E9275FC01DBFB9AA0077CAB1 /* Messages+CoreDataProperties.m in Sources */,
 				E9C964E71DACBEB6009364CD /* StationsListViewController.m in Sources */,
@@ -1005,7 +1025,9 @@
 				E954AA811DBF20B900A6B6F1 /* Stations+CoreDataProperties.m in Sources */,
 				E9F3B75E1D9C66DC00A98B85 /* HomeMessagesCell.m in Sources */,
 				2795E88D1E92E21000126EBB /* LandingViewController.m in Sources */,
+				27208A2A1EA000CC007D1DAD /* SubStreamStatusCell.m in Sources */,
 				274138131E9EBA5000380A7B /* IRSDCProjectsTableViewController.m in Sources */,
+				27208A301EA01765007D1DAD /* TasksStatusHeaderView.m in Sources */,
 				E954AA7E1DBF20B900A6B6F1 /* User+CoreDataClass.m in Sources */,
 				27ECAAE41E994DA900E3D8BF /* IRSDCSectionHeaderView.m in Sources */,
 				E9C964F71DACC903009364CD /* CoreDataManager.m in Sources */,

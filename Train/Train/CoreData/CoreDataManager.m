@@ -545,6 +545,18 @@
     return  result;
 }
 
+- (NSArray *)fetchStationsSubTasksForActivityId:(NSString *)subActivityId {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SubTasks" inManagedObjectContext:moc];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationSubActivityId == %@",subActivityId];
+    [request setPredicate:predicate];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
 - (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];

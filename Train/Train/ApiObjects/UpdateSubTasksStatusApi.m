@@ -23,6 +23,8 @@
 - (NSString *)urlForAPIRequest{
     if ([AppUtilityClass isEOLSelected]) {
         return [NSString stringWithFormat:@"%@/EOIUpdateSubtaskStatus",[super baseURL]];
+    }else if ([AppUtilityClass isIRSDCSelected]) {
+        return [NSString stringWithFormat:@"%@/IRSDCUpdateSubtaskStatus",[super baseURL]];
     }
     return [NSString stringWithFormat:@"%@/updateSubtaskStatus",[super baseURL]];
 }

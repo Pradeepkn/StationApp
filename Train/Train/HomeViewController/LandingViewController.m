@@ -109,6 +109,7 @@ const int kHomeTableView = 1000;
 }
 
 - (IBAction)iRSDCButtonAction:(id)sender {
+    [AppUtilityClass setToIRSDC:YES];
     [self performSegueWithIdentifier:kIRSDCSegueIdentifier sender:self];
 }
 

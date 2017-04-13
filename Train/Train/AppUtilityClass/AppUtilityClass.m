@@ -375,6 +375,14 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"EOL_SELECTED"];
 }
 
++ (void)setToIRSDC:(BOOL)selected {
+    [[NSUserDefaults standardUserDefaults] setBool:selected forKey:@"IRSDCL_SELECTED"];
+}
+
++ (BOOL)isIRSDCSelected {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"IRSDCL_SELECTED"];
+}
+
 + (void)purgeAllModels {
     [[CoreDataManager sharedManager] deleteAllObjects:@"Stations"];
     [[CoreDataManager sharedManager] deleteAllObjects:@"Designation"];

@@ -14,8 +14,10 @@
 #import "IRSDCProjectsTableViewController.h"
 #import "IRSDCApi.h"
 #import "CoreDataManager.h"
+#import "IRSDCStatusViewController.h"
 
 static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
+static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 
 @interface IRSDCViewController ()<StationProjectsDelegate> {
     NSInteger selectedSection;
@@ -28,6 +30,8 @@ static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
 @property (weak, nonatomic) IBOutlet UITableView *irsdcTableView;
 @property (weak, nonatomic) IBOutlet RightAlignImageButton *chooseProductButton;
 @property (strong, nonatomic) Stations *selectedStation;
+@property (nonatomic, strong) Tasks *selectedTasks;
+@property (nonatomic, strong) SubTasks *selectedSubTasks;
 
 @end
 
@@ -43,6 +47,11 @@ static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
     }else {
         self.irsdcTableView.hidden = YES;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [AppUtilityClass setToIRSDC:NO];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -170,7 +179,9 @@ static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.selectedTasks = [self.irsdcStreamsArray objectAtIndex:indexPath.section];
+    self.selectedSubTasks = [self.irsdcsubStreamsArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:kIRSDCStatusSegueIdentifier sender:self];
 }
 
 - (NSInteger)getHeightForText:(NSString*)message {
@@ -208,7 +219,6 @@ static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
         [_collapsedSections addObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
     }
-    NSLog(@"Sender Section = %ld", sender.tag);
 }
 
 -(NSArray*) indexPathsForSection:(NSInteger)section withNumberOfRows:(NSInteger)numberOfRows {
@@ -240,6 +250,12 @@ static NSString *kIRSDCProjectsIdentifier = @"IRSDCProjectsIdentifier";
     if ([segue.identifier isEqualToString:kIRSDCProjectsIdentifier]) {
         IRSDCProjectsTableViewController *irsdcProjectsTableVC = (IRSDCProjectsTableViewController *)[segue destinationViewController];
         irsdcProjectsTableVC.delegate = self;
+    }
+    if ([segue.identifier isEqualToString:kIRSDCStatusSegueIdentifier]) {
+        IRSDCStatusViewController *irsdcProjectsTableVC = (IRSDCStatusViewController *)[segue destinationViewController];
+        irsdcProjectsTableVC.selectedTasks = self.selectedTasks;
+        irsdcProjectsTableVC.selectedSubTasks = self.selectedSubTasks;
+        irsdcProjectsTableVC.selectedStations = self.selectedStation;
     }
 }
 

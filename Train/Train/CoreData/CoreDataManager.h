@@ -51,6 +51,7 @@
 - (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId;
 - (NSArray *)fetchIRSDCAllStations;
 - (NSArray *)fetchIRSDCAllStationTasksForStationId:(NSString*)stationId;
+- (NSArray *)fetchStationsSubTasksForActivityId:(NSString *)subActivityId;
 
 - (BOOL)saveData;
 
