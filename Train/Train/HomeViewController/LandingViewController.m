@@ -90,6 +90,8 @@ const int kHomeTableView = 1000;
     self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
+    [AppUtilityClass setToEOL:NO];
+    [AppUtilityClass setToIRSDC:NO];
 }
 
 - (IBAction)phase1ButtonAction:(id)sender {

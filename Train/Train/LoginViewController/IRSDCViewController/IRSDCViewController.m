@@ -51,7 +51,6 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [AppUtilityClass setToIRSDC:NO];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -75,7 +74,6 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
         }else {
             self.irsdcTableView.hidden = YES;
         }
-        [self fetchSubStreams];
         if (!error) {
             [self.irsdcTableView reloadData];
         }else{

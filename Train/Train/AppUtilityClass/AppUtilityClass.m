@@ -359,7 +359,6 @@
 
 
 + (void)setToFirstPhaseFlow:(BOOL)selected {
-    [AppUtilityClass setToEOL:NO];
     [[NSUserDefaults standardUserDefaults] setBool:selected forKey:@"FIRST_PHASE_SELECTED"];
 }
 

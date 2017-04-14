@@ -82,6 +82,13 @@
     if ([apiDataSource[@"tasks"] isKindOfClass:[NSArray class]]) {
         NSArray *tasksDataSource = apiDataSource[@"tasks"];
         [[CoreDataManager sharedManager] saveStationTasks:tasksDataSource forStationId:self.stationId];
+        for (NSDictionary *tasksDictionary in tasksDataSource) {
+            NSDictionary *subTasks = [tasksDictionary valueForKey:@"subTasks"];
+            if ([subTasks[@"subActivities"] isKindOfClass:[NSArray class]]) {
+                NSArray *subTasksDataSource = subTasks[@"subActivities"];
+                [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource forTaskId:[tasksDictionary valueForKey:@"refId"]];
+            }
+        }
     }
 }
 

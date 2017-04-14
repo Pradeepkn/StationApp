@@ -40,6 +40,7 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
                                                                    style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked)];
     [leftButton setImage:[UIImage imageNamed:@"left-arrow"]];
     self.navigationItem.leftBarButtonItem = leftButton;
+    [self getStationSubTasksRemarks];
 }
 
 - (void)backButtonClicked {
@@ -63,11 +64,11 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat heightOffSet = 25.0f;
+    CGFloat heightOffSet = 0.0f;
 
     switch (indexPath.row) {
         case 0: {
-            heightOffSet = [AppUtilityClass sizeOfText:self.selectedSubTasks.name widthOfTextView:self.statusTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:16]].height;
+            heightOffSet = [AppUtilityClass sizeOfText:self.selectedSubTasks.name widthOfTextView:self.statusTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:22]].height;
             if (heightOffSet < kTableCellHeight) {
                 heightOffSet = kTableCellHeight;
             }
@@ -93,12 +94,13 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
     }
     if (indexPath.row != 0) {
         heightOffSet = 0.0f;
+    }else {
+        heightOffSet = 30.0f;
     }
-    [self.statusArray addObject:remarkObject];
-    if (remarkObject.message.length > 0) {
-        heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.statusTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:14]].height;
-        if (heightOffSet < 40) {
-            heightOffSet = 40.0f;
+    if (remarkObject.message) {
+        heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.statusTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:15]].height;
+        if (heightOffSet < kTableCellHeight) {
+            heightOffSet = kTableCellHeight;
         }
     }else {
         heightOffSet = 0.0f;
@@ -137,55 +139,60 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SubStreamStatusCell *subStreamStatusCell = (SubStreamStatusCell *) [tableView dequeueReusableCellWithIdentifier:kSubStreamStatusCellIdentifier forIndexPath:indexPath];
-    subStreamStatusCell.nameLabel.hidden = YES;
-    subStreamStatusCell.titleLabel.hidden = NO;
-    subStreamStatusCell.timeLabel.hidden = NO;
-    subStreamStatusCell.titleLabel.text = [self.statusArray objectAtIndex:indexPath.row];
-
-    switch (indexPath.row) {
-        case 0: {
-            subStreamStatusCell.nameLabel.hidden = NO;
-            subStreamStatusCell.titleLabel.hidden = YES;
-            subStreamStatusCell.timeLabel.hidden = YES;
-            subStreamStatusCell.nameLabel.text = self.selectedSubTasks.name;
-        }
-            break;
-        case 1: {
-        }
-        case 2:
-        case 3:
-            break;
-        case 4: {
-            [self configureMessagesCell:subStreamStatusCell];
-        }
-            break;
-            
-        default:
-            break;
-    }
     if (indexPath.row == 0 || indexPath.row < 5) {
+        SubStreamStatusCell *subStreamStatusCell = (SubStreamStatusCell *) [tableView dequeueReusableCellWithIdentifier:kSubStreamStatusCellIdentifier forIndexPath:indexPath];
+        subStreamStatusCell.nameLabel.hidden = YES;
+        subStreamStatusCell.titleLabel.hidden = NO;
+        subStreamStatusCell.timeLabel.hidden = NO;
+
+        switch (indexPath.row) {
+            case 0: {
+                subStreamStatusCell.nameLabel.hidden = NO;
+                subStreamStatusCell.titleLabel.hidden = YES;
+                subStreamStatusCell.timeLabel.hidden = YES;
+                subStreamStatusCell.nameLabel.text = self.selectedSubTasks.name;
+            }
+                break;
+            case 1: {
+                [subStreamStatusCell.timeLabel setTitle:@"NA" forState:UIControlStateNormal];
+                break;
+            }
+            case 2: {
+                [subStreamStatusCell.timeLabel setTitle:self.selectedSubTasks.deadline forState:UIControlStateNormal];
+                break;
+            }
+            case 3: {
+                [subStreamStatusCell.timeLabel setTitle:@"NA" forState:UIControlStateNormal];
+            }
+                break;
+            case 4: {
+                [self configureMessagesCell:subStreamStatusCell];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        subStreamStatusCell.titleLabel.text = [self.statusArray objectAtIndex:indexPath.row];
         return subStreamStatusCell;
     }
-    SubTasksCell *subTasksCell = (SubTasksCell *)[tableView dequeueReusableCellWithIdentifier:kSubTasksCellIdentifier forIndexPath:indexPath];
-    [self configureRemarksCell:subTasksCell atIndexPath:indexPath];
-    return subTasksCell;
-}
-
-- (void)configureRemarksCell:(SubTasksCell *)remarksCell atIndexPath:(NSIndexPath*)indexPath {
-    if (self.statusArray.count <= indexPath.row) {
-        return;
-    }
+    SubTasksCell *remarksCell = (SubTasksCell *)[tableView dequeueReusableCellWithIdentifier:kSubTasksCellIdentifier forIndexPath:indexPath];
     Remarks *remarkObject = self.statusArray[indexPath.row];
     remarksCell.remarksMessageLabel.text = remarkObject.message;
-    if (indexPath.row != 0) {
+    
+    if (indexPath.row != 5) {
         remarksCell.remarksHeaderLabel.text = @"";
         remarksCell.remarksHeaderHeightConstraint.constant = 10.0f;
     }else {
         remarksCell.remarksHeaderLabel.text = @"Remarks";
         remarksCell.remarksHeaderHeightConstraint.constant = 20.0f;
     }
+
+    return remarksCell;
 }
+
+- (void)configureRemarksCell:(SubTasksCell *)remarksCell atIndexPath:(NSIndexPath*)indexPath {
+    }
 
 - (void)configureMessagesCell:(SubStreamStatusCell *)overallStatusHeaderCell {
     switch (self.selectedSubTasks.status) {
@@ -243,11 +250,12 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
     [[APIManager sharedInstance]makePostAPIRequestWithObject:updateSubTaskStatusApiObject
                                           andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
                                               //NSLog(@"Response = %@", responseDictionary);
+
                                               [AppUtilityClass hideLoaderFromView:weakSelf.view];
                                               NSDictionary *errorDict = responseDictionary[@"error"];
                                               NSDictionary *dataDict = responseDictionary[@"data"];
                                               if (dataDict.allKeys.count > 0) {
-                                                  [self getStationTasks];
+                                                  [self fetchSubStreams];
                                               }else{
                                                   if (errorDict.allKeys.count > 0) {
                                                       if ([AppUtilityClass getErrorMessageFor:errorDict]) {
@@ -260,9 +268,29 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
                                           }];
 }
 
-- (void)getStationTasks {
-    NSArray *array = [NSMutableArray arrayWithArray:[[CoreDataManager sharedManager] fetchStationsSubTasksForActivityId:self.selectedSubTasks.stationSubActivityId]];
-    self.selectedSubTasks = array[0];
+- (void)fetchSubStreams {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [AppUtilityClass setToFirstPhaseFlow:YES];
+        IRSDCGetStationSubTasks *irsdcStationsTasksApi = [IRSDCGetStationSubTasks new];
+        irsdcStationsTasksApi.stationId = self.selectedStations.stationId;
+        irsdcStationsTasksApi.taskId = self.selectedTasks.refId;
+        [[APIManager sharedInstance]makeAPIRequestWithObject:irsdcStationsTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+            NSLog(@"Response = %@", responseDictionary);
+            [self getStationSubTasksRemarks];
+        }];
+    });
+}
+
+- (void)getStationSubTasksRemarks {
+    NSArray *remarksArray = [[CoreDataManager sharedManager] fetchRemarksFor:self.selectedSubTasks.stationSubActivityId];
+    for (Remarks *remarkObject in remarksArray) {
+        if (![remarkObject.message isEqualToString:@""] && ![self.statusArray containsObject:remarkObject]) {
+            [self.statusArray addObject:remarkObject];
+        }
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.statusTableView reloadData];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
