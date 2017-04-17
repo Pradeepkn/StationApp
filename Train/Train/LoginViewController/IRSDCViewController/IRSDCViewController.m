@@ -71,12 +71,15 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 
 
 - (void)getIRSDCStationTasksWithStationId:(NSString*)stationId {
-    [AppUtilityClass setToFirstPhaseFlow:YES];
+    [AppUtilityClass showLoaderOnView:self.view];
+    __weak IRSDCViewController *weakSelf = self;
+
     IRSDCGetStationTasks *irsdcStationsTasksApi = [IRSDCGetStationTasks new];
     irsdcStationsTasksApi.stationId = stationId;
     [[APIManager sharedInstance]makeAPIRequestWithObject:irsdcStationsTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         self.isEditable = irsdcStationsTasksApi.editStatus;
         NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         self.irsdcStreamsArray = [[CoreDataManager sharedManager] fetchIRSDCAllStationTasksForStationId:stationId];
         if (self.irsdcStreamsArray.count > 0) {
             self.irsdcTableView.hidden = NO;
@@ -92,13 +95,15 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 }
 
 - (void)fetchSubStreams {
+    [AppUtilityClass showLoaderOnView:self.view];
+    __weak IRSDCViewController *weakSelf = self;
     for (Tasks *taskObject in self.irsdcStreamsArray) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [AppUtilityClass setToFirstPhaseFlow:YES];
             IRSDCGetStationSubTasks *irsdcStationsTasksApi = [IRSDCGetStationSubTasks new];
             irsdcStationsTasksApi.stationId = self.selectedStation.stationId;
             irsdcStationsTasksApi.taskId = taskObject.refId;
             [[APIManager sharedInstance]makeAPIRequestWithObject:irsdcStationsTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+                [AppUtilityClass hideLoaderFromView:weakSelf.view];
                 NSLog(@"Response = %@", responseDictionary);
             }];
         });

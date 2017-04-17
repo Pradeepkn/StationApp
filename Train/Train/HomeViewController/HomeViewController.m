@@ -202,10 +202,14 @@ const int kLeaveAMessageTag = 101;
 
 - (void)getHomeMessages {
     __weak HomeViewController *weakSelf = self;
+    [AppUtilityClass showLoaderOnView:self.view];
+
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
     wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         //NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
+
         if (!error) {
             [weakSelf.homeGalleryCollectionView reloadData];
         }else{

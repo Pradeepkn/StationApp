@@ -72,6 +72,8 @@ const int kHomeTableView = 1000;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
     [self addStatusBar];
+    [AppUtilityClass setToEOL:NO];
+    [AppUtilityClass setToIRSDC:NO];
     [self getHomeMessages];
     // Do any additional setup after loading the view.
 }
@@ -90,27 +92,33 @@ const int kHomeTableView = 1000;
     self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];
-    [AppUtilityClass setToEOL:NO];
-    [AppUtilityClass setToIRSDC:NO];
 }
 
 - (IBAction)phase1ButtonAction:(id)sender {
     [AppUtilityClass setToFirstPhaseFlow:YES];
+    [AppUtilityClass setToIRSDC:NO];
+    [AppUtilityClass setToEOL:NO];
     [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
 }
 
 - (IBAction)nextPhaseButtonAction:(id)sender {
     [AppUtilityClass setToFirstPhaseFlow:NO];
+    [AppUtilityClass setToIRSDC:NO];
+    [AppUtilityClass setToEOL:NO];
     [self performSegueWithIdentifier:kHomeSegueIdentifier sender:nil];
 }
 
 - (IBAction)markEolButtonAction:(id)sender {
     [AppUtilityClass setToEOL:YES];
+    [AppUtilityClass setToIRSDC:NO];
+    [AppUtilityClass setToFirstPhaseFlow:NO];
     [self performSegueWithIdentifier:kStationInfoSegueIdentifier sender:self];
 }
 
 - (IBAction)iRSDCButtonAction:(id)sender {
     [AppUtilityClass setToIRSDC:YES];
+    [AppUtilityClass setToFirstPhaseFlow:NO];
+    [AppUtilityClass setToEOL:NO];
     [self performSegueWithIdentifier:kIRSDCSegueIdentifier sender:self];
 }
 
@@ -119,11 +127,14 @@ const int kHomeTableView = 1000;
 }
 
 - (void)getHomeMessages {
+    [AppUtilityClass setToFirstPhaseFlow:YES];
     __weak LandingViewController *weakSelf = self;
+    [AppUtilityClass showLoaderOnView:self.view];
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
     wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         //NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         [self getNextPhaseMessages];
         if (!error) {
             [weakSelf.homeGalleryCollectionView reloadData];
@@ -136,10 +147,12 @@ const int kHomeTableView = 1000;
 - (void)getNextPhaseMessages {
     [AppUtilityClass setToFirstPhaseFlow:NO];
     __weak LandingViewController *weakSelf = self;
+    [AppUtilityClass showLoaderOnView:self.view];
     GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
     wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         //NSLog(@"Response = %@", responseDictionary);
+        [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
             [weakSelf.homeGalleryCollectionView reloadData];
         }else{

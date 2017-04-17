@@ -306,7 +306,6 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 
 - (void)fetchSubStreams {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [AppUtilityClass setToFirstPhaseFlow:YES];
         IRSDCGetStationSubTasks *irsdcStationsTasksApi = [IRSDCGetStationSubTasks new];
         irsdcStationsTasksApi.stationId = self.selectedStations.stationId;
         irsdcStationsTasksApi.taskId = self.selectedTasks.refId;

@@ -56,7 +56,7 @@
     NSArray *apiDataSource = responseDictionary[@"data"];
     for (NSDictionary *apiDataDict in apiDataSource) {
         NSArray *stationsDataSource = apiDataDict[@"stations"];
-        [[CoreDataManager sharedManager] saveStations:stationsDataSource forPhase:kIRSDCType];
+        [[CoreDataManager sharedManager] saveIRSDCStations:stationsDataSource forPhase:kIRSDCType];
     }
 }
 

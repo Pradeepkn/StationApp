@@ -37,7 +37,6 @@
 }
 
 - (void)getIRSDCStations {
-    [AppUtilityClass setToFirstPhaseFlow:YES];
     IRSDCStationsDashboard *irsdcStationsDashboardApi = [IRSDCStationsDashboard new];
     [[APIManager sharedInstance]makeAPIRequestWithObject:irsdcStationsDashboardApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
