@@ -165,7 +165,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D6D-mC-0Xd">
-                                        <rect key="frame" x="20" y="170" width="160" height="50"/>
+                                        <rect key="frame" x="20" y="170" width="159.5" height="50"/>
                                         <color key="backgroundColor" red="0.91764705882352937" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="UXg-xd-m44"/>
@@ -208,7 +208,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlq-62-8yK">
-                                        <rect key="frame" x="196" y="170" width="159" height="50"/>
+                                        <rect key="frame" x="195.5" y="170" width="159.5" height="50"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="18"/>
                                         <state key="normal" title="SIGN UP">
@@ -931,7 +931,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="INFORMATION" image="910BBF7E-B1EC-419A-913E-5DFBE1D2779F">
+                                        <state key="normal" title="INFORMATION" image="5E406B44-1C47-4155-8724-271719DAF250">
                                             <color key="titleColor" red="0.91764705882352937" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -942,7 +942,7 @@
                                         <rect key="frame" x="187" y="0.0" width="188" height="50"/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="LEAVE MESSAGE" image="17E16021-BF81-4D2A-9188-8F06F578775B">
+                                        <state key="normal" title="LEAVE MESSAGE" image="6AE8192D-A0D5-417D-977B-9047443DF37A">
                                             <color key="titleColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -1864,7 +1864,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="328"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-xq-NGE">
-                                                <rect key="frame" x="1" y="1" width="333" height="163"/>
+                                                <rect key="frame" x="1" y="1" width="333" height="162.5"/>
                                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="30" maxX="25" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="120" minY="-30" maxX="0.0" maxY="0.0"/>
@@ -1876,7 +1876,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ln-8r-xuY">
-                                                <rect key="frame" x="1" y="165" width="333" height="162"/>
+                                                <rect key="frame" x="1" y="164.5" width="333" height="162.5"/>
                                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="30" maxX="25" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="100" minY="-30" maxX="0.0" maxY="0.0"/>
@@ -2648,7 +2648,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ax3-Tq-5Va">
-                                <rect key="frame" x="10" y="30" width="355" height="627"/>
+                                <rect key="frame" x="10" y="30" width="355" height="597"/>
                                 <color key="backgroundColor" red="0.9435458779" green="0.91396027800000001" blue="0.9133055806" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subStreamStatusCellIdentifier" id="YDJ-1a-zgl" customClass="SubStreamStatusCell">
@@ -2713,13 +2713,13 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Rl0-Yb-uSB"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
                                                     <color key="textColor" red="0.91764705879999997" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aff-Mc-kqk">
                                                     <rect key="frame" x="10" y="20" width="335" height="29"/>
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2751,16 +2751,29 @@
                                     <outlet property="delegate" destination="qyj-sD-2ZB" id="maz-5t-r9Z"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to change the status." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9R-cF-rxY">
+                                <rect key="frame" x="10" y="638" width="355" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Vj0-uO-0NA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.9435458779" green="0.91396027800000001" blue="0.9133055806" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PM6-Qc-CQT" firstAttribute="top" secondItem="ax3-Tq-5Va" secondAttribute="bottom" constant="10" id="GQj-Bm-8hH"/>
+                            <constraint firstItem="PM6-Qc-CQT" firstAttribute="top" secondItem="ax3-Tq-5Va" secondAttribute="bottom" constant="40" id="GQj-Bm-8hH"/>
+                            <constraint firstItem="PM6-Qc-CQT" firstAttribute="top" secondItem="e9R-cF-rxY" secondAttribute="bottom" constant="8" id="M94-zz-2oZ"/>
                             <constraint firstItem="ax3-Tq-5Va" firstAttribute="leading" secondItem="0gt-yy-Wts" secondAttribute="leading" constant="10" id="VJq-kK-Vf8"/>
+                            <constraint firstItem="e9R-cF-rxY" firstAttribute="leading" secondItem="0gt-yy-Wts" secondAttribute="leading" constant="10" id="WP9-gl-s2R"/>
                             <constraint firstAttribute="trailing" secondItem="ax3-Tq-5Va" secondAttribute="trailing" constant="10" id="iia-Gr-zn1"/>
+                            <constraint firstAttribute="trailing" secondItem="e9R-cF-rxY" secondAttribute="trailing" constant="10" id="kPp-jD-9s6"/>
                             <constraint firstItem="ax3-Tq-5Va" firstAttribute="top" secondItem="pcv-WJ-DLd" secondAttribute="bottom" constant="10" id="sOz-wq-Rzw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="editInfoLabel" destination="e9R-cF-rxY" id="sSj-Bo-coK"/>
                         <outlet property="statusTableView" destination="ax3-Tq-5Va" id="99e-WJ-1b2"/>
                     </connections>
                 </viewController>
@@ -2985,7 +2998,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gjl-2H-ADj">
-                                <rect key="frame" x="10" y="160" width="355" height="487"/>
+                                <rect key="frame" x="10" y="160" width="355" height="467"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.9435458779" green="0.91396027800000001" blue="0.9133055806" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -3002,13 +3015,13 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Llu-5t-YXS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
                                                     <color key="textColor" red="0.91764705879999997" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkL-Br-UVA">
                                                     <rect key="frame" x="10" y="20" width="335" height="29"/>
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -3035,16 +3048,28 @@
                                     <outlet property="delegate" destination="Pb3-75-tyh" id="QfO-DU-NHr"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to change the status." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvl-rh-cMI">
+                                <rect key="frame" x="10" y="638" width="355" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="wIt-N9-rUc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.91764705879999997" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Gjl-2H-ADj" firstAttribute="leading" secondItem="1GP-nb-Ejr" secondAttribute="leading" constant="10" id="DZm-xm-Tl9"/>
-                            <constraint firstItem="1lQ-06-gms" firstAttribute="top" secondItem="Gjl-2H-ADj" secondAttribute="bottom" constant="20" id="LgO-f6-7ga"/>
+                            <constraint firstItem="1lQ-06-gms" firstAttribute="top" secondItem="gvl-rh-cMI" secondAttribute="bottom" constant="8" id="JVM-NN-dEe"/>
+                            <constraint firstItem="1lQ-06-gms" firstAttribute="top" secondItem="Gjl-2H-ADj" secondAttribute="bottom" constant="40" id="LgO-f6-7ga"/>
+                            <constraint firstItem="gvl-rh-cMI" firstAttribute="leading" secondItem="1GP-nb-Ejr" secondAttribute="leading" constant="10" id="M3D-2x-LU9"/>
                             <constraint firstAttribute="trailing" secondItem="Gjl-2H-ADj" secondAttribute="trailing" constant="10" id="Spt-ta-eyv"/>
                             <constraint firstAttribute="trailing" secondItem="xTQ-Uk-qKG" secondAttribute="trailing" constant="10" id="ZJX-lF-gZS"/>
                             <constraint firstItem="xTQ-Uk-qKG" firstAttribute="leading" secondItem="1GP-nb-Ejr" secondAttribute="leading" constant="10" id="lL5-21-H4T"/>
                             <constraint firstItem="xTQ-Uk-qKG" firstAttribute="top" secondItem="1GP-nb-Ejr" secondAttribute="top" constant="74" id="wgN-2k-3G1"/>
                             <constraint firstItem="Gjl-2H-ADj" firstAttribute="top" secondItem="xTQ-Uk-qKG" secondAttribute="bottom" id="yEs-U7-AR2"/>
+                            <constraint firstAttribute="trailing" secondItem="gvl-rh-cMI" secondAttribute="trailing" constant="10" id="yTd-P3-Sxz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ncK-Gp-cR2">
@@ -3061,6 +3086,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="qOq-hb-6UY" id="Xnf-jL-oWV"/>
+                        <outlet property="editInfoLabel" destination="gvl-rh-cMI" id="knB-qA-k1w"/>
                         <outlet property="subActivityHeaderView" destination="xTQ-Uk-qKG" id="1Cp-Mn-IWz"/>
                         <outlet property="subActivityName" destination="mGL-1H-uCY" id="VCW-T3-Ssu"/>
                         <outlet property="subTasksListTableView" destination="Gjl-2H-ADj" id="yry-lI-SXO"/>
@@ -3069,14 +3095,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bUk-pH-NvP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2909.5999999999999" y="1243.6281859070466"/>
+            <point key="canvasLocation" x="2909.5" y="1243.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oP3-IQ-00F">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xNr-hL-pMx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dVP-Jb-Msz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dVP-Jb-Msz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3683,7 +3709,65 @@
         </scene>
     </scenes>
     <resources>
-        <image name="17E16021-BF81-4D2A-9188-8F06F578775B" width="11" height="11">
+        <image name="5E406B44-1C47-4155-8724-271719DAF250" width="9" height="11">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+c1dOU0NvbG9ygAKADRIgwAAAgAOAC1d7OSwgMTF90hUKFhhaTlMub2JqZWN0c6EXgASACtIVChodohsc
+gAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8RCipNTQAqAAABlAAAAAAAAAAA
+AAAAAEQQEk2jKC24BgEBBwAAAAAAAAAAAAAAAAAAAAAAAAAANg0OPbkuNNCqKjDAkCQpogYBAQgAAAAA
+AAAAAAAAAAAyDA47wDA22UYRE1AEAQEFmCUqrY8jKKMFAQEHAAAAADgODz+9LzXWShMVVQAAAAAAAAAA
+CAICCponK6+KIyecBwICCeA4PvdYFhllAAAAAAAAAAAAAAAAAAAAAAoBAgy4LTPRPQ8RR+k7Qv8vDA01
+AAAAAAAAAAAAAAAAAAAAAAAAAACcJSqwRRETT+c7Qv8xCw03EQQEE28aHn2AICSQSBIUUgAAAACdJyyz
+RBETTuc7Qv8rCwwyQxASTL8vNdaEISWUtC0zzAAAAACdJyuyRBETTuk7Qv8jCQopPxASSY8jKKEbBgcg
+qiowwAAAAACbJSqwRRETT9g2PPOzLTLKwC810o0jKKAcBgcizDI556YpLrnTNTvrOw4QQicJCi1CEBJL
+QxASShoHBx8AAAACMwwOOkYRE004DQ9ACAICCgAOAQAAAwAAAAEACQAAAQEAAwAAAAEACwAAAQIAAwAA
+AAQAAAJCAQMAAwAAAAEAAQAAAQYAAwAAAAEAAgAAAREABAAAAAEAAAAIARIAAwAAAAEAAQAAARUAAwAA
+AAEABAAAARYAAwAAAAEACwAAARcABAAAAAEAAAGMARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAA
+AAQAAAJKh3MABwAAB9gAAAJSAAAAAAAIAAgACAAIAAEAAQABAAEAAAfYYXBwbAIgAABtbnRyUkdCIFhZ
+WiAH2QACABkACwAaAAthY3NwQVBQTAAAAABhcHBsAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFw
+cGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAA
+AG9kc2NtAAABeAAABZxjcHJ0AAAHFAAAADh3dHB0AAAHTAAAABRyWFlaAAAHYAAAABRnWFlaAAAHdAAA
+ABRiWFlaAAAHiAAAABRyVFJDAAAHnAAAAA5jaGFkAAAHrAAAACxiVFJDAAAHnAAAAA5nVFJDAAAHnAAA
+AA5kZXNjAAAAAAAAABRHZW5lcmljIFJHQiBQcm9maWxlAAAAAAAAAAAAAAAUR2VuZXJpYyBSR0IgUHJv
+ZmlsZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbWx1YwAA
+AAAAAAAfAAAADHNrU0sAAAAoAAABhGRhREsAAAAuAAABrGNhRVMAAAAkAAAB2nZpVk4AAAAkAAAB/nB0
+QlIAAAAmAAACInVrVUEAAAAqAAACSGZyRlUAAAAoAAACcmh1SFUAAAAoAAACmnpoVFcAAAAWAAACwm5i
+Tk8AAAAmAAAC2GNzQ1oAAAAiAAAC/mhlSUwAAAAeAAADIGl0SVQAAAAoAAADPnJvUk8AAAAkAAADZmRl
+REUAAAAsAAADimtvS1IAAAAWAAADtnN2U0UAAAAmAAAC2HpoQ04AAAAWAAADzGphSlAAAAAaAAAD4mVs
+R1IAAAAiAAAD/HB0UE8AAAAmAAAEHm5sTkwAAAAoAAAERGVzRVMAAAAmAAAEHnRoVEgAAAAkAAAEbHRy
+VFIAAAAiAAAEkGZpRkkAAAAoAAAEsmhySFIAAAAoAAAE2nBsUEwAAAAsAAAFAnJ1UlUAAAAiAAAFLmFy
+RUcAAAAmAAAFUGVuVVMAAAAmAAAFdgBWAWEAZQBvAGIAZQBjAG4A/QAgAFIARwBCACAAcAByAG8AZgBp
+AGwARwBlAG4AZQByAGUAbAAgAFIARwBCAC0AYgBlAHMAawByAGkAdgBlAGwAcwBlAFAAZQByAGYAaQBs
+ACAAUgBHAEIAIABnAGUAbgDoAHIAaQBjAEMepQB1ACAAaADsAG4AaAAgAFIARwBCACAAQwBoAHUAbgBn
+AFAAZQByAGYAaQBsACAAUgBHAEIAIABHAGUAbgDpAHIAaQBjAG8EFwQwBDMEMAQ7BEwEPQQ4BDkAIAQ/
+BEAEPgREBDAEOQQ7ACAAUgBHAEIAUAByAG8AZgBpAGwAIABnAOkAbgDpAHIAaQBxAHUAZQAgAFIAVgBC
+AMEAbAB0AGEAbADhAG4AbwBzACAAUgBHAEIAIABwAHIAbwBmAGkAbJAadSgAIABSAEcAQgAggnJfaWPP
+j/AARwBlAG4AZQByAGkAcwBrACAAUgBHAEIALQBwAHIAbwBmAGkAbABPAGIAZQBjAG4A/QAgAFIARwBC
+ACAAcAByAG8AZgBpAGwF5AXoBdUF5AXZBdwAIABSAEcAQgAgBdsF3AXcBdkAUAByAG8AZgBpAGwAbwAg
+AFIARwBCACAAZwBlAG4AZQByAGkAYwBvAFAAcgBvAGYAaQBsACAAUgBHAEIAIABnAGUAbgBlAHIAaQBj
+AEEAbABsAGcAZQBtAGUAaQBuAGUAcwAgAFIARwBCAC0AUAByAG8AZgBpAGzHfLwYACAAUgBHAEIAINUE
+uFzTDMd8Zm6QGgAgAFIARwBCACBjz4/wZYdO9k4AgiwAIABSAEcAQgAgMNcw7TDVMKEwpDDrA5MDtQO9
+A7kDugPMACADwAPBA78DxgOvA7sAIABSAEcAQgBQAGUAcgBmAGkAbAAgAFIARwBCACAAZwBlAG4A6QBy
+AGkAYwBvAEEAbABnAGUAbQBlAGUAbgAgAFIARwBCAC0AcAByAG8AZgBpAGUAbA5CDhsOIw5EDh8OJQ5M
+ACAAUgBHAEIAIA4XDjEOSA4nDkQOGwBHAGUAbgBlAGwAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGkAWQBs
+AGUAaQBuAGUAbgAgAFIARwBCAC0AcAByAG8AZgBpAGkAbABpAEcAZQBuAGUAcgBpAQ0AawBpACAAUgBH
+AEIAIABwAHIAbwBmAGkAbABVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAFIARwBC
+BB4EMQRJBDgEOQAgBD8EQAQ+BEQEOAQ7BEwAIABSAEcAQgZFBkQGQQAgBioGOQYxBkoGQQAgAFIARwBC
+ACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBpAGMAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGV0ZXh0AAAAAENv
+cHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUgAB
+AAAAARbPWFlaIAAAAAAAAHRNAAA97gAAA9BYWVogAAAAAAAAWnUAAKxzAAAXNFhZWiAAAAAAAAAoGgAA
+FZ8AALg2Y3VydgAAAAAAAAABAc0AAHNmMzIAAAAAAAEMQgAABd7///MmAAAHkgAA/ZH///ui///9owAA
+A9wAAMBs0iUmJyhaJGNsYXNzbmFtZVgkY2xhc3Nlc18QEE5TQml0bWFwSW1hZ2VSZXCjJykqWk5TSW1h
+Z2VSZXBYTlNPYmplY3TSJSYsLVdOU0FycmF5oiwq0iUmLzBeTlNNdXRhYmxlQXJyYXmjLywq0zIzCjQ1
+NldOU1doaXRlXE5TQ29sb3JTcGFjZUQwIDAAEAOADNIlJjg5V05TQ29sb3KiOCrSJSY7PFdOU0ltYWdl
+ojsqXxAPTlNLZXllZEFyY2hpdmVy0T9AVHJvb3SAAQAIABEAGgAjAC0AMgA3AEYATABXAF4AZQByAHkA
+gQCDAIUAigCMAI4AlgCbAKYAqACqAKwAsQC0ALYAuAC6ALwAwQDYANoA3AsKCw8LGgsjCzYLOgtFC04L
+UwtbC14LYwtyC3YLfQuFC5ILlwuZC5sLoAuoC6sLsAu4C7sLzQvQC9UAAAAAAAACAQAAAAAAAABBAAAA
+AAAAAAAAAAAAAAAL1w
+</mutableData>
+        </image>
+        <image name="6AE8192D-A0D5-417D-977B-9047443DF37A" width="11" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3740,64 +3824,6 @@ JSYvMF5OU011dGFibGVBcnJheaMvLCrTMjMKNDU2V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQA4AM
 AAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUAtwC5
 ALsAvQDCANkA2wDdC2MLaAtzC3wLjwuTC54LpwusC7QLtwu8C8sLzwvWC94L6wvwC/IL9Av5DAEMBAwJ
 DBEMFAwmDCkMLgAAAAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAwwA
-</mutableData>
-        </image>
-        <image name="910BBF7E-B1EC-419A-913E-5DFBE1D2779F" width="9" height="11">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwAAAgAOAC1d7OSwgMTF90hUKFhhaTlMub2JqZWN0c6EXgASACtIVChodohsc
-gAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8RCipNTQAqAAABlAAAAAAAAAAA
-AAAAAEQQEk2jKC24BgEBBwAAAAAAAAAAAAAAAAAAAAAAAAAANg0OPbkuNNCqKjDAkCQpogYBAQgAAAAA
-AAAAAAAAAAAyDA47wDA22UYRE1AEAQEFmCUqrY8jKKMFAQEHAAAAADgODz+9LzXWShMVVQAAAAAAAAAA
-CAICCponK6+KIyecBwICCeA4PvdYFhllAAAAAAAAAAAAAAAAAAAAAAoBAgy4LTPRPQ8RR+k7Qv8vDA01
-AAAAAAAAAAAAAAAAAAAAAAAAAACcJSqwRRETT+c7Qv8xCw03EQQEE28aHn2AICSQSBIUUgAAAACdJyyz
-RBETTuc7Qv8rCwwyQxASTL8vNdaEISWUtC0zzAAAAACdJyuyRBETTuk7Qv8jCQopPxASSY8jKKEbBgcg
-qiowwAAAAACbJSqwRRETT9g2PPOzLTLKwC810o0jKKAcBgcizDI556YpLrnTNTvrOw4QQicJCi1CEBJL
-QxASShoHBx8AAAACMwwOOkYRE004DQ9ACAICCgAOAQAAAwAAAAEACQAAAQEAAwAAAAEACwAAAQIAAwAA
-AAQAAAJCAQMAAwAAAAEAAQAAAQYAAwAAAAEAAgAAAREABAAAAAEAAAAIARIAAwAAAAEAAQAAARUAAwAA
-AAEABAAAARYAAwAAAAEACwAAARcABAAAAAEAAAGMARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAA
-AAQAAAJKh3MABwAAB9gAAAJSAAAAAAAIAAgACAAIAAEAAQABAAEAAAfYYXBwbAIgAABtbnRyUkdCIFhZ
-WiAH2QACABkACwAaAAthY3NwQVBQTAAAAABhcHBsAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFw
-cGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAA
-AG9kc2NtAAABeAAABZxjcHJ0AAAHFAAAADh3dHB0AAAHTAAAABRyWFlaAAAHYAAAABRnWFlaAAAHdAAA
-ABRiWFlaAAAHiAAAABRyVFJDAAAHnAAAAA5jaGFkAAAHrAAAACxiVFJDAAAHnAAAAA5nVFJDAAAHnAAA
-AA5kZXNjAAAAAAAAABRHZW5lcmljIFJHQiBQcm9maWxlAAAAAAAAAAAAAAAUR2VuZXJpYyBSR0IgUHJv
-ZmlsZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbWx1YwAA
-AAAAAAAfAAAADHNrU0sAAAAoAAABhGRhREsAAAAuAAABrGNhRVMAAAAkAAAB2nZpVk4AAAAkAAAB/nB0
-QlIAAAAmAAACInVrVUEAAAAqAAACSGZyRlUAAAAoAAACcmh1SFUAAAAoAAACmnpoVFcAAAAWAAACwm5i
-Tk8AAAAmAAAC2GNzQ1oAAAAiAAAC/mhlSUwAAAAeAAADIGl0SVQAAAAoAAADPnJvUk8AAAAkAAADZmRl
-REUAAAAsAAADimtvS1IAAAAWAAADtnN2U0UAAAAmAAAC2HpoQ04AAAAWAAADzGphSlAAAAAaAAAD4mVs
-R1IAAAAiAAAD/HB0UE8AAAAmAAAEHm5sTkwAAAAoAAAERGVzRVMAAAAmAAAEHnRoVEgAAAAkAAAEbHRy
-VFIAAAAiAAAEkGZpRkkAAAAoAAAEsmhySFIAAAAoAAAE2nBsUEwAAAAsAAAFAnJ1UlUAAAAiAAAFLmFy
-RUcAAAAmAAAFUGVuVVMAAAAmAAAFdgBWAWEAZQBvAGIAZQBjAG4A/QAgAFIARwBCACAAcAByAG8AZgBp
-AGwARwBlAG4AZQByAGUAbAAgAFIARwBCAC0AYgBlAHMAawByAGkAdgBlAGwAcwBlAFAAZQByAGYAaQBs
-ACAAUgBHAEIAIABnAGUAbgDoAHIAaQBjAEMepQB1ACAAaADsAG4AaAAgAFIARwBCACAAQwBoAHUAbgBn
-AFAAZQByAGYAaQBsACAAUgBHAEIAIABHAGUAbgDpAHIAaQBjAG8EFwQwBDMEMAQ7BEwEPQQ4BDkAIAQ/
-BEAEPgREBDAEOQQ7ACAAUgBHAEIAUAByAG8AZgBpAGwAIABnAOkAbgDpAHIAaQBxAHUAZQAgAFIAVgBC
-AMEAbAB0AGEAbADhAG4AbwBzACAAUgBHAEIAIABwAHIAbwBmAGkAbJAadSgAIABSAEcAQgAggnJfaWPP
-j/AARwBlAG4AZQByAGkAcwBrACAAUgBHAEIALQBwAHIAbwBmAGkAbABPAGIAZQBjAG4A/QAgAFIARwBC
-ACAAcAByAG8AZgBpAGwF5AXoBdUF5AXZBdwAIABSAEcAQgAgBdsF3AXcBdkAUAByAG8AZgBpAGwAbwAg
-AFIARwBCACAAZwBlAG4AZQByAGkAYwBvAFAAcgBvAGYAaQBsACAAUgBHAEIAIABnAGUAbgBlAHIAaQBj
-AEEAbABsAGcAZQBtAGUAaQBuAGUAcwAgAFIARwBCAC0AUAByAG8AZgBpAGzHfLwYACAAUgBHAEIAINUE
-uFzTDMd8Zm6QGgAgAFIARwBCACBjz4/wZYdO9k4AgiwAIABSAEcAQgAgMNcw7TDVMKEwpDDrA5MDtQO9
-A7kDugPMACADwAPBA78DxgOvA7sAIABSAEcAQgBQAGUAcgBmAGkAbAAgAFIARwBCACAAZwBlAG4A6QBy
-AGkAYwBvAEEAbABnAGUAbQBlAGUAbgAgAFIARwBCAC0AcAByAG8AZgBpAGUAbA5CDhsOIw5EDh8OJQ5M
-ACAAUgBHAEIAIA4XDjEOSA4nDkQOGwBHAGUAbgBlAGwAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGkAWQBs
-AGUAaQBuAGUAbgAgAFIARwBCAC0AcAByAG8AZgBpAGkAbABpAEcAZQBuAGUAcgBpAQ0AawBpACAAUgBH
-AEIAIABwAHIAbwBmAGkAbABVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAFIARwBC
-BB4EMQRJBDgEOQAgBD8EQAQ+BEQEOAQ7BEwAIABSAEcAQgZFBkQGQQAgBioGOQYxBkoGQQAgAFIARwBC
-ACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBpAGMAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGV0ZXh0AAAAAENv
-cHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQuAFhZWiAAAAAAAADzUgAB
-AAAAARbPWFlaIAAAAAAAAHRNAAA97gAAA9BYWVogAAAAAAAAWnUAAKxzAAAXNFhZWiAAAAAAAAAoGgAA
-FZ8AALg2Y3VydgAAAAAAAAABAc0AAHNmMzIAAAAAAAEMQgAABd7///MmAAAHkgAA/ZH///ui///9owAA
-A9wAAMBs0iUmJyhaJGNsYXNzbmFtZVgkY2xhc3Nlc18QEE5TQml0bWFwSW1hZ2VSZXCjJykqWk5TSW1h
-Z2VSZXBYTlNPYmplY3TSJSYsLVdOU0FycmF5oiwq0iUmLzBeTlNNdXRhYmxlQXJyYXmjLywq0zIzCjQ1
-NldOU1doaXRlXE5TQ29sb3JTcGFjZUQwIDAAEAOADNIlJjg5V05TQ29sb3KiOCrSJSY7PFdOU0ltYWdl
-ojsqXxAPTlNLZXllZEFyY2hpdmVy0T9AVHJvb3SAAQAIABEAGgAjAC0AMgA3AEYATABXAF4AZQByAHkA
-gQCDAIUAigCMAI4AlgCbAKYAqACqAKwAsQC0ALYAuAC6ALwAwQDYANoA3AsKCw8LGgsjCzYLOgtFC04L
-UwtbC14LYwtyC3YLfQuFC5ILlwuZC5sLoAuoC6sLsAu4C7sLzQvQC9UAAAAAAAACAQAAAAAAAABBAAAA
-AAAAAAAAAAAAAAAL1w
 </mutableData>
         </image>
         <image name="Escalator-circle" width="35" height="35"/>

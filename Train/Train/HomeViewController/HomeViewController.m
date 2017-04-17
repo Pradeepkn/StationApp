@@ -384,7 +384,7 @@ const int kLeaveAMessageTag = 101;
         Messages *object = [[self messagesFetchedResultsController] objectAtIndexPath:indexPath];
         return [AppUtilityClass sizeOfText:object.message widthOfTextView:self.homeTopTableView.frame.size.width - 30 withFont:[UIFont systemFontOfSize:18.0f]].height + 80;
     } else if (tableView.tag == kOverallStatusTableView) {
-        return 40;
+        return kTableCellHeight;
     }
     return 0;
 }
@@ -627,6 +627,8 @@ const int kLeaveAMessageTag = 101;
 }
 
 - (void)messageButtonClicked:(UIButton*)sender {
+    NSArray *stations = [[self stationsFetchedResultsController] fetchedObjects];
+    self.stationInfoSelectedStation = (Stations *)[stations objectAtIndex:sender.tag];
     [self performSegueWithIdentifier:kSendMessageSegueIdentifier sender:self];
 }
 

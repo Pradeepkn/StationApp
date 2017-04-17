@@ -72,6 +72,7 @@ const int kHomeTableView = 1000;
     self.loggedInUser = [[CoreDataManager sharedManager] fetchLogedInUser];
     [self initializeMessagesFetchedResultsController];
     [self addStatusBar];
+    [self getHomeMessages];
     // Do any additional setup after loading the view.
 }
 
@@ -86,7 +87,6 @@ const int kHomeTableView = 1000;
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
-    [self getHomeMessages];
     self.homeTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.profileNameButton setImage:nil forState:UIControlStateNormal];
     [self.profileNameButton setTitle:[AppUtilityClass getProfileIconNameForProfileName:[AppUtilityClass getUserEmail]] forState:UIControlStateNormal];

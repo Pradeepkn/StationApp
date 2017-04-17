@@ -25,6 +25,7 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 @property (weak, nonatomic) IBOutlet UITableView *statusTableView;
 @property (strong, nonatomic) NSMutableArray *statusArray;
 @property (nonatomic, assign) BOOL isViewEditable;
+@property (weak, nonatomic) IBOutlet UILabel *editInfoLabel;
 
 @end
 
@@ -32,6 +33,7 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.editInfoLabel.hidden = YES;
     self.navigationController.navigationBarHidden = NO;
     // Do any additional setup after loading the view.
     self.statusArray = [[NSMutableArray alloc] initWithObjects:@"",@"Start Date",@"Target Completion Date", @"Owner",@"Status",  nil];
@@ -53,13 +55,14 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 }
 
 - (void)hideRightBarButton:(BOOL)isHidden {
+    self.navigationItem.rightBarButtonItem.title = @"";
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!isHidden) {
-        self.navigationItem.rightBarButtonItem.title = @"";
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.editInfoLabel.hidden = YES;
+        self.isViewEditable = NO;
     } else {
-        [self addRighBarButton];
-        self.navigationItem.rightBarButtonItem.title = @"Edit";
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.editInfoLabel.hidden = NO;
+        self.isViewEditable = YES;
     }
 }
 

@@ -21,6 +21,7 @@
 #import "StationGalleryHeaderView.h"
 #import "UIImage+ImageAdditions.h"
 #import "IRSDCSectionHeaderView.h"
+#import "CustomAlertViewController.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -114,6 +115,17 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
         NSLog(@"Response = %@", responseDictionary);
         [AppUtilityClass hideLoaderFromView:weakSelf.view];
         if (!error) {
+            if (stationGalleryApi.stationData == nil) {
+                CustomAlertModel *alertModel = [[CustomAlertModel alloc] init];
+                alertModel.secondaryButtonColor = [UIColor appRedColor];
+                alertModel.kAlertMarginOffSet = 20.0f;
+                alertModel.alertMessageBody = @"Information is not available yet. Please try later.";
+                alertModel.alertType = kVKInfoType;
+                alertModel.buttonsArray = [NSMutableArray arrayWithObjects:NSLocalizedString(@"Ok", nil), nil];
+                [[CustomAlertViewController sharedInstance] displayAlertViewOnView:[[UIApplication sharedApplication] keyWindow] withModel:alertModel andCallBack:^(UIButton *sender) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }
             weakSelf.stateLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.stateName withLightFontForText:@"State"];
             weakSelf.zoneLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.zoneName withLightFontForText:@"Zone"];
             weakSelf.divisionLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.divisionName withLightFontForText:@"Division"];

@@ -42,6 +42,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 @property (weak, nonatomic) IBOutlet UIView *subActivityHeaderView;
 @property (weak, nonatomic) IBOutlet UITableView *subTasksListTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *editInfoLabel;
 
 @end
 
@@ -58,6 +59,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     self.subActivitiesArray = [[NSMutableArray alloc] init];
     self.remarksArray = [[NSMutableArray alloc] init];
     [self getStationTasks];
+    self.editInfoLabel.hidden = YES;
     [self hideRightBarButton:YES];
     self.subTasksListTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -114,12 +116,14 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 }
 
 - (void)hideRightBarButton:(BOOL)isHidden {
+    self.navigationItem.rightBarButtonItem.title = @"";
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!isHidden) {
-        self.navigationItem.rightBarButtonItem.title = @"";
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.isViewEditable = NO;
+        self.editInfoLabel.hidden = YES;
     } else {
-        self.navigationItem.rightBarButtonItem.title = @"Edit";
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.isViewEditable = YES;
+        self.editInfoLabel.hidden = NO;
     }
 }
 

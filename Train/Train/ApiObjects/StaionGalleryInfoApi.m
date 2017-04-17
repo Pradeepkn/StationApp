@@ -16,12 +16,17 @@
 -(instancetype)init{
     if(self = [super init]){
         self.weekKeys = [[NSArray alloc] init];
+        self.stationData = [[NSArray alloc] init];
     }
     return self;
 }
 
 - (NSString *)urlForAPIRequest{
-    return [NSString stringWithFormat:@"%@/getStationInfo",[super baseURL]];
+    if ([AppUtilityClass isFirstPhaseSelected]) {
+        return [NSString stringWithFormat:@"%@/getStationInfo",[super baseURL]];
+    }else {
+        return [NSString stringWithFormat:@"%@/nextPhaseGetStationInfo",[super baseURL]];
+    }
 //    return @"http://www.mocky.io/v2/58094802100000260f4c63bb";
 }
 
@@ -53,15 +58,20 @@
     }
     self.editStatus = [apiDataSource[@"editStatus"] boolValue];
     if ([apiDataSource[@"stationData"] isKindOfClass:[NSArray class]]) {
+        self.stationData = apiDataSource[@"stationData"];
+        NSDictionary *stationDataDict = [self.stationData firstObject];
+        if (stationDataDict.allKeys.count < 1) {
+            self.stationData = nil;
+        }
         for (NSDictionary *stationData in apiDataSource[@"stationData"]) {
-            self.stationName = stationData[@"stationName"];
-            self.established = stationData[@"established"];
-            self.area = stationData[@"area"];
-            self.avgPassengerFootfail = stationData[@"avgPassengerFootfail"];
-            self.stateName = stationData[@"state"];
-            self.zoneName = stationData[@"zone"];
-            self.divisionName = stationData[@"division"];
-            self.stationCode = stationData[@"stationCode"];
+            self.stationName = stationData[@"stationName"]?:@"NA";
+            self.established = stationData[@"established"]?:@"NA";
+            self.area = stationData[@"area"]?:@"NA";
+            self.avgPassengerFootfail = stationData[@"avgPassengerFootfail"]?:@"NA";
+            self.stateName = stationData[@"state"]?:@"NA";
+            self.zoneName = stationData[@"zone"]?:@"NA";
+            self.divisionName = stationData[@"division"]?:@"NA";
+            self.stationCode = stationData[@"stationCode"]?:@"NA";
         }
     }
     [[CoreDataManager sharedManager] saveQueries:apiDataSource[@"queriesData"] forStation:self.stationName];

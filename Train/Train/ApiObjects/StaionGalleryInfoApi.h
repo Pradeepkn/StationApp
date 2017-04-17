@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSString *area;
 @property (nonatomic, strong) NSString *avgPassengerFootfail;
 @property (nonatomic, strong) NSArray *weekKeys;
+@property (nonatomic, strong) NSArray *stationData;
 
 @property (nonatomic, assign) BOOL editStatus;
+
 @end
