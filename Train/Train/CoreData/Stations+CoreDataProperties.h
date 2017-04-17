@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t statusColor;
 @property (nullable, nonatomic, copy) NSString *stationCode;
 @property (nonatomic) int16_t phaseNumber;
+@property (nonatomic) BOOL isIRSDC;
 
 @end
 

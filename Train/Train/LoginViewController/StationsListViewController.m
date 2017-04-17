@@ -40,7 +40,7 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
             [self getStationsAndDesignations];
         }
     }else {
-        self.array = [[CoreDataManager sharedManager] fetchAllDesignation];
+        self.array = [[CoreDataManager sharedManager] fetchAllIRSDCStations];
     }
 
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeViewFromSuperView)];
@@ -107,7 +107,7 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
     CGRect headerFrame = CGRectMake(15, 0, self.stationsListTableView.bounds.size.width - 30, kTableCellHeight);
     UIView *view = [[UIView alloc] initWithFrame:headerFrame];
     UILabel *selectEntryLabel = [[UILabel alloc] initWithFrame:headerFrame];
-    selectEntryLabel.text = self.isStationSelected?@"Select station":@"Select designation";
+    selectEntryLabel.text = self.isStationSelected?@"Select station":@"Select organization";
     selectEntryLabel.font = [UIFont fontWithName:kProximaNovaSemibold size:18.0f];
     selectEntryLabel.textColor = [UIColor whiteColor];
     selectEntryLabel.backgroundColor = [UIColor appRedColor];
@@ -129,14 +129,12 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
     cell.cellControlActionButton.tag = indexPath.row;
     [cell.cellControlActionButton addTarget:self action:@selector(cellControlActionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     NSInteger selectedIndex;
+    Stations *obj = [self.array objectAtIndex:indexPath.row];
+    cell.nameLabel.text = obj.stationName;
     if (self.isStationSelected) {
         selectedIndex = [AppUtilityClass getIntValueForKey:kSelectedStationIndex];
-        Stations *obj = [self.array objectAtIndex:indexPath.row];
-        cell.nameLabel.text = obj.stationName;
     }else {
         selectedIndex = [AppUtilityClass getIntValueForKey:kSelectedDesignationIndex];
-        Designation *obj = [self.array objectAtIndex:indexPath.row];
-        cell.nameLabel.text = obj.designationName;
     }
 
     if (indexPath.row == (self.array.count - 1)) {
@@ -167,17 +165,13 @@ static NSString *const kStationsCellIdentifier = @"StationsCell";
 }
 
 - (void)cellControlActionButtonClicked:(UIButton*)sender {
+    Stations *obj = [self.array objectAtIndex:sender.tag];
     if (self.isStationSelected) {
         [AppUtilityClass storeIntValue:sender.tag forKey:kSelectedStationIndex];
-    }else {
-        [AppUtilityClass storeIntValue:sender.tag forKey:kSelectedDesignationIndex];
-    }
-    if (self.isStationSelected) {
-        Stations *obj = [self.array objectAtIndex:sender.tag];
         [self.delegate userSelectedState:obj];
     }else {
-        Designation *obj = [self.array objectAtIndex:sender.tag];
-        [self.delegate userSelectedDesignations:obj];
+        [AppUtilityClass storeIntValue:sender.tag forKey:kSelectedDesignationIndex];
+        [self.delegate userSelectedOrganizations:obj];
     }
     [self removeViewFromSuperView];
 }

@@ -25,7 +25,7 @@
 }
 
 - (NSMutableDictionary *)requestParameters{
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email,self.password, self.stationName, self.designation, self.firstName, self.lastName] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjects:@[self.email,self.password, self.stationName, self.designation, self.firstName, self.lastName, self.irsdc] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName, kIRSDC]];
     return parameters;
 }
 
@@ -39,7 +39,7 @@
 }
 
 - (NSString *)customRawBody {
-    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email,[AppUtilityClass calculateSHA:self.password], self.stationName, self.designation, self.firstName, self.lastName] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName]];
+    NSDictionary *rawBody = [NSDictionary dictionaryWithObjects:@[self.email,[AppUtilityClass calculateSHA:self.password], self.stationName, self.designation, self.firstName, self.lastName, self.irsdc] forKeys:@[kEmailKey,kPasswordKey, kStationName, kDesignation, kFirstName, kLastName, kIRSDC]];
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:rawBody
                                                        options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
@@ -61,6 +61,5 @@
 - (void)parseAPIResponse:(NSDictionary *)responseDictionary{
     
 }
-
 
 @end

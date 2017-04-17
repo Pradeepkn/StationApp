@@ -124,6 +124,22 @@ const int kHomeTableView = 1000;
     wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
     [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         //NSLog(@"Response = %@", responseDictionary);
+        [self getNextPhaseMessages];
+        if (!error) {
+            [weakSelf.homeGalleryCollectionView reloadData];
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
+- (void)getNextPhaseMessages {
+    [AppUtilityClass setToFirstPhaseFlow:NO];
+    __weak LandingViewController *weakSelf = self;
+    GetWallMessagesApi *wallMessagesApiObject = [GetWallMessagesApi new];
+    wallMessagesApiObject.email = [AppUtilityClass getUserEmail];
+    [[APIManager sharedInstance]makeAPIRequestWithObject:wallMessagesApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        //NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             [weakSelf.homeGalleryCollectionView reloadData];
         }else{

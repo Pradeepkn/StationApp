@@ -156,6 +156,35 @@
             [stationList setStationName:[dic valueForKey:@"stationName"]];
             [stationList setStationCode:[dic valueForKey:@"stationCode"]];
             [stationList setPhaseNumber:phaseNumber];
+            [stationList setIsIRSDC:NO];
+            if ([dic valueForKey:@"statusColor"]) {
+                [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
+            }
+        }
+    }
+    return [self saveData];
+}
+
+#pragma mark - Save Stations
+
+- (BOOL)saveIRSDCStations:(NSArray *)stations  forPhase:(NSInteger)phaseNumber {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    for (NSDictionary *dic in stations) {
+        id stationReferenceId = [dic valueForKey:@"_id"];
+        NSString *stationId = [NSString stringWithFormat:@"%@",stationReferenceId];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationId == %@ && phaseNumber == %ld",stationId, phaseNumber];
+        [request setPredicate:predicate];
+        NSArray *array = [moc executeFetchRequest:request error:nil];
+        if (array.count == 0) {
+            Stations *stationList = [NSEntityDescription insertNewObjectForEntityForName:@"Stations" inManagedObjectContext:moc];
+            [stationList setStationId:stationId];
+            [stationList setStationName:[dic valueForKey:@"stationName"]];
+            [stationList setStationCode:[dic valueForKey:@"stationCode"]];
+            [stationList setPhaseNumber:phaseNumber];
+            [stationList setIsIRSDC:YES];
             if ([dic valueForKey:@"statusColor"]) {
                 [stationList setStatusColor:[[dic valueForKey:@"statusColor"] integerValue]];
             }
@@ -406,21 +435,24 @@
     [request setEntity:entity];
     for (NSDictionary *dic in remarks) {
         id remarksIdentifier = [dic valueForKey:@"remarkId"];
-        NSString *remarksId = [NSString stringWithFormat:@"%@",remarksIdentifier];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
-        [request setPredicate:predicate];
-        NSArray *array = [moc executeFetchRequest:request error:nil];
-        Remarks *remarks;
-        if (array.count == 0) {
-            remarks = [NSEntityDescription insertNewObjectForEntityForName:@"Remarks" inManagedObjectContext:moc];
-        }else {
-            remarks = (Remarks *)[array firstObject];
+        id remarksMessage = [dic valueForKey:@"remark"];
+        if (remarksMessage != nil) {
+            NSString *remarksId = [NSString stringWithFormat:@"%@",remarksIdentifier];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
+            [request setPredicate:predicate];
+            NSArray *array = [moc executeFetchRequest:request error:nil];
+            Remarks *remarks;
+            if (array.count == 0) {
+                remarks = [NSEntityDescription insertNewObjectForEntityForName:@"Remarks" inManagedObjectContext:moc];
+            }else {
+                remarks = (Remarks *)[array firstObject];
+            }
+            //        [remarks setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
+            [remarks setRemarksId:[dic valueForKey:@"remarkId"]];
+            [remarks setMessage:[dic valueForKey:@"remark"]];
+            //        [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
+            [remarks setTaskId:stationSubActivityId];
         }
-//        [remarks setInsertDate:[AppUtilityClass getDateFromMiliSeconds:[dic valueForKey:@"insertDate"]]];
-        [remarks setRemarksId:[dic valueForKey:@"remarkId"]];
-        [remarks setMessage:[dic valueForKey:@"remark"]];
-//        [remarks setStatus:[[dic valueForKey:@"status"] integerValue]];
-        [remarks setTaskId:stationSubActivityId];
     }
     return [self saveData];
 }
@@ -451,10 +483,13 @@
     NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptorGroup];
     [request setSortDescriptors:sortDescriptors];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && isIRSDC == NO",@"NA"];
+    [request setPredicate:predicate];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];
     return  result;
 }
+
 #pragma mark - Fetch Stations
 
 - (NSArray *)fetchAllStations {
@@ -465,7 +500,23 @@
     NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptorGroup];
     [request setSortDescriptors:sortDescriptors];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@",@"NA"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && isIRSDC == NO",@"NA"];
+    [request setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
+
+
+- (NSArray *)fetchAllIRSDCStations {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stations" inManagedObjectContext:moc];
+    [request setEntity:entity];
+    NSSortDescriptor *sortDescriptorGroup = [[NSSortDescriptor alloc] initWithKey:@"stationName" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptorGroup];
+    [request setSortDescriptors:sortDescriptors];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stationName != %@ && isIRSDC == YES",@"NA"];
     [request setPredicate:predicate];
     NSError *error = nil;
     NSArray *result = [moc executeFetchRequest:request error:&error];

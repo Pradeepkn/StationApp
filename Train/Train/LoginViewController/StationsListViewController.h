@@ -13,7 +13,7 @@
 @protocol StationDesignationDelegate <NSObject>
 
 - (void)userSelectedState:(Stations *)selectedStation;
-- (void)userSelectedDesignations:(Designation *)selectedDesignation;
+- (void)userSelectedOrganizations:(Stations *)selectedDesignation;
 
 @end
 

@@ -51,9 +51,10 @@ static NSInteger kKeyBoardOffSet = 140;
     [AppUtilityClass shapeBottomCell:self.passwordTxtField withRadius:3.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
-    self.passwordTxtField.text = @"Prad33pkn";
+//    self.usernameTxtField.text = @"pradeepkn.pradi@gmail.com";
+//    self.passwordTxtField.text = @"Prad33pkn";
     [self getStationsAndDesignations];
+    [self getIRSDCStationsAndDesignations];
     if ([AppUtilityClass getUserEmail] && [AppUtilityClass getUserPassword]) {
         self.usernameTxtField.text = [AppUtilityClass getUserEmail];
         self.passwordTxtField.text = [AppUtilityClass getUserPassword];
@@ -113,6 +114,20 @@ static NSInteger kKeyBoardOffSet = 140;
 - (void)getStationsAndDesignations {
     [AppUtilityClass setToFirstPhaseFlow:YES];
     GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
+    stationsDesignationsApiObject.isIRSDCStations = NO;
+    [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        NSLog(@"Response = %@", responseDictionary);
+        if (!error) {
+        }else{
+            [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+        }
+    }];
+}
+
+- (void)getIRSDCStationsAndDesignations {
+    [AppUtilityClass setToFirstPhaseFlow:YES];
+    GetStationDesignationApi *stationsDesignationsApiObject = [GetStationDesignationApi new];
+    stationsDesignationsApiObject.isIRSDCStations = YES;
     [[APIManager sharedInstance]makeAPIRequestWithObject:stationsDesignationsApiObject shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {

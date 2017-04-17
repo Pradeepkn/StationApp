@@ -105,7 +105,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
         NSLog(@"Response = %@", responseDictionary);
         if (!error) {
             self.activityName = stationsubTasksApi.activityName;
-            self.isEditable = stationsubTasksApi.editStatus;
+            [self hideRightBarButton:stationsubTasksApi.editStatus];
             [self updateHeaderView];
         }else{
             [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];

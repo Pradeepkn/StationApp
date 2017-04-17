@@ -32,6 +32,7 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 @property (strong, nonatomic) Stations *selectedStation;
 @property (nonatomic, strong) Tasks *selectedTasks;
 @property (nonatomic, strong) SubTasks *selectedSubTasks;
+@property (nonatomic, assign) BOOL isEditable;
 
 @end
 
@@ -41,12 +42,19 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
     [super viewDidLoad];
     _collapsedSections = [NSMutableSet new];
     self.chooseProductButton.layer.cornerRadius = 6.0;
+    selectedSection = -1;
     self.chooseProductButton.clipsToBounds = YES;
     if (self.irsdcStreamsArray.count > 0) {
         self.irsdcTableView.hidden = NO;
     }else {
         self.irsdcTableView.hidden = YES;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_collapsedSections removeAllObjects];
+    [self.irsdcTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -67,6 +75,7 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
     IRSDCGetStationTasks *irsdcStationsTasksApi = [IRSDCGetStationTasks new];
     irsdcStationsTasksApi.stationId = stationId;
     [[APIManager sharedInstance]makeAPIRequestWithObject:irsdcStationsTasksApi shouldAddOAuthHeader:NO andCompletionBlock:^(NSDictionary *responseDictionary, NSError *error) {
+        self.isEditable = irsdcStationsTasksApi.editStatus;
         NSLog(@"Response = %@", responseDictionary);
         self.irsdcStreamsArray = [[CoreDataManager sharedManager] fetchIRSDCAllStationTasksForStationId:stationId];
         if (self.irsdcStreamsArray.count > 0) {
@@ -142,6 +151,11 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
             [AppUtilityClass shapeTopCell:headerView withRadius:6.0];
         });
     }
+    if (selectedSection == section) {
+        [headerView.streamName setImage:[UIImage imageNamed:@"Escalator-circle-down-arrwo"] forState:UIControlStateNormal];
+    }else {
+        [headerView.streamName setImage:[UIImage imageNamed:@"Escalator-circle-right-arrwo"] forState:UIControlStateNormal];
+    }
     return headerView;
 }
 
@@ -188,13 +202,14 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
 }
 
 - (void)streamSectionClicked:(UIButton *)sender {
-    if (selectedSection != sender.tag) {
+    if (selectedSection != sender.tag && selectedSection >= 0) {
         [self.irsdcTableView beginUpdates];
         NSInteger numOfRows = [self.irsdcTableView numberOfRowsInSection:selectedSection];
         NSArray* indexPaths = [self indexPathsForSection:selectedSection withNumberOfRows:numOfRows];
         [self.irsdcTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [_collapsedSections removeObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
+        [self.irsdcTableView reloadData];
     }
     selectedSection = sender.tag;
     Tasks *taskObject = [self.irsdcStreamsArray objectAtIndex:selectedSection];
@@ -208,6 +223,7 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
         [self.irsdcTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [_collapsedSections removeObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
+        [sender setImage:[UIImage imageNamed:@"Escalator-circle-right-arrwo"] forState:UIControlStateNormal];
     }
     else {
         [self.irsdcTableView beginUpdates];
@@ -216,6 +232,7 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
         [self.irsdcTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
         [_collapsedSections addObject:@(selectedSection)];
         [self.irsdcTableView endUpdates];
+        [sender setImage:[UIImage imageNamed:@"Escalator-circle-down-arrwo"] forState:UIControlStateNormal];
     }
 }
 
@@ -254,6 +271,7 @@ static NSString *kIRSDCStatusSegueIdentifier = @"IRSDCStatusSegue";
         irsdcProjectsTableVC.selectedTasks = self.selectedTasks;
         irsdcProjectsTableVC.selectedSubTasks = self.selectedSubTasks;
         irsdcProjectsTableVC.selectedStations = self.selectedStation;
+        irsdcProjectsTableVC.isEditable = self.isEditable;
     }
 }
 

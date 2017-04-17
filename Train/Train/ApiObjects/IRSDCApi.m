@@ -79,6 +79,8 @@
     [super parseAPIResponse:responseDictionary];
     NSDictionary *apiDataSource = responseDictionary[@"data"];
     self.percentageCompleted = [apiDataSource[@"PercentageTaskCompleted"] integerValue];
+    self.editStatus = [apiDataSource[@"editStatus"] boolValue];
+
     if ([apiDataSource[@"tasks"] isKindOfClass:[NSArray class]]) {
         NSArray *tasksDataSource = apiDataSource[@"tasks"];
         [[CoreDataManager sharedManager] saveStationTasks:tasksDataSource forStationId:self.stationId];
@@ -94,7 +96,7 @@
 
 - (NSDictionary *)customHTTPHeaders {
     [super customHTTPHeaders];
-    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.stationId], @"application/json",self.stationId] forKeys:@[@"Checksum", @"Content-Type", kStationIdKey]];
+    NSMutableDictionary *dictionay = [NSMutableDictionary dictionaryWithObjects:@[[AppUtilityClass calculateSHA:self.stationId], @"application/json",self.stationId, [AppUtilityClass getUserEmail]] forKeys:@[@"Checksum", @"Content-Type", kStationIdKey, kEmailKey]];
     return dictionay;
 }
 
@@ -110,7 +112,6 @@
     [super parseAPIResponse:responseDictionary];
     NSDictionary *apiDataSource = responseDictionary[@"data"];
     self.activityName = apiDataSource[@"activityName"];
-    self.editStatus = [apiDataSource[@"editStatus"] boolValue];
     if ([apiDataSource[@"subActivities"] isKindOfClass:[NSArray class]]) {
         NSArray *subTasksDataSource = apiDataSource[@"subActivities"];
         [[CoreDataManager sharedManager] saveSubTasks:subTasksDataSource forTaskId:self.taskId];

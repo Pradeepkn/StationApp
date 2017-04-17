@@ -10,4 +10,6 @@
 
 @interface GetStationDesignationApi : APIBase
 
+@property (nonatomic, assign) BOOL isIRSDCStations;
+
 @end

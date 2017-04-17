@@ -19,6 +19,7 @@
 @interface IRSDCGetStationTasks : IRSDCApi
 
 @property (nonatomic, strong) NSString *stationId;
+@property (nonatomic, assign) BOOL editStatus;
 @property (nonatomic, assign) NSInteger percentageCompleted;
 
 @end
@@ -27,7 +28,6 @@
 
 @property (nonatomic, strong) NSString *stationId;
 @property (nonatomic, strong) NSString *taskId;
-@property (nonatomic, assign) BOOL editStatus;
 @property (nonatomic, strong) NSString *activityName;
 
 @end

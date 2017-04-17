@@ -56,10 +56,13 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     }else if (![inputValues objectForKey:@"3"]) {
         [AppUtilityClass showErrorMessage:@"Please choose station."];
         return;
-    }else if (![inputValues objectForKey:@"4"] || ![[inputValues objectForKey:@"4"] isValidEmail]) {
+    }else if (![inputValues objectForKey:@"4"]) {
+        [AppUtilityClass showErrorMessage:@"Please choose organization."];
+        return;
+    }else if (![inputValues objectForKey:@"5"] || ![[inputValues objectForKey:@"5"] isValidEmail]) {
         [AppUtilityClass showErrorMessage:@"Please enter valid email address"];
         return;
-    }else if (![[inputValues objectForKey:@"5"] isEqualToString:[inputValues objectForKey:@"6"]]) {
+    }else if (![[inputValues objectForKey:@"6"] isEqualToString:[inputValues objectForKey:@"7"]]) {
         [AppUtilityClass showErrorMessage:@"Password entered doesn't match"];
         return;
     }
@@ -77,7 +80,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -135,17 +138,26 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
 //                                          forKeyPath:@"_placeholderLabel.textColor"];
             break;
         case 4:
+            [signUpEntryCell.entryTextField setPlaceholder:@"Choose organization"];
+            [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"location-icon"] forState:UIControlStateNormal];
+            signUpEntryCell.dropDownButton.hidden = NO;
+            signUpEntryCell.dropDownButton.tag = 100;
+            signUpEntryCell.entryTextField.userInteractionEnabled = NO;
+            //            [signUpEntryCell.entryTextField setValue:[UIColor darkGrayColor]
+            //                                          forKeyPath:@"_placeholderLabel.textColor"];
+            break;
+        case 5:
             [signUpEntryCell.entryTextField setPlaceholder:@"Email address"];
             signUpEntryCell.entryTextField.keyboardType = UIKeyboardTypeEmailAddress;
             signUpEntryCell.entryTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"email"] forState:UIControlStateNormal];
             break;
-        case 5:
+        case 6:
             [signUpEntryCell.entryTextField setPlaceholder:@"Password"];
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"password"] forState:UIControlStateNormal];
             signUpEntryCell.entryTextField.secureTextEntry = YES;
             break;
-        case 6:
+        case 7:
             [signUpEntryCell.entryTextField setPlaceholder:@"Confirm password"];
             [signUpEntryCell.placeHolderButton setImage:[UIImage imageNamed:@"password"] forState:UIControlStateNormal];
             signUpEntryCell.entryTextField.secureTextEntry = YES;
@@ -176,7 +188,7 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     
     __weak SignUpViewController *weakSelf = self;
     SignUpApi *signUpApi = [SignUpApi new];
-    for (int index = 0; index < 7; index++) {
+    for (int index = 0; index < 8; index++) {
         NSString *keyValue = [NSString stringWithFormat:@"%ld", (long)index];
         switch (index) {
             case 0:
@@ -192,9 +204,12 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
                 signUpApi.stationName = [inputValues objectForKey:keyValue];
                 break;
             case 4:
-                signUpApi.email = [inputValues objectForKey:keyValue];
+                signUpApi.irsdc = [inputValues objectForKey:keyValue];
                 break;
             case 5:
+                signUpApi.email = [inputValues objectForKey:keyValue];
+                break;
+            case 6:
                 signUpApi.password = [inputValues objectForKey:keyValue];
                 break;
             default:
@@ -251,9 +266,9 @@ static NSString *const kSignUpEntryCellIdentifier = @"SignUpEntryCell";
     [self.signUpTableView reloadData];
 }
 
-- (void)userSelectedDesignations:(Designation *)selectedDesignation {
-    NSString *keyValue = @"2";
-    [inputValues setObject:selectedDesignation.designationName forKey:keyValue];
+- (void)userSelectedOrganizations:(Stations *)selectedStation {
+    NSString *keyValue = @"4";
+    [inputValues setObject:selectedStation.stationName forKey:keyValue];
     [self.signUpTableView reloadData];
 }
 

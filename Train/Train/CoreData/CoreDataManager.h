@@ -26,6 +26,7 @@
 - (NSManagedObjectContext *)managedObjectContext;
 
 - (BOOL)saveStations:(NSArray *)stations forPhase:(NSInteger)phaseNumber;
+- (BOOL)saveIRSDCStations:(NSArray *)stations  forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveDesignations:(NSArray *)designations forPhase:(NSInteger)phaseNumber;
 - (BOOL)saveLogedInUser:(NSDictionary *)logedInDict;
 - (BOOL)saveMessages:(NSArray *)messages forPhase:(NSInteger)phaseNumber;
@@ -40,6 +41,7 @@
 - (User *)fetchLogedInUser;
 - (NSArray *)fetchAllSignUpStations;
 - (NSArray *)fetchAllStations ;
+- (NSArray *)fetchAllIRSDCStations;
 - (NSArray *)fetchAllDesignation;
 - (NSArray *)fetchHomeMessages;
 - (NSArray *)fetchHomeImages;

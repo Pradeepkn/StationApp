@@ -14,5 +14,6 @@
 @property (nonatomic, strong) Tasks *selectedTasks;
 @property (nonatomic, strong) SubTasks *selectedSubTasks;
 @property (nonatomic, strong) Stations *selectedStations;
+@property (nonatomic, assign) BOOL isEditable;
 
 @end

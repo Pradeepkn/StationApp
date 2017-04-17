@@ -19,5 +19,6 @@
 @dynamic statusColor;
 @dynamic stationCode;
 @dynamic phaseNumber;
+@dynamic isIRSDC;
 
 @end

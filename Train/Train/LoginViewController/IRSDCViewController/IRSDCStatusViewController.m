@@ -24,6 +24,7 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 
 @property (weak, nonatomic) IBOutlet UITableView *statusTableView;
 @property (strong, nonatomic) NSMutableArray *statusArray;
+@property (nonatomic, assign) BOOL isViewEditable;
 
 @end
 
@@ -41,11 +42,43 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
     [leftButton setImage:[UIImage imageNamed:@"left-arrow"]];
     self.navigationItem.leftBarButtonItem = leftButton;
     [self getStationSubTasksRemarks];
+    [self hideRightBarButton:self.isEditable];
+}
+
+- (void)addRighBarButton {
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                   style:UIBarButtonItemStyleDone target:self action:@selector(editButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    rightBarButton.tag = 100;
+}
+
+- (void)hideRightBarButton:(BOOL)isHidden {
+    if (!isHidden) {
+        self.navigationItem.rightBarButtonItem.title = @"";
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        [self addRighBarButton];
+        self.navigationItem.rightBarButtonItem.title = @"Edit";
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
 }
 
 - (void)backButtonClicked {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (IBAction)editButtonClicked:(UIBarButtonItem *)sender {
+    if (sender.tag == 100) {
+        sender.tag = 200;
+        self.isViewEditable = YES;
+        self.navigationItem.rightBarButtonItem.title = @"Done";
+    }else {
+        sender.tag = 100;
+        self.isViewEditable = NO;
+        self.navigationItem.rightBarButtonItem.title = @"Edit";
+    }
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -227,7 +260,7 @@ static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifie
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 4) {
+    if (indexPath.row == 4 && self.isViewEditable) {
         RemarksStatusUpdateViewController *remarksStatusVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RemarksStatusUpdateViewController"];
         remarksStatusVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
         remarksStatusVC.delegate = self;

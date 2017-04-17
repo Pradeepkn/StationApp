@@ -57,6 +57,7 @@ static NSString *const kStationName = @"stationName";
 static NSString *const kDesignation = @"designation";
 static NSString *const kFirstName = @"firstName";
 static NSString *const kLastName = @"lastName";
+static NSString *const kIRSDC = @"irsdc";
 
 static NSString *const kAuthKey = @"authKey";
 static NSString *const kMessageKey = @"message";
