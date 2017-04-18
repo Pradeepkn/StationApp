@@ -130,7 +130,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
             weakSelf.zoneLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.zoneName withLightFontForText:@"Zone"];
             weakSelf.divisionLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.divisionName withLightFontForText:@"Division"];
             weakSelf.stationAreaLabel.attributedText = [AppUtilityClass updateBoldFontForText:[NSString stringWithFormat:@"%@ sq.m.", stationGalleryApi.area] withLightFontForText:@"Area"];
-            weakSelf.averageDailyFootFallLabel.attributedText = [AppUtilityClass updateBoldFontForText:stationGalleryApi.avgPassengerFootfail withLightFontForText:@"Average Passenger Footfall"];
+            weakSelf.averageDailyFootFallLabel.attributedText = [AppUtilityClass updateBoldFontForText:[stationGalleryApi.avgPassengerFootfail stringByReplacingOccurrencesOfString:@"Average Passanger Footfail" withString:@""] withLightFontForText:@"Average Passenger Footfail"];
             weakSelf.stationNameLabel.text = [NSString stringWithFormat:@"%@ (%@)", stationGalleryApi.stationName,stationGalleryApi.stationCode];
             weakSelf.weekKeys = stationGalleryApi.weekKeys;
             

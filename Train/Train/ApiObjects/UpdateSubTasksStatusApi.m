@@ -25,8 +25,10 @@
         return [NSString stringWithFormat:@"%@/EOIUpdateSubtaskStatus",[super baseURL]];
     }else if ([AppUtilityClass isIRSDCSelected]) {
         return [NSString stringWithFormat:@"%@/IRSDCUpdateSubtaskStatus",[super baseURL]];
+    }else if ([AppUtilityClass isFirstPhaseSelected]) {
+        return [NSString stringWithFormat:@"%@/updateSubtaskStatus",[super baseURL]];
     }
-    return [NSString stringWithFormat:@"%@/updateSubtaskStatus",[super baseURL]];
+    return [NSString stringWithFormat:@"%@/nextPhaseUpdateSubtaskStatus",[super baseURL]];
 }
 
 - (NSMutableDictionary *)requestParameters{
