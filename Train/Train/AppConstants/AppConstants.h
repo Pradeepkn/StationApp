@@ -101,6 +101,8 @@ static NSString *const kRemeberMeKey = @"RememberMeKey";
 static NSString *const kStationInfoSegueIdentifier = @"StationInfoSegue";
 static NSString *const kSubTaskHeaderViewNibName = @"SubActivitiesHeaderView";
 static NSString *const kSubTasksCellIdentifier = @"SubTasksCellIdentifier";
+static NSString *const kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifier";
+static NSString *const kQueriesResponseSegueIdentifier = @"QueriesResponseSegue";
 
 // Proxima nova bold
 static NSString *const kProximaNovaSemibold = @"ProximaNova-Semibold";

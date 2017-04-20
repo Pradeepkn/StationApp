@@ -331,7 +331,7 @@
                 [queriesData setTopicArea:topicArea];
                 [queriesData setDateReceived:[AppUtilityClass getDateFromMiliSeconds:[queryDict valueForKey:@"dateReceived"]]];
                 [queriesData setDateResponded:[AppUtilityClass getDateFromMiliSeconds:[queryDict valueForKey:@"dateResponded"]]];
-                [queriesData setResponse:[[queryDict valueForKey:@"response"] boolValue]];
+                [queriesData setResponse:[queryDict valueForKey:@"response"]];
             }
         }
     }
@@ -435,8 +435,8 @@
     [request setEntity:entity];
     for (NSDictionary *dic in remarks) {
         id remarksIdentifier = [dic valueForKey:@"remarkId"];
-        id remarksMessage = [dic valueForKey:@"remark"];
-        if (remarksMessage != nil) {
+        NSString *remarksMessage = [dic valueForKey:@"remark"];
+        if (remarksMessage.length > 0) {
             NSString *remarksId = [NSString stringWithFormat:@"%@",remarksIdentifier];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"remarksId == %@",remarksId];
             [request setPredicate:predicate];
@@ -566,6 +566,21 @@
     NSArray *result = [moc executeFetchRequest:request error:&error];
     return  result;
 }
+
+
+- (NSArray *)fetchHomeImagesForPhase:(NSInteger)phaseNumber {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"HomeImages" inManagedObjectContext:moc];
+    NSSortDescriptor *stations = [NSSortDescriptor sortDescriptorWithKey:@"insertDate" ascending:NO];
+    [request setSortDescriptors:@[stations]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"phaseNumber == %ld", phaseNumber];
+    [request setPredicate:predicate];
+    [request setEntity:entity];
+    NSError *error = nil;
+    NSArray *result = [moc executeFetchRequest:request error:&error];
+    return  result;
+}
 #pragma mark - fetch station Gallery Images
 
 - (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey forStationName:(NSString *)stationName{
@@ -680,12 +695,12 @@
     return  result;
 }
 
-- (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea {
+- (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea andStationName:(NSString *)stationName {
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"QueriesData" inManagedObjectContext:moc];
     [request setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"topicArea == %@", topicArea];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"topicArea == %@ && stationName == %@", topicArea, stationName];
     [request setPredicate:predicate];
     NSSortDescriptor *queries = [NSSortDescriptor sortDescriptorWithKey:@"dateReceived" ascending:NO];
     [request setSortDescriptors:@[queries]];

@@ -51,7 +51,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
 - (void)viewDidLoad {
     [super viewDidLoad];
     if ([AppUtilityClass isEOLSelected]) {
-        self.title = @"EOL";
+        self.title = @"Market Eol";
     }else {
         self.title = self.selectedStation.stationName;
     }
@@ -179,8 +179,8 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     }
     if (remarkObject.message.length > 0) {
         heightOffSet += [AppUtilityClass sizeOfText:remarkObject.message widthOfTextView:self.subTasksListTableView.frame.size.width - 30 withFont:[UIFont fontWithName:kProximaNovaRegular size:14]].height;
-        if (heightOffSet < 40) {
-            heightOffSet = 40.0f;
+        if (heightOffSet < 45) {
+            heightOffSet = 45.0f;
         }
     }else {
         heightOffSet = 0.0f;
@@ -202,7 +202,7 @@ static NSString *const kRemarksStatusUpdateSegueIdentifier = @"RemarksStatusUpda
     CGFloat heightOfHeader = [self getHeightForText:object.name];
     SubActivitiesHeaderView *subHeader = (SubActivitiesHeaderView *)[[NSBundle mainBundle] loadNibNamed:kSubTaskHeaderViewNibName owner:nil options:nil][0];
     subHeader.frame = CGRectMake(0, 0, self.view.bounds.size.width - 32, heightOfHeader);
-    subHeader.tag = section;
+    subHeader.actionButton.tag = section;
     [subHeader.actionButton addTarget:self action:@selector(sectionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self configureMessagesCell:subHeader withSubTask:object];
     return subHeader;

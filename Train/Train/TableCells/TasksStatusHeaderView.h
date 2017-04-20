@@ -10,5 +10,6 @@
 
 @interface TasksStatusHeaderView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *receivedOnLabel;
 
 @end

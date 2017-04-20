@@ -22,6 +22,7 @@
 #import "UIImage+ImageAdditions.h"
 #import "IRSDCSectionHeaderView.h"
 #import "CustomAlertViewController.h"
+#import "QueriesResponseViewController.h"
 
 static NSString *const kGalleryCellIdentifier=  @"galleryCell";
 static NSString *const kGalleryCollectionViewCellIdentifier = @"GalleryCollectionViewCell";
@@ -55,6 +56,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
 @property (weak, nonatomic) IBOutlet UITableView *queriesTableView;
 @property (strong, nonatomic) NSMutableArray *topicAreasArray;
 @property (strong, nonatomic) NSArray *queriesArray;
+@property (nonatomic, strong) QueriesData *selectedQueryData;
 
 @end
 
@@ -75,6 +77,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
     [super viewWillAppear:animated];
     [self isViewEditable:NO];
     [self getStationTasks];
+    [self.queriesTableView reloadData];
 }
 
 - (IBAction)backButtonClicked:(id)sender {
@@ -269,7 +272,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
 
 - (NSInteger)queriesArrayCountForSection:(NSInteger)section {
     NSString *topicArea = [self.topicAreasArray objectAtIndex:section];
-    self.queriesArray = [[CoreDataManager sharedManager] fetchQueriesForTopicArea:topicArea];
+    self.queriesArray = [[CoreDataManager sharedManager] fetchQueriesForTopicArea:topicArea andStationName:self.selectedStation.stationName];
     return self.queriesArray.count;
 }
 
@@ -303,7 +306,7 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     QueriesData *query = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = query.name;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@\n\nRecieved on : %@\n", query.name, [self getRecievedDate:query.dateReceived]];
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.textColor = [UIColor grayColor];
@@ -313,6 +316,13 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
         });
     }
     return cell;
+}
+
+- (NSString *)getRecievedDate:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd MMM yy"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -328,7 +338,8 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.selectedQueryData = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:kQueriesResponseSegueIdentifier sender:self];
 }
 
 - (void)streamSectionClicked:(UIButton *)sender {
@@ -375,6 +386,10 @@ static NSString *const kGalleryCollectionHeaderIdentifier = @"GalleryCollectionH
     if ([segue.identifier isEqualToString:kUploadImageSegueIdentifier]) {
         UploadImagesViewController *uploadImageVC = (UploadImagesViewController *)[segue destinationViewController];
         uploadImageVC.selectedStation = self.selectedStation;
+    }
+    if ([segue.identifier isEqualToString:kQueriesResponseSegueIdentifier]) {
+        QueriesResponseViewController *queriesResponseVC = (QueriesResponseViewController *)[segue destinationViewController];
+        queriesResponseVC.selectedQueryData = self.selectedQueryData;
     }
 }
 

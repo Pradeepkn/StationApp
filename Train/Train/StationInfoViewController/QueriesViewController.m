@@ -12,6 +12,7 @@
 #import "IRSDCSectionHeaderView.h"
 #import "AppUtilityClass.h"
 #import "OtherCabinetQueryApi.h"
+#import "QueriesResponseViewController.h"
 
 @interface QueriesViewController () {
     NSInteger selectedSection;
@@ -24,6 +25,7 @@
 @property (strong, nonatomic) User *loggedInUser;
 @property (weak, nonatomic) IBOutlet UITableView *queriesTableView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) QueriesData *selectedQueryData;
 
 @end
 
@@ -31,6 +33,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                   style:UIBarButtonItemStyleDone target:self action:@selector(backButtonClicked:)];
+    [leftButton setImage:[UIImage imageNamed:@"left-arrow"]];
+    self.navigationItem.leftBarButtonItem = leftButton;
     _collapsedSections = [NSMutableSet new];
     self.topicAreasArray = [[NSMutableArray alloc] init];
     [self getOtherCabinetQueries];
@@ -38,6 +45,11 @@
 
 - (IBAction)backButtonClicked:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.queriesTableView reloadData];
 }
 
 - (void)getOtherCabinetQueries {
@@ -73,7 +85,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     QueriesData *query = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
-    CGFloat cellHeight = [AppUtilityClass sizeOfText:query.name widthOfTextView:self.queriesTableView.frame.size.width - 30 withFont:[UIFont fontWithName:self.titleLabel.font.fontName size:14.0f]].height + 40;
+    CGFloat cellHeight = [AppUtilityClass sizeOfText:query.name widthOfTextView:self.queriesTableView.frame.size.width - 30 withFont:[UIFont fontWithName:self.titleLabel.font.fontName size:16.0f]].height + 40;
     if (cellHeight < kTableCellHeight) {
         return kTableCellHeight;
     }
@@ -90,7 +102,7 @@
 
 - (NSInteger)queriesArrayCountForSection:(NSInteger)section {
     NSString *topicArea = [self.topicAreasArray objectAtIndex:section];
-    self.queriesArray = [[CoreDataManager sharedManager] fetchQueriesForTopicArea:topicArea];
+    self.queriesArray = [[CoreDataManager sharedManager] fetchQueriesForTopicArea:topicArea andStationName:@"othersCabinetQuery"];
     return self.queriesArray.count;
 }
 
@@ -124,7 +136,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     QueriesData *query = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@\n\nRecieved on : %@\n", query.name, [self getRecievedDate:query.dateReceived]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@\n\nRecieved on : %@", query.name, [self getRecievedDate:query.dateReceived]];
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.textLabel.textColor = [UIColor grayColor];
@@ -163,7 +175,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.selectedQueryData = (QueriesData *) [self.queriesArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:kQueriesResponseSegueIdentifier sender:self];
 }
 
 - (void)streamSectionClicked:(UIButton *)sender {
@@ -206,14 +219,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:kQueriesResponseSegueIdentifier]) {
+        QueriesResponseViewController *queriesResponseVC = (QueriesResponseViewController *)[segue destinationViewController];
+        queriesResponseVC.selectedQueryData = self.selectedQueryData;
+    }
 }
-*/
 
 @end

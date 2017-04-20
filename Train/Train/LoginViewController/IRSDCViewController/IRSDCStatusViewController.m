@@ -18,8 +18,6 @@
 #import "IRSDCApi.h"
 #import "TasksStatusHeaderView.h"
 
-static NSString *kSubStreamStatusCellIdentifier = @"subStreamStatusCellIdentifier";
-
 @interface IRSDCStatusViewController ()<RemarksStatusDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *statusTableView;

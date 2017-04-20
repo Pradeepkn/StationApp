@@ -619,7 +619,7 @@ const int kLeaveAMessageTag = 101;
 #pragma mark - Collection View deleagete
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchHomeImages];
+    NSArray *galleryArray = [[CoreDataManager sharedManager] fetchHomeImagesForPhase:[AppUtilityClass isFirstPhaseSelected]?kFirstPhase:kSecondPhase];
     ImagesGalleryViewController *imageGalleryVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImagesGalleryViewController"];
     imageGalleryVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     imageGalleryVC.galleryInfoArray = galleryArray;

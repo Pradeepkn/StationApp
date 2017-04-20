@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270A4F9F1EA8E89E001A350C /* QueriesResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270A4F9E1EA8E89E001A350C /* QueriesResponseViewController.m */; };
 		2716610B1DC3CCA800253BEB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2716610A1DC3CCA800253BEB /* PaddedLabel.m */; };
 		27208A271E9FF4AA007D1DAD /* IRSDCStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27208A261E9FF4AA007D1DAD /* IRSDCStatusViewController.m */; };
 		27208A2A1EA000CC007D1DAD /* SubStreamStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27208A291EA000CC007D1DAD /* SubStreamStatusCell.m */; };
@@ -125,6 +126,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270A4F9D1EA8E89E001A350C /* QueriesResponseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueriesResponseViewController.h; sourceTree = "<group>"; };
+		270A4F9E1EA8E89E001A350C /* QueriesResponseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueriesResponseViewController.m; sourceTree = "<group>"; };
 		271661091DC3CCA800253BEB /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		2716610A1DC3CCA800253BEB /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
 		27208A251E9FF4AA007D1DAD /* IRSDCStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRSDCStatusViewController.h; sourceTree = "<group>"; };
@@ -534,6 +537,8 @@
 				E9B4257B1DC0F6AB00F92295 /* StationGalleryHeaderView.m */,
 				27320DB01E9ACCDE00004F79 /* QueriesViewController.h */,
 				27320DB11E9ACCDE00004F79 /* QueriesViewController.m */,
+				270A4F9D1EA8E89E001A350C /* QueriesResponseViewController.h */,
+				270A4F9E1EA8E89E001A350C /* QueriesResponseViewController.m */,
 			);
 			path = StationInfoViewController;
 			sourceTree = "<group>";
@@ -1009,6 +1014,7 @@
 				E9231A751DB3F98200CD302D /* UploadImagesViewController.m in Sources */,
 				E9F3B73B1D9C58B200A98B85 /* LoginViewController.m in Sources */,
 				E954AA8A1DBF20B900A6B6F1 /* Remarks+CoreDataClass.m in Sources */,
+				270A4F9F1EA8E89E001A350C /* QueriesResponseViewController.m in Sources */,
 				E99DB5341DB116E50074E90E /* ForgotpasswordAuthKeyApi.m in Sources */,
 				E9F3B7411D9C59AD00A98B85 /* CustomAlertViewController.m in Sources */,
 				E9F3B74E1D9C59EB00A98B85 /* NSMutableURLRequest+IgnoreSSL.m in Sources */,

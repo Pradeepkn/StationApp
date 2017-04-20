@@ -37,7 +37,7 @@ static NSString *const kStationSubTaskSegueIdentifier = @"StationSubTaskSegue";
     self.navigationController.navigationBarHidden = NO;
     [self initializeStationsInfoFetchedResultsController];
     if ([AppUtilityClass isEOLSelected]) {
-        self.title = @"EOL";
+        self.title = @"Market Eol";
     }else {
         self.title = self.selectedStation.stationName;
     }

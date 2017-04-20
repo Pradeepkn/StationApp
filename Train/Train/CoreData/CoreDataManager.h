@@ -45,10 +45,11 @@
 - (NSArray *)fetchAllDesignation;
 - (NSArray *)fetchHomeMessages;
 - (NSArray *)fetchHomeImages;
+- (NSArray *)fetchHomeImagesForPhase:(NSInteger)phaseNumber;
 - (NSArray *)fetchWhatsNewMessages;
 - (NSArray *)fetchStationGalleryImagesForKey:(NSString*)weekKey forStationName:(NSString *)stationName;
 - (NSArray *)fetchQueriesForStationName:(NSString *)stationName;
-- (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea;
+- (NSArray *)fetchQueriesForTopicArea:(NSString *)topicArea andStationName:(NSString *)stationName;
 - (NSArray *)fetchStationsSubTasksForTaskId:(NSString *)taskId;
 - (NSArray *)fetchRemarksFor:(NSString *)stationSubActivityId;
 - (NSArray *)fetchIRSDCAllStations;

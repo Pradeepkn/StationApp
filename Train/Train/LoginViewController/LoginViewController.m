@@ -105,7 +105,7 @@ static NSInteger kKeyBoardOffSet = 140;
                                                           return;
                                                       }
                                                   }
-                                                  [AppUtilityClass showErrorMessage:NSLocalizedString(@"Please try again later", nil)];
+                                                  [AppUtilityClass showErrorMessage:[error localizedDescription]];
                                               }
                                           }];
 }
