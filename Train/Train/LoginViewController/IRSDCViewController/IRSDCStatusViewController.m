@@ -188,7 +188,7 @@
             }
                 break;
             case 1: {
-                [subStreamStatusCell.timeLabel setTitle:@"NA" forState:UIControlStateNormal];
+                [subStreamStatusCell.timeLabel setTitle:self.selectedSubTasks.startDate forState:UIControlStateNormal];
                 break;
             }
             case 2: {
@@ -196,7 +196,7 @@
                 break;
             }
             case 3: {
-                [subStreamStatusCell.timeLabel setTitle:@"NA" forState:UIControlStateNormal];
+                [subStreamStatusCell.timeLabel setTitle:self.selectedSubTasks.owner forState:UIControlStateNormal];
             }
                 break;
             case 4: {

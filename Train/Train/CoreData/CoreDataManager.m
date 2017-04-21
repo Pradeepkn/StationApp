@@ -411,6 +411,8 @@
             subTasksObject = (SubTasks *)[array firstObject];
         }
         [subTasksObject setName:[dic valueForKey:@"name"]];
+        [subTasksObject setOwner:[dic valueForKey:@"owner"]?:@"NA"];
+        [subTasksObject setStartDate:[dic valueForKey:@"startDate"]?:@"NA"];
         [subTasksObject setStationSubActivityId:stationSubActivityId];
         [subTasksObject setExecuteAgency:[dic valueForKey:@"executeAgency"]];
         [subTasksObject setDeadline:[dic valueForKey:@"deadline"]];

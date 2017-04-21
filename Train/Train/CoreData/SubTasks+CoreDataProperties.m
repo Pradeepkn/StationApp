@@ -21,5 +21,7 @@
 @dynamic status;
 @dynamic taskId;
 @dynamic sortDate;
+@dynamic owner;
+@dynamic startDate;
 
 @end
